@@ -1,0 +1,20 @@
+extends layout
+
+block content
+	div
+		img(src = "/public/images/panda.jpg" alt= "panda")
+	div
+		form 
+			label User Id: 
+			input(type ='text' id= 'user' name= 'userId')
+			br
+			label password: 
+			input(type ='password' id= 'password' name= 'password')
+			br
+			
+			input(type= "hidden" id= 'loginkey' name= 'loginkey' value="#{loginkey}")
+			br
+			input(type= "hidden" id= 'redir' name= 'cusRedir' value="#{booleanVal}" )
+			br
+			input(type= 'submit' id= 'submit' value= 'Submit')
+			

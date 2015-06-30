@@ -1,0 +1,20 @@
+extends layout
+
+block content
+	table
+		tr
+			td#InfoDisplay 
+				-var info = ""
+				-for(var index in users)
+					-info += users[index] + ", " 
+				p= info
+		tr
+			td#reportPunch
+				a(href= "/user/selfreport/punch") Punch Report
+			td#reportWage
+				a(href= "/user/selfreport/wage") Wage Report
+		tr
+			td#setting
+				a(href= "/user/setting") Setting
+			td#delegate
+				a(href= "/user/delegate" hidden) Delegate
