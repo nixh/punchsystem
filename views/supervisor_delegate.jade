@@ -1,0 +1,19 @@
+extends layout
+
+block content
+	.addDelegate
+
+	.content
+		table 
+			tr.delegateHead
+				th name
+				th id
+				th delegated
+			
+			-for(var r in delegates)
+				td= delegates[r].name
+				td= delegates[r].id
+				td= delegates[r].isDelegate
+				tr
+
+					
