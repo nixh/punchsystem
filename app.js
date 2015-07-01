@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var i18n = require('i18n');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');

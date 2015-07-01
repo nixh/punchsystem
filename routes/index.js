@@ -56,4 +56,32 @@ router.get('/supervisor_main', function(req, res, next){
 	});
 });
 
+router.get('/supervisor_delegate', function(req, res, next){
+	
+	res.render('supervisor_delegate', {
+		delegates:[
+			{
+				name: "abc1",
+				id: 1,
+				isDelegate: true
+			},
+			{
+				name: "abc2",
+				id: 2,
+				isDelegate: false
+			},
+			{
+				name: "abc3",
+				id: 3,
+				isDelegate: false
+			},
+			{
+				name: "abc4",
+				id: 4,
+				isDelegate: true
+			}
+		]
+	});
+});
+
 module.exports = router;
