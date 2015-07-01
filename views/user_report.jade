@@ -1,2 +1,26 @@
 extends layout
     block content
+        .userinfo
+            span= username
+        .searchbar
+            .datepicker
+            .datepicker
+            button.preview= tr('preivew')
+            button.export= tr('export')
+        .content
+            table
+                tr
+                    th= tr('punchin')
+                    th= tr('punchout')
+                    th= tr('hourlyrate')
+                    th= tr('cmdtool')
+                each report, i in reports
+                    td= report.intime
+                    td= report.outtime
+                    td= report.hourlyrate
+                    td
+                        .cmdtool
+                            button.modify= tr('modify')
+                            button.delete= tr('delete')
+
+
