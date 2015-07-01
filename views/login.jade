@@ -1,20 +1,20 @@
 extends layout
 
 block content
-	div
+	.topImage
 		img(src = "/public/images/panda.jpg" alt= "panda")
-	div
+	.content
 		form 
 			label User Id: 
-			input(type ='text' id= 'user' name= 'userId')
+			input(type ='text' name= 'userId')
 			br
 			label password: 
-			input(type ='password' id= 'password' name= 'password')
+			input(type ='password' name= 'password')
 			br
 			
-			input(type= "hidden" id= 'loginkey' name= 'loginkey' value="#{loginkey}")
+			input(type= "hidden" name= 'loginkey' value="#{loginkey}")
 			br
-			input(type= "hidden" id= 'redir' name= 'cusRedir' value="#{booleanVal}" )
+			input(type= "hidden" name= 'cusRedir' value="#{booleanVal}" )
 			br
-			input(type= 'submit' id= 'submit' value= 'Submit')
+			input(type= 'submit' value= 'submit')
 			
