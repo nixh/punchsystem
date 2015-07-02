@@ -6,16 +6,16 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-router.post('/', function(req, res, next){
-	
-});
+router.get('/view', function(req, res, next){
 
-router.put('/', function(req, res, next){
-	
-});
+    res.render('users/user', {username: 'Q'});
+})
 
-router.delete('/', function(req, res, next){
-	
-});
+router.get('/view/:id', function(req, res, next){
+    
+    var id = req.params.id;
+    id = "#" + id;
 
+    res.render('users/user', {username: 'Q', ID:id});
+})
 module.exports = router;

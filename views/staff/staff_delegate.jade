@@ -1,0 +1,7 @@
+extends layout
+
+block content
+	#qrcode
+		img(src= "#{dataURL}" alt= "qrcode for punch card")
+	#punch
+		button(id= "punchButton" onclick= "alert(Date())") Punch
