@@ -1,0 +1,15 @@
+extends layout
+block content
+	h1= title
+	p Welcome to  #{title}  "<br>"
+
+	input(type="text", placeholder="StartTime")StartTime
+	input(type="text", placeholder="EndTime")EndTime
+	button(type='button' name='preview') 预览
+	button(type='button' name='preview') 导出
+
+	table(border='1')
+		for (var i=0; i<3; i++)
+		tr
+			th 打卡时间
+			th 签入签出 
