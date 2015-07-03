@@ -4,9 +4,16 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var i18n = require('i18n');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var delegate = require('./routes/delegate');
+var comp = require('./routes/comp');
+
+var mongo = require('mongodb');
+var monk = require('monk');
+var db = monk('127.0.0.1:27017/punchsystem');
 
 var app = express();
 
@@ -31,11 +38,32 @@ app.use(function(req,res,next){
     next();
 });
 
+i18n.configure({
+    locales : ['en', 'cn'],
+    directory : path.join(__dirname, 'i18n/locales'),
+    defaultLocale : 'cn',
+    cookie : 'lang'
+});
+
+app.use(function(req, res, next){
+	req.db = db;
+	next();
+})
+
+app.use(function(req, res, next){
+    i18n.init(req, res);
+    return next();
+});
+
 app.use('/', routes);
 app.use('/users', users);
+app.use('/comp', comp);
+
+app.use('/delegate', delegate);
 
 
 // catch 404 and forward to error handler
+
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
@@ -46,6 +74,7 @@ app.use(function(req, res, next) {
 
 // development error handler
 // will print stacktrace
+
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
@@ -55,6 +84,7 @@ if (app.get('env') === 'development') {
     });
   });
 }
+
 
 // production error handler
 // no stacktraces leaked to user

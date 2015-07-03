@@ -1,0 +1,30 @@
+extends ../layout.jade
+
+block content
+	#qrcode
+		img(src= "#{dataURL}" alt= "qrcode for punch card")
+	#punch
+		input.datePick(type= "text" name= "date") 
+		button(id= "punchButton" onclick= "alert(Date())") Punch
+
+	script.
+		$(function(){
+			var showing = false;
+			$('.datePick').on('click', function(e){
+				if(showing){
+					$(this).datepicker('hide');
+					showing= false;
+				}else{
+					$(this).datepicker('show');
+					showing= true;
+				}
+			});
+
+			$('.datePick').on('changeDate', function(e){
+				if(showing){
+					$(this).datepicker('hide');
+					showing= false;
+				}
+			});
+		});
+		
