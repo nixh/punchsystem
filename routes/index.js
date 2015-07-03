@@ -11,6 +11,18 @@ router.get('/', function(req, res, next) {
     res.render('index', { title: 'Express', ret: results });
 });
 
+router.get('/cookies', function(req, res, next){
+
+    var cookies = req.cookies;
+    var cookie_str = "";
+    for(var key in cookies) {
+        cookie_str += key + "=" + cookies[key] + ";<br/>";
+    }
+    res.cookie('name', 'Test Name_'+Math.random(), {maxAge: 90000, httpOnly: true});
+    res.end(cookie_str);
+
+});
+
 router.get('/test/:name', function(req, res, next) {
     var col = db.get(req.params.name);
     col.find({}, {limit:20}, function(e, docs){
