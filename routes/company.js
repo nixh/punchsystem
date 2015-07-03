@@ -138,7 +138,7 @@ var finddata= function(){
 		var expdate=req.body.expdate;
 		var iplist=req.body.ip;
 		var remark=req.body.remark;
-		collection.remove({"compid":id,"compLogo":logo,"name":name,"registerDate":regdate,
+		collection.find({"compid":id,"compLogo":logo,"name":name,"registerDate":regdate,
 						"expireDate":expdate,"remark":remark,"iplist":iplist
 					},function (err,docs){
 							if(err){
@@ -165,8 +165,8 @@ var updatedata= function(){
 		var expdate=mydate.setDate(mydate.getDate()+2);
 		var iplist=req.ip;
 		var remark=req.body.remark;
-		collection.update({"compid":id,"name":name,"compLogo":logo,"remark":remark},{$set{"registerDate":regdate,
-						"expireDate":expdate,"iplist":iplist}},function (err,docs){
+		collection.update({"compid":id,"name":name,"compLogo":logo,"remark":remark},{"$set":{"registerDate":regdate,
+						"expireDate":expdate},{"$push":{"iplist":iplist}}},true,function (err,docs){
 							if(err){
 								res.send(error);
 							}
