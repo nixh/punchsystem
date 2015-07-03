@@ -10,6 +10,9 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var comp = require('./routes/comp');
 
+var monk = require('monk');
+var db = monk('mongodb://localhost:27017/punchsystem');
+
 var app = express();
 
 // view engine setup
