@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var monk = require('monk');
-var db = monk('mongodb://localhost:27017/punchtest');
+var db = monk('mongodb://localhost:27017/punchsystem');
 
 /* GET home page. */
 <<<<<<< HEAD

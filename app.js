@@ -10,11 +10,17 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var delegate = require('./routes/delegate');
 var comp = require('./routes/comp');
+<<<<<<< HEAD
 var company=require('./routers/company');
+=======
+var records = require('./routes/records');
+
+>>>>>>> dev
 
 var mongo = require('mongodb');
 var monk = require('monk');
 var db = monk('127.0.0.1:27017/punchsystem');
+
 
 var app = express();
 
@@ -56,7 +62,11 @@ app.use(function(req, res, next){
 app.use('/', routes);
 app.use('/users', users);
 app.use('/comp', comp);
+<<<<<<< HEAD
 app.use('/company',company)
+=======
+app.use('/records', records);
+>>>>>>> dev
 app.use('/delegate', delegate);
 
 
