@@ -4,13 +4,13 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', function(req, res) {
 	res.render('index', {title: 'Hello World!'});
-})
+});
 router.get('/company/post', function(req, res) {
 	res.render('secret');
-})
+});
 router.get('/company/delete', function(req, res) {
 	res.render('delete');
-})
+});
 router.get('/company/userlist', function(req, res) {
   	var db=req.db;
 	var collection=db.get('usercollection');
@@ -23,10 +23,10 @@ router.get('/company/userlist', function(req, res) {
 
 router.get('/company/find', function(req, res) {
 	res.render('secret');
-})
+});
 router.get('/company/update', function(req, res) {
 	res.render('secret');
-})	
+});
 /*router.post('/company/post', function(req, res) {
 		var db = req.db;
 		var username= req.body.username;
@@ -94,7 +94,7 @@ var postdata =function(){
 		}
 	});
 	}	
-}
+};
 
 //删除信息
 var deletedata = function(){
@@ -122,7 +122,7 @@ var deletedata = function(){
 			}
 		});
 	}
-}
+};
 
 //查询信息
 var finddata= function(){
@@ -172,7 +172,7 @@ var updatedata= function(){
 								res.end();
 							}
 	}
-}
+};
 //
 router.post('/company/post',postdata());
 router.post('/company/delete',deletedata());

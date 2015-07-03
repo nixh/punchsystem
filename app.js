@@ -10,6 +10,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var delegate = require('./routes/delegate');
 var comp = require('./routes/comp');
+var company=require('./routers/company');
 
 var mongo = require('mongodb');
 var monk = require('monk');
@@ -17,10 +18,7 @@ var db = monk('127.0.0.1:27017/punchsystem');
 
 var app = express();
 
-//new code
-var mongo=require('mongodb');
-var monk = require('monk');
-var db=monk('localhost:27017/punchsystem');
+
 //var db=monk('mogodb:192.168.1.112/punchtest');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -58,7 +56,7 @@ app.use(function(req, res, next){
 app.use('/', routes);
 app.use('/users', users);
 app.use('/comp', comp);
-
+app.use('/company',company)
 app.use('/delegate', delegate);
 
 
