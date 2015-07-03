@@ -112,5 +112,9 @@ router.get('/insert', insertUser);
 router.get('/change', changeUser);	
 router.get('/delete', deleteUser);
 
+router.insertUser = insertUser;
+router.getUser = getUser;
+router.changeUser = changeUser;
+router.deleteUser = deleteUser;
 
 module.exports = router;

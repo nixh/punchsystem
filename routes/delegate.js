@@ -107,4 +107,9 @@ router.get('/change', modDelegate);
 router.get('/delete', delDelegate);
 router.get('/get', getDelegate);
 
+router.addDelegate = addDelegate;
+router.delDelegate = delDelegate;
+router.modDelegate = modDelegate;
+router.getDelegate = getDelegate;
+
 module.exports = router;
