@@ -165,8 +165,8 @@ var updatedata= function(){
 		var expdate=mydate.setDate(mydate.getDate()+2);
 		var iplist=req.ip;
 		var remark=req.body.remark;
-		collection.update({"compid":id,"name":name,"compLogo":logo,"remark":remark},{"registerDate":regdate,
-						"expireDate":expdate,"iplist":iplist},function (err,docs){
+		collection.update({"compid":id,"name":name,"compLogo":logo,"remark":remark},{$set{"registerDate":regdate,
+						"expireDate":expdate,"iplist":iplist}},function (err,docs){
 							if(err){
 								res.send(error);
 							}
