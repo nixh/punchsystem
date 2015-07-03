@@ -57,12 +57,12 @@ var startDate = new Date(2015, 9, 10).getTime();
 users_cursor.forEach(function(doc){
     var userid = doc.userid;
     var compid = doc.compid;
-    report_id_counter += 1;
     var possibleStartHours = [8, 9, 10];
     var possibleEndHours = [17, 18, 19];
     var date = startDate;
 
     for(var i=0; i<20; i++) {
+        report_id_counter += 1;
         var index = getRandomNumber(3)
         var inTime = date + hourToMillis(possibleStartHours[index]);
         index = getRandomNumber(3);
