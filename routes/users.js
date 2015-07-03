@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 /* GET users listing. */
-router.get('/get', function(req, res, next){
+var getUser = function(req, res, next){
 	var db = req.db;
 	var col = db.get('users');
 	
@@ -15,9 +15,9 @@ router.get('/get', function(req, res, next){
 			res.json(doc);
 		}
 	});
-});
+}; 
 
-var userInsertFunc = function(req, res, next) {
+var insertUser = function(req, res, next) {
 	var db = req.db;
 	var col = db.get('users');
 	
@@ -50,9 +50,7 @@ var userInsertFunc = function(req, res, next) {
 	});
 };
 
-router.get('/insert', userInsertFunc);
-
-router.get('/change', function(req, res, next){
+var changeUser = function(req, res, next){
 	
 	var db = req.db;
 	var col = db.get('users');
@@ -85,9 +83,9 @@ router.get('/change', function(req, res, next){
 			}
 		}
 	);
-});
+};
 		
-router.get('/delete', function(req, res, next){
+var deleteUser = function(req, res, next){
 	
 	var db = req.db;
 	var col = db.get('users');
@@ -107,6 +105,11 @@ router.get('/delete', function(req, res, next){
 			res.send('Successfully deleted');
 		}
 	});
-});
+};		
+	
+router.get('/get', getUser);
+router.get('/insert', insertUser);	
+router.get('/change', changeUser);	
+router.get('/delete', deleteUser);
 
 module.exports = router;
