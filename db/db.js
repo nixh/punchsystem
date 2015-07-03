@@ -1,5 +1,5 @@
 var monk = require('monk');
-var mongoUrl = "mongodb://localhost:27017/punchsystem";
+var mongoUrl = "mongodb://192.168.1.112:27017/punchsystem";
 function getNextSenqence(colName, db, fn) {
     if(!db)
         db = monk(mongoUrl);
