@@ -10,12 +10,12 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var delegate = require('./routes/delegate');
 var comp = require('./routes/comp');
-<<<<<<< HEAD
+
 var company=require('./routers/company');
-=======
+
 var records = require('./routes/records');
 
->>>>>>> dev
+
 
 var mongo = require('mongodb');
 var monk = require('monk');
@@ -41,14 +41,14 @@ app.use(function(req,res,next){
     req.db=db;
     next();
 });
-
+//
 i18n.configure({
     locales : ['en', 'cn'],
     directory : path.join(__dirname, 'i18n/locales'),
     defaultLocale : 'cn',
     cookie : 'lang'
 });
-
+//
 app.use(function(req, res, next){
 	req.db = db;
 	next();
@@ -62,11 +62,11 @@ app.use(function(req, res, next){
 app.use('/', routes);
 app.use('/users', users);
 app.use('/comp', comp);
-<<<<<<< HEAD
+
 app.use('/company',company)
-=======
+
 app.use('/records', records);
->>>>>>> dev
+
 app.use('/delegate', delegate);
 
 
