@@ -11,6 +11,10 @@ var users = require('./routes/users');
 var delegate = require('./routes/delegate');
 var comp = require('./routes/comp');
 
+var mongo = require('mongodb');
+var monk = require('monk');
+var db = monk('127.0.0.1:27017/punchsystem');
+
 var app = express();
 
 // view engine setup
@@ -31,6 +35,11 @@ i18n.configure({
     defaultLocale : 'cn',
     cookie : 'lang'
 });
+
+app.use(function(req, res, next){
+	req.db = db;
+	next();
+})
 
 app.use(function(req, res, next){
     i18n.init(req, res);
