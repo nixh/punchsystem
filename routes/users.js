@@ -16,8 +16,8 @@ router.get('/get', function(req, res, next){
 		}
 	});
 });
-	
-router.get('/insert', function(req, res, next){
+
+var userInsertFunc = function(req, res, next) {
 	var db = req.db;
 	var col = db.get('users');
 	
@@ -48,7 +48,9 @@ router.get('/insert', function(req, res, next){
 			res.send("Insertion success");
 		}
 	});
-});
+};
+
+router.get('/insert', userInsertFunc);
 
 router.get('/change', function(req, res, next){
 	
