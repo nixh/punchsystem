@@ -66,11 +66,34 @@ var putRecords = function() {
 
 var searchRecords = function(req, res) {
 	var starttime = 1435893899525;
-	var endtime = 1444893899525;
-	//var db = req.db;
+	var endtime = 1444510800001;
 	var records = db.get('records');
+	// 
 	var jsonData = {};
-	jsonData.records = db.records.find({intime : {"$gte" : starttime} , outtime : {"$lte:": endtime}}).toArray();
+	var userid = 3;
+	records.find({inDate : {"$gte" : starttime} , outDate : {"$lte": endtime}, userid: userid}, {limit: 30}, function(err, docs) {
+		if (err) {
+			res.send('Unable to search Records!');
+		} else {
+			jsonData.reports = [];
+			docs.forEach(function(doc, index){
+			var report = {};
+			report.intime = doc.inDate;
+			report.outtime = doc.outDate;
+			report.hourlyrate = doc.hourlyRate;
+			jsonData.reports.push(report);
+		});
+		//jsonData.username = db.users.findOne({userid:　userid}, {"name": 1});
+
+		db.get("users").findOne({userid:　userid}, {"name": 1}, function(err, docs) {
+			jsonData.username = docs.name;
+		});
+
+		jsonData.tr = res.__;
+		res.render('user_report', jsonData);
+		//res.json(docs);
+		}
+	});
 };
 router.get('/records_insert', insertRecords);
 router.get('/records_delet', deleteRecords);

@@ -1,2 +1,10 @@
 {
+	"preivew": "preivew",
+	"export": "export",
+	"punchin": "punchin",
+	"punchout": "punchout",
+	"hourlyrate": "hourlyrate",
+	"cmdtool": "cmdtool",
+	"modify": "modify",
+	"delete": "delete"
 }
