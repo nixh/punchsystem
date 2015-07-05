@@ -7,6 +7,7 @@ var btoa = require('btoa');
 var nobi = require('nobi');
 var crypto = require('crypto');
 var signer = nobi(config.appKey);
+var uuid = require('node-uuid');
 
 var loginKeys = {};
 
@@ -27,7 +28,6 @@ function login(loginObj, cb) {
     var userCol = db.get('users');
     var shapwd = sha(loginObj.password);
     shapwd = loginObj.password;
-    console.log(JSON.stringify(loginObj));
 
     userCol.findOne({userid: parseInt(loginObj.userId), password: shapwd},{}, cb);
 }
@@ -46,10 +46,23 @@ function postLogin(req, res, next) {
             return res.render('message', {msg: err, success: false});
         if(!doc)
             return res.render('message', {msg: 'username or password error!', success: false});
-        
-        
-        res.render('message', { msg: 'UserID and password has verified!', success: true});
 
+        var sessionObj = {
+            sessionid : uuid.v1(),
+            userid : doc.userid,
+            name : doc.name,
+            compid : doc.compid,
+            ip : req.ip 
+        } 
+
+        var session = db.get('session');
+        session.insert(sessionObj, function(err, doc){
+            if(err)
+                throw err;
+            res.cookie('sessionid', sessionObj.sessionid, {maxAge: 24*3600*1000, httpOnly: true});
+            res.render('message', { msg: 'user has logined', success: true});
+        });
+        
     });
     if(ret)
         res.render('message', ret);
@@ -63,6 +76,7 @@ router.get('/', function(req, res, next) {
     res.render('index', { title: 'Express', ret: results });
 });
 
+router.get('/login',loginpage);
 router.post('/login', postLogin);
 
 router.get('/testdb', function(req, res, next){
@@ -112,6 +126,5 @@ router.get('/staff_setting', function(req, res, next){
 });
 
 
-router.get('/login',loginpage);
 
 module.exports = router;
