@@ -11,6 +11,7 @@ var users = require('./routes/users');
 var delegate = require('./routes/delegate');
 var comp = require('./routes/comp');
 var records = require('./routes/records');
+var yongred= require('./routes/yongred');
 
 
 var mongo = require('mongodb');
@@ -62,6 +63,7 @@ app.use('/users', users);
 app.use('/comp', comp);
 app.use('/records', records);
 app.use('/delegate', delegate);
+app.use('/yongred', yongred);
 
 
 // catch 404 and forward to error handler

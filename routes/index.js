@@ -5,7 +5,7 @@ var monk = require('monk');
 var db = monk('mongodb://localhost:27017/punchsystem');
 
 /* GET home page. */
-<<<<<<< HEAD
+/*
 router.get('/', function(req, res) {
 	res.render('index', {title: 'Hello World!'});
 })
@@ -23,7 +23,7 @@ router.get('/company/userlist', function(req, res) {
 			"userlist":docs
 		});
     });
-=======
+*/
 router.get('/', function(req, res, next) {
     var test = db.get('test');
     var results = test.find({}, {});
@@ -127,7 +127,7 @@ router.get('/supervisor_delegate', function(req, res, next){
 			}
 		]
 	});
->>>>>>> 4e001c700a0f1a145750e61dd898ce207d6eef51
+
 });
 
 router.get('/company/find', function(req, res) {
@@ -272,14 +272,18 @@ var updatedata= function(){
 		var expdate=mydate.setDate(mydate.getDate()+2);
 		var iplist=req.ip;
 		var remark=req.body.remark;
-		collection.update{{"compid":id,"name":name,"compLogo":logo,"remark":remark}{"registerDate":regdate,
-						"expireDate":expdate,"iplist":iplist},function(err,docs){
-							if(err){
-								res,send(error);
-							}
-							else{
-								res.end();
-							}
+		collection.update(
+			{"compid":id,"name":name,"compLogo":logo,"remark":remark},
+			{"registerDate":regdate,"expireDate":expdate,"iplist":iplist},
+			function(err,docs){
+				if(err){
+					res,send(error);
+				}
+				else{
+					res.end();
+				}
+			}
+		);
 	}
 }
 //
