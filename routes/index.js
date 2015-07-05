@@ -1,3 +1,5 @@
+
+
 var express = require('express');
 var router = express.Router();
 
@@ -5,16 +7,17 @@ var monk = require('monk');
 var db = monk('mongodb://localhost:27017/punchsystem');
 
 /* GET home page. */
-/*
+
+
 router.get('/', function(req, res) {
 	res.render('index', {title: 'Hello World!'});
-})
+});
 router.get('/company/post', function(req, res) {
 	res.render('secret');
-})
+});
 router.get('/company/delete', function(req, res) {
 	res.render('delete');
-})
+});
 router.get('/company/userlist', function(req, res) {
   	var db=req.db;
 	var collection=db.get('usercollection');
@@ -23,7 +26,8 @@ router.get('/company/userlist', function(req, res) {
 			"userlist":docs
 		});
     });
-*/
+});
+
 router.get('/', function(req, res, next) {
     var test = db.get('test');
     var results = test.find({}, {});
@@ -50,10 +54,12 @@ router.get('/test/:name', function(req, res, next) {
 
 });
 
+/*
 router.get('/test', function(req, res, next){
 	
 	res.render('test/prac', { name:"Yong D Liu"});
 });
+
 
 router.get('/login', function(req, res, next){
 	
@@ -129,6 +135,7 @@ router.get('/supervisor_delegate', function(req, res, next){
 	});
 
 });
+*/
 
 router.get('/company/find', function(req, res) {
 	res.render('secret');
@@ -286,7 +293,7 @@ var updatedata= function(){
 		);
 	}
 }
-//
+
 router.post('/company/post',postdata());
 router.post('/company/delete',deletedata());
 router.post('/company/find',finddata());
