@@ -17,7 +17,6 @@ function sha(text) {
     return sha256.digest('hex');
 }
 
-
 function login(loginObj, cb) {
     loginkey = unescape(loginObj.loginKey);
     try {
@@ -68,8 +67,26 @@ function postLogin(req, res, next) {
         res.render('message', ret);
 }
 
-
 /* GET home page. */
+/*
+router.get('/', function(req, res) {
+	res.render('index', {title: 'Hello World!'});
+})
+router.get('/company/post', function(req, res) {
+	res.render('secret');
+})
+router.get('/company/delete', function(req, res) {
+	res.render('delete');
+})
+router.get('/company/userlist', function(req, res) {
+  	var db=req.db;
+	var collection=db.get('usercollection');
+	collection.find({},{},function(e,docs){
+		res.render('userlist',{
+			"userlist":docs
+		});
+    });
+*/
 router.get('/', function(req, res, next) {
     var test = db.get('test');
     var results = test.find({}, {});
@@ -108,23 +125,21 @@ router.get('/test', function(req, res, next){
 
 router.get('/staff_main', function(req, res, next){
 	
-	res.render('staff/staff_main', {
-		users: {
-			company_userid : "company_userid",
-			name : "name",
-			createDate: "Date",
-			password: "password", // Encrypted Text
-			sex : true,
-			email : 1231425
-		}
-	});
+    res.render('staff/staff_main', {
+            users: {
+                    company_userid : "company_userid",
+                    name : "name",
+                    createDate: "Date",
+                    password: "password", // Encrypted Text
+                    sex : true,
+                    email : 1231425
+            }
+    });
 });
 
 router.get('/staff_setting', function(req, res, next){
 	
-	res.render('staff/staff_setting', {emailReportData:['one', 'two', 'three']});
+    res.render('staff/staff_setting', {emailReportData:['one', 'two', 'three']});
 });
-
-
 
 module.exports = router;
