@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var monk = require('monk');
-var db = monk('mongodb://localhost:27017/punchtest');
+var db = monk('mongodb://localhost:27017/punchsystem');
 var config = require("../config.json");
 var btoa = require('btoa');
 var nobi = require('nobi');
@@ -16,16 +16,20 @@ function sha(text) {
     return sha256.digest('hex');
 }
 
-function login(username, password, loginkey) {
-    loginkey = unescape(loginkey);
+
+function login(loginObj, cb) {
+    loginkey = unescape(loginObj.loginKey);
     try {
         signer.unsign(loginKeys[loginkey]);
     } catch(e) {
-        return { msg: 'error!', ok: false }
+        return { msg: 'error! loginKey is ' + loginkey, ok: false };
     }
     var userCol = db.get('users');
-    var shapwd = sha(password);
-    
+    var shapwd = sha(loginObj.password);
+    shapwd = loginObj.password;
+    console.log(JSON.stringify(loginObj));
+
+    userCol.findOne({userid: parseInt(loginObj.userId), password: shapwd},{}, cb);
 }
 
 function loginpage(req, res, next) {
@@ -33,15 +37,22 @@ function loginpage(req, res, next) {
     var signiture = signer.sign(timestamp);
     var parts = signiture.split('.');
     loginKeys[parts[1]] = signiture;
-    console.log(JSON.stringify(loginKeys));
     res.render('login', {loginKey : parts[1] }); 
 } 
 
 function postLogin(req, res, next) {
-    var obj = req.body;
-    console.log(JSON.stringify(obj));
-    var response = login(obj.userId, obj.password, obj.loginKey);
-    res.render('', {msg: response.msg, success: response.ok})
+    var ret = login(req.body, function(err, doc){
+        if(err)
+            return res.render('message', {msg: err, success: false});
+        if(!doc)
+            return res.render('message', {msg: 'username or password error!', success: false});
+        
+        
+        res.render('message', { msg: 'UserID and password has verified!', success: true});
+
+    });
+    if(ret)
+        res.render('message', ret);
 }
 
 
@@ -53,6 +64,15 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/login', postLogin);
+
+router.get('/testdb', function(req, res, next){
+    
+    db.get('users').find({}, {}, function(err, docs){
+
+        res.render('message', { msg: 'Haha, Test Successfully! The docs count is ' + docs.length , success: true });
+    });
+
+});
 
 router.get('/cookies', function(req, res, next){
 
