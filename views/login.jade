@@ -2,19 +2,19 @@ extends layout
 
 block content
 	.topImage
-		img(src = "/public/images/panda.jpg" alt= "panda")
+		img(src = "/images/panda.jpg" alt= "panda")
 	.content
-		form 
+		form(method="POST") 
 			label User Id: 
-			input(type ='text' name= 'userId')
+			input(type ='text' class= "useTagBox" name= 'userId')
 			br
 			label password: 
 			input(type ='password' name= 'password')
 			br
 			
-			input(type= "hidden" name= 'loginkey' value="#{loginkey}")
-			br
-			input(type= "hidden" name= 'cusRedir' value="#{booleanVal}" )
+			input(type= "hidden" name= 'loginKey' value="#{loginKey}")
 			br
 			input(type= 'submit' value= 'submit')
+	script.
+		$(".useTagBox").tagator();
 			

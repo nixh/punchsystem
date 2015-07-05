@@ -11,12 +11,12 @@ var users = require('./routes/users');
 var delegate = require('./routes/delegate');
 var comp = require('./routes/comp');
 var records = require('./routes/records');
+var yongred = require('./routes/yongred');
 
 
 var mongo = require('mongodb');
 var monk = require('monk');
 var db = monk('127.0.0.1:27017/punchsystem');
-
 
 var app = express();
 
@@ -59,10 +59,12 @@ app.use(function(req, res, next){
 });
 
 app.use('/', routes);
+app.use('/', yongred);
 app.use('/users', users);
 app.use('/comp', comp);
 app.use('/records', records);
 app.use('/delegate', delegate);
+app.use('/yongred', yongred);
 
 
 // catch 404 and forward to error handler

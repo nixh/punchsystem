@@ -17,7 +17,7 @@ var getUser = function(req, res, next){
 	});
 }; 
 
-var insertUser = function(req, res, next) {
+var addUser = function(req, res, next) {
 	var db = req.db;
 	var col = db.get('users');
 	
@@ -50,7 +50,7 @@ var insertUser = function(req, res, next) {
 	});
 };
 
-var changeUser = function(req, res, next){
+var modUser = function(req, res, next){
 	
 	var db = req.db;
 	var col = db.get('users');
@@ -85,7 +85,7 @@ var changeUser = function(req, res, next){
 	);
 };
 		
-var deleteUser = function(req, res, next){
+var delUser = function(req, res, next){
 	
 	var db = req.db;
 	var col = db.get('users');
@@ -108,9 +108,13 @@ var deleteUser = function(req, res, next){
 };		
 	
 router.get('/get', getUser);
-router.get('/insert', insertUser);	
-router.get('/change', changeUser);	
-router.get('/delete', deleteUser);
+router.get('/insert', addUser);	
+router.get('/change', modUser);	
+router.get('/delete', delUser);
 
+router.addUser = addUser;
+router.getUser = getUser;
+router.modUser = modUser;
+router.delUser = delUser;
 
 module.exports = router;
