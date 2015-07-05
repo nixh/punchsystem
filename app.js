@@ -11,7 +11,7 @@ var users = require('./routes/users');
 var delegate = require('./routes/delegate');
 var comp = require('./routes/comp');
 var records = require('./routes/records');
-var yongred= require('./routes/yongred');
+var yongred = require('./routes/yongred');
 
 
 var mongo = require('mongodb');
