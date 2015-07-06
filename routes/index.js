@@ -122,7 +122,7 @@ router.get('/cookies', function(req, res, next){
 });
 
 
-
+/*
 router.get('/test', function(req, res, next){
 
 	res.render('test/prac', { name:"Yong D Liu"});
@@ -165,7 +165,7 @@ router.get('/staff_setting', function(req, res, next){
 // 			email : 1231425
 // 		}
 // 	});
-});
+
 
 router.get('/staff_setting', function(req, res, next){
 

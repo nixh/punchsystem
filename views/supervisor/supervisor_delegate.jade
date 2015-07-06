@@ -1,19 +1,52 @@
 extends ../layout.jade
 
 block content
-	.addDelegate
+	.searchDiv
+		form 
+			|ID:
+			input(type= "number" name= "ID")
+			input(type= "submit" value= "Search")
 
 	.content
 		table 
 			tr.delegateHead
-				th name
-				th id
-				th delegated
+				th Name
+				th Id
+				th Status
+				th Delegation
 			
-			-for(var r in delegates)
-				td= delegates[r].name
-				td= delegates[r].id
-				td= delegates[r].isDelegate
+			-for(var r in userInfos)
+				td= userInfos[r].name
+				td= userInfos[r].userid
+				td.status
+				td.delegation
+					a.authorize(href= "#") Authorize
+					a.Revoke.hidden(href= "#") Revoke
 				tr
 
-					
+
+	script.
+		var hide= $(".hidden");
+		var dlg = $(".delegation");
+
+		var statusCheck = function(){
+			$(".status").each(function(){
+				var hiddeKid= $(this).siblings('.delegation').find(".hidden");
+				if(hiddeKid.hasClass("authorize")){
+					$(this).html("Authorize");
+				}else{
+					$(this).html("Unauthorize");
+				}
+			});
+		}
+
+		$(".delegation > a").each(function(){
+			$(this).on("click", function(ev){
+				$(this).addClass("hidden");
+				$(this).siblings().removeClass("hidden");
+				statusCheck();
+			});
+			statusCheck();
+		});
+
+

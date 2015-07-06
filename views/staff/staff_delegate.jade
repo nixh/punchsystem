@@ -1,5 +1,11 @@
 extends ../layout.jade
 
+append links
+	link(rel= "stylesheet" href= "/datepicker/css/datepicker.css")
+
+append scripts
+	script(src="/datepicker/js/bootstrap-datepicker.js")
+
 block content
 	#qrcode
 		img(src= "#{dataURL}" alt= "qrcode for punch card")
