@@ -2,14 +2,90 @@
 
 }
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    margin:0;
+    padding:0;
 }
 
 body.bgbody {
-    background: url('/images/gradient.jpg');
+    background-image: url('/images/gradient.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100%;
 
 }
+
+.loadinglogo {
+
+}
+
+.hidden {
+    display: none;
+}
+.show {
+    display: '';
+}
+
+.loginpage {
+    position: relative;
+    width: 100%;
+    border: 1px solid red;
+    height: 1920px;
+}
+
+.loginpage:after {
+    content: '.';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+.loginpage .topImage {
+    width: 100%; 
+    text-align: center;
+
+    position: absolute;
+}
+
+.loginpage .content {
+    position: absolute;
+    width: 100%;
+
+
+}
+
+.loginpage .content table {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.loginpage .content table td {
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.loginpage .content table input[type='text'], input[type='password']{
+    width: 95%;
+    height: 50px;
+    border-radius: 25px;
+    border: 2px solid white;
+    line-height: 100%;
+    text-indent: 20px;
+    background-color: rgba(255, 255, 255, 0);
+    color: rgb(220, 220, 220);
+}
+
+.loginpage .content table input[type='submit'] {
+    width: 95%;
+    height: 50px;
+    border-radius: 25px;
+    border:none;
+    line-height: 100%;
+    background-color: rgba(0, 61, 119, .28);
+    color: rgb(220, 220, 220);
+
+}
+
 a {
   color: #00B7FF;
 }
