@@ -26,5 +26,7 @@
 	"userform_dpt": "userform_dpt",
 	"userform_rate": "userform_rate",
 	"remark": "remark",
-	"userform_compname": "userform_compname"
+	"userform_compname": "userform_compname",
+	"userid": "userid",
+	"password": "password"
 }

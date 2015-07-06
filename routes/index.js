@@ -43,7 +43,8 @@ function loginpage(req, res, next) {
     var parts = signiture.split('.');
     loginKeys[parts[1]] = signiture;
     res.render('login', {
-        loginKey: parts[1]
+        loginKey: parts[1],
+        tr: res.__
     });
 }
 
