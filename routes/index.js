@@ -247,7 +247,6 @@ router.get('/supervisor_delegate', function(req, res, next){
 	});
 
 });
-*/
 
 router.get('/company/find', function(req, res) {
 	res.render('secret');
@@ -404,7 +403,7 @@ var updatedata= function(){
 			}
 		);
 	}
-}
+};
 
 router.post('/company/post',postdata());
 router.post('/company/delete',deletedata());

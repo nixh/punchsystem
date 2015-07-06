@@ -5,7 +5,7 @@ var monk = require('monk');
 var db = monk('mongodb://localhost:27017/punchsystem');
 
 router.get('/testdb', function(req, res) {
-	var records = db.get('records');
+   	var records = db.get('records');
 	records.find({}, {limit: 5}, function(err, docs) {
 		if (err) {
 			res.send('connect error');
@@ -15,81 +15,74 @@ router.get('/testdb', function(req, res) {
 	});
 });
 
-var insertRecords = function(req, res) {
-		var uid = 1;
-		var cid = 29;
-		var timeNow = new Date().getTime();
-		var records = db.get('records');
-		records.insert(
-			{"userid": uid, "compid": cid, "inDate": time_1, "outDate": time_2, "hourlyRate": 8.75, "remark": "test"},
-
-			function(err, docs) {
-		records.find({userid: uid, outDate: {$exists: false}}, function(err, docs) {
-			if (!err) {
-				console.log(docs.length);
-				if (docs !=  0) {
-					docs[0].outDate = timeNow;
-					//res.json(docs);
-					records.update({userid: uid, outDate: {$exists: false}}, docs[0], function(err, docs) {
-						if (err) {
-							res.send('Fail to punch');
-						} else {
-							res.send('Successfully punched, updated');
-						}
-					});
-				} else {
-					var insertDoc = {userid: uid, compid: cid, inDate: timeNow, hourlyRate: 8.75, remark: "test"};
-					dbfunction.newDocWithIncId("records", "reportid", insertDoc, db, function(err, docs) {
-						if (err) {
-							res.send('Fail to punch, try again');
-						} else {
-							res.send('Successfully punched, insert new');
-						}
-					});
-				}
+function insertRecords(req, res) {
+	var uid = 1;
+	var cid = 29;
+	var timeNow = new Date().getTime();
+	var records = db.get('records');
+	var query = {userid: uid, outDate: {$exists: false}};
+	records.find(query, function(err, docs) {
+		if (!err) {
+			console.log(docs.length);
+			if (docs !=  0) {
+				docs[0].outDate = timeNow;
+				//res.json(docs);
+				records.update({userid: uid, outDate: {$exists: false}}, docs[0], function(err, docs) {
+					if (err) {
+						res.send('Fail to punch');
+					} else {
+						res.send('Successfully punched, updated');
+					}
+				});
 			} else {
-				res.send('Can not connect to db');
+				var insertDoc = {userid: uid, compid: cid, inDate: timeNow, hourlyRate: 8.75, remark: "test"};
+				dbfunction.newDocWithIncId("records", "reportid", insertDoc, db, function(err, docs) {
+					if (err) {
+						res.send('Fail to punch, try again');
+					} else {
+						res.send('Successfully punched, insert new');
+					}
+				});
 			}
-		});
+		} else {
+			res.send('Can not connect to db');
+		}
+	});
 };
 
-var deleteRecords = function(req, res) {
-		var rid = 2019;
-		//var db = req.db;
-		var records = db.get('records');
-		records.remove({reportid: rid},
-					  function(err, docs) {
-				  		if (err) {
-				  			res.end('<p>Fail to delete</p>');
-				  		} else {
-				  			res.end('<p>Successfully delete hahah</p>');
-				  		}
-				  });
+function deleteRecords(req, res) {
+	var rid = 2019;
+	var records = db.get('records');
+	var query = {reportid: rid};
+	records.remove(query, function(err, docs) {
+  		if (err) {
+  			res.end('<p>Fail to delete</p>');
+  		} else {
+  			res.end('<p>Successfully delete hahah</p>');
+  		}
+  	});
 };
 
 //While updating datas in the database, we need to update the information that input
-var updateRecords = function(req, res) {
+function updateRecords(req, res) {
 	var rid = 2019;
 	var starttime = new Date().getTime();
 	var endtime = new Date().getTime();
 	//var db = req.db;
 	var records = db.get('records');
-	records.update({userid: uid, compid: cid, reportid: rid}, {"$set" : {"inDate": starttime, "outDate": endtime}},
-	records.update({reportid: rid}, {"$set" : {"inDate": starttime, "outDate": endtime}}, 
-				  function(err, docs) {
+	records.update({reportid: rid}, {"$set" : {"inDate": starttime, "outDate": endtime}}, function(err, docs) {
 				  	if (err) {
 				  		res.end('<p>Fail to update</p>');
 				  	} else {
 				  		res.end('<p>Successfully update</p>');
 				  	}
 				  });
-};
+}
 
-var searchRecords = function(req, res) {
+function searchRecords(req, res) {
 	var starttime = 1435893899525;
 	var endtime = 1444510800001;
 	var records = db.get('records');
-	// 
 	var jsonData = {};
 	var userid = 3;
 	records.find({inDate : {"$gte" : starttime} , outDate : {"$lte": endtime}, userid: userid}, {limit: 30}, function(err, docs) {
@@ -105,11 +98,9 @@ var searchRecords = function(req, res) {
 			jsonData.reports.push(report);
 		});
 		//jsonData.username = db.users.findOne({userid:　userid}, {"name": 1});
-
 		db.get("users").findOne({userid:　userid}, {"name": 1}, function(err, docs) {
 			jsonData.username = docs.name;
 		});
-
 		jsonData.tr = res.__;
 		res.render('user_report', jsonData);
 		//res.json(docs);
@@ -124,7 +115,5 @@ router.get('/records_update', updateRecords);
 router.insertRecords = insertRecords;
 router.deleteRecords= deleteRecords;
 router.searchRecords = searchRecords;
-router.putRecords = putRecords;
-module.exports = router;
 router.updateRecords = updateRecords;
 module.exports = router;
