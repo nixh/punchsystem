@@ -1,39 +1,59 @@
 var express = require('express');
 var router = express.Router();
-
+var dbfunction = require('../db/db');
 var monk = require('monk');
 var db = monk('mongodb://localhost:27017/punchsystem');
 
+router.get('/testdb', function(req, res) {
+	var records = db.get('records');
+	records.find({}, {limit: 5}, function(err, docs) {
+		if (err) {
+			res.send('connect error');
+		} else {
+			res.json(docs);
+		}
+	});
+});
+
 var insertRecords = function(req, res) {
-		/*
-		var uid = req.body.uid;
-		var cid = req.body.cid;
-		var rid = req.body.rid;
-		*/
-		var uid = 2357;
-		var cid = 8888;
-		var rid = 1234567;
-		var time_1 = new Date().getTime();
-		var time_2 = new Date().getTime();
-		//var db = req.db;
+		var uid = 1;
+		var cid = 29;
+		var timeNow = new Date().getTime();
 		var records = db.get('records');
 		records.insert(
 			{"userid": uid, "compid": cid, "inDate": time_1, "outDate": time_2, "hourlyRate": 8.75, "remark": "test"},
 
 			function(err, docs) {
+		records.find({userid: uid, outDate: {$exists: false}}, function(err, docs) {
+			if (!err) {
+				console.log(docs.length);
+				if (docs !=  0) {
+					docs[0].outDate = timeNow;
+					//res.json(docs);
+					records.update({userid: uid, outDate: {$exists: false}}, docs[0], function(err, docs) {
 						if (err) {
-							res.end('<p>Fail to insert</p>');
+							res.send('Fail to punch');
 						} else {
-							res.end('<p>Successfully insert</p>');
+							res.send('Successfully punched, updated');
 						}
 					});
+				} else {
+					var insertDoc = {userid: uid, compid: cid, inDate: timeNow, hourlyRate: 8.75, remark: "test"};
+					dbfunction.newDocWithIncId("records", "reportid", insertDoc, db, function(err, docs) {
+						if (err) {
+							res.send('Fail to punch, try again');
+						} else {
+							res.send('Successfully punched, insert new');
+						}
+					});
+				}
+			} else {
+				res.send('Can not connect to db');
+			}
+		});
 };
 
-
-
-var deleteRecords = function() {
-		var uid = 928;
-		var cid = 15;
+var deleteRecords = function(req, res) {
 		var rid = 2019;
 		//var db = req.db;
 		var records = db.get('records');
@@ -48,15 +68,14 @@ var deleteRecords = function() {
 };
 
 //While updating datas in the database, we need to update the information that input
-var putRecords = function() {
-	var uid = 928;
-	var cid = 15;
+var updateRecords = function(req, res) {
 	var rid = 2019;
 	var starttime = new Date().getTime();
 	var endtime = new Date().getTime();
 	//var db = req.db;
 	var records = db.get('records');
 	records.update({userid: uid, compid: cid, reportid: rid}, {"$set" : {"inDate": starttime, "outDate": endtime}},
+	records.update({reportid: rid}, {"$set" : {"inDate": starttime, "outDate": endtime}}, 
 				  function(err, docs) {
 				  	if (err) {
 				  		res.end('<p>Fail to update</p>');
@@ -97,13 +116,15 @@ var searchRecords = function(req, res) {
 		}
 	});
 };
-router.get('/records_insert', insertRecords);
-router.get('/records_delet', deleteRecords);
+router.get('/records_punch', insertRecords);
+router.get('/records_delete', deleteRecords);
 router.get('/records_search', searchRecords);
-router.get('/records_update', putRecords);
+router.get('/records_update', updateRecords);
 
 router.insertRecords = insertRecords;
 router.deleteRecords= deleteRecords;
 router.searchRecords = searchRecords;
 router.putRecords = putRecords;
+module.exports = router;
+router.updateRecords = updateRecords;
 module.exports = router;

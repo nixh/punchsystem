@@ -14,16 +14,19 @@ module.exports = {
     getDb : function() {
         return monk(mongoUrl);
     },
-    newDocWithIncId : function(colName, insertDoc, db, callback) {
+    newDocWithIncId : function(colName, idName, insertDoc, db, callback) {
         if(!db)
             db = monk(mongoUrl);
-        getNextSenqence(colName, db, function(err, doc){
-            if(err)
-                throw err;
-            var seq = doc.seq+1;
-            insertDoc['_id'] = seq;
-            console.log(doc);
-            db.get(colName).insert(insertDoc, callback);
-        });
+            getNextSenqence(colName, db, function(err, doc){
+                if(err)
+                    throw err;
+                var seq = doc.seq+1;
+                if(idName)
+                    insertDoc[idName] = seq;
+                else
+                    insertDoc['_id'] = seq;
+                console.log(doc);
+                db.get(colName).insert(insertDoc, callback);
+            });
     }
 }
