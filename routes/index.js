@@ -165,7 +165,7 @@ router.get('/staff_setting', function(req, res, next){
 // 			email : 1231425
 // 		}
 // 	});
-});
+// });
 
 router.get('/staff_setting', function(req, res, next){
 
@@ -222,7 +222,7 @@ router.get('/supervisor_delegate', function(req, res, next){
 	});
 
 });
-*/
+
 
 router.get('/company/find', function(req, res) {
 	res.render('secret');

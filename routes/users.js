@@ -16,7 +16,7 @@ var getUser = function(req, res, next){
 	var body = req.body;
 
 	col.find(
-		{"userid": body.userid},
+		{"userid": "romanchelsea"},
 
 		function(err, doc){
 			if(err){
@@ -24,15 +24,6 @@ var getUser = function(req, res, next){
 
 			}else{
 				res.json(doc);
-
-				// res.render(
-// 					"users/search",
-//
-// 					{
-// 						'title': "Search Results",
-// 						'userlist': doc
-// 					}
-// 				);
 			}
 		}
 	);
@@ -141,7 +132,7 @@ router.post('/search', function(req, res, next){
 	var userid = parseInt(body.userid);
 	if(isNaN(userid))
 		userid = body.userid;
-	console.log(userid);
+
 	col.find(
 		{"userid": userid},
 
@@ -179,41 +170,23 @@ router.get('/change/:id', function(req, res, next){
 	var userid = req.params.id;
 	console.log(userid);
 
+	var userid = parseInt(userid);
+	if(isNaN(userid)){
+		userid = req.params.id;
+	}
+
 	col.find(
 		{
 			"userid": userid
 		},
-		{},
+
 		function(err, doc){
 			if(err){
-				utils.render(
-					'error',
-					{
-						"message": "Error changing user"
-					}
-				)(req, res, next);
+				res.send("Failed to changed the user info");
+				console.log(doc + "woca");
 			}else{
-
-				var attr = {};
-
-				if(doc.length === 0){
-					attr.msg = "No such username";
-				}else{
-					attr.msg = "The user is available";
-				}
-
-				console.log(doc);
-							//
-				// utils.render(
-				// 	'users/search',
-				// 	{
-				// 		"title": title,
-				// 		"userlist": docs
-				// 	}
-				// )(req, res, next);
-
+				res.json(doc);
 			}
-
 		}
 	)
 });
