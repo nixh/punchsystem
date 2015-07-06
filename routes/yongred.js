@@ -17,28 +17,66 @@ router.get('/test', function(req, res, next){
 	res.render('test/prac', { name:"Yong D Liu"});
 });
 
+
 router.get('/login', function(req, res, next){
 	
 	res.render('login');
 });
 
 router.get('/staff_main', function(req, res, next){
-	
-	res.render('staff/staff_main', {
-		users: {
-			company_userid : "company_userid",
-			name : "name",
-			createDate: "Date",
-			password: "password", // Encrypted Text
-			sex : true,
-			email : 1231425
+
+	var userCol = db.get('users');
+	var dlgCol = db.get('delegation');
+	userCol.findOne({userid: 1}, {}, function(err, doc){
+		var ret = {msg:null, ok: true};
+		if(!doc) {
+			ret.ok = false;
+			ret.msg = "cant find this user";
+			return res.render('staff/staff_main', ret);
 		}
+		ret.user = doc;
+		dlgCol.findOne({userid:147, compid:1}, {}, function(err, doc){
+
+			if(doc)
+				ret.delegate = true;
+			else 
+				ret.delegate = false;
+			console.log("----------"+JSON.stringify(doc));
+			res.render('staff/staff_main', ret);	
+
+		});
+		
+		
 	});
+	
+
 });
 
+/*
+router.post('/usersettings', function(req, res, next){
+
+	var doc = req.body;
+	var emails = doc.receiveEmails.split(', ');
+	db.get('usersettings').insert({emails:emails}, function(err, doc){
+
+	});
+});
+*/
 router.get('/staff_setting', function(req, res, next){
-	
-	res.render('staff/staff_setting', {emailReportData:['one', 'two', 'three']});
+
+	var emailReport = db.get("records");
+	emailReport.findOne({reportid:1}, {}, function(err, doc){
+		var ret= {msg: null, ok: true};
+		if(!doc){
+			ret.ok = false;
+			ret.msg= "no data found!";
+			return res.render('staff/staff_setting', ret);
+		}
+		ret.report= doc;
+		res.render('staff/staff_setting', ret);
+	});
+
+	//res.render('staff/staff_setting', {emailReportData:['one', 'two', 'three']});
 });
 
 router.get('/staff_delegate', function(req, res, next){

@@ -1,4 +1,5 @@
-var nobi = require('nobi');
-var signer = nobi("god knows it");
-var param = process.argv[2];
-console.log(signer.sign(param));
+var btoa = require('btoa');
+var request = require('request');
+var string = btoa(process.argv[2]);
+var url = 'http://beststudy.us/getqrcode/' + string;
+request.get(url).pipe(process.stdout);
