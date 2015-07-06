@@ -17,8 +17,10 @@ var insertRecords = function(req, res) {
 		var time_2 = new Date().getTime();
 		//var db = req.db;
 		var records = db.get('records');
-		records.insert({"userid": uid, "compid": cid, "inDate": time_1, "outDate": time_2, "hourlyRate": 8.75, "remark": "test"},
-					function(err, docs) {
+		records.insert(
+			{"userid": uid, "compid": cid, "inDate": time_1, "outDate": time_2, "hourlyRate": 8.75, "remark": "test"},
+
+			function(err, docs) {
 						if (err) {
 							res.end('<p>Fail to insert</p>');
 						} else {
@@ -35,7 +37,7 @@ var deleteRecords = function() {
 		var rid = 2019;
 		//var db = req.db;
 		var records = db.get('records');
-		records.remove({reportid: rid}, 
+		records.remove({reportid: rid},
 					  function(err, docs) {
 				  		if (err) {
 				  			res.end('<p>Fail to delete</p>');
@@ -54,7 +56,7 @@ var putRecords = function() {
 	var endtime = new Date().getTime();
 	//var db = req.db;
 	var records = db.get('records');
-	records.update({userid: uid, compid: cid, reportid: rid}, {"$set" : {"inDate": starttime, "outDate": endtime}}, 
+	records.update({userid: uid, compid: cid, reportid: rid}, {"$set" : {"inDate": starttime, "outDate": endtime}},
 				  function(err, docs) {
 				  	if (err) {
 				  		res.end('<p>Fail to update</p>');
