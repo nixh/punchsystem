@@ -107,13 +107,14 @@ function searchRecords(req, res) {
 		}
 	});
 };
+
 router.get('/records_punch', insertRecords);
 router.get('/records_delete', deleteRecords);
 router.get('/records_search', searchRecords);
 router.get('/records_update', updateRecords);
 
 router.insertRecords = insertRecords;
-router.deleteRecords= deleteRecords;
+router.deleteRecords = deleteRecords;
 router.searchRecords = searchRecords;
 router.updateRecords = updateRecords;
 module.exports = router;
