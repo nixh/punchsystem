@@ -1,0 +1,25 @@
+extends ../layout.jade
+
+block content
+	h1.
+		SearchUser
+
+	p= title
+
+	form(action="/users/search" method="POST")
+		input(name="userid" placeholder="Enter the username, bitch!" size="32")
+		input(type="submit" value="#{tr('submit')}")
+
+	if userlist
+		table
+			tr
+				th(style="padding: 10px") Name
+				th(style="padding: 10px") Id
+				th(style="padding: 10px") Tools
+
+			each user, i in userlist
+				tr
+					td( style="padding: 10px")= user.name
+					td(style="padding: 10px")
+						a(href="/users/change/#{user.userid}" target="_blank")= user.userid
+					td(style="padding: 10px")= user.remark

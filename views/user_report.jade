@@ -1,26 +1,55 @@
 extends layout
-    block content
-        .userinfo
-            span= username
-        .searchbar
-            .datepicker
-            .datepicker
-            button.preview= tr('preivew')
-            button.export= tr('export')
-        .content
-            table
+block content
+    #punch
+        form(action='/records/records_search' method='post')
+          | Start Date: 
+          input.datePick(type='text', name='startdate')
+          br
+          | End Date: 
+          input.datePick(type='text', name='enddate')
+          input(type='submit' value='Search')/
+    script.
+        $(function(){
+            var showing = false;
+            $('.datePick').on('click', function(e){
+                if(showing){
+                    $(this).datepicker('hide');
+                    showing= false;
+                }else{
+                    $(this).datepicker('show');
+                    showing= true;
+                }
+            });
+
+            $('.datePick').on('changeDate', function(e){
+                if(showing){
+                    $(this).datepicker('hide');
+                    showing= false;
+                }
+            });
+        });
+    .userinfo
+        span= username
+    .searchbar
+        .datepicker
+        .datepicker
+        button.preview= tr('preivew')
+        button.export= tr('export')
+    .content
+        table
+            tr
+                th= tr('punchin')
+                th= tr('punchout')
+                th= tr('hourlyrate')
+                th= tr('cmdtool')
+            each report, i in reports 
                 tr
-                    th= tr('punchin')
-                    th= tr('punchout')
-                    th= tr('hourlyrate')
-                    th= tr('cmdtool')
-                each report, i in reports
                     td= report.intime
                     td= report.outtime
                     td= report.hourlyrate
                     td
                         .cmdtool
-                            button.modify= tr('modify')
-                            button.delete= tr('delete')
+                            a(href="/records/records_update/#{report.reportid}")= tr('modify')
+                            a(href="/records/records_delete/#{report.reportid}")= tr('delete')
 
 

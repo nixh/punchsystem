@@ -5,10 +5,14 @@ block content
 		table
 			tr.userInfo
 				td 
-					-var info = ""
-					-for(var index in users)
-						-info += users[index] + ", " 
-					p= info
+					h2 WELCOME TO THIS PAGE
+					.acctInfo
+						|User Account: #{user.email}
+						br
+						label Paid Rate: #{user.curRate}
+					.avatar
+						img(src="" alt= user.avatar)
+
 			tr.otherInfo
 				td
 					a(href= "/user/selfreport/punch") Punch Report
@@ -18,4 +22,6 @@ block content
 				td
 					a(href= "/user/setting") Setting
 				td
-					a(href= "/user/delegate" hidden) Delegate
+					if delegate
+						a(href= "/user/delegate") Delegate
+	

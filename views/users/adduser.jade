@@ -2,10 +2,10 @@ extends ../layout.jade
 
 block content
     h1 UserForm
-    p= test 
+    p= test
     if attr
         p= attr.msg
-    form(action="/comp/user/add" method="POST")
+    form(action="/users/add" method="POST")
         table(border=1)
             tr
                 td= tr('userform_userid')
@@ -17,7 +17,7 @@ block content
                     input(name="pwd" type='text')
             tr
                 td= tr('userform_name')
-                td 
+                td
                     input(name="name" type='text')
             tr
                 td= tr('userform_sex')
@@ -25,7 +25,7 @@ block content
                     input(type="radio" id="male_rd" name="sex" value="1")
                     label(for="male_rd")= tr('sex_male')
                     input(type="radio" id="female_rd" name="sex" value="0")
-                    label(for="female_rd")= tr('sex_female') 
+                    label(for="female_rd")= tr('sex_female')
             tr
                 td= tr('userform_email')
                 td
