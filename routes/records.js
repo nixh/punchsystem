@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var dbfunction = require('../db/db');
+var mo = require('moment');
 var monk = require('monk');
 var db = monk('mongodb://localhost:27017/punchsystem');
 
@@ -24,7 +25,7 @@ function insertRecords(req, res) {
 	records.find(query, function(err, docs) {
 		if (!err) {
 			console.log(docs.length);
-			if (docs !=  0) {
+			if (docs.length !==  0) {
 				docs[0].outDate = timeNow;
 				//res.json(docs);
 				records.update({userid: uid, outDate: {$exists: false}}, docs[0], function(err, docs) {
@@ -51,24 +52,26 @@ function insertRecords(req, res) {
 };
 
 function deleteRecords(req, res) {
-	var rid = 2019;
+	var rid = req.params.rid;
+	console.log(rid);
 	var records = db.get('records');
 	var query = {reportid: rid};
 	records.remove(query, function(err, docs) {
   		if (err) {
-  			res.end('<p>Fail to delete</p>');
+  			res.send('<p>Fail to delete</p>');
   		} else {
-  			res.end('<p>Successfully delete hahah</p>');
+  			res.send('<p>Successfully delete hahah</p>');
   		}
   	});
 };
 
 //While updating datas in the database, we need to update the information that input
 function updateRecords(req, res) {
-	var rid = 2019;
+	var rid = req.params.rid;
 	var starttime = new Date().getTime();
 	var endtime = new Date().getTime();
-	//var db = req.db;
+	//var starttime = Date.parse(req.body.startdate);
+	//var endtime = Date.parse(req.body.enddate);
 	var records = db.get('records');
 	records.update({reportid: rid}, {"$set" : {"inDate": starttime, "outDate": endtime}}, function(err, docs) {
 				  	if (err) {
@@ -80,12 +83,13 @@ function updateRecords(req, res) {
 }
 
 function searchRecords(req, res) {
-	var starttime = 1435893899525;
-	var endtime = 1444510800001;
+	var starttime = Date.parse(req.body.startdate);
+	var endtime = Date.parse(req.body.enddate);
 	var records = db.get('records');
 	var jsonData = {};
-	var userid = 3;
-	records.find({inDate : {"$gte" : starttime} , outDate : {"$lte": endtime}, userid: userid}, {limit: 30}, function(err, docs) {
+	var userid = 1;
+	var query = {inDate : {"$gte" : starttime} , outDate : {"$lte": endtime}, userid: userid};
+	records.find(query, {limit: 30}, function(err, docs) {
 		if (err) {
 			res.send('Unable to search Records!');
 		} else {
@@ -110,7 +114,7 @@ function searchRecords(req, res) {
 
 router.get('/records_punch', insertRecords);
 router.get('/records_delete', deleteRecords);
-router.get('/records_search', searchRecords);
+router.post('/records_search', searchRecords);
 router.get('/records_update', updateRecords);
 
 router.insertRecords = insertRecords;

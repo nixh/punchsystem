@@ -6,5 +6,6 @@
 	"hourlyrate": "hourlyrate",
 	"cmdtool": "cmdtool",
 	"modify": "modify",
-	"delete": "delete"
+	"delete": "delete",
+	"submit": "submit"
 }
