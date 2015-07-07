@@ -226,8 +226,15 @@ router.get('/change/:id', function(req, res, next){
 router.get('/add', utils.render('users/adduser', {title: 'UserAdd'}));
 
 router.post('/add', function(req, res, next){
+	console.log(doc);
 
-    console.log(req.body);
+	utils.render(
+		'users/search',
+		{
+			"title": title,
+			"userlist": docs
+		}
+	)(req, res, next);
 
 	var db = req.db;
 	var col = db.get('users');
