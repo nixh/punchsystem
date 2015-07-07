@@ -1,0 +1,44 @@
+html
+  h1 Password Change
+  script.
+    var form = document.getElementById('myform');
+    document.getElementById('btn1').onclick = function() {
+    form.target = '/usersettings/changepwd';
+    form.submit();
+    }
+    }
+  body
+    form#myform(method='post')
+      div(data-role='contant1')
+        p
+          | Userid:
+          input(type='text', name='userid')
+        p
+          | Old Password:
+          input(type='text', name='oldpass')
+        p
+          | New Password:
+          input(type='text', name='newpass')
+        p
+          | Confirm Password:
+          input(type='text', name='confirmpass')
+          br
+          
+      div(data-role='contant2')
+        fieldset(data-role='collapsible')
+          legend switch
+          | Receive Email: 
+          -var email = receiveemail ? receiveemail.email : '';
+          input(type='text', name='receiveemail', value='#{email}')
+          br
+          p
+          p
+            | Weekly
+            input(type='radio', name='frequency', value='1')
+            |     Monthly
+            input(type='radio', name='frequency', value='0')
+          input#btn1(type='submit', name='switch button')
+          p
+
+
+       
