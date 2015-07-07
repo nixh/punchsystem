@@ -4,11 +4,16 @@ block content
 	h1.
 		SearchUser
 
-	p= title
+	if msg
+		p= msg
+		
+	a(href="/users/add") Add a User
+	br
+	br
 
 	form(action="/users/search" method="POST")
-		input(name="userid" placeholder="Enter the username, bitch!" size="32")
-		input(type="submit" value="#{tr('submit')}")
+		input(name="userid" placeholder="Entre el nombre, por favor!" size="32")
+		input(type="submit" value="#{tr('Search')}")
 
 	if userlist
 		table
@@ -22,4 +27,5 @@ block content
 					td( style="padding: 10px")= user.name
 					td(style="padding: 10px")
 						a(href="/users/change/#{user.userid}" target="_blank")= user.userid
-					td(style="padding: 10px")= user.remark
+					td(style="padding: 10px")
+						a(href="/records/records_search/")
