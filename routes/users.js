@@ -203,14 +203,14 @@ router.get('/change/:id', function(req, res, next){
 				}
 
 				console.log(doc);
-							//
-				// utils.render(
-				// 	'users/search',
-				// 	{
-				// 		"title": title,
-				// 		"userlist": docs
-				// 	}
-				// )(req, res, next);
+
+				utils.render(
+					'users/search',
+					{
+						"title": title,
+						"userlist": docs
+					}
+				)(req, res, next);
 
 			}
 
