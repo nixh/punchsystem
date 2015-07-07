@@ -121,6 +121,7 @@ router.get('/testdb', function(req, res, next) {
             success: true
         });
     });
+});
 
 router.get('/cookies', function(req, res, next) {
     var cookies = req.cookies;

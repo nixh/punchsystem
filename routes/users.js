@@ -223,6 +223,50 @@ router.get('/change/:id', function(req, res, next){
 	);
 });
 
+router.get('/add', utils.render('users/adduser', {title: 'UserAdd'}));
+
+router.post('/add', function(req, res, next){
+
+    console.log(req.body);
+
+	var db = req.db;
+	var col = db.get('users');
+
+	var body = req.body;
+
+	col.insert(
+		{
+			"userid": body.userid,
+			"password": body.pwd,
+			"name": body.name,
+			"sex": !!parseInt(body.sex),
+			"email": body.email,
+			"tel": body.tel,
+			"compid": body.compname,
+			"curRate": body.rate,
+			"remark": body.remark,
+		},
+
+		function(err, doc){
+			if(err){
+				res.send("Failed to insert new user");
+			}else{
+				res.render(
+					'users/adduser',
+					{
+						title: 'UserAdd',
+						tr: res.__,
+						attr:
+						{
+							msg: 'insert success'
+						}
+					}
+				);
+			}
+		}
+	);
+
+});
 
 router.get('/get', getUser);
 router.get('/insert', addUser);
