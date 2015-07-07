@@ -146,16 +146,16 @@ router.post('/search', function(req, res, next){
 	var body = req.body;
 
 	var userid = parseInt(body.userid);
-	if(isNaN(userid))
-		userid = body.userid;
+	// if(isNaN(userid))
+	// 	userid = body.userid;
 
 	console.log(body);
 
 	col.find(
-		{"userid":
-			{
-				$regex: userid
-			}
+		{"userid": userid
+			// {
+			// 	$regex: userid
+			// }
 		},
 
 		{},
@@ -226,16 +226,6 @@ router.get('/change/:id', function(req, res, next){
 router.get('/add', utils.render('users/adduser', {title: 'UserAdd'}));
 
 router.post('/add', function(req, res, next){
-	console.log(doc);
-
-	utils.render(
-		'users/search',
-		{
-			"title": title,
-			"userlist": docs
-		}
-	)(req, res, next);
-
 	var db = req.db;
 	var col = db.get('users');
 
