@@ -67,32 +67,46 @@ var modUser = function(req, res, next){
 
 	var db = req.db;
 	var col = db.get('users');
+	var body = req.body;
 
-	var userid = "romanchelsea";
-	var username = "Xing Ming";
-	var createDate = new Date().getTime();
-	var sex = "female";
-	var addr = "1648 80TH ST, Brooklyn, NY";
-	var tel = "4806035416";
-	var password = '12345678';
-	var currentHourlyRate = "8.75";
+	console.log("Posting modify info");
+	console.log(body);
+
+	var _id = body._id;
+	var userid = body.userid
+	var username = body.name;
+	var createDate = body.createDate;
+	var sex = body.sex;
+	var addr = body.address;
+	var tel = body.tel;
+	var password = body.pwd;
+	var currentHourlyRate = body.curRate;
+	var email = body.email;
+	var compid = body.compname;
 
 	col.update(
 		{
-			'userid': userid
+			'_id': _id
 		},
 		{
 			"$set":
 			{
+				"userid": userid,
 				"name": username,
-				"sex": sex
+				"createDate": createDate,
+				"password": password,
+				"sex": !!parseInt(sex),
+				"email": email,
+				"address": addr,
+				"compid": compid
 			}
 		},
 		function(err, docs){
 			if(err){
 				res.end("Failed to update");
 			}else{
-				res.end("Succuess modify");
+				var path = "change/" + userid;
+				res.redirect(path);
 			}
 		}
 	);
@@ -103,7 +117,9 @@ var delUser = function(req, res, next){
 	var db = req.db;
 	var col = db.get('users');
 
-	var userid = "romanchelsea";
+	var body = req.body;
+
+	var userid = body.userid;
 	var username = "Roman Wang";
 	var createDate = new Date().getTime();
 	var sex = "male";
@@ -133,8 +149,14 @@ router.post('/search', function(req, res, next){
 	if(isNaN(userid))
 		userid = body.userid;
 
+	console.log(body);
+
 	col.find(
-		{"userid": userid},
+		{"userid":
+			{
+				$regex: userid
+			}
+		},
 
 		{},
 
@@ -146,13 +168,14 @@ router.post('/search', function(req, res, next){
 				if(docs.length === 0){
 					var title = "No such username";
 				}else{
-					var title = "Searching Results";
+					var title = "Searching Results for " + userid;
 				}
 
 					console.log(docs);
 					utils.render(
 						'users/search',
 						{
+							"searth_term": userid,
 							"title": title,
 							"userlist": docs
 						}
@@ -175,7 +198,8 @@ router.get('/change/:id', function(req, res, next){
 		userid = req.params.id;
 	}
 
-	col.find(
+
+	col.findOne(
 		{
 			"userid": userid
 		},
@@ -185,17 +209,25 @@ router.get('/change/:id', function(req, res, next){
 				res.send("Failed to changed the user info");
 				console.log(doc + "woca");
 			}else{
-				res.json(doc);
+
+				console.log(JSON.stringify(doc));
+
+				utils.render(
+					"users/changeUser",
+					{
+						"userinfo": doc
+					}
+				)(req, res, next);
 			}
 		}
-	)
+	);
 });
 
 
 router.get('/get', getUser);
 router.get('/insert', addUser);
-router.get('/change', modUser);
-router.get('/delete', delUser);
+router.post('/change', modUser);
+router.post('/delete', delUser);
 
 router.addUser = addUser;
 router.getUser = getUser;

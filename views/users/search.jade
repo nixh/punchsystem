@@ -7,6 +7,7 @@ block content
 	p= title
 
 	form(action="/users/search" method="POST")
+		-var input_val = 
 		input(name="userid" placeholder="Enter the username, bitch!" size="32")
 		input(type="submit" value="#{tr('submit')}")
 

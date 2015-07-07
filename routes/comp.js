@@ -10,23 +10,23 @@ router.get('/user/add', utils.render('comp/adduser', {title: 'UserAdd'}));
 router.post('/user/add', function(req, res, next){
 
     console.log(req.body);
-	
+
 	var db = req.db;
 	var col = db.get('users');
-	
+
 	var body = req.body;
-	
+
 	col.insert(
 		{
 			"userid": body.userid,
 			"password": body.pwd,
 			"name": body.name,
-			"sex": body.sex,
+			"sex": !!parseInt(body.sex),
 			"email": body.email,
 			"tel": body.tel,
 			"compid": body.compname,
 			"curRate": body.rate,
-			"remark": body.remark,			
+			"remark": body.remark,
 		},
 
 		function(err, doc){
@@ -34,20 +34,20 @@ router.post('/user/add', function(req, res, next){
 				res.send("Failed to insert new user");
 			}else{
 				res.render(
-					'comp/adduser', 
+					'comp/adduser',
 					{
-						title: 'UserAdd', 
-						tr: res.__, 
-						attr: 
-						{ 
-							msg: 'insert success'  
+						title: 'UserAdd',
+						tr: res.__,
+						attr:
+						{
+							msg: 'insert success'
 						}
 					}
 				);
 			}
 		}
-	);	
-    	
+	);
+
 });
 
 router.get('/new', utils.render('comp/new'));
@@ -70,8 +70,8 @@ router.post('/new', function(req, res, next){
                 if(err) throw err;
                 console.log(doc);
                 return res.render('comp/new', {tr: res.__, attr:{msg:JSON.stringify(doc)}});
-            });              
-        } 
+            });
+        }
     });
 });
 
