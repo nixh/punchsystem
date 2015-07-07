@@ -15,13 +15,13 @@ var company=require('./routes/company');
 var usersettings = require('./routes/usersettings');
 
 var records = require('./routes/records');
+var yongred = require('./routes/yongred');
 
 
 
 var mongo = require('mongodb');
 var monk = require('monk');
 var db = monk('127.0.0.1:27017/punchsystem');
-
 
 var app = express();
 
@@ -61,6 +61,7 @@ app.use(function(req, res, next){
 });
 
 app.use('/', routes);
+app.use('/yongred', yongred);
 app.use('/users', users);
 app.use('/comp', comp);
 
@@ -69,6 +70,7 @@ app.use('/company',company)
 app.use('/records', records);
 
 app.use('/delegate', delegate);
+app.use('/comp', comp);
 
 app.use('/usersettings', usersettings)
 

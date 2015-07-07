@@ -1,23 +1,36 @@
 extends ../layout.jade
 
+
 block content
 	.passwordChange
 		form 
 			label Old Password:
-			input(type ='password' id= 'oldPassword' name= 'oldPassword')
+			input(type ='password' name= 'oldPassword')
 			br
 			label Password: 
-			input(type ='password' id= 'password' name= 'password')
+			input(type ='password' name= 'password')
+			br
+			label Confirm: 
+			input(type ='password' name= 'confirm')
 			br
 			input(type= 'submit' value= 'Submit')
 
 			br
 			br
 
-	.EmailReportSetting
+	.switchButton(style= "position:relative; width:5%;")
+		.cover
+		span.onSide(style= "width:50%;") ON 
+		span.offSide(style= "width:50%;") OFF
+
+	br
+	br
+		
+	.EmailReportSetting(hidden)
+		//(action="/usersettings" method="POST")
 		form
 			label Receive Email:
-			input(type= "text" id = "receiveEmail" name = 'receiveEmail' value = "#{emailReportData}")
+			input(type= "text" id = "receiveEmails" name = 'receiveEmails' value = report)
 			br
 			label Choose Report Time Period:
 			br
@@ -29,3 +42,35 @@ block content
 			br
 			input(type= 'submit' value= 'submit')
 
+	script.
+		var switchBtn = false;
+		var onSide = $(".onSide");
+		var offSide= $(".offSide");
+
+		var cover= $(".cover");
+		cover.css({
+			position: "absolute",
+			width: "50%",
+			height: "100%",
+			background: "#ccc",
+			cursor: "pointer"
+
+		});
+		
+		cover.on("click", function(e){
+			if(switchBtn){
+				//$cover.appendTo(onSide.css("position", "relative"));
+				
+				cover.animate({left:0}, 400);
+				switchBtn= false;
+				$(".EmailReportSetting").slideUp("slow");
+			}else{
+				//$cover.appendTo(offSide.css("position", "relative"));
+
+				cover.animate({right:0}, 400);
+				switchBtn= true;
+				$(".EmailReportSetting").slideDown("slow");
+			}
+		});
+
+		

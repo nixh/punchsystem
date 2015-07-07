@@ -1,13 +1,17 @@
 doctype html
-html
+html  
 	head
 		title= title
-		link(rel='stylesheet', href='/stylesheets/style.css')
-		link(rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css")
-		link(rel= "stylesheet" href= "/datepicker/css/datepicker.css")
-		script(src= "/datepicker/js/jquery-1.11.3.min.js")
-		script(src="/bootstrap-3.3.5-dist/js/bootstrap.min.js")
-		script(src="/datepicker/js/bootstrap-datepicker.js")
+		block links
+			link(rel='stylesheet', href='/stylesheets/style.css')
+			link(rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css")
+			//link(rel= "stylesheet" href= "/datepicker/css/datepicker.css")
+			//link(rel= "stylesheet" href= "/tagbox/fm.tagator.jquery.css")
+		block scripts
+			script(src= "/datepicker/js/jquery-1.11.3.min.js")
+			script(src="/bootstrap-3.3.5-dist/js/bootstrap.min.js")
+			//script(src="/datepicker/js/bootstrap-datepicker.js")
+			//script(src="/tagbox/fm.tagator.jquery.js")
 
 		
 	body

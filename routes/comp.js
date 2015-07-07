@@ -5,14 +5,6 @@ var mongodb = require('../db/db');
 var moment = require('moment');
 var utils = require('../utils');
 
-router.get('/user/add', utils.render('comp/adduser', {title: 'UserAdd'}));
-
-router.post('/user/add', function(req, res, next){
-
-    console.log(req.body);
-    res.render('comp/adduser', {title: 'UserAdd', tr: res.__, attr: { msg: 'insert success'  }});
-});
-
 router.get('/new', utils.render('comp/new'));
 
 router.post('/new', function(req, res, next){
@@ -33,8 +25,8 @@ router.post('/new', function(req, res, next){
                 if(err) throw err;
                 console.log(doc);
                 return res.render('comp/new', {tr: res.__, attr:{msg:JSON.stringify(doc)}});
-            });              
-        } 
+            });
+        }
     });
 });
 

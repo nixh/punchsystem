@@ -1,20 +1,63 @@
 extends layout
 
+append links
+	link(rel="stylesheet" href= "/tagbox/fm.tagator.jquery.css")
+
+append scripts
+	script(src="/tagbox/fm.tagator.jquery.js")
+
 block content
-	.topImage
-		img(src = "/public/images/panda.jpg" alt= "panda")
-	.content
-		form 
-			label User Id: 
-			input(type ='text' name= 'userId')
-			br
-			label password: 
-			input(type ='password' name= 'password')
-			br
-			
-			input(type= "hidden" name= 'loginkey' value="#{loginkey}")
-			br
-			input(type= "hidden" name= 'cusRedir' value="#{booleanVal}" )
-			br
-			input(type= 'submit' value= 'submit')
-			
+    .loginpage
+        .topImage
+            .staticimg
+                img(src="/images/adminsyslogo.png" width="150" height="150" alt= "panda")
+            .loadingimg
+                .loadinglogo.hidden
+                    img(src="/images/circle1.png" width="150" height="150" alt= "panda")
+                .loadinglogo.hidden
+                    img(src="/images/circle2.png" width="150" height="150" alt= "panda")
+                .loadinglogo.hidden
+                    img(src="/images/circle3.png" width="150" height="150" alt= "panda")
+                .loadinglogo.hidden
+                    img(src="/images/circle4.png" width="150" height="150" alt= "panda")
+    
+        script(type="text/javascript").
+            var $loadings = $('.loadinglogo');
+            var counter=0;
+            var timer;
+            function loop() {
+                $('.staticimg').addClass('hidden');
+                var n = counter % 4;
+                $loadings.each(function(index, logo){
+                    var $logo = $(logo);
+                    if(!$logo.hasClass('hidden'))
+                        $logo.addClass('hidden');
+                });
+                $($loadings[n]).removeClass('hidden');
+                $loadings.each(function(i, o){ console.log(o); });
+                counter++;
+                timer = setTimeout(loop, 75);
+            }
+            loop();
+            
+        .content
+            form(method="POST" autocomplete="off") 
+                table
+                    tr
+                        td
+                            img(src="/images/username.png" width=50 height=50)
+                        td 
+                            input(id="userid" name="userid" type="text")
+                    tr
+                        td
+                            img(src="/images/password icon.png" width=40 height=50)
+                        td 
+                            input(id="password" name="password" type="password")
+                    tr
+                        td
+                            img(src="/images/submit icon.png" alt="sign logo" width=50 height=50)
+                        td
+                            input(type= "hidden" name= 'loginKey' value="#{loginKey}")
+                            input(type= 'submit' value= 'Sign In')
+        .bottom
+            .register
