@@ -17,12 +17,7 @@ function sha(text) {
     return sha256.digest('hex');
 }
 
-<<<<<<< HEAD
 
-router.get('/', function(req, res) {
-	res.render('index', {title: 'Hello World!'});
-})
-=======
 function login(loginObj, cb) {
     loginkey = unescape(loginObj.loginKey);
     try {
@@ -136,6 +131,6 @@ router.get('/cookies', function(req, res, next) {
         cookie_str += key + "=" + cookies[key] + ";<br/>";
     }
 });
->>>>>>> dev
+
 
 module.exports = router;

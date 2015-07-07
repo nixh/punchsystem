@@ -1,5 +1,8 @@
 html
   h1 Password Change
+  link(href='http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css', rel='stylesheet')
+  script(src='http://libs.baidu.com/jquery/2.0.0/jquery.min.js')
+  script(src='http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js')
   script.
     var form = document.getElementById('myform');
     document.getElementById('btn1').onclick = function() {
@@ -23,22 +26,17 @@ html
           | Confirm Password:
           input(type='text', name='confirmpass')
           br
-          
-      div(data-role='contant2')
-        fieldset(data-role='collapsible')
-          legend switch
-          | Receive Email: 
-          -var email = receiveemail ? receiveemail.email : '';
-          input(type='text', name='receiveemail', value='#{email}')
-          br
-          p
-          p
-            | Weekly
-            input(type='radio', name='frequency', value='1')
-            |     Monthly
-            input(type='radio', name='frequency', value='0')
-          input#btn1(type='submit', name='switch button')
-          p
-
-
-       
+      |        Receive Email:
+      button.btn.btn-primary(type='button', data-toggle='collapse', data-target='#demo')
+        | Switch
+      #demo.collapse.in
+        input(type='text', name='receiveemail', value='#{receiveemail.email}')
+        br
+        p
+        p
+          | Weekly
+          input(type='radio', name='frequency', value='1')
+          |     Monthly
+          input(type='radio', name='frequency', value='0')
+        input#btn1(type='submit', name='switch button')
+        p
