@@ -89,45 +89,32 @@ router.get('/staff_delegate', function(req, res, next){
 
 router.get('/supervisor_main', function(req, res, next){
 	
-	res.render('supervisor/supervisor_main', {
-		users: {
-			company_userid : "company_userid",
-			name : "name",
-			createDate: "Date",
-			password: "password", // Encrypted Text
-			sex : true,
-			email : 1231425
+	var userInfo = db.get("users");
+	userInfo.findOne({userid:147}, {}, function(err, doc){
+		var ret= {msg: null, ok: true};
+		if(!doc){
+			ret.ok = false;
+			ret.msg= "no data found!";
+			return res.render('supervisor/supervisor_main', ret);
 		}
+		ret.user= doc;
+		res.render('supervisor/supervisor_main', ret);	
 	});
 });
 
 router.get('/supervisor_delegate', function(req, res, next){
-	
-	res.render('supervisor/supervisor_delegate', {
-		delegates:[
-			{
-				name: "abc1",
-				id: 1,
-				isDelegate: true
-			},
-			{
-				name: "abc2",
-				id: 2,
-				isDelegate: false
-			},
-			{
-				name: "abc3",
-				id: 3,
-				isDelegate: false
-			},
-			{
-				name: "abc4",
-				id: 4,
-				isDelegate: true
-			}
-		]
+	var users = db.get("users");
+	users.find({compid:13}, function(e, docs){
+		var ret= {msg: null, ok: true};
+		if(!docs){
+			ret.ok = false;
+			ret.msg= "no data found!";
+			return res.render('supervisor/supervisor_delegate', ret);
+		}
+		ret.userInfos= docs;
+		res.render('supervisor/supervisor_delegate', ret);
 	});
-
+	
 });
 
 module.exports = router;
