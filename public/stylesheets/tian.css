@@ -1,0 +1,24 @@
+body {
+	margin:0;
+	padding: 0;
+}
+.total{
+	width: 1000px;
+	height: 1600px;
+	background: #f9238f;
+	border:1px solid blue;
+	background-color:rgba(0,61, 119, 0.28);
+	transparancy: ;
+}
+
+.window {
+	font-size: 45px;
+    background: #00FFFF;
+    height: 900px;
+    width:800px;
+    margin-top: 400px;
+    margin-left:100px;
+    margin-right:300px;
+    border-radius: 5%;
+
+}
