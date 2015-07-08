@@ -1,6 +1,31 @@
 extends ../layout.jade
+append links
+    link(rel="stylesheet" href="/datepicker/css/datepicker.css")
+append scripts
+    script(src="/datepicker/js/bootstrap-datepicker.js")
+    script(type="text/javascript").
+        $(function(){
+            var showing = false;
+            $('.datePick').on('click', function(e) {
+                if(showing){
+                    $(this).datepicker('hide');
+                    showing= false;
+                }else{
+                    $(this).datepicker('show');
+                    showing= true;
+                }
+            });
 
-block content
+            $('.datePick').on('changeDate', function(e){
+                if(showing){
+                    $(this).datepicker('hide');
+                    showing= false;
+                }
+            });
+        });
+
+        
+block content    
     h1 UserForm
     p= test
     if attr
@@ -19,6 +44,12 @@ block content
                 td= tr('userform_name')
                 td
                     input(name="name" type='text')
+                    
+            tr
+                td= tr('create_date')
+                td
+                    input.datePick(data-date-format="yyyy-mm-dd" name="createDate" type='text')        
+            
             tr
                 td= tr('userform_sex')
                 td
@@ -30,7 +61,8 @@ block content
                 td= tr('userform_email')
                 td
                     input(name="email" type="text")
-
+    
+            
             tr
                 td= tr('userform_compname')
                 td
@@ -49,18 +81,30 @@ block content
                 td= tr('userform_tel')
                 td
                     input(name="tel" type="text")
-            tr
-                td= tr('userform_dpt')
-                td
-                    input(name="dptname" type="text")
+            
             tr
                 td= tr('userform_rate')
                 td
                     input(name="rate" type="text")
+                    
+            tr
+                td= tr('isOwner?')
+                td
+                    input(type="radio" id="isowner" name="owner" value="1")
+                    label(for="isowner")= tr('Is Owner')
+                    input(type="radio" id="notowner" name="owner" value="0")
+                    label(for="notowner")= tr('Not Owner')
+            
             tr
                 td= tr('remark')
                 td
                     textarea(name="remark")
+            
+            tr
+                td= tr('avatar_url')
+                td
+                    input(name="avatar" type="text")
+            
             tr
                 td(colspan=2)
                     input(type="submit" value="#{tr('submit')}")

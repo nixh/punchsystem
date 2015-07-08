@@ -3,28 +3,41 @@ var router = express.Router();
 
 var utils = require("../utils");
 
+function trim(s){
+	return (s || '').replace(/^\s+|\s+$/g, '');
+};
+
 /* GET users listing. */
 function addUser(req, res, next){
 	var db = req.db;
 	var col = db.get('users');
 
 	var body = req.body;
-	var userid = parseInt(body.userid);
-	if(isNaN(userid))
-		userid = body.userid;
+	var userid = body.userid;
+	// if(isNaN(userid))
+	// 	userid = body.userid;
+
+	var addr = trim(body.address_street) +"|" + trim(body.address_city) + "|" + trim(body.address_state) + "|" + trim(body.address_zip);
+	console.log(addr);
 
 	// var addr = body.
+
+	console.log(body.createDate);
 	col.insert(
 		{
 			"userid": userid,
 			"password": body.pwd,
+			"createDate": body.createDate,
 			"name": body.name,
 			"sex": !!parseInt(body.sex),
 			"email": body.email,
+			"address": addr,
 			"tel": body.tel,
 			"compid": body.compname,
 			"curRate": body.rate,
 			"remark": body.remark,
+			"avatar": body.avatar,
+			"owner": !!parseInt(body.owner)
 		},
 
 		function(err, doc){
@@ -44,18 +57,18 @@ function getUsers(req, res, next){
 
 	var body = req.body;
 
-	var userid = parseInt(body.userid);
-	if(isNaN(userid))
-		userid = body.userid;
+	var userid = body.userid;
+	// if(isNaN(userid))
+	// 	userid = body.userid;
 
 	console.log(userid);
-	console.log(body);
+	console.log(req.body);
 
 	col.find(
-		{"userid": userid
-			// {
-			// 	$regex: userid
-			// }
+		{"userid":
+			{
+				$regex: userid
+			}
 		},
 
 		{},
@@ -118,10 +131,10 @@ function getUserInfo(req, res, next){
 	var userid = req.params.id;
 	console.log(userid);
 
-	var userid = parseInt(userid);
-	if(isNaN(userid)){
-		userid = req.params.id;
-	}
+	var userid = userid;
+	// if(isNaN(userid)){
+	// 	userid = req.params.id;
+	// }
 
 	col.findOne(
 		{
@@ -136,6 +149,16 @@ function getUserInfo(req, res, next){
 
 				console.log(JSON.stringify(doc));
 
+				if(doc && doc.address){
+					var addr = doc.address.split("|");
+
+					console.log(addr);
+					doc['address_street'] = addr[0];
+					doc['address_city'] = addr[1];
+					doc['address_state'] = addr[2];
+					doc['address_zip'] = addr[3];
+				}
+				// console.log(doc.address_zip);
 				utils.render(
 					"users/detail",
 					{
@@ -161,7 +184,9 @@ function modUser(req, res, next){
 	var username = body.name;
 	var createDate = body.createDate;
 	var sex = body.sex;
-	var addr = body.address;
+
+	var addr = trim(body.address_street) +"|" + trim(body.address_city) + "|" + trim(body.address_state) + "|" + trim(body.address_zip);
+
 	var tel = body.tel;
 	var password = body.pwd;
 	var currentHourlyRate = body.curRate;

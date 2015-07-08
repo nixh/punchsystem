@@ -29,5 +29,10 @@
 	"userform_compname": "userform_compname",
 	"userid": "userid",
 	"password": "password",
-	"Search": "Search"
+	"Search": "Search",
+	"create_date": "create_date",
+	"isOwner?": "isOwner?",
+	"Is Owner": "Is Owner",
+	"Not Owner": "Not Owner",
+	"avatar_url": "avatar_url"
 }
