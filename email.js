@@ -58,7 +58,7 @@ function ServerEmailModule(conf) {
     }
 }
 
-// var email = ServerEmailModule();
-// email.sendEmail('saiqiuli@gmail.com', '', 'new test!', 'haha i am a <i>html content</i>.', ['test,test1,test2\n1,2,3']);
+//var email = ServerEmailModule();
+//email.sendEmail('saiqiuli@gmail.com', '', 'new test!', 'haha i am a <i>html content</i>.', ['test,test1,test2\n1,2,3']);
 
 module.exports = ServerEmailModule;
