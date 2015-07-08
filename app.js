@@ -43,12 +43,9 @@ app.use(function(req,res,next){
     req.db=db;
     next();
 });
-<<<<<<< HEAD
-//
-=======
 app.use(authentication());
 
->>>>>>> 09781751b99de7de4c5a6839f73315c9546e6007
+
 i18n.configure({
     locales : ['en', 'cn'],
     directory : path.join(__dirname, 'i18n/locales'),

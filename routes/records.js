@@ -54,7 +54,7 @@ function insertRecords(req, res) {
 }
 
 function deleteRecords(req, res) {
-	//var rid = req.params.rid;
+	var rid = req.params.rid;
 	var rid = parseInt(req.params.rid);
 	var records = db.get('records');
 	var query = {reportid: rid};
