@@ -21,11 +21,15 @@ block content
 				th(style="padding: 10px") Name
 				th(style="padding: 10px") Id
 				th(style="padding: 10px") Tools
+				th(style="padding: 10px") Records
 
 			each user, i in userlist
 				tr
 					td( style="padding: 10px")= user.name
 					td(style="padding: 10px")
 						a(href="/users/change/#{user.userid}" target="_blank")= user.userid
+
+					td(style="padding: 10px")= user.remark
 					td(style="padding: 10px")
-						a(href="/records/records_search/") Records
+
+						a(href="/records/records_show/#{user.userid}" target="_blank") View

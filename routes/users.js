@@ -3,11 +3,13 @@ var router = express.Router();
 
 var utils = require("../utils");
 
+
+// Strip spaces of a string
 function trim(s){
 	return (s || '').replace(/^\s+|\s+$/g, '');
 };
 
-/* GET users listing. */
+//Add a user
 function addUser(req, res, next){
 	var db = req.db;
 	var col = db.get('users');
@@ -50,6 +52,7 @@ function addUser(req, res, next){
 	);
 };
 
+// Get the users searched
 function getUsers(req, res, next){
 
 	var db = req.db;
@@ -99,6 +102,7 @@ function getUsers(req, res, next){
 	);
 };
 
+// Get all usres for default search page
 function getAllUsers(req, res, next){
 	var db = req.db;
 	var col = db.get('users');
@@ -124,6 +128,7 @@ function getAllUsers(req, res, next){
 	});
 };
 
+// Get the info of the specified user
 function getUserInfo(req, res, next){
 	var db = req.db;
 	var col = db.get('users');
@@ -170,7 +175,7 @@ function getUserInfo(req, res, next){
 	);
 }
 
-
+// Modify a user
 function modUser(req, res, next){
 	var db = req.db;
 	var col = db.get('users');
@@ -220,6 +225,8 @@ function modUser(req, res, next){
 	);
 };
 
+
+// Delete the user
 function delUser(req, res, next){
 
 	var db = req.db;
@@ -244,17 +251,20 @@ function delUser(req, res, next){
 	});
 };
 
-// Display all users and search users
-router.get('/search', getAllUsers);
-router.post('/search', getUsers);
-
 // Add a new user
 router.get('/add', utils.render('users/adduser', {title: 'UserAdd'}));
 router.post('/add', addUser);
 
+
+// Display all users and search users
+router.get('/search', getAllUsers);
+router.post('/search', getUsers);
+
+//Change the info of a specific user
 router.get('/change/:id', getUserInfo);
 router.post('/change', modUser);
 
+//Delete user
 router.post('/delete', delUser);
 
 router.addUser = addUser;
@@ -263,6 +273,3 @@ router.modUser = modUser;
 router.delUser = delUser;
 
 module.exports = router;
-
-
-// router.get('/get', getUser);

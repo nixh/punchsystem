@@ -1,4 +1,10 @@
 extends layout
+
+append links
+  link(rel= "stylesheet" href= "/datepicker/css/datepicker.css")
+append scripts
+  script(src="/datepicker/js/bootstrap-datepicker.js")
+
 block content
     #punch
         form(action='/records/records_search' method='post')
@@ -7,6 +13,7 @@ block content
           br
           | End Date: 
           input.datePick(type='text', name='enddate')
+          input(type="hidden" name='userid' value="#{userid}")
           input(type='submit' value='Search')/
     script.
         $(function(){
@@ -44,8 +51,8 @@ block content
                 th= tr('cmdtool')
             each report, i in reports 
                 tr
-                    td= report.intime
-                    td= report.outtime
+                    td= new Date(report.intime)
+                    td= new Date(report.outtime)
                     td= report.hourlyrate
                     td
                         .cmdtool
