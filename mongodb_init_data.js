@@ -4,7 +4,7 @@ db.dropDatabase();
 use punchsystem
 
 function getRandomNumber(max) {
-    return Math.floor(Math.random()*max);
+    return Math.ceil(Math.random()*max);
 }
 
 //initialize Company data
@@ -46,7 +46,7 @@ for(var i=0; i<userNumber; i++) {
 
 }
 
-//initialize reports 
+//initialize reports
 
 function hourToMillis(hour) {
     return hour * 3600 * 1000;
@@ -108,7 +108,7 @@ for(var i=0; i<companyNumber; i++) {
             var index = getRandomNumber(user_array.length);
             user = user_array[index];
         }
-        
+
         db.delegation.insert({
             compid: i+1,
             userid: user.userid,
@@ -116,4 +116,3 @@ for(var i=0; i<companyNumber; i++) {
         })
     }
 }
-

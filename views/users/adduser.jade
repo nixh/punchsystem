@@ -30,7 +30,7 @@ block content
     p= test
     if attr
         p= attr.msg
-    form(action="/users/add" method="POST")
+    form#addform
         table(border=1)
             tr
                 td= tr('userform_userid')
@@ -105,6 +105,20 @@ block content
                 td
                     input(name="avatar" type="text")
             
-            tr
-                td(colspan=2)
-                    input(type="submit" value="#{tr('submit')}")
+            
+        input#sub(type="submit" value="#{tr('submit')}")
+        input#back(type="button" value ="Back")
+    
+    script.
+        var $form = $('#addform');
+        $('#sub').click(function(){
+            $form.attr('action', '/users/add');
+            $form.attr('method', 'post');
+            $form.submit();
+        });
+        
+        $('#back').click(function(){
+            $form.attr('action', "/users/search");
+            $form.attr('method', 'post');
+            $form.submit();
+        });

@@ -26,7 +26,7 @@ append scripts
         });
 
 block content
-    h1 Change User Info
+    h1 Modify User Info
     
     if msg
         p= msg
@@ -40,70 +40,67 @@ block content
                 tr
                     td= tr('userform_userid')
                     td
-                        input(name="userid" type="text" value="#{userinfo.userid}")
+                        input( name="userid" type="text" value="#{userinfo.userid}" )
                 tr
                     td= tr('userform_pwd')
                     td
-                        input(name="pwd" type='text' value="#{userinfo.password}")
+                        input(  name="pwd" type='text' value="#{userinfo.password}" )
                 tr
                     td= tr('userform_name')
                     td
-                        input(name="name" type='text' value="#{userinfo.name}")
+                        input(  name="name" type='text' value="#{userinfo.name}")
                 tr
                     td= tr('create_date')
                     td
-                        input.datePick(data-date-format="yyyy-mm-dd" name="createDate" type='text' value="#{userinfo.createDate}")
-                
-                
+                        input.datePick(  data-date-format="yyyy-mm-dd" name="createDate" type='text' value="#{userinfo.createDate}" )
                 tr
                     td= tr('userform_sex')
                     td
                         -var male = userinfo.sex
                         -var female = !userinfo.sex
-                        input(type="radio" checked=male id="male_rd" name="sex" value="1")
+                        input(type="radio" checked=male id="male_rd" name="sex" value="1" )
                         label(for="male_rd")= tr('sex_male')
-                        input(type="radio" checked=female id="female_rd" name="sex" value="0")
+                        input( type="radio" checked=female id="female_rd" name="sex" value="0")
                         label(for="female_rd")= tr('sex_female')
                 tr
                     td= tr('userform_email')
                     td
-                        input(name="email" type="text" value="#{userinfo.email}")
+                        input( name="email" type="text" value="#{userinfo.email}" )
 
-                // Company name no need to change
-                //- tr
-                //-     td= tr('userform_compname')
-                //-     td
-                //-         input(name="compname" tpye="text" value="#{userinfo.compid}")
+                tr
+                    td= tr('userform_compname')
+                    td
+                        input(name="compname" tpye="text" value="#{userinfo.compid}" )
                 tr
                     td(colspan=2)
                         label(for="address_street")= tr('userform_address_street')
-                        input(id="address_street" name="address_street" type="text" value="#{userinfo.address_street}")
+                        input(id="address_street" name="address_street" type="text" value="#{userinfo.address_street}" )
                         label(for="address_city")= tr('userform_address_city')
-                        input(id="address_city" name="address_city" type="text" value = "#{userinfo.address_city}")  
+                        input(id="address_city" name="address_city" type="text" value = "#{userinfo.address_city}" )  
                         label(for="address_state")= tr('userform_address_state')
-                        input(id="address_state" name="address_state" type="text" value = "#{userinfo.address_state}")
+                        input(id="address_state" name="address_state" type="text" value = "#{userinfo.address_state}" )
                         label(for="address_zip")= tr('userform_address_zip')
-                        input(id="address_zip" name="address_zip" type="text" value = "#{userinfo.address_zip}")
+                        input(id="address_zip" name="address_zip" type="text" value = "#{userinfo.address_zip}" )
                 tr
                     td= tr('userform_tel')
                     td
-                        input(name="tel" type="text" value = "#{userinfo.tel}")
+                        input( name="tel" type="text" value = "#{userinfo.tel}" )
                 
                 tr
                     td= tr('userform_rate')
                     td
-                        input(name="rate" type="text" value = "#{userinfo.curRate}")
+                        input(name="rate" type="text" value = "#{userinfo.curRate}" )
                             
                 tr
                     td= tr('avatar_url')
                     td
-                        input(name="avatar" type="text" value = "#{userinfo.avatar}")
+                        input( name="avatar" type="text" value = "#{userinfo.avatar}" )
                 
                 tr
                     td= tr('remark')
                     td
-                        textarea(name="remark") #{userinfo.remark}
-                
+                        textarea( name="remark" ) #{userinfo.remark}
+            input#back(type="button" value ="Back")
             input#btn1(type="button" value="Submit")
             input#btn2(type="button" value="Delete")
 
@@ -116,7 +113,25 @@ block content
         });
         
         $('#btn2').click(function(){
-            $form.attr('action', "/users/delete");
-            $form.attr('method', 'post');
+        
+            var r = confirm("Are you sure to delete the user?");
+            if(r === true){
+                $form.attr('action', "/users/delete");
+                $form.attr('method', 'post');
+                $form.submit();
+            }
+        });
+        
+        $('#back').click(function(){
+            $form.attr('action', "/users/search");
+            $form.attr('method', 'get');
             $form.submit();
         });
+        
+        //- //- $('#btn2').click(function(){
+        //- //-     if( $('input').attr('readonly')){
+        //- //-         $('input').attr('readonly', null);
+        //- //-     }else{
+        //-         $('inpuit').attr('readonly', 'readonly');
+        //-     }
+        //- });

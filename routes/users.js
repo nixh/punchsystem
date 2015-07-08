@@ -56,6 +56,9 @@ function addUser(req, res, next){
 function getUsers(req, res, next){
 
 	var db = req.db;
+
+	console.log(req.cookies.sessionid);
+
 	var col = db.get('users');
 
 	var body = req.body;
@@ -198,6 +201,9 @@ function modUser(req, res, next){
 	var email = body.email;
 	var compid = body.compname;
 
+	var newid = body.userid;
+	var newpath = "change/" + newid;
+
 	col.update(
 		{
 			'_id': _id
@@ -219,7 +225,7 @@ function modUser(req, res, next){
 			if(err){
 				res.end("Failed to update");
 			}else{
-				res.redirect('search');
+				res.redirect(newpath);
 			}
 		}
 	);
@@ -234,21 +240,19 @@ function delUser(req, res, next){
 
 	var body = req.body;
 
-	var userid = body.userid;
-	var username = "Roman Wang";
-	var createDate = new Date().getTime();
-	var sex = "male";
-	var addr = "1648 80TH ST, Brooklyn, NY";
-	var tel = "9178035096";
-	var currentHourlyRate = "8.75";
+	console.log(body._id);
 
-	col.remove({"userid" : userid}, function(err, doc){
+	var _id = body._id;
+
+
+	col.remove({"_id" : _id}, function(err, doc){
 		if(err){
 			res.send('Failed deleting');
 		}else{
 			res.redirect('search');
 		}
 	});
+
 };
 
 // Add a new user
@@ -259,6 +263,8 @@ router.post('/add', addUser);
 // Display all users and search users
 router.get('/search', getAllUsers);
 router.post('/search', getUsers);
+
+router.get('')
 
 //Change the info of a specific user
 router.get('/change/:id', getUserInfo);
