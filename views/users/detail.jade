@@ -1,5 +1,30 @@
 extends ../layout.jade
 
+append links
+    link(rel="stylesheet" href="/datepicker/css/datepicker.css")
+append scripts
+    script(src="/datepicker/js/bootstrap-datepicker.js")
+    script(type="text/javascript").
+        $(function(){
+            var showing = false;
+            $('.datePick').on('click', function(e) {
+                if(showing){
+                    $(this).datepicker('hide');
+                    showing= false;
+                }else{
+                    $(this).datepicker('show');
+                    showing= true;
+                }
+            });
+
+            $('.datePick').on('changeDate', function(e){
+                if(showing){
+                    $(this).datepicker('hide');
+                    showing= false;
+                }
+            });
+        });
+
 block content
     h1 Change User Info
     
@@ -25,6 +50,12 @@ block content
                     td
                         input(name="name" type='text' value="#{userinfo.name}")
                 tr
+                    td= tr('create_date')
+                    td
+                        input.datePick(data-date-format="yyyy-mm-dd" name="createDate" type='text' value="#{userinfo.createDate}")
+                
+                
+                tr
                     td= tr('userform_sex')
                     td
                         -var male = userinfo.sex
@@ -38,38 +69,42 @@ block content
                     td
                         input(name="email" type="text" value="#{userinfo.email}")
 
-                tr
-                    td= tr('userform_compname')
-                    td
-                        input(name="compname" tpye="text" value="#{userinfo.compid}")
+                // Company name no need to change
+                //- tr
+                //-     td= tr('userform_compname')
+                //-     td
+                //-         input(name="compname" tpye="text" value="#{userinfo.compid}")
                 tr
                     td(colspan=2)
                         label(for="address_street")= tr('userform_address_street')
-                        input(id="address_street" name="address_street" type="text")
+                        input(id="address_street" name="address_street" type="text" value="#{userinfo.address_street}")
                         label(for="address_city")= tr('userform_address_city')
-                        input(id="address_city" name="address_city" type="text")
+                        input(id="address_city" name="address_city" type="text" value = "#{userinfo.address_city}")  
                         label(for="address_state")= tr('userform_address_state')
-                        input(id="address_state" name="address_state" type="text")
+                        input(id="address_state" name="address_state" type="text" value = "#{userinfo.address_state}")
                         label(for="address_zip")= tr('userform_address_zip')
-                        input(id="address_zip" name="address_zip" type="text")
+                        input(id="address_zip" name="address_zip" type="text" value = "#{userinfo.address_zip}")
                 tr
                     td= tr('userform_tel')
                     td
-                        input(name="tel" type="text")
-                tr
-                    td= tr('userform_dpt')
-                    td
-                        input(name="dptname" type="text")
+                        input(name="tel" type="text" value = "#{userinfo.tel}")
+                
                 tr
                     td= tr('userform_rate')
                     td
-                        input(name="rate" type="text")
+                        input(name="rate" type="text" value = "#{userinfo.curRate}")
+                            
+                tr
+                    td= tr('avatar_url')
+                    td
+                        input(name="avatar" type="text" value = "#{userinfo.avatar}")
+                
                 tr
                     td= tr('remark')
                     td
-                        textarea(name="remark")
+                        textarea(name="remark") #{userinfo.remark}
                 
-            input#btn1(type="button" value="Change")
+            input#btn1(type="button" value="Submit")
             input#btn2(type="button" value="Delete")
 
     script.

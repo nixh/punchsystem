@@ -3,68 +3,180 @@ var router = express.Router();
 
 var utils = require("../utils");
 
-/* GET users listing. */
 
+// Strip spaces of a string
+function trim(s){
+	return (s || '').replace(/^\s+|\s+$/g, '');
+};
 
-var getUser = function(req, res, next){
+//Add a user
+function addUser(req, res, next){
+	var db = req.db;
+	var col = db.get('users');
 
-	console.log(req.body);
+	var body = req.body;
+	var userid = body.userid;
+	// if(isNaN(userid))
+	// 	userid = body.userid;
+
+	var addr = trim(body.address_street) +"|" + trim(body.address_city) + "|" + trim(body.address_state) + "|" + trim(body.address_zip);
+	console.log(addr);
+
+	// var addr = body.
+
+	console.log(body.createDate);
+	col.insert(
+		{
+			"userid": userid,
+			"password": body.pwd,
+			"createDate": body.createDate,
+			"name": body.name,
+			"sex": !!parseInt(body.sex),
+			"email": body.email,
+			"address": addr,
+			"tel": body.tel,
+			"compid": body.compname,
+			"curRate": body.rate,
+			"remark": body.remark,
+			"avatar": body.avatar,
+			"owner": !!parseInt(body.owner)
+		},
+
+		function(err, doc){
+			if(err){
+				res.send("Failed to insert new user");
+			}else{
+				res.redirect('search');
+			}
+		}
+	);
+};
+
+// Get the users searched
+function getUsers(req, res, next){
 
 	var db = req.db;
 	var col = db.get('users');
 
 	var body = req.body;
 
+	var userid = body.userid;
+	// if(isNaN(userid))
+	// 	userid = body.userid;
+
+	console.log(userid);
+	console.log(req.body);
+
 	col.find(
-		{"userid": "romanchelsea"},
+		{"userid":
+			{
+				$regex: userid
+			}
+		},
 
-		function(err, doc){
+		{},
+
+		function(err, docs){
 			if(err){
-				res.send("No such username");
-
+				utils.render('users/search', {"title": "Search Error"})(req, res, next);
 			}else{
-				res.json(doc);
+
+				if(docs.length === 0){
+					var title = "No such username";
+				}else{
+					var title = "Searching Results for " + userid;
+				}
+
+				console.log(docs);
+				utils.render(
+					'users/search',
+					{
+						"searth_term": userid,
+						"title": title,
+						"userlist": docs
+					}
+				)(req, res, next);
+
 			}
 		}
 	);
 };
 
-
-var addUser = function(req, res, next) {
+// Get all usres for default search page
+function getAllUsers(req, res, next){
 	var db = req.db;
 	var col = db.get('users');
 
-	var userid = "romanchelsea";
-	var username = "Roman Wang";
-	var createDate = new Date().getTime();
-	var sex = "male";
-	var addr = "1648 80TH ST, Brooklyn, NY";
-	var tel = "9178035096";
-	var password = '12345678';
-	var currentHourlyRate = "8.75";
-	var email = "romanwang888@gmail.com";
-
-	col.insert({
-		"userid": userid,
-		"name": username,
-		"createDate": createDate,
-		"password": password,
-		"sex": sex,
-		"email": email,
-		"address": addr,
-		"tel": tel,
-		"curRate": currentHourlyRate
-	}, function(err, doc){
+	col.find({}, {}, function(err, docs){
 		if(err){
-			res.send("Insertion fail");
+			utils.render('users/serach', {"title": "Loading Users Error!"})(req, res, next);
 		}else{
-			res.send("Insertion success");
+			if(docs.length === 0){
+				var title = "There is not even one user!";
+			}else{
+				var title = "All User List";
+			}
+
+			utils.render(
+				'users/search',
+				{
+					"title": title,
+					"userlist": docs
+				}
+			)(req, res, next);
 		}
 	});
 };
 
-var modUser = function(req, res, next){
+// Get the info of the specified user
+function getUserInfo(req, res, next){
+	var db = req.db;
+	var col = db.get('users');
 
+	var userid = req.params.id;
+	console.log(userid);
+
+	var userid = userid;
+	// if(isNaN(userid)){
+	// 	userid = req.params.id;
+	// }
+
+	col.findOne(
+		{
+			"userid": userid
+		},
+
+		function(err, doc){
+			if(err){
+				res.send("Failed to changed the user info");
+				console.log(doc + "woca");
+			}else{
+
+				console.log(JSON.stringify(doc));
+
+				if(doc && doc.address){
+					var addr = doc.address.split("|");
+
+					console.log(addr);
+					doc['address_street'] = addr[0];
+					doc['address_city'] = addr[1];
+					doc['address_state'] = addr[2];
+					doc['address_zip'] = addr[3];
+				}
+				// console.log(doc.address_zip);
+				utils.render(
+					"users/detail",
+					{
+						"userinfo": doc
+					}
+				)(req, res, next);
+			}
+		}
+	);
+}
+
+// Modify a user
+function modUser(req, res, next){
 	var db = req.db;
 	var col = db.get('users');
 	var body = req.body;
@@ -77,7 +189,9 @@ var modUser = function(req, res, next){
 	var username = body.name;
 	var createDate = body.createDate;
 	var sex = body.sex;
-	var addr = body.address;
+
+	var addr = trim(body.address_street) +"|" + trim(body.address_city) + "|" + trim(body.address_state) + "|" + trim(body.address_zip);
+
 	var tel = body.tel;
 	var password = body.pwd;
 	var currentHourlyRate = body.curRate;
@@ -105,14 +219,15 @@ var modUser = function(req, res, next){
 			if(err){
 				res.end("Failed to update");
 			}else{
-				var path = "change/" + userid;
-				res.redirect(path);
+				res.redirect('search');
 			}
 		}
 	);
 };
 
-var delUser = function(req, res, next){
+
+// Delete the user
+function delUser(req, res, next){
 
 	var db = req.db;
 	var col = db.get('users');
@@ -131,157 +246,29 @@ var delUser = function(req, res, next){
 		if(err){
 			res.send('Failed deleting');
 		}else{
-			res.send('Successfully deleted');
+			res.redirect('search');
 		}
 	});
 };
 
-router.get('/search', utils.render('users/search', {"title": "Search a user"}));
-
-router.post('/search', function(req, res, next){
-
-	var db = req.db;
-	var col = db.get('users');
-
-	var body = req.body;
-
-	var userid = parseInt(body.userid);
-	if(isNaN(userid))
-		userid = body.userid;
-
-	console.log(body);
-
-	col.find(
-		{"userid":
-			{
-				$regex: userid
-			}
-		},
-
-		{},
-
-		function(err, docs){
-			if(err){
-				utils.render('users/search', {"title": "Search Error"})(req, res, next);
-			}else{
-
-				if(docs.length === 0){
-					var title = "No such username";
-				}else{
-					var title = "Searching Results for " + userid;
-				}
-
-					console.log(docs);
-					utils.render(
-						'users/search',
-						{
-							"searth_term": userid,
-							"title": title,
-							"userlist": docs
-						}
-					)(req, res, next);
-
-			}
-		}
-	);
-});
-
-router.get('/change/:id', function(req, res, next){
-	var db = req.db;
-	var col = db.get('users');
-
-	var userid = req.params.id;
-	console.log(userid);
-
-	var userid = parseInt(userid);
-	if(isNaN(userid)){
-		userid = req.params.id;
-	}
-
-
-	col.findOne(
-		{
-			"userid": userid
-		},
-
-		function(err, doc){
-			if(err){
-				res.send("Failed to changed the user info");
-				console.log(doc + "woca");
-			}else{
-
-				console.log(JSON.stringify(doc));
-
-				utils.render(
-					"users/changeUser",
-					{
-						"userinfo": doc
-					}
-				)(req, res, next);
-			}
-		}
-	);
-});
-
+// Add a new user
 router.get('/add', utils.render('users/adduser', {title: 'UserAdd'}));
+router.post('/add', addUser);
 
-router.post('/add', function(req, res, next){
-	console.log(doc);
 
-	utils.render(
-		'users/search',
-		{
-			"title": title,
-			"userlist": docs
-		}
-	)(req, res, next);
+// Display all users and search users
+router.get('/search', getAllUsers);
+router.post('/search', getUsers);
 
-	var db = req.db;
-	var col = db.get('users');
-
-	var body = req.body;
-
-	col.insert(
-		{
-			"userid": body.userid,
-			"password": body.pwd,
-			"name": body.name,
-			"sex": !!parseInt(body.sex),
-			"email": body.email,
-			"tel": body.tel,
-			"compid": body.compname,
-			"curRate": body.rate,
-			"remark": body.remark,
-		},
-
-		function(err, doc){
-			if(err){
-				res.send("Failed to insert new user");
-			}else{
-				res.render(
-					'users/adduser',
-					{
-						title: 'UserAdd',
-						tr: res.__,
-						attr:
-						{
-							msg: 'insert success'
-						}
-					}
-				);
-			}
-		}
-	);
-
-});
-
-router.get('/get', getUser);
-router.get('/insert', addUser);
+//Change the info of a specific user
+router.get('/change/:id', getUserInfo);
 router.post('/change', modUser);
+
+//Delete user
 router.post('/delete', delUser);
 
 router.addUser = addUser;
-router.getUser = getUser;
+router.getUsers = getUsers;
 router.modUser = modUser;
 router.delUser = delUser;
 

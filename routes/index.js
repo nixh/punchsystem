@@ -31,9 +31,13 @@ function login(loginObj, cb) {
     var userCol = db.get('users');
     var shapwd = sha(loginObj.password);
     shapwd = loginObj.password;
+    var userid = loginObj.userid;
+    userid = parseInt(userid);
+    if(isNaN(userid))
+        userid = loginObj.userid;
 
     userCol.findOne({
-        userid: parseInt(loginObj.userId),
+        userid: userid,
         password: shapwd
     }, {}, cb);
 }
@@ -67,7 +71,8 @@ function postLogin(req, res, next) {
             userid: doc.userid,
             name: doc.name,
             compid: doc.compid,
-            ip: req.ip
+            ip: req.ip,
+            compowner: doc.owner
         };
 
         var session = db.get('session');

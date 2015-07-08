@@ -28,6 +28,11 @@
 	"remark": "remark",
 	"userform_compname": "userform_compname",
 	"userid": "userid",
-	"password": "password"
-
+	"password": "password",
+	"Search": "Search",
+	"create_date": "create_date",
+	"isOwner?": "isOwner?",
+	"Is Owner": "Is Owner",
+	"Not Owner": "Not Owner",
+	"avatar_url": "avatar_url"
 }
