@@ -51,7 +51,7 @@ function insertRecords(req, res) {
 			res.send('Can not connect to db');
 		}
 	});
-};
+}
 
 function deleteRecords(req, res) {
 	//var rid = req.params.rid;
@@ -68,7 +68,7 @@ function deleteRecords(req, res) {
         });
   		}
   	});
-};
+}
 
 //While updating datas in the database, we need to update the information that input
 function updateRecords(req, res) {
@@ -117,7 +117,7 @@ function searchRecords(req, res) {
           });
         }
     });
-};
+}
 
 function showRecords(req, res) {
     console.log(req.params.uid);
