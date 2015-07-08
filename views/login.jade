@@ -1,10 +1,12 @@
 extends layout
 
+prepend links
+    link(rel='stylesheet', href='/stylesheets/style.css')
 append links
-	link(rel="stylesheet" href= "/tagbox/fm.tagator.jquery.css")
+    link(rel="stylesheet" href= "/tagbox/fm.tagator.jquery.css")
 
 append scripts
-	script(src="/tagbox/fm.tagator.jquery.js")
+    script(src="/tagbox/fm.tagator.jquery.js")
 
 block content
     .loginpage
@@ -20,7 +22,6 @@ block content
                     img(src="/images/circle3.png" width="150" height="150" alt= "panda")
                 .loadinglogo.hidden
                     img(src="/images/circle4.png" width="150" height="150" alt= "panda")
-    
         script(type="text/javascript").
             var $loadings = $('.loadinglogo');
             var counter=0;
@@ -44,18 +45,18 @@ block content
             form(method="POST" autocomplete="off") 
                 table
                     tr
-                        td
-                            img(src="/images/username.png" width=50 height=50)
+                        td(style="padding-right:40px;")
+                            img.icon(src="/images/username.png")
                         td 
                             input(id="userid" name="userid" type="text")
                     tr
-                        td
-                            img(src="/images/password icon.png" width=40 height=50)
+                        td(style="padding-right:40px;")
+                            img.icon(src="/images/password icon.png" width=40 height=50)
                         td 
                             input(id="password" name="password" type="password")
                     tr
-                        td
-                            img(src="/images/submit icon.png" alt="sign logo" width=50 height=50)
+                        td(style="padding-right:40px;")
+                            img.icon(src="/images/submit icon.png" alt="sign logo" width=50 height=50)
                         td
                             input(type= "hidden" name= 'loginKey' value="#{loginKey}")
                             input(type= 'submit' value= 'Sign In')

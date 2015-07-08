@@ -54,26 +54,27 @@ function insertRecords(req, res) {
 };
 
 function deleteRecords(req, res) {
-	var rid = req.params.rid;
-	console.log(rid);
+	//var rid = req.params.rid;
+	var rid = parseInt(req.params.rid);
 	var records = db.get('records');
 	var query = {reportid: rid};
 	records.remove(query, function(err, docs) {
   		if (err) {
   			res.send('<p>Fail to delete</p>');
   		} else {
-  			res.send('<p>Successfully delete hahah</p>');
+  			records.findOne({reportid: rid}, function(err, docs) {
+          res.send('<p>Successfully delete</p>');
+          //res.redirect('/records_show/:docs.userid');
+        });
   		}
   	});
 };
 
 //While updating datas in the database, we need to update the information that input
 function updateRecords(req, res) {
-	var rid = req.params.rid;
+	var rid = parseInt(req.params.rid);
 	var starttime = new Date().getTime();
 	var endtime = new Date().getTime();
-	//var starttime = Date.parse(req.body.startdate);
-	//var endtime = Date.parse(req.body.enddate);
 	var records = db.get('records');
 	records.update({reportid: rid}, {"$set" : {"inDate": starttime, "outDate": endtime}}, function(err, docs) {
 				  	if (err) {
@@ -87,37 +88,75 @@ function updateRecords(req, res) {
 function searchRecords(req, res) {
 	var starttime = Date.parse(req.body.startdate);
 	var endtime = Date.parse(req.body.enddate);
-	var records = db.get('records');
-	var jsonData = {};
-	var userid = 1;
+	var userid = parseInt(req.body.userid);
+    var records = db.get('records');
 	var query = {inDate : {"$gte" : starttime} , outDate : {"$lte": endtime}, userid: userid};
 	records.find(query, {limit: 30}, function(err, docs) {
-		if (err) {
-			res.send('Unable to search Records!');
-		} else {
-			jsonData.reports = [];
-			docs.forEach(function(doc, index){
-			var report = {};
-			report.intime = doc.inDate;
-			report.outtime = doc.outDate;
-			report.hourlyrate = doc.hourlyRate;
-			jsonData.reports.push(report);
-		});
-		//jsonData.username = db.users.findOne({userid:　userid}, {"name": 1});
-		db.get("users").findOne({userid:　userid}, {"name": 1}, function(err, docs) {
-			jsonData.username = docs.name;
-		});
-		jsonData.tr = res.__;
-		res.render('user_report', jsonData);
-		//res.json(docs);
-		}
-	});
+        if (err) {
+            res.send('System busy, try again!');
+        } else {
+          jsonData = {};
+          jsonData.reports = [];
+          docs.forEach(function(doc, index) {
+              var report = {};
+              report.reportid = doc.reportid;
+              report.intime = doc.inDate;
+              report.outtime = doc.outDate;
+              report.hourlyrate = doc.hourlyRate;
+              jsonData.reports.push(report);
+          });
+          db.get("users").findOne({userid:　userid}, function(err, docs) {
+              if (err) {
+                  res.send('Can not get username');
+              } else {
+                  jsonData.username = docs.name;
+                  jsonData.userid = userid;
+              }
+              jsonData.tr = res.__; //What does this mean?
+              res.render('user_report', jsonData);
+          });
+        }
+    });
 };
 
+function showRecords(req, res) {
+    console.log(req.params.uid);
+    var userid = parseInt(req.params.uid);
+    var records = db.get('records');
+    var jsonData = {};
+    var query = {userid: userid};
+    records.find(query, function(err, docs) {
+        if (err) {
+            res.send('System busy, try again!');
+        } else {
+            jsonData.reports = [];
+            docs.forEach(function(doc, index) {
+                var report = {};
+                report.reportid = doc.reportid;
+                report.intime = doc.inDate;
+                report.outtime = doc.outDate;
+                report.hourlyrate = doc.hourlyRate;
+                jsonData.reports.push(report);
+            });
+            db.get("users").findOne({userid:　userid}, function(err, docs) {
+                if (err) {
+                  res.send('Can not get username');
+                } else {
+                  jsonData.username = docs.name;
+                  jsonData.userid = userid;
+                }
+                jsonData.tr = res.__; //What does this mean?
+                res.render('user_report', jsonData);
+            });
+        }
+    });
+}
+
 router.get('/records_punch', insertRecords);
-router.get('/records_delete', deleteRecords);
+router.get('/records_delete/:rid', deleteRecords);
 router.post('/records_search', searchRecords);
-router.get('/records_update', updateRecords);
+router.get('/records_show/:uid', showRecords)
+router.get('/records_update/:rid', updateRecords);
 
 router.insertRecords = insertRecords;
 router.deleteRecords = deleteRecords;

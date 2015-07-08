@@ -1,2 +1,9 @@
-{ "appKey": "40034f1c7050c8c1e4b8e2a09fddc6b3cc36d94e45cf38b23e1d9359bbf0949a" }
-
+{
+    "appKey": "40034f1c7050c8c1e4b8e2a09fddc6b3cc36d94e45cf38b23e1d9359bbf0949a",
+    "email.server": {
+        "account": "report@adminsys.us",
+        "password": "Future123456#",
+        "host": "adminsys.us",
+        "ssl": false
+    }
+}

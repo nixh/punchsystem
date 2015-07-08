@@ -29,7 +29,7 @@ var userNumber = 200;
 for(var i=0; i<userNumber; i++) {
     var compid = getRandomNumber(companyNumber);
     db.users.insert({
-        userid: i+1,
+        userid: 'LoginName_'+(i+1),
         name: 'UserName_' + (i+1),
         createDate: new Date().getTime(),
         password : '123123123',
@@ -53,7 +53,7 @@ function hourToMillis(hour) {
 }
 var users_cursor = db.users.find();
 var report_id_counter = 0;
-var startDate = new Date(2015, 9, 10).getTime();
+var startDate = new Date(2015, 6, 9).getTime();
 users_cursor.forEach(function(doc){
     var userid = doc.userid;
     var compid = doc.compid;
