@@ -109,7 +109,8 @@ router.get('/', function(req, res, next) {
 router.get('/login', loginpage);
 router.post('/login', postLogin);
 
-router.post('/logout', function(req, res, next) {
+router.get('/logout', function(req, res, next) {
+
     db.get('session').remove({
         sessionid: req.cookies.sessionid
     }, function(err, doc) {

@@ -4,7 +4,7 @@ db.dropDatabase();
 use punchsystem
 
 function getRandomNumber(max) {
-    return Math.ceil(Math.random()*max);
+    return Math.floor(Math.random()*max);
 }
 
 //initialize Company data
@@ -37,7 +37,7 @@ for(var i=0; i<userNumber; i++) {
         email: 'useremail'+(i+1)+'@email.com',
         address : '',
         tel : '',
-        compid : compid,
+        compid : compid + 1,
         curRate: 8.75,
         owner : i == 0 ? true : false,
         remark : 'User Remark',

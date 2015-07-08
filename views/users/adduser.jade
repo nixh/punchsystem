@@ -106,11 +106,12 @@ block content
                     input(name="avatar" type="text")
             
             
-        input#sub(type="submit" value="#{tr('submit')}")
+        input#sub(type="button" value="#{tr('submit')}")
         input#back(type="button" value ="Back")
     
     script.
         var $form = $('#addform');
+        
         $('#sub').click(function(){
             $form.attr('action', '/users/add');
             $form.attr('method', 'post');

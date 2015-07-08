@@ -88,7 +88,9 @@ function updateRecords(req, res) {
 function searchRecords(req, res) {
 	var starttime = Date.parse(req.body.startdate);
 	var endtime = Date.parse(req.body.enddate);
-	var userid = parseInt(req.body.userid);
+	// var userid = parseInt(req.body.userid);
+    var userid = req.body.userid;
+    
     var records = db.get('records');
 	var query = {inDate : {"$gte" : starttime} , outDate : {"$lte": endtime}, userid: userid};
 	records.find(query, {limit: 30}, function(err, docs) {
@@ -121,7 +123,8 @@ function searchRecords(req, res) {
 
 function showRecords(req, res) {
     console.log(req.params.uid);
-    var userid = parseInt(req.params.uid);
+    // var userid = parseInt(req.params.uid);
+    var userid = req.params.uid;
     var records = db.get('records');
     var jsonData = {};
     var query = {userid: userid};
