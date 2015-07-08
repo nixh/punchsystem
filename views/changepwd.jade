@@ -25,18 +25,17 @@ html
         p
           | Confirm Password:
           input(type='text', name='confirmpass')
-          br
-      |        Receive Email:
-      button.btn.btn-primary(type='button', data-toggle='collapse', data-target='#demo')
-        | Switch
-      #demo.collapse.in
-        input(type='text', name='receiveemail', value='#{receiveemail.email}')
         br
-        p
-        p
-          | Weekly
-          input(type='radio', name='frequency', value='1')
-          |     Monthly
-          input(type='radio', name='frequency', value='0')
+      |        Receive Email:
+      button.btn.btn-primary(type='button', data-toggle='collapse', data-target='#demo') Switch
+      #demo.collapse.in
+       
+        input(type='text', name='receiveemail', value='#{receiveemail}')
+        br
+        | Weekly
+        input(type='radio', name='frequency', value='1')
+        | Monthly
+        input(type='radio', name='frequency', value='0')
+        br
         input#btn1(type='submit', name='switch button')
         p

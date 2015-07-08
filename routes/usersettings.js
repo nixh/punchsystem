@@ -10,10 +10,16 @@ router.get('/', function(req, res, next){
 
 router.get('/changepwd', function(req, res, next){
 	
+	//var db = req.db;
+	//console.log(123);
+	//db.get('users').findOne({userid:1}, {}, function(err,  doc){
 
 		res.render('changepwd');
-	
+
 });
+	
+	
+
 
 
 router.post('/changepwd', function (req, res) {
@@ -24,36 +30,38 @@ router.post('/changepwd', function (req, res) {
 	
 	
 	userid = parseInt(userid);
-	
-	settings.changepass(userid,oldpass,newpass, function(err, doc){
+	/*settings.savelocation(userid,location,function(err,doc){
 		if(err)
-
-			return res.send("Error!!!");
-	
-	});
+			return res.send("Error!");
+	})*/
+	settings.changepass(userid,oldpass,newpass, function(err, doc){
+		if(err) {
+			 res.send("Error!!!");
+		}
+		//else{
+			//res.render('changepwd');
+		//}
+	})
 
 	settings.receiveemail(userid,function(err,doc){
-		if(err){
+		if(err) {
 			return res.send("Error!");
 		}
-		else{
+		else {
 			//res.redirect('chargepwd')
-			res.render('changepwd',{"receiveemail":doc});
+			var email= doc.email
+			console.log(email);
+			res.render('changepwd',{"receiveemail":email});
 			//res.send(doc);
 		}
 	})
 
 	settings.enablesendemail(userid,req.body.frequency,function(err,doc){
-		if(err)
-				{
-					 res.send("Email Error!");
-
-				}
+		if(err) {
+			res.send("Email Error!");
+		}
 
 	})
+
 })
-
-
-
-
 module.exports = router;
