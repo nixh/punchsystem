@@ -5,3 +5,18 @@ block content
     else
         p <b>Error! </b>
     p= msg
+    p#msg
+    script.
+        var redirectTime = 5;
+        for(var i=0; i<redirectTime; i++) {
+            (function(sec){
+                setTimeout(function() {
+                    var rest = redirectTime-1-sec;
+                    $('#msg').html("page will redirect in " + rest + " seconds!");
+                    if(rest === 0)
+                        location.href = "/login";
+                }, sec*1000 );
+
+            })(i);
+        }
+

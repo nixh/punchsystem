@@ -6,7 +6,6 @@ use punchsystem
 function getRandomNumber(max) {
     return Math.floor(Math.random()*max);
 }
-
 //initialize Company data
 var companyNumber = 50;
 for(var i=0; i<companyNumber; i++) {
@@ -116,4 +115,7 @@ for(var i=0; i<companyNumber; i++) {
         })
     }
 }
+// Initail Sequence data
+var report_seq = db.records.find().sort({reportid:-1}).limit(1).next().reportid;
+db.sequence.insert({'id':'records', seq:report_seq});
 
