@@ -119,6 +119,11 @@ router.get('/logout', function(req, res, next) {
     });
 });
 
+router.get('/message', function(req, res, next){
+    
+    res.render('message', {msg:'Hello'});
+});
+
 router.get('/testdb', function(req, res, next) {
 
     db.get('users').find({}, {}, function(err, docs) {

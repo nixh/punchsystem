@@ -43,7 +43,10 @@ app.use(function(req,res,next){
     req.db=db;
     next();
 });
+<<<<<<< HEAD
 
+=======
+>>>>>>> 58b076c219f95d6248f1942c9de1fba20ad37cec
 app.use(authentication());
 
 i18n.configure({
