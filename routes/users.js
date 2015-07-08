@@ -219,14 +219,53 @@ function delUser(req, res, next){
 	});
 };
 
-// Display all users and search users
-router.get('/search', getAllUsers);
-router.post('/search', getUsers);
+router.get('/change/:id', function(req, res, next){
+	var db = req.db;
+	var col = db.get('users');
+
+	var userid = req.params.id;
+	console.log(userid);
+
+	var userid = parseInt(userid);
+	if(isNaN(userid)){
+		userid = req.params.id;
+	}
+
+
+	col.findOne(
+		{
+			"userid": userid
+		},
+
+		function(err, doc){
+			if(err){
+				res.send("Failed to changed the user info");
+				console.log(doc + "woca");
+			}else{
+
+				console.log(JSON.stringify(doc));
+
+				utils.render(
+					"users/changeUser",
+					{
+						"userinfo": doc
+					}
+				)(req, res, next);
+			}
+		}
+	);
+});
 
 // Add a new user
 router.get('/add', utils.render('users/adduser', {title: 'UserAdd'}));
 router.post('/add', addUser);
 
+
+// Display all users and search users
+router.get('/search', getAllUsers);
+router.post('/search', getUsers);
+
+//Change the info of a specific user
 router.get('/change/:id', getUserInfo);
 router.post('/change', modUser);
 
