@@ -70,7 +70,8 @@ function postLogin(req, res, next) {
             userid: doc.userid,
             name: doc.name,
             compid: doc.compid,
-            ip: req.ip
+            ip: req.ip,
+            compowner: doc.owner
         };
 
         var session = db.get('session');
