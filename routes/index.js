@@ -17,6 +17,7 @@ function sha(text) {
     return sha256.digest('hex');
 }
 
+
 function login(loginObj, cb) {
     loginkey = unescape(loginObj.loginKey);
     try {
@@ -135,5 +136,6 @@ router.get('/cookies', function(req, res, next) {
         cookie_str += key + "=" + cookies[key] + ";<br/>";
     }
 });
+
 
 module.exports = router;

@@ -11,8 +11,13 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var delegate = require('./routes/delegate');
 var comp = require('./routes/comp');
+
+var company=require('./routes/company');
+var usersettings = require('./routes/usersettings');
+
 var records = require('./routes/records');
 var yongred = require('./routes/yongred');
+
 
 
 var mongo = require('mongodb');
@@ -21,10 +26,7 @@ var db = monk('127.0.0.1:27017/punchsystem');
 
 var app = express();
 
-//new code
-var mongo=require('mongodb');
-var monk = require('monk');
-var db=monk('localhost:27017/punchsystem');
+
 //var db=monk('mogodb:192.168.1.112/punchtest');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -41,15 +43,19 @@ app.use(function(req,res,next){
     req.db=db;
     next();
 });
+<<<<<<< HEAD
+//
+=======
 app.use(authentication());
 
+>>>>>>> 09781751b99de7de4c5a6839f73315c9546e6007
 i18n.configure({
     locales : ['en', 'cn'],
     directory : path.join(__dirname, 'i18n/locales'),
     defaultLocale : 'cn',
     cookie : 'lang'
 });
-
+//
 app.use(function(req, res, next){
 	req.db = db;
 	next();
@@ -64,9 +70,15 @@ app.use('/', routes);
 app.use('/yongred', yongred);
 app.use('/users', users);
 app.use('/comp', comp);
+
+app.use('/company',company)
+
 app.use('/records', records);
+
 app.use('/delegate', delegate);
 app.use('/comp', comp);
+
+app.use('/usersettings', usersettings)
 
 
 // catch 404 and forward to error handler
