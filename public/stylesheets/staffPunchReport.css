@@ -1,0 +1,133 @@
+body.bgbody{
+	background-repeat: repeat-y;
+}
+
+.staffPunchPage{
+    width: 100%;
+    border: 1px solid red;
+     font-family: Arial, Helvetica, sans-serif;
+}
+
+.staffPunchPage .startEndTime{
+	border: 2px solid yellow;
+	height: 200px;
+	width: 90%;
+	margin-left: 5%;
+}
+
+/*
+.staffPunchPage .startEndTime .startTime{
+	float: left;
+	width: 45%;
+	height: 100%;
+	border: 2px solid green;
+	text-align: center;
+	margin-left: 30px;
+}
+
+.staffPunchPage .startEndTime .endTime{
+	float: left;
+	width: 45%;
+	height: 100%;
+	border: 2px solid green;
+	text-align: center;
+	margin-left: 30px;
+}
+*/
+
+.staffPunchPage .startEndTime input{
+	width: 360px;
+	height: 60%;
+	margin-top: 50px;
+	border-radius: 40px;
+	background: rgba(255, 255, 255, .40);
+	text-align: center;
+	font-size: 60px;
+	color: #fff;
+}
+
+.staffPunchPage .startEndTime :nth-child(2){
+	float: right;
+}
+
+.staffPunchPage .controlButtons{
+	height: 350px;
+	border: 2px solid orange;
+	width: 90%;
+	margin-left: 5%;
+}
+
+.staffPunchPage .controlButtons .buttonItem{
+	background-color: rgba(0, 61, 119, 0.28);
+	border-radius: 10px;
+	cursor: pointer;
+	float: left;
+	width: 280px;
+	height: 80%;
+	border: 2px solid gray;
+	text-align: center;
+	margin-top: 50px;
+	line-height: 180px;
+	font-size: 50px;
+	color: #fff;
+}
+
+.staffPunchPage .controlButtons :nth-child(2){
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
+.staffPunchPage .reportTable{
+	border: 2px solid green;
+	width: 90%;
+	margin-left: 5%;
+}
+
+.staffPunchPage .reportTable table{
+	margin-top: 20px;
+	width: 100%;
+	border-spacing: 5px;
+	border: collapse: separate;
+}
+
+.staffPunchPage .reportTable table th{
+	border-radius: 10px 10px 0px 0px;
+	border: 2px solid blue;
+	height: 200px;
+	background: rgba(200, 200, 200, .28);
+	color: rgba(0, 61, 119, .5);
+	font-family: "Courier New", Courier, monospace;
+	font-size: 60px;
+}
+
+.staffPunchPage .reportTable table td{
+	border: 2px solid blue;
+	height: 200px;
+	background: rgba(200, 200, 200, .28);
+}
+
+.staffPunchPage .reportTable table th :nth-child(1){
+	width: 15%;
+}
+
+.staffPunchPage .reportTable table th :nth-child(2){
+	width: 35%;
+}
+
+.staffPunchPage .reportTable table th :nth-child(3){
+	width: 35%;
+}
+
+.staffPunchPage .reportTable table th :nth-child(4){
+	width: 15%;
+}
+
+.staffPunchPage .reportTable table ul{
+	list-style: none;
+}
+
+.staffPunchPage .reportTable table li{
+	color: #fff;
+	font-size: 40px;
+	margin: 15px;
+}

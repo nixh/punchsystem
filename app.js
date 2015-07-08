@@ -63,7 +63,7 @@ app.use(function(req, res, next){
 });
 
 app.use('/', routes);
-app.use('/yongred', yongred);
+app.use('/', yongred);
 app.use('/users', users);
 app.use('/comp', comp);
 
