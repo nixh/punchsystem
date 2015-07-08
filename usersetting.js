@@ -1,7 +1,6 @@
 
 var monk = require('monk');
 var mongoUrl = "mongodb://127.0.0.1:27017/punchsystem";
-var schedule = require('node-schedule');
 var email = require("emailjs/email");
 
 
