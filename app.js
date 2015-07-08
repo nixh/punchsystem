@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var i18n = require('i18n');
+var authentication = require('./authentication');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -40,6 +41,7 @@ app.use(function(req,res,next){
     req.db=db;
     next();
 });
+app.use(authentication());
 
 i18n.configure({
     locales : ['en', 'cn'],
