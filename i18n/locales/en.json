@@ -34,5 +34,13 @@
 	"isOwner?": "isOwner?",
 	"Is Owner": "Is Owner",
 	"Not Owner": "Not Owner",
-	"avatar_url": "avatar_url"
+	"avatar_url": "avatar_url",
+	"preivew": "preivew",
+	"export": "export",
+	"punchin": "punchin",
+	"punchout": "punchout",
+	"hourlyrate": "hourlyrate",
+	"cmdtool": "cmdtool",
+	"modify": "modify",
+	"delete": "delete"
 }
