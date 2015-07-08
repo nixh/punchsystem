@@ -1,7 +1,7 @@
 h1.
-	Search
+	Update
 body 
-	form(action="/company/find", method="post")
+	form(action="/company/update", method="post")
 		p ID 
 			input(type="text",name="compid")
 		p Company LOGO 
@@ -10,12 +10,6 @@ body
 					input(type="text",name="username")
 		p Remark
 					input(type="text",name="remark") 
-		p Regest Time
-					input(type="text",name="regdate")
-		p Expire Time
-					input(type="text",name="expdate")
-		p IP
-					input(type="text",name="ip")
 										
 					<br>
 					input(type="submit",value="Submit")

@@ -17,6 +17,7 @@ function sha(text) {
     return sha256.digest('hex');
 }
 
+
 function login(loginObj, cb) {
     loginkey = unescape(loginObj.loginKey);
     try {
@@ -70,7 +71,8 @@ function postLogin(req, res, next) {
             userid: doc.userid,
             name: doc.name,
             compid: doc.compid,
-            ip: req.ip
+            ip: req.ip,
+            compowner: doc.owner
         };
 
         var session = db.get('session');
@@ -134,5 +136,6 @@ router.get('/cookies', function(req, res, next) {
         cookie_str += key + "=" + cookies[key] + ";<br/>";
     }
 });
+
 
 module.exports = router;

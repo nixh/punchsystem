@@ -23,5 +23,11 @@
 	"userform_tel": "userform_tel",
 	"userform_dpt": "userform_dpt",
 	"userform_rate": "userform_rate",
-	"remark": "remark"
+	"remark": "remark",
+	"Search": "Search",
+	"create_date": "create_date",
+	"isOwner?": "isOwner?",
+	"Is Owner": "Is Owner",
+	"Not Owner": "Not Owner",
+	"avatar_url": "avatar_url"
 }
