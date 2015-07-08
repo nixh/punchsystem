@@ -45,18 +45,18 @@ block content
             form(method="POST" autocomplete="off") 
                 table
                     tr
-                        td
-                            img(src="/images/username.png" width=50 height=50)
+                        td(style="padding-right:40px;")
+                            img.icon(src="/images/username.png")
                         td 
                             input(id="userid" name="userid" type="text")
                     tr
-                        td
-                            img(src="/images/password icon.png" width=40 height=50)
+                        td(style="padding-right:40px;")
+                            img.icon(src="/images/password icon.png" width=40 height=50)
                         td 
                             input(id="password" name="password" type="password")
                     tr
-                        td
-                            img(src="/images/submit icon.png" alt="sign logo" width=50 height=50)
+                        td(style="padding-right:40px;")
+                            img.icon(src="/images/submit icon.png" alt="sign logo" width=50 height=50)
                         td
                             input(type= "hidden" name= 'loginKey' value="#{loginKey}")
                             input(type= 'submit' value= 'Sign In')
