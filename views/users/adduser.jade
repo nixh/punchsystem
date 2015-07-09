@@ -26,10 +26,9 @@ append scripts
 
         
 block content    
-    h1 UserForm
-    p= test
+    h1 User Form
     if attr
-        p= attr.msg
+        h3= attr.msg
     form#addform
         table(border=1)
             tr
@@ -39,7 +38,7 @@ block content
             tr
                 td= tr('userform_pwd')
                 td
-                    input(name="pwd" type='text')
+                    input(name="password" type='text')
             tr
                 td= tr('userform_name')
                 td
@@ -64,9 +63,9 @@ block content
     
             
             tr
-                td= tr('userform_compname')
+                td= tr('userform_compid')
                 td
-                    input(name="compname" tpye="text")
+                    input(name="compid" tpye="text")
             tr
                 td(colspan=2)
                     label(for="address_street")= tr('userform_address_street')
@@ -85,7 +84,7 @@ block content
             tr
                 td= tr('userform_rate')
                 td
-                    input(name="rate" type="text")
+                    input(name="curRate" type="text")
                     
             tr
                 td= tr('isOwner?')
@@ -120,6 +119,6 @@ block content
         
         $('#back').click(function(){
             $form.attr('action', "/users/search");
-            $form.attr('method', 'post');
+            $form.attr('method', 'get');
             $form.submit();
         });

@@ -42,5 +42,6 @@
 	"hourlyrate": "hourlyrate",
 	"cmdtool": "cmdtool",
 	"modify": "modify",
-	"delete": "delete"
+	"delete": "delete",
+	"userform_compid": "userform_compid"
 }
