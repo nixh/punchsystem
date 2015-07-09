@@ -17,6 +17,7 @@ router.get('/testdb', function(req, res) {
         }
     });
 });
+
 // When punched by the employee
 function insertRecords(req, res) {
     var sid = req.cookies.sessionid;
@@ -81,7 +82,7 @@ function insertRecords(req, res) {
         });
     });
 }
-
+// Authority of the supervisor
 function deleteRecords(req, res) {
     var rid = parseInt(req.params.rid);
     var records = db.get('records');
@@ -96,8 +97,7 @@ function deleteRecords(req, res) {
         }
     });
 }
-
-//While updating datas in the database, we need to update the information that input
+// Authority of the supervisor
 function updateRecords(req, res) {
     var rid = parseInt(req.params.rid);
     var starttime = new Date().getTime();
@@ -118,12 +118,12 @@ function updateRecords(req, res) {
         }
     });
 }
-
-
+// Authority of both, but will have different views, only have to modifiy the views of the modifiy and delete
 function searchRecords(req, res) {
     var starttime = Date.parse(req.body.startdate);
     var endtime = Date.parse(req.body.enddate);
-    var userid = req.params.uid;
+    var userid = req.body.userid;
+    var su = req.path.search("supervisor");
     var records = db.get('records');
     var query = {inDate : {"$gte" : starttime} , outDate : {"$lte": endtime}, userid: userid};
     records.find(query, {limit: 30}, function(err, docs) {
@@ -131,6 +131,7 @@ function searchRecords(req, res) {
             res.send('System busy, try again!');
         } else {
             jsonData = {};
+            jsonData.su = su;
             jsonData.reports = [];
             docs.forEach(function(doc, index) {
                 var report = {};
@@ -141,7 +142,7 @@ function searchRecords(req, res) {
                 jsonData.reports.push(report);
             });
             db.get("users").findOne({
-                userid: 　userid
+                userid: userid
             }, function(err, docs) {
                 if (err) {
                     res.send('Can not get username');
@@ -155,13 +156,11 @@ function searchRecords(req, res) {
         }
     });
 }
-
+// Authority of both, but will have different views
 function showRecords(req, res) {
-    console.log("showRecords");
     var userid = req.params.uid;
-    console.log(userid);
+    var su = req.path.search("supervisor");
     var records = db.get('records');
-    var jsonData = {};
     var query = {
         userid: userid
     };
@@ -169,6 +168,8 @@ function showRecords(req, res) {
         if (err) {
             res.send('System busy, try again!');
         } else {
+            jsonData = {};
+            jsonData.su = su;
             jsonData.reports = [];
             docs.forEach(function(doc, index) {
                 var report = {};
@@ -193,12 +194,20 @@ function showRecords(req, res) {
         }
     });
 }
-
+// Punch only for users
 router.get('/records_punch', insertRecords);
-router.get('/records_delete/:rid', deleteRecords);
-router.post('/records_search', searchRecords);
-router.get('/records_show/:uid', showRecords)
-router.get('/records_update/:rid', updateRecords);
+// For both with different views
+router.post('/records_search/', searchRecords);
+// For both with different views
+router.get('/records_show/:uid', showRecords);
+// Search records by the supervisor
+router.post('/supervisor/records_search/:uid', searchRecords);
+// Show records to the supervisor
+router.get('/supervisor/records_show/:uid', showRecords);
+// Delete records, only for supervisor
+router.get('/supervisor/records_delete/:rid', deleteRecords);
+// Update records, only for supervisor
+router.get('/supervisor/ecords_update/:rid', updateRecords);
 
 router.insertRecords = insertRecords;
 router.deleteRecords = deleteRecords;
