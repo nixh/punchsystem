@@ -35,7 +35,14 @@ function Utils() {
                 return res.render(tmplPath, data);
             }
         },
-        getConfig: findConfig
+        getConfig: findConfig,
+        base64URLSafeEncode : function(base64) {
+            return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/\=+$/, '');
+        },
+        base64URLSafeDecode : function(base64safe) {
+            base64safe = (base64safe + '===').slice(0, base64safe.length + (base64safe.length % 4));
+            return base64safe.replace(/-/g, '+').replace(/_/g, '/');
+        } 
     }
 }
 
