@@ -7,14 +7,14 @@ append scripts
 
 block content
     #punch
-        form(action='/records/records_search' method='post')
+        form(action='/records_search' method='post')
           | Start Date: 
           input.datePick(type='text', name='startdate')
           br
           | End Date: 
           input.datePick(type='text', name='enddate')
           input(type="hidden" name='userid' value="#{userid}")
-          input(type='submit' value='Search')/
+          input(type='submit' value='Search')
     script.
         $(function(){
             var showing = false;
@@ -48,13 +48,17 @@ block content
                 th= tr('punchin')
                 th= tr('punchout')
                 th= tr('hourlyrate')
-                th= tr('cmdtool')
+                if su != -1
+                    th= tr('cmdtool')
             each report, i in reports 
                 tr
                     td= new Date(report.intime)
                     td= new Date(report.outtime)
                     td= report.hourlyrate
-                    td
-                        .cmdtool
-                            a(href="/records/records_update/#{report.reportid}")= tr('modify')
-                            a(href="/records/records_delete/#{report.reportid}")= tr('delete')
+                    if su != -1
+                        td
+                            .cmdtool
+                            form(name='input', action='/records_delete/#{report.reportid}', method='delete')
+                                input(type='submit', value='delete', method='delete')
+                            form(name='input', action='/records_update/#{report.reportid}', method='get')
+                                input(type='submit', value='modify')
