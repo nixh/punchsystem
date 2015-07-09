@@ -1,14 +1,17 @@
 var utils = require('./utils');
-var db = require('./db/db');
 var _ = require('underscore');
 var monk = require('monk');
 
+var db;
+
 function insertRecord(record, recordsCol) {
     return recordsCol.insert(record);
+    
 }
 
 function updateRecord(query, record, recordsCol) {
     return recordsCol.findAndModify(query, { $set: record }, { new: true });
+   
 }
 
 function newRecordFromUserDoc(userDoc) {
@@ -54,6 +57,7 @@ function Module(settings) {
     if(!this.db) {
         this.db = monk(utils.getConfig('mongodbPath'));
     }
+    db = this.db;
 }
 
 
@@ -62,19 +66,4 @@ Module.prototype = {
 }
 
 module.exports = Module 
-
-var module = new Module;
-
-module.punch('LoginName_1', function(punchPromise){
-    console.log(punchPromise.type)
-    punchPromise.complete(function(err,doc){
-        console.log(doc);
-    });
-});
-
-
-
-
-
-
 

@@ -45,15 +45,10 @@ app.use(function(req, res, next) {
     req.db = db;
     next();
 });
-<<<<<<< HEAD
 
 app.use(authentication());
 
 
-=======
-app.use(authentication());
-
->>>>>>> dev
 i18n.configure({
     locales: ['en', 'cn'],
     directory: path.join(__dirname, 'i18n/locales'),
