@@ -1,0 +1,78 @@
+
+body.bgbody{
+	background-repeat: repeat-y;
+}
+
+.supervisorDelegatePage{
+	width: 100%;
+    border: 1px solid red;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.supervisorDelegatePage .searchDiv{
+	border: 2px solid yellow;
+	height: 300px;
+	width: 100%;
+}
+
+.supervisorDelegatePage .searchDiv input{
+	display: block;
+	height: 100px;
+	border-radius: 50px;
+}
+
+.supervisorDelegatePage .searchDiv form :nth-child(1){
+	background: rgba(0,0,0,0);
+	font-size: 50px;
+	margin-top: 30px;
+	margin-left: 50px;
+	width: 800px;
+	border: 3px solid #fff;
+	color: #fff;
+}
+
+.supervisorDelegatePage .searchDiv form :nth-child(2){
+	-webkit-appearance: none;
+	background: rgba(0, 61, 119, 0.28);
+	margin-top: 20px;
+	margin-left: 60px;
+	font-size: 50px;
+	width: 830px;
+	color: #fff;
+}
+
+.supervisorDelegatePage .delegationTable{
+	border: 2px solid green;
+}
+
+.supervisorDelegatePage .delegationTable table{
+	margin-top: 20px;
+	width: 94%;
+	margin-left: 30px;
+	border-collapse: separate;
+	border-spacing: 5px;
+	text-align: center;
+}
+
+.supervisorDelegatePage .delegationTable table td{
+	background: rgba(200,200,200,0.3);
+	width: 200px;
+	height: 200px;
+	border: 2px solid orange;
+	font-size: 40px;
+	color: #fff;
+}
+
+.supervisorDelegatePage .delegationTable table td:nth-of-type(4){
+	cursor: pointer;
+}
+
+.supervisorDelegatePage .delegationTable table th{
+	background: rgba(200,200,200,0.3);
+	height: 200px;
+	width: 200px;
+	border: 2px solid orange;
+	font-size: 40px;
+	font-family: "Courier New", Courier, monospace;
+	color: rgba(0, 61, 119, 0.8);
+}
