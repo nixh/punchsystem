@@ -1,0 +1,42 @@
+extends ../layout.jade
+
+append links
+    link(rel='stylesheet', href='/stylesheets/staffPunchReport.css')
+block content
+    .staffPunchPage
+        .startEndTime
+            //.startTime 
+            input(type= "text" value="START TIME ") 
+            //.endTime 
+            input(type= "text" value="END TIME ")
+
+        .controlButtons
+            .buttonItem preview
+            .buttonItem export 
+            .buttonItem return 
+
+        .reportTable
+            table 
+                tr
+                    th(colspan= '4') TIME IN / OUT
+
+                -for(var i in clockData)
+                    -var inTime = new Date(clockData[i].timeIn)
+                    -var outTime = new Date(clockData[i].timeIn)
+                    tr
+                        td 
+                            ul
+                                li DOT
+                                li DOT
+                        td
+                            ul.dateList
+                                li.inDate= inTime.getDate()
+                                li.outDate= outTime.getDate()
+                        td
+                            ul.timeList
+                                li.inTime= inTime.getHours()
+                                li.outTime= outTime.getHours()
+                        td
+                            ul
+                                li IN
+                                li OUT
