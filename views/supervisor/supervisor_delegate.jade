@@ -1,28 +1,31 @@
 extends ../layout.jade
 
-block content
-	.searchDiv
-		form 
-			|ID:
-			input(type= "number" name= "ID")
-			input(type= "submit" value= "Search")
+append links
+	link(rel='stylesheet', href='/stylesheets/supervisorDelegate.css')
 
-	.content
-		table 
-			tr.delegateHead
-				th Name
-				th Id
-				th Status
-				th Delegation
-			
-			-for(var r in userInfos)
-				td= userInfos[r].name
-				td= userInfos[r].userid
-				td.status
-				td.delegation
-					a.authorize(href= "#") Authorize
-					a.Revoke.hidden(href= "#") Revoke
-				tr
+block content
+	.supervisorDelegatePage
+		.searchDiv
+			form 
+				input(type= "text" name= "ID" placeholder= " ID#:")
+				input(type= "submit" value= "Search")
+
+		.delegationTable
+			table 
+				tr.delegateHead
+					th Name
+					th Id
+					th Status
+					th Delegation
+				
+				-for(var r in userInfos)
+					td= userInfos[r].name
+					td= userInfos[r].userid
+					td.status
+					td.delegation
+						.authorize(href= "#") Authorize
+						.Revoke.hidden(href= "#") Revoke
+					tr
 
 
 	script.
@@ -40,10 +43,11 @@ block content
 			});
 		}
 
-		$(".delegation > a").each(function(){
+		$(".delegation").each(function(){
 			$(this).on("click", function(ev){
-				$(this).addClass("hidden");
-				$(this).siblings().removeClass("hidden");
+				var hiddenKid = $(this).find('.hidden');
+				hiddenKid.siblings().addClass("hidden");
+				hiddenKid.removeClass("hidden");
 				statusCheck();
 			});
 			statusCheck();

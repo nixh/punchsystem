@@ -11,5 +11,8 @@
     "app.config": {
         "punchRecords.rowLimit": 5,
         "message.redirectAfter": 5
+    },
+    "paths": {
+        "punch" : "http://192.168.1.117:3000/punch/%s"
     }
 }

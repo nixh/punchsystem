@@ -8,7 +8,7 @@ function getNextSenqence(colName, db, fn) {
         query: { id: colName },
         update : { $inc : { seq : 1 } },
         new: true
-    }, fn);            
+    }, fn);
 }
 module.exports = {
     getDb : function() {

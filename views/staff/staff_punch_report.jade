@@ -2,13 +2,31 @@ extends ../layout.jade
 
 append links
     link(rel='stylesheet', href='/stylesheets/staffPunchReport.css')
+    link(rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css")
+    link(rel= "stylesheet" href= "/datepicker/css/datepicker.css")
+append scripts
+    script(src="/datepicker/js/bootstrap-datepicker.js")
+    script(src="/javascripts/datePickerAdjust.js")
+
 block content
+    -function showDate(dateObj){
+    -   var dateStr = dateObj.getMonth() + "-" + dateObj.getDate() + "-" + dateObj.getFullYear();
+    -   return dateStr;
+    -}
+    -function showTime(dateObj){
+    -    var hour = dateObj.getHours();
+    -    var hour12 = hour%12;
+    -    var AM_PM = (hour/12 == 0) ? "AM" : "PM";
+    -    var clockTime= hour12 + ":" + dateObj.getMinutes() + AM_PM;
+    -    return clockTime;
+    -}
+
     .staffPunchPage
         .startEndTime
             //.startTime 
-            input(type= "text" value="START TIME ") 
+            input.useDatePicker(type= "text" value="START TIME ") 
             //.endTime 
-            input(type= "text" value="END TIME ")
+            input.useDatePicker(type= "text" value="END TIME ")
 
         .controlButtons
             .buttonItem preview
@@ -18,11 +36,10 @@ block content
         .reportTable
             table 
                 tr
-                    th(colspan= '4') TIME IN / OUT
-
+                    th(colspan='4') TIME IN / OUT
                 -for(var i in clockData)
                     -var inTime = new Date(clockData[i].timeIn)
-                    -var outTime = new Date(clockData[i].timeIn)
+                    -var outTime = new Date(clockData[i].timeOut)
                     tr
                         td 
                             ul
@@ -30,12 +47,12 @@ block content
                                 li DOT
                         td
                             ul.dateList
-                                li.inDate= inTime.getDate()
-                                li.outDate= outTime.getDate()
+                                li.inDate= showDate(inTime)
+                                li.outDate= showDate(outTime)
                         td
                             ul.timeList
-                                li.inTime= inTime.getHours()
-                                li.outTime= outTime.getHours()
+                                li.inTime= showTime(inTime)
+                                li.outTime= showTime(outTime)
                         td
                             ul
                                 li IN

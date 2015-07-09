@@ -113,6 +113,7 @@ router.get('/', function(req, res, next) {
 router.get('/login', loginpage);
 router.post('/login', postLogin);
 
+
 router.get('/logout', function(req, res, next) {
     var sessionCol = db.get('session');
     sessionCol.findOne({sessionid: req.cookies.sessionid}, {}, function(err, doc){
@@ -128,6 +129,26 @@ router.get('/logout', function(req, res, next) {
             res.redirect('/login')
         }
     });
+});
+
+var recordsModule = require('../recordsModule');
+var sessionModule = require('../sessionModule');
+
+router.get('/punch/:key', function(req, res, next){
+    var rm = new recordsModule(req.db);
+    var key = req.params.key;
+    var parts = key.split('.');
+    key = utils.base64URLSafeDecode(parts[1]);
+    var qrid = signer.unsign(parts[0]+'.'+key);
+    rm.checkQrcode(qrid, req.cookies.sessionid, function(valid, userInfo){
+        if(valid) {
+            rm.punch(userInfo.userid, function(err, record){ 
+                var punchin = !!record.outDate;                    
+                res.render('staff/staff_main', { user:userInfo, record: record });
+            });
+        }
+    });
+
 });
 
 router.get('/message', function(req, res, next){
@@ -153,6 +174,7 @@ router.get('/cookies', function(req, res, next) {
         cookie_str += key + "=" + cookies[key] + ";<br/>";
     }
 });
+
 router.getLoginPage = loginpage;
 
 module.exports = router;
