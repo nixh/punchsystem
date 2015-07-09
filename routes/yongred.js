@@ -87,6 +87,49 @@ router.get('/staff_delegate', function(req, res, next){
 	});
 });
 
+router.get('/staff_punch_report', function(req, res, next){
+	
+	res.render('staff/staff_punch_report', { 
+		/*
+		var records = db.get("records");
+		records.findOne({reportid:1}, {}, function(err, doc){
+				var ret= {msg: null, ok: true};
+				if(!doc){
+					ret.ok = false;
+					ret.msg= "no data found!";
+					return res.render('staff/staff_punch_report', ret);
+				}
+				ret.record= doc;
+				res.render('staff/staff_punch_report', ret);
+		});
+		*/
+		
+		clockData: [
+			{
+				timeIn: 1436391432009,
+				timeOut: 1436391513763
+			},
+			{
+				timeIn: 1436391545759,
+				timeOut: 1436391554475
+			},
+			{
+				timeIn: 1436391561077,
+				timeOut: 1436391567173
+			},
+			{
+				timeIn: 1436391581457,
+				timeOut: 1436391586079
+			},
+			{
+				timeIn: 1436391589210,
+				timeOut: 1436391593407
+			}
+		]
+		
+	});
+});
+
 router.get('/supervisor_main', function(req, res, next){
 	
 	var userInfo = db.get("users");

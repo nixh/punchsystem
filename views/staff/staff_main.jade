@@ -1,19 +1,28 @@
 extends ../layout.jade
 
 prepend links
-	link(rel='stylesheet', href='/stylesheets/yongredStyle.css')
+	link(rel='stylesheet', href='/stylesheets/staffMain.css')
 block content
 	.staffMainPage
 		.userInfo
 			.avatar
 				img(src="/images/yongred.jpg" alt= user.avatar)
 			.acctInfo
-				p.
+				pre.
+					Company: #{user.compid}
 					User Account: #{user.email}
+					User ID: #{user.userid}
+					User Name: #{user.name}
+					Gender: #{user.sex}
+					Date Enrolled: #{user.createDate}
+					Address: #{user.address}
+
+
 		.paidRate
 			.paidRateLabel Paid Rate:
-			.paidRateClick Show Rate
 			.paidRateDisplay #{user.curRate}
+			.paidRateClick 
+				.clickDiv Show Rate
 
 		.otherInfoLinks
 			.punchReport.otherInfo
