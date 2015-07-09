@@ -1,7 +1,32 @@
 extends layout
+
+append links
+    link(rel="stylesheet" href="/stylesheets/tian.css")
+
+append scripts
+    script(type="text/javascript").
+        function()
+
 block content
-    if success
-        p <b>Success!</b>
-    else
-        p <b>Error! </b>
-    p= msg
+    .total
+        .window
+            if success
+                p <b>Success!</b>
+            else
+                p <b>Error! </b>
+            p= msg
+            p#redirectMsg
+            script.
+                var redirectTime = #{redirectTime || 5};
+                for(var i=0; i<redirectTime; i++) {
+                    (function(sec){
+                        setTimeout(function() {
+                            var rest = redirectTime-1-sec;
+                            $('#redirectMsg').html("page will redirect in " + rest + " seconds!");
+                            if(rest === 0)
+                                location.href = "#{pageUrl}";
+                        }, sec*1000);
+
+                    })(i);
+                }
+

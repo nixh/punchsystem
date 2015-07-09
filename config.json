@@ -5,5 +5,10 @@
         "password": "Future123456#",
         "host": "adminsys.us",
         "ssl": false
+
+    },
+    "app.config": {
+        "punchRecords.rowLimit": 5,
+        "message.redirectAfter": 5
     }
 }
