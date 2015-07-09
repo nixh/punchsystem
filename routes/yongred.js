@@ -25,30 +25,34 @@ router.get('/login', function(req, res, next){
 
 router.get('/staff_main', function(req, res, next){
 
+        var sessionid = req.cookies.sessionid;
 	var userCol = db.get('users');
 	var dlgCol = db.get('delegation');
-	userCol.findOne({userid: 1}, {}, function(err, doc){
-		var ret = {msg:null, ok: true};
-		if(!doc) {
-			ret.ok = false;
-			ret.msg = "cant find this user";
-			return res.render('staff/staff_main', ret);
-		}
-		ret.user = doc;
-		dlgCol.findOne({userid:147, compid:1}, {}, function(err, doc){
+        var sessionCol = db.get('session');
+        sessionCol.findOne({sessionid:sessionid}, {}, function(err, sObj){
 
-			if(doc)
-				ret.delegate = true;
-			else 
-				ret.delegate = false;
-			console.log("----------"+JSON.stringify(doc));
-			res.render('staff/staff_main', ret);	
+            userCol.findOne({userid:sObj.userid}, {}, function(err, userDoc){
+                var ret = { msg: null, ok: true };
+                if(!userDoc) {
+                    ret.ok = false;
+                    ret.msg = "cant find this user";
+                    return res.render('staff/staff_main', ret);
+                }
+                delete userDoc.password;
+                ret.user = userDoc;
+                dlgCol.findOne({userid: sObj.userid}, {}, function(err, dlgDoc){
+                    if(dlgDoc)
+                        ret.delegate = true;
+                    else
+                        ret.delegate = false;
+                    
+                    res.render('staff/staff_main', ret);
 
-		});
-		
-		
-	});
-	
+                });
+
+            });
+
+        });
 
 });
 

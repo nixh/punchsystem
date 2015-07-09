@@ -3,6 +3,10 @@ extends layout
 append links
     link(rel="stylesheet" href="/stylesheets/tian.css")
 
+append scripts
+    script(type="text/javascript").
+        function()
+
 block content
     .total
         .window
@@ -11,17 +15,17 @@ block content
             else
                 p <b>Error! </b>
             p= msg
-            p#msg
+            p#redirectMsg
             script.
-                var redirectTime = 5;
+                var redirectTime = #{redirectTime || 5};
                 for(var i=0; i<redirectTime; i++) {
                     (function(sec){
                         setTimeout(function() {
                             var rest = redirectTime-1-sec;
-                            $('#msg').html("page will redirect in " + rest + " seconds!");
+                            $('#redirectMsg').html("page will redirect in " + rest + " seconds!");
                             if(rest === 0)
-                                location.href = "/login";
-                        }, sec*1000 );
+                                location.href = "#{pageUrl}";
+                        }, sec*1000);
 
                     })(i);
                 }

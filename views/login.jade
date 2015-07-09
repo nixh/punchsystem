@@ -35,14 +35,13 @@ block content
                         $logo.addClass('hidden');
                 });
                 $($loadings[n]).removeClass('hidden');
-                $loadings.each(function(i, o){ console.log(o); });
                 counter++;
                 timer = setTimeout(loop, 75);
             }
             loop();
             
         .content
-            form(method="POST" autocomplete="off") 
+            form(action="/login" method="POST" autocomplete="off") 
                 table
                     tr
                         td(style="padding-right:40px;")
@@ -59,6 +58,8 @@ block content
                             img.icon(src="/images/submit icon.png" alt="sign logo" width=50 height=50)
                         td
                             input(type= "hidden" name= 'loginKey' value="#{loginKey}")
+                            input(type= "hidden" name= 'pageUrl' value="#{pageUrl}")
                             input(type= 'submit' value= 'Sign In')
+
         .bottom
             .register
