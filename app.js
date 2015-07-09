@@ -70,7 +70,7 @@ app.use('/comp', comp);
 
 app.use('/company',company)
 
-app.use('/records', records);
+app.use('/', records);
 
 app.use('/delegate', delegate);
 app.use('/comp', comp);
