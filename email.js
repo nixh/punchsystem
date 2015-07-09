@@ -33,7 +33,7 @@ function ServerEmailModule(conf) {
         sendEmail : function(to, cc, subject, html, csvStringForAttachments) {
             var message = {
                 to: to,
-                from: 'haha@example.com',
+                from: account,
                 subject: subject,
                 text: 'would be replaced!'
             }

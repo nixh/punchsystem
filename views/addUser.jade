@@ -1,0 +1,23 @@
+extends layout
+
+block content
+    .left
+        .wrapper
+          
+            span= name
+            span= id
+            span= DefaultPassword
+            span= sex
+            span= email
+            span= address
+            span= tel
+    .right
+        .wrapper
+           span= department
+           span= Rate
+           span= Note
+
+    .bottom
+        .cmdtoolbar
+            button.add= tr('add')
+            button.return= tr('return')
