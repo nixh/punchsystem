@@ -26,10 +26,11 @@ html
           | Confirm Password:
           input(type='text', name='confirmpass')
         br
-      |        Receive Email:
+      |    Receive 
       button.btn.btn-primary(type='button', data-toggle='collapse', data-target='#demo') Switch
-      #demo.collapse.in
-       
+      #demo.collapse.out
+        br
+        | Email:
         input(type='text', name='receiveemail', value='#{receiveemail}')
         br
         | Weekly

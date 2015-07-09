@@ -1,25 +1,29 @@
 var express = require('express');
 var router = express.Router();
 
-var settings = require('../usersetting')
-
+var settings = require('../usersetting');
+var email= require('../email');
 router.get('/', function(req, res, next){
 
 	res.render('usersettings');
 });
 
 router.get('/changepwd', function(req, res, next){
-	
-	//var db = req.db;
-	//console.log(123);
-	//db.get('users').findOne({userid:1}, {}, function(err,  doc){
 
 		res.render('changepwd');
 
 });
 	
+		var csvStringForAttachments = ["name, punchintime, punchouttime\nQ,2015-10-10 08:00:00, 2015-10-10 19:00:00"];
+		
+		var subject = "changepwd";
+		var cc =" ";
+		var html = "<p> Your password has been changed";
+		var conf ={'account':'report@adminsys.us',
+					'host':'adminsys.us',
+					'password':'Future123456#',
+					'ssl':false};	
 	
-
 
 
 router.post('/changepwd', function (req, res) {
@@ -27,41 +31,38 @@ router.post('/changepwd', function (req, res) {
 	var collection=req.db.get('users');
 	var oldpass= req.body.oldpass;
 	var newpass= req.body.newpass;
-	
-	
 	userid = parseInt(userid);
-	/*settings.savelocation(userid,location,function(err,doc){
-		if(err)
-			return res.send("Error!");
-	})*/
 	settings.changepass(userid,oldpass,newpass, function(err, doc){
 		if(err) {
 			 res.send("Error!!!");
 		}
-		//else{
-			//res.render('changepwd');
-		//}
-	})
+		
+	});
 
-	settings.receiveemail(userid,function(err,doc){
+	 settings.receiveemail(userid,function(err,doc){
 		if(err) {
 			return res.send("Error!");
 		}
 		else {
 			//res.redirect('chargepwd')
-			var email= doc.email
-			console.log(email);
+			var email= doc.email;
 			res.render('changepwd',{"receiveemail":email});
 			//res.send(doc);
 		}
-	})
-
-	settings.enablesendemail(userid,req.body.frequency,function(err,doc){
-		if(err) {
-			res.send("Email Error!");
+	});
+		
+	settings.receiveemail(userid,function(err,doc){
+		if(err){
+			res.send("Error!'");
 		}
+		else{
+			var to = doc.email;
+			email(conf).sendEmail(to, cc, subject, html, csvStringForAttachments);
+		}
+	
+	});
+})	
 
-	})
+		
 
-})
 module.exports = router;
