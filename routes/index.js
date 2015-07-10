@@ -1,13 +1,15 @@
 var express = require('express');
-var router = express.Router();
-var monk = require('monk');
-var db = monk('mongodb://localhost:27017/punchsystem');
-var utils = require('../utils');
-var btoa = require('btoa');
-var nobi = require('nobi');
-var crypto = require('crypto');
-var signer = nobi(utils.getConfig('appKey'));
-var uuid = require('node-uuid');
+var router  = express.Router();
+var monk    = require('monk');
+var db      = monk('mongodb://localhost:27017/punchsystem');
+var utils   = require('../utils');
+var btoa    = require('btoa');
+var nobi    = require('nobi');
+var crypto  = require('crypto');
+var signer  = nobi(utils.getConfig('appKey'));
+var uuid    = require('node-uuid');
+var util    = require('util');
+var moment  = require('moment');
 
 var loginKeys = {};
 
@@ -64,10 +66,10 @@ function postLogin(req, res, next) {
                 success: false
             });
         if (!doc)
-            return res.render('message', {
+            return utils.render('message', {
                 msg: 'username or password error!',
                 success: false
-            });
+            })(req, res, next);
 
         var sessionObj = {
             sessionid: uuid.v1(),
@@ -79,10 +81,14 @@ function postLogin(req, res, next) {
         };
 
         var session = db.get('session');
-        session.insert(sessionObj, function(err, doc) {
+        session.findAndModify(
+                { userid: doc.userid },
+                { $set: sessionObj },
+                { new: true, upsert: true }, 
+        function(err, sDoc) {
             if (err)
                 throw err;
-            res.cookie('sessionid', sessionObj.sessionid, {
+            res.cookie('sessionid', sDoc.sessionid, {
                 maxAge: 24 * 3600 * 1000,
                 httpOnly: true
             });
@@ -132,7 +138,25 @@ router.get('/logout', function(req, res, next) {
 });
 
 var recordsModule = require('../recordsModule');
-var sessionModule = require('../sessionModule');
+
+function punchData(record, msg, userInfo) {
+
+    var punchout = !!record.outDate;                    
+    var punchtime = punchout ? record.outDate : record.inDate;
+    var datetime = moment(punchtime);
+    msg = util.format(msg, 
+            userInfo.name, 
+            punchout ? "OUT" : "IN",
+            datetime.format("YYYY-MM-DD"),
+            datetime.format("HH:mm A"));
+    return { 
+        success: true,
+        msg: msg,
+        record: record, 
+        punchout: punchout,
+        pageUrl: '/staff_main'
+    }
+}
 
 router.get('/punch/:key', function(req, res, next){
     var rm = new recordsModule(req.db);
@@ -143,18 +167,28 @@ router.get('/punch/:key', function(req, res, next){
     rm.checkQrcode(qrid, req.cookies.sessionid, function(valid, userInfo){
         if(valid) {
             rm.punch(userInfo.userid, function(err, record){ 
-                var punchin = !!record.outDate;                    
-                res.render('staff/staff_main', { user:userInfo, record: record });
+                var msg = res.__('punch_success');
+                utils.render('message', punchData(record, msg, userInfo))(req, res, next);
             });
         }
     });
 
 });
 
-router.get('/message', function(req, res, next){
-    
-    res.render('message', {msg:'Hello'});
+router.get('/recentRecords', function(req, res, next){
+    var rm = new recordsModule(req.db);
+    rm.rencentRecords({sessionid:req.cookies.sessionid}, function(err, recordDocs){
+
+        utils.render('staff/staff_punch_report', { 
+                     moment: moment, 
+                     records: recordDocs 
+                     })(req, res, next);
+        
+    });
+
 });
+
+router.get('/message', utils.render('message', {msg:'Hello'}));
 
 router.get('/testdb', function(req, res, next) {
 
