@@ -1,8 +1,10 @@
 var utils = require('./utils');
 var _= require('underscore');
 var monk = require('monk');
+
 var express = require('express');
 var router = express.Router();
+
 var db;
 
 function trim(s){
@@ -39,21 +41,28 @@ function validate(userObj){
 	}
 };
 
-addUser: function(userObj, col, callback){
+
+function addUser(userObj, col, callback){
 	validate(userObj);
 
 	var addr = trim(userObj.address_street) +"|" + trim(userObj.address_city) + "|" + trim(userObj.address_state) + "|" + trim(userObj.address_zip);
 
-	var p = col.find({"userid": userObj.userid});
-	console.log(p);
-
 	userObj.address = addr;
 
+	col.find({"userid": userObj.userid}, function(err, doc){
+		if(err){
+			res.send('Add user error!');
+		}else{
+			if(doc){
+				throw "User not found"
+			}
+		}
+	});
+
 	col.insert(userObj, callback);
-},
+}
 
-
-searchUser: function(searchTerm, col, callback){
+function searchUser(searchTerm, col, callback){
 	col.find(
 		{
 			'userid': {$regex: searchTerm}
@@ -61,22 +70,22 @@ searchUser: function(searchTerm, col, callback){
 		{},
 		callback
 	);
-},
+}
 
-getAllUsers: function(col, callback){
+function getAllUsers(col, callback){
 	col.find({}, {}, callback);
-},
+}
 
-getUserInfo: function(userid, col, callback){
+function getUserInfo(userid, col, callback){
 	col.findOne(
 		{
 			'userid': userid
 		},
 		callback
 	)
-},
+}
 
-changeUser: function(userObj, col, callback){
+function changeUser(userObj, col, callback){
 	validate(userObj);
 
 	console.log(userObj);
@@ -109,9 +118,9 @@ changeUser: function(userObj, col, callback){
 		},
 		callback
 	);
-},
+}
 
-deleteUser: function(_id, col, callback){
+function deleteUser(_id, col, callback){
 	col.remove(
 		{
 			"_id": _id
@@ -125,5 +134,17 @@ function Module(settings){
 	if(!this.db){
 		this.db = monk(utils.getConfig('mongodbPath'));
 	}
+
+	db = this.db;
 }
 
+Module.prototype = {
+	addUser: addUser,
+	searchUser: searchUser,
+	getAllUsers: getAllUsers,
+	getUserInfo: getUserInfo,
+	changeUser: changeUser,
+	deleteUser: deleteUser
+}
+
+module.exports = Module

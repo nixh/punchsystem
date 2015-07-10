@@ -159,14 +159,9 @@ function searchRecords(req, res) {
 }
 // Authority of both, but will have different views
 function showRecords(req, res) {
-<<<<<<< HEAD
-    console.log(req.params.uid);
-    // var userid = parseInt(req.params.uid);
-    var userid = req.params.uid;
-=======
+
     var userid = req.params.uid;
     var su = req.path.search("supervisor");
->>>>>>> dev
     var records = db.get('records');
     var query = {
         userid: userid
