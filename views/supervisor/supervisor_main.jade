@@ -1,31 +1,55 @@
 extends ../layout.jade
 
+append links
+    link(rel='stylesheet', href='/stylesheets/supervisorMain.css')
+
+append scripts
+    script(src= "/javascripts/showHideRate.js")
+
 block content
-	.content
-		table
-			tr.userInfo
-				td
-					-var info = ""
-					-for(var index in user)
-						-info += user[index] + ", " 
-					p= info
-			tr.otherInfo
-				td
-					a(href= "/search_staff") Search Staff
-				td
-					a(href= "/add_staff") Add Staff
-			tr.otherInfo
-				td
-					a(href= "/staff_manage") Staff Management
-				td
-					a(href= "/staff_delegate") Delegate
-			tr.otherInfo
-				td
-					a(href= "/static_qrcode") Search Staff
-				td
-					a(href= "/dynamic_qrcode") Dynamic Qrcode
-			tr.otherInfo
-				td
-					a(href= "/supervisor_manage") Supervisor Management
-				td
-					a(href= "/setting") Setting
+    .supervisorMainPage(ontouchstart="")
+        //.userInfo
+        .avatar
+            img(src="/images/yongred.jpg" alt="User Avatar") 
+            p WELCOME #{user.name}
+            //.acctInfo
+                pre.
+                Company: #{user.compid}
+                User Account: #{user.email}
+                User ID: #{user.userid}
+                User Name: #{user.name}
+                Gender: #{user.sex}
+                Date Enrolled: #{user.createDate}
+                Address: #{user.address}
+
+
+        .paidRate
+            .paidRateBox
+                pre.
+                    PAID
+                    RATE
+            .paidRateBox
+                .hourRate.hidden
+                    pre.
+                        $#{user.curRate}
+                        PER HOUR
+                .imageCover
+
+            .paidRateBox.showHideRate.noselect
+                pre.
+                    SHOW
+                    RATE
+
+
+        .otherInfoLinks.noselect
+            .otherInfo STAFF MANAGEMENT
+            .otherInfo DELEGATE
+            .otherInfo SEARCH STAFF
+            .otherInfo DYNAMIC QRCODE
+
+            if false
+                .otherInfo SETTING
+                .otherInfo SUPERVISOR MANAGEMENT
+                .otherInfo ADD STAFF
+
+
