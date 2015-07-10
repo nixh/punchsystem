@@ -1,5 +1,5 @@
 var config = require('./config.json');
-
+var nobi = require('nobi');
 function findConfig(key, delim) {
     if(!key)
         return;
@@ -32,15 +32,26 @@ function Utils() {
                 if (!data) data = {};
                 data['tr'] = res.__;
                 data['redirectTime'] = findConfig('app.config->message.redirectAfter');
+                if(req.db) {
+                    console.log('db closed!')
+                    req.db.close();
+                }
                 return res.render(tmplPath, data);
             }
         },
         getConfig: findConfig,
+        getSigner: function(key) {
+            if(!key)
+                return nobi(config.appKey);
+            return nobi(key);
+        },
         base64URLSafeEncode : function(base64) {
             return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/\=+$/, '');
         },
         base64URLSafeDecode : function(base64safe) {
-            base64safe = (base64safe + '===').slice(0, base64safe.length + (base64safe.length % 4));
+            var padding = "===";
+            var length = base64safe.length + padding.length;
+            base64safe = (base64safe + padding).slice(0, length -(length % 4));
             return base64safe.replace(/-/g, '+').replace(/_/g, '/');
         } 
     }
