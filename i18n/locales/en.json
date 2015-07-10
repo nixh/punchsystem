@@ -43,5 +43,6 @@
 	"cmdtool": "cmdtool",
 	"modify": "modify",
 	"delete": "delete",
-	"userform_compid": "userform_compid"
+	"userform_compid": "userform_compid",
+	"punch_success": "Hello <b>%s</b>! You are punched %s on %s at %s"
 }

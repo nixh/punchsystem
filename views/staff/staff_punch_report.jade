@@ -8,19 +8,13 @@ append scripts
     script(src="/datepicker/js/bootstrap-datepicker.js")
     script(src="/javascripts/datePickerAdjust.js")
 
+    - function getTime(tstamp) {
+    -   return moment(tstamp).format("HH:mm A");
+    - }
+    - function getDate(tstamp) {
+    -   return moment(tstamp).format("YYYY-MM-DD");
+    - }
 block content
-    -function showDate(dateObj){
-    -   var dateStr = dateObj.getMonth() + "-" + dateObj.getDate() + "-" + dateObj.getFullYear();
-    -   return dateStr;
-    -}
-    -function showTime(dateObj){
-    -    var hour = dateObj.getHours();
-    -    var hour12 = hour%12;
-    -    var AM_PM = (hour/12 == 0) ? "AM" : "PM";
-    -    var clockTime= hour12 + ":" + dateObj.getMinutes() + AM_PM;
-    -    return clockTime;
-    -}
-
     .staffPunchPage
         .startEndTime
             //.startTime 
@@ -37,9 +31,7 @@ block content
             table 
                 tr
                     th(colspan='4') TIME IN / OUT
-                -for(var i in clockData)
-                    -var inTime = new Date(clockData[i].timeIn)
-                    -var outTime = new Date(clockData[i].timeOut)
+                each record in records
                     tr
                         td 
                             ul
@@ -47,12 +39,12 @@ block content
                                 li DOT
                         td
                             ul.dateList
-                                li.inDate= showDate(inTime)
-                                li.outDate= showDate(outTime)
+                                li.inDate= getDate(record.inDate)
+                                li.outDate= record.outDate ? getDate(record.outDate) : ""
                         td
                             ul.timeList
-                                li.inTime= showTime(inTime)
-                                li.outTime= showTime(outTime)
+                                li.inTime= getTime(record.inDate)
+                                li.outTime= record.outDate ? getTime(record.outDate) : ""
                         td
                             ul
                                 li IN

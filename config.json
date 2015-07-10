@@ -9,10 +9,12 @@
 
     },
     "app.config": {
-        "punchRecords.rowLimit": 5,
+        "recentRecords.limit": 5,
         "message.redirectAfter": 5
+
     },
     "paths": {
-        "punch" : "http://192.168.1.117:3000/punch/%s"
+        "punch" : "http://192.168.1.226:3000/punch/%s",
+        "dynapunch" : "http://192.168.1.226:3000/dynapunch/%s"
     }
 }
