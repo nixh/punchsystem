@@ -35,5 +35,9 @@
 	"Is Owner": "Is Owner",
 	"Not Owner": "Not Owner",
 	"avatar_url": "avatar_url",
-	"punch_success": "Hello <b>%s</b>! You are punched %s on %s at %s"
+	"punch_success": "Hello <b>%s</b>! You are punched %s on %s at %s",
+	"name": "NAME",
+	"select": "SELECT",
+	"punch": "PUNCH",
+	"status": "STATUS"
 }

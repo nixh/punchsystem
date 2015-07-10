@@ -91,8 +91,9 @@ for(var i=0; i<companyNumber; i++) {
         wifi_verify: !!getRandomNumber(2),
         report_send: !!getRandomNumber(2),
         use_default_email: !!getRandomNumber(2),
-        report_emails: ['company_' + (i+1) + '@xxx.com', 'user_'+(i+1)+'@g.com']
-
+        report_emails: ['company_' + (i+1) + '@xxx.com', 'user_'+(i+1)+'@g.com'],
+        report_send_frequency: getRandomNumber(2),
+        qrcode_update_frequency: getRandomNumber(10) * 1000
     });
 }
 

@@ -17,6 +17,7 @@ function Authentication() {
             return next();
 
         var sessionid = req.cookies.sessionid;
+        console.log(sessionid);
         if (!sessionid) {
             console.log('authentication: session missing -> ' + sessionid);
             return redirectToLogin(req, res);

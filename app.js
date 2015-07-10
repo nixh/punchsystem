@@ -19,6 +19,7 @@ var mongo          = require('mongodb');
 var monk           = require('monk');
 var app            = express();
 
+var db = monk(utils.getConfig('mongodbPath'));
 
 //var db=monk('mogodb:192.168.1.112/punchtest');
 // view engine setup
@@ -26,7 +27,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -49,8 +50,7 @@ app.use(function(req, res, next) {
 });
 
 app.use(function(req, res, next) {
-    req.db = monk(utils.getConfig('mongodbPath'));
-    console.log('db opened!')
+    req.db = db;
     next();
 });
 

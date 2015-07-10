@@ -1,0 +1,63 @@
+extends layout
+append links
+    link(rel="stylesheet" href="/stylesheets/adminpunch.css")
+append scripts
+    script.
+        $(function initEvents() {
+            $("tr td:nth-child(3)")
+            .on('click', function(){
+                $this = $(this);
+                var selected = $this.hasClass('selected');
+                if(selected) {
+                    $this.find('.check').addClass('hidden');
+                    $this.find('.square').removeClass('hidden');
+                    $this.removeClass('selected');
+                } else {
+                    $this.find('.square').addClass('hidden');
+                    $this.find('.check').removeClass('hidden');
+                    $this.addClass('selected');
+                }
+
+            });
+
+        });
+
+block content
+    .main
+        .companyName= companyName
+        table.punchTable
+            tr
+                th= tr('status')
+                th= tr('name')
+                th= tr('select')
+            each user, index in users
+                tr
+                    td
+                        .statusbox
+                        if index % 2 == 0
+                            .in
+                                .hollowcircle.red
+                                .text 
+                                    span.text.red IN
+
+                        else
+                            .out
+                                .hollowcircle.green
+                                .text
+                                    span.text.green OUT
+                    td()= user.name
+                    if index % 2 == 0
+                        td.selected(data-userid="#{user.userid}")
+                            .square.hidden
+                            .check
+                                img(src="/images/Skinny check.png")
+
+                    else
+                        td(data-userid="#{user.userid}")
+                            .square
+                            .check.hidden
+                                img(src="/images/Skinny check.png")
+        form
+            input.punchBtn(type="submit" value="#{tr('punch')}")
+        
+

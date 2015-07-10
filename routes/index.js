@@ -51,11 +51,11 @@ function loginpage(req, res, next) {
     pageUrl = req.url;
     if(req.path === '/login')
         pageUrl = '/staff_main'
-    res.render('login', {
+    utils.render('login', {
         loginKey: parts[1],
         pageUrl: pageUrl,
         tr: res.__
-    });
+    })(req, res, next);
 }
 
 function postLogin(req, res, next) {
@@ -67,7 +67,7 @@ function postLogin(req, res, next) {
             });
         if (!doc)
             return utils.render('message', {
-                msg: 'username or password error!',
+                msg: { head: 'LOGIN FAILED', body: 'username or password error!' },
                 success: false
             })(req, res, next);
 
@@ -92,11 +92,16 @@ function postLogin(req, res, next) {
                 maxAge: 24 * 3600 * 1000,
                 httpOnly: true
             });
-            res.render('message', {
-                msg: 'Login Success!',
+            var pageUrl = req.body.pageUrl;
+            pageUrl = pageUrl === '/staff_main' ? 
+                        sDoc.compowner ? 
+                        "/supervisor/supervisor_main" : pageUrl 
+                        : pageUrl;
+            utils.render('message', {
+                msg: {head : 'LOGIN SUCCESSFULLY!', body: 'Hello ' + doc.name + ", Welcome to our system"},
                 success: true,
-                pageUrl: req.body.pageUrl
-            });
+                pageUrl: pageUrl 
+            })(req, res, next);
         });
 
     });
@@ -159,7 +164,7 @@ function punchData(record, msg, userInfo) {
 }
 
 router.get('/punch/:key', function(req, res, next){
-    var rm = new recordsModule(req.db);
+    var rm = new recordsModule({db:req.db});
     var key = req.params.key;
     var parts = key.split('.');
     key = utils.base64URLSafeDecode(parts[1]);
@@ -175,8 +180,19 @@ router.get('/punch/:key', function(req, res, next){
 
 });
 
+var qrModule = require('../qrcodeModule');
+
+router.get('/showdynacode', function(req, res, next){
+    var qrm = new qrModule({db:req.db});
+    
+    qrm.getDynacode(req.cookies.sessionid, function(err, mixinData){
+        console.log(mixinData);
+        utils.render('testqrcode', {data: mixinData})(req, res, next); 
+    });
+});
+
 router.get('/recentRecords', function(req, res, next){
-    var rm = new recordsModule(req.db);
+    var rm = new recordsModule({db:req.db});
     rm.rencentRecords({sessionid:req.cookies.sessionid}, function(err, recordDocs){
 
         utils.render('staff/staff_punch_report', { 
@@ -185,10 +201,60 @@ router.get('/recentRecords', function(req, res, next){
                      })(req, res, next);
         
     });
-
 });
 
-router.get('/message', utils.render('message', {msg:'Hello'}));
+var sModule = require('../sessionModule');
+
+router.get('/supervisor/adminpunch', function(req, res, next){
+    var sm = new sModule({db:req.db});
+    sm.getSessionInfo(req.cookies.sessionid, function(err, sObj){
+        if(err || !sObj)
+            return next(err||new Error('invalid user!'));
+
+        sm.db.get('companies').findOne({compid: sObj.compid},{}, function(err, comp){
+            sm.db.get('users').find({compid: comp.compid}, {}, function(err, users){
+
+                utils.render('adminpunch', {
+                    companyName:comp.name,
+                    users: users
+                })(req, res, next);
+            });
+
+        });
+
+    });
+});
+
+router.get('/supervisor/rencentRecords/:uid', function(req, res, next){
+    var rm = new recordsModule({db:req.db});
+    var uid = req.params.uid;
+    rm.rencentRecords(uid, function(err, recordDocs){
+        utils.render('staff/staff_punch_report', { 
+                     moment: moment, 
+                     records: recordDocs 
+                     })(req, res, next);
+        
+    });
+});
+
+//router.get('/dynapunch/:key', function(req, res, next){
+//    var rm = new recordsModule(req.db);
+//    var key = req.params.key;
+//    var parts = key.split('.');
+//    key = utils.base64URLSafeDecode(parts[1]);
+//    var qrid = signer.unsign(parts[0]+'.'+key);
+//    rm.checkDynaQrcode(qrid, req.cookies.sessionid, function(valid, userInfo){
+//        if(valid) {
+//            rm.punch(userInfo.userid, function(err, record){ 
+//                var msg = res.__('punch_success');
+//                utils.render('message', punchData(record, msg, userInfo))(req, res, next);
+//            });
+//        }
+//    });
+//
+//});
+
+router.get('/message', utils.render('message', {msg:{head:'Hello', body:"we are still testing although it is 7:20PM now!!"}, success:false}));
 
 router.get('/testdb', function(req, res, next) {
 
