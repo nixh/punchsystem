@@ -101,11 +101,11 @@ function Module(settings) {
     if(!this.db) {
         this.db = monk(utils.getConfig('mongodbPath'));
     }
-<<<<<<< HEAD
+
     db = this.db;
-=======
+
     this.sm = new sessionModule(this.db);
->>>>>>> dev
+
 }
 
 
@@ -117,20 +117,14 @@ Module.prototype = {
 
 module.exports = Module 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-var module = new Module;
 
-module.punch('LoginName_1', function(punchPromise){
-});
+//var module = new Module;
+
+//module.punch('LoginName_1', function(punchPromise){
+//});
 
 
 
 
 
 
-=======
->>>>>>> dev
-
->>>>>>> dev

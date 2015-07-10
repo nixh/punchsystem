@@ -22,7 +22,6 @@ router.post('/changepwd', function (req, res) {
 		if(err) {
 			 res.send("Error!!!");
 		}
-		
 	});
 
 	 settings.receiveemail(userobj,function(err,doc){
@@ -30,12 +29,16 @@ router.post('/changepwd', function (req, res) {
 			return res.send("Error!");
 		}
 		else {
+			if(!doc || doc.length === 0){
+				res.send('userid is invailed!');
+			} else{
 			//res.redirect('chargepwd')
 			var email= doc.email;
 			res.render('changepwd',{"receiveemail":email});
 			//res.send(doc);
 		}
-	});
+	}
+});
 	
 	settings.switchinformation(userobj,function(err,doc){
 		if(err) {
@@ -43,7 +46,13 @@ router.post('/changepwd', function (req, res) {
 		}
 	});
 
-	settings.sendemail(userobj);
+	settings.sendemail(userobj,function(err,doc){
+		if(err){
+			res.send('error')
+		}else if(!doc|| doc.length ===0){
+			res.send("invaild email address!")
+		}
+	});
 })	
 
 		

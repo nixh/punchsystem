@@ -20,7 +20,7 @@ var monk           = require('monk');
 var app            = express();
 
 
-//var db=monk('mogodb:192.168.1.112/punchtest');
+//var db=monk('mogodb:127.0.0.1:27017/punchtest');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -34,15 +34,13 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-<<<<<<< HEAD
-app.use(function(req, res, next) {
+
+/*app.use(function(req, res, next) {
     req.db = db;
     next();
-});
+});*/
 
-app.use(authentication());
-=======
->>>>>>> dev
+//app.use(authentication());
 
 
 i18n.configure({

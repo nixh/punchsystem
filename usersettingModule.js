@@ -7,20 +7,43 @@ var router = express.Router();
 var db;
 
 function vaildate(userobj){
+	if(typeof userobj.userid !== 'string')
+			userobj['userid'].toString();
+	if(typeof userobj.oldpass !== 'string')
+			userobj['oldpass'].toString();
 
+	if(typeof userobj.newpass !== 'string')
+			userobj['newpass'].toString();
+
+	if(typeof userobj.confirmpass !== 'string')
+			userobj['confirmpass'].toString();
+
+	/*if(typeof userobj.frequency !== 'number'){
+			frequency = parseInt(userobj.frequency);
+			if(frequency == 'NaN'){
+				userobj.frequency = " ";
+			}else{
+				userobj.frequency=frequency;
+			}
+		}*/
 }
+
 function changepass(userobj,callback){
+		//vaildate(userobj);
 		var	db= this.db;
 		var collection=db.get("users");
-		collection.update({
-			'password':userobj.oldpass,
-			'userid':userobj.userid
-			},
-				{"$set":{
-					'password':userobj.newpass
-					}
+		if(userobj.newpass ===userobj.confirmpass){
+			collection.update({
+				'password':userobj.oldpass,
+				'userid':userobj.userid
 				},
-			callback);
+					{"$set":{
+						'password':userobj.newpass
+						}
+					},
+				callback);
+		}else 
+		callback('');
 	}
 function receiveemail(userobj,callback) {
 		var db= this.db;
@@ -33,18 +56,21 @@ function switchinformation(userobj,callback){
 		var db = this.db;
 		var collection = db.get('users');
 		//vaildate(userobj);
+		if(userobj.onoffswitch == null)
+			userobj.onoffswitch = '0';
 		collection.update({
 			'userid':userobj.userid
 			},
 				{"$set":{
 						'freqz':userobj.frequency,
-						'switch':userobj.switchs
+						'switch':userobj.onoffswitch
 					}
 				},callback)
 	}		
 
 
-function sendemail(userobj){
+function sendemail(userobj,callback){
+		//vaildate(userobj);
 		var conf = this.conf;
 		var db = this.db;
 		var info =this.mailinfo
@@ -53,12 +79,18 @@ function sendemail(userobj){
 			if(err){
 				console.log('undefine');
 			}
+			else if(!doc || doc.length === 0){
+				var to = " ";
+				
+			}
 			else{
 				var to = doc.email;
 				email(conf).sendEmail(to, info.cc, info.subject, info.html, info.csvStringForAttachments);
+				
 			}
+			callback(doc);
 		})
-}
+	}
 
 
 
@@ -89,3 +121,4 @@ Module.prototype = {
 
 module.exports = Module 
 
+Module = new Module();
