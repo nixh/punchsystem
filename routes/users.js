@@ -1,12 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var usermod = require('../usermodule');
-
-var ObjectId = require('mongodb').ObjectId;
+var usermodule = require('../usermodule');
 
 var utils = require("../utils");
 
-var usermod = require('../usermodule');
+var um = new usermodule();
 
 // Add a new user
 router.get('/add', utils.render('users/adduser', {title: 'UserAdd'}));
@@ -14,7 +12,7 @@ router.post('/add', function(req, res){
 	var col = req.db.get('users');
 	var userObj = req.body;
 
-	usermod.addUser(userObj, col, function(err, doc){
+	um.addUser(userObj, col, function(err, doc){
 		if(err){
 			res.send('Add user failed!');
 		}else{
@@ -28,7 +26,7 @@ router.post('/add', function(req, res){
 router.get('/search', function(req, res){
 	var col = req.db.get('users');
 
-	usermod.getAllUsers(col, function(err, doc){
+	um.getAllUsers(col, function(err, doc){
 		if(err){
 			utils.render('users/search', {'title': 'Loading Users Erro!'})(req, res);
 		}else{
@@ -48,7 +46,7 @@ router.post('/search', function(req, res){
 	var col = req.db.get('users');
 	var userid = req.body.userid;
 
-	usermod.searchUser(userid, col, function(err, doc){
+	um.searchUser(userid, col, function(err, doc){
 		if(err){
 			utils.render('users/search', {'title': 'Search Error!'});
 		}else{
@@ -68,7 +66,7 @@ router.get('/change/:id', function(req, res){
 	var userid = req.params.id;
 	var col = req.db.get('users');
 
-	usermod.getUserInfo(userid, col, function(err, doc){
+	um.getUserInfo(userid, col, function(err, doc){
 		if(err){
 			res.send('Failed to change the user info!');
 		}else{
@@ -90,7 +88,7 @@ router.post('/change', function(req, res){
 	var userObj = req.body;
 	var col = req.db.get('users');
 
-	usermod.changeUser(userObj, col, function(err, doc){
+	um.changeUser(userObj, col, function(err, doc){
 		if(err){
 			res.end('Faield to update!');
 		}else{
@@ -107,7 +105,7 @@ router.get('/delete/:_id', function(req, res){
 
 	var col = req.db.get('users');
 
-	usermod.deleteUser(_id, col, function(err, doc){
+	um.deleteUser(_id, col, function(err, doc){
 		if(err){
 			res.send('Faield deleting!');
 		}else{
@@ -121,7 +119,7 @@ router.post('/delete', function(req, res){
 	var _id = req.body._id;
 	var col = req.db.get('users');
 
-	usermod.deleteUser(_id, col, function(err, doc){
+	um.deleteUser(_id, col, function(err, doc){
 		if(err){
 			res.send('Failed deleting!');
 		}else{

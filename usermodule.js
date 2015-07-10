@@ -2,15 +2,14 @@ var utils = require('./utils');
 var _= require('underscore');
 var monk = require('monk');
 
-var express = require('express');
-var router = express.Router();
+var db = require('./db/db');
 
-var db;
-
+// Trim leading and trailing spances
 function trim(s){
 	return (s || '').replace(/^\s+|\s+$/g, '');
 };
 
+// Validate user input
 function validate(userObj){
 	if(userObj === null){
 		 userObj = {};
@@ -49,17 +48,21 @@ function addUser(userObj, col, callback){
 
 	userObj.address = addr;
 
+	console.log(userObj.userid);
+
 	col.find({"userid": userObj.userid}, function(err, doc){
 		if(err){
-			res.send('Add user error!');
+			res.send('Search user error!');
 		}else{
-			if(doc){
-				throw "User not found"
+			console.log('The doc is ...');
+			console.log(doc);
+			if(!doc || doc.length === 0){
+				col.insert(userObj, callback);
+			}else{
+				throw "User already exists!";
 			}
 		}
 	});
-
-	col.insert(userObj, callback);
 }
 
 function searchUser(searchTerm, col, callback){
@@ -134,14 +137,12 @@ function Module(settings){
 	if(!this.db){
 		this.db = monk(utils.getConfig('mongodbPath'));
 	}
-
-	db = this.db;
 }
 
 Module.prototype = {
 	addUser: addUser,
-	searchUser: searchUser,
 	getAllUsers: getAllUsers,
+	searchUser: searchUser,
 	getUserInfo: getUserInfo,
 	changeUser: changeUser,
 	deleteUser: deleteUser
