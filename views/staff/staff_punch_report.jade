@@ -15,12 +15,12 @@ append scripts
     -   return moment(tstamp).format("YYYY-MM-DD");
     - }
 block content
-    .staffPunchPage
+    .staffPunchPage(ontouchstart="")
         .startEndTime
             //.startTime 
-            input.useDatePicker(type= "text" value="START TIME ") 
+            input.useDatePicker(type= "text" placeholder="START TIME ") 
             //.endTime 
-            input.useDatePicker(type= "text" value="END TIME ")
+            input.useDatePicker(type= "text" placeholder="END TIME ")
 
         .controlButtons
             .buttonItem preview

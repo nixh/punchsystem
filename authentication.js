@@ -31,7 +31,9 @@ function Authentication() {
             }
 
             if(matchSupervisor(req.path) && !doc.compowner) {
-                res.status(404).end();
+                res.status(404);
+                var err = new Error('Not Found!');
+                return next(err);
             }
 
             next();

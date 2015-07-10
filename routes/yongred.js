@@ -54,7 +54,6 @@ router.get('/staff_main', function(req, res, next){
             });
 
         });
-
 });
 
 /*
@@ -135,19 +134,25 @@ router.get('/staff_punch_report', function(req, res, next){
 	});
 });
 
-router.get('/supervisor_main', function(req, res, next){
-	
-	var userInfo = db.get("users");
-	userInfo.findOne({userid:147}, {}, function(err, doc){
-		var ret= {msg: null, ok: true};
-		if(!doc){
-			ret.ok = false;
-			ret.msg= "no data found!";
-			return res.render('supervisor/supervisor_main', ret);
-		}
-		ret.user= doc;
-		res.render('supervisor/supervisor_main', ret);	
-	});
+router.get('/supervisor/supervisor_main', function(req, res, next){
+
+    var sessionid = req.cookies.sessionid;
+	var userCol = db.get('users');
+
+    var sessionCol = db.get('session');
+    sessionCol.findOne({sessionid:sessionid}, {}, function(err, sObj){
+
+        userCol.findOne({userid:sObj.userid}, {}, function(err, userDoc){
+            var ret = { msg: null, ok: true };
+            if(err||!userDoc) {
+            	return next(err || new Error('invalid user!'));
+            }
+            delete userDoc.password;
+            ret.user = userDoc;
+			utils.render('supervisor/supervisor_main', ret)(req, res, next);
+        });
+
+    });
 });
 
 router.get('/supervisor_delegate', function(req, res, next){

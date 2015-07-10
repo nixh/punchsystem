@@ -3,6 +3,9 @@ extends ../layout.jade
 append links
     link(rel='stylesheet', href='/stylesheets/staffMain.css')
 
+append scripts
+    script(src= "/javascripts/showHideRate.js")
+
 block content
     .staffMainPage(ontouchstart="")
         //.userInfo
@@ -26,17 +29,19 @@ block content
                     PAID
                     RATE
             .paidRateBox
-                pre.
-                    $#{user.curRate}
-                    PER HOUR
+                .hourRate.hidden
+                    pre.
+                        $#{user.curRate}
+                        PER HOUR
+                .imageCover
 
-            .paidRateBox
+            .paidRateBox.showHideRate.noselect
                 pre.
                     HIDE
                     RATE
                     
                
-        .otherInfoLinks
+        .otherInfoLinks.noselect
             .punchReport.otherInfo PUNCH REPORT
             .wageReport.otherInfo WAGE REPORT
 
