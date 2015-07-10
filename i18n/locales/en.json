@@ -35,5 +35,14 @@
 	"Is Owner": "Is Owner",
 	"Not Owner": "Not Owner",
 	"avatar_url": "avatar_url",
+	"preivew": "preivew",
+	"export": "export",
+	"punchin": "punchin",
+	"punchout": "punchout",
+	"hourlyrate": "hourlyrate",
+	"cmdtool": "cmdtool",
+	"modify": "modify",
+	"delete": "delete",
+	"userform_compid": "userform_compid",
 	"punch_success": "Hello <b>%s</b>! You are punched %s on %s at %s"
 }

@@ -26,11 +26,10 @@ append scripts
 
         
 block content    
-    h1 UserForm
-    p= test
+    h1 User Form
     if attr
-        p= attr.msg
-    form(action="/users/add" method="POST")
+        h3= attr.msg
+    form#addform
         table(border=1)
             tr
                 td= tr('userform_userid')
@@ -39,7 +38,7 @@ block content
             tr
                 td= tr('userform_pwd')
                 td
-                    input(name="pwd" type='text')
+                    input(name="password" type='text')
             tr
                 td= tr('userform_name')
                 td
@@ -64,9 +63,9 @@ block content
     
             
             tr
-                td= tr('userform_compname')
+                td= tr('userform_compid')
                 td
-                    input(name="compname" tpye="text")
+                    input(name="compid" tpye="text")
             tr
                 td(colspan=2)
                     label(for="address_street")= tr('userform_address_street')
@@ -85,7 +84,7 @@ block content
             tr
                 td= tr('userform_rate')
                 td
-                    input(name="rate" type="text")
+                    input(name="curRate" type="text")
                     
             tr
                 td= tr('isOwner?')
@@ -105,6 +104,21 @@ block content
                 td
                     input(name="avatar" type="text")
             
-            tr
-                td(colspan=2)
-                    input(type="submit" value="#{tr('submit')}")
+            
+        input#sub(type="button" value="#{tr('submit')}")
+        input#back(type="button" value ="Back")
+    
+    script.
+        var $form = $('#addform');
+        
+        $('#sub').click(function(){
+            $form.attr('action', '/users/add');
+            $form.attr('method', 'post');
+            $form.submit();
+        });
+        
+        $('#back').click(function(){
+            $form.attr('action', "/users/search");
+            $form.attr('method', 'get');
+            $form.submit();
+        });
