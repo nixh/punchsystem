@@ -35,6 +35,7 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+<<<<<<< HEAD
 /*app.use(function(req, res, next) {
     req.db = db;
     next();
@@ -43,6 +44,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 //app.use(authentication());
 
 
+=======
+>>>>>>> dev
 i18n.configure({
     locales: ['en', 'cn'],
     directory: path.join(__dirname, 'i18n/locales'),

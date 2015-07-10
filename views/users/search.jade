@@ -9,8 +9,9 @@ block content
 		
 	a(href="/users/add") Add a User
 	br
+	a(href='/users/search') List All Users
+	br 
 	br
-
 	form(action="/users/search" method="POST")
 		input(name="userid" placeholder="Entre el nombre, por favor!" size="32")
 		input(type="submit" value="#{tr('Search')}")
@@ -25,11 +26,12 @@ block content
 
 			each user, i in userlist
 				tr
-					td( style="padding: 10px")= user.name
+					td(style="padding: 10px")= user.name
 					td(style="padding: 10px")
-						a(href="/users/change/#{user.userid}" target="_blank")= user.userid
+						a(href="/users/change/#{user.userid}")= user.userid
 
 					td(style="padding: 10px")= user.remark
 					td(style="padding: 10px")
-
-						a(href="/records_show/#{user.userid}" target="_blank") View
+						a(href="/records/records_show/#{user.userid}" target="_blank") View Records
+					td(style="padding: 10px")
+						a(href="/users/delete/#{user._id}") Delete
