@@ -11,7 +11,7 @@ html, body {
 }
 
 body.bgbody {
-    background-image: url('/images/gradient.jpg');
+    background-color: rgb(238,238,238);
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 100%

@@ -1,176 +1,135 @@
-/*
-@font-face {
-
+body.bgbody{
+    background-repeat: repeat-y;
 }
-body {
-    margin:0;
-    padding:0;
-}
-
-body.bgbody {
-    background-image: url('/images/gradient.jpg');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: 100%;
-
-}
-
-.loadinglogo {
-
-}
-
-.hidden {
-    display: none;
-}
-.show {
-    display: '';
-}
-*/
 
 .staffMainPage{
-    position: relative;
+
     width: 100%;
-    border: 1px solid red;
-    height: 1920px;
+    //border: 1px solid red;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-
+/*
 .staffMainPage .userInfo{
-    position: absolute;
     width: 100%;
-    height: 600px;
+    height: 500px;
     border: 2px solid yellow;
-    
-    /*
-    -webkit-column-count:2; 
-    -moz-column-count: 2; 
-    column-count: 2;
-
-    -webkit-column-gap: 10px; 
-    -moz-column-gap: 10px; 
-    column-gap: 10px;
-    border-bottom: 3px solid #fff;
-    */
 }
-
+*/
 
 .staffMainPage .avatar{
-    position: absolute;
-    width: 50%;
-    height: 600px;
-    border: 2px solid yellow;
+    width: 100%;
+    height: 500px;
+    //border: 2px solid yellow;
+    text-align: center;
 }
 
 .staffMainPage .avatar img{
-    position: absolute;
-    width: 350px;
-    height: 350px;
-    margin: 70px;
+    width: 300px;
+    height: 300px;
+    margin-top: 40px;
     border-radius: 50%;
+    border: 20px solid rgb(138, 209, 215);
 }
 
+.staffMainPage .avatar p{
+    font-size: 50px;
+    color: rgb(247, 130, 131);
+}
 
-.staffMainPage .acctInfo{
-    position: absolute;
-    width: 50%;
-    left: 50%;
+/*
+.staffMainPage .userInfo .acctInfo{
+    float: left;
+    width: 49%;
     height: 100%;
     border: 2px solid yellow;
     font-size: 30px;
     color: #a2bf99;
+    word-wrap: break-word;
 }
+*/
+
 .staffMainPage .paidRate{
-    position: absolute;
-    background-color: rgba(0, 61, 119, 0.28);
-    top: 600px;
     height: 320px;
     width: 100%;
-    border: 2px solid yellow;
-    text-align: center;
-    line-height: 320px;
+    //border: 2px solid purple;
+    
 }
 
-.staffMainPage .paidRate .paidRateLabel{
-    position: absolute;
-    border: 2px solid green;
-    height: 320px;
-    width: 33%;
-    color: #fff;
-    font-size: 40px;
-}
+.staffMainPage .paidRate .paidRateBox{
+    float:left;
+    //border: 2px solid green;
+    width: 29.5%;
+    margin-left: 5px;
+    margin-top: 20px;
+    height: 90%;
+    background-color: rgba(255, 255, 255, .52);
+    color: rgb(103, 116, 153);
+} 
 
-.staffMainPage .paidRate .paidRateDisplay{
-    position: absolute;
-    border: 2px solid green;
-    height: 320px;
-    width: 33%;
-    left: 33%;
-    font-size: 40px;
-    color:#fff;
-}
-
-.staffMainPage .paidRate .paidRateClick{
-    position: absolute;
-    border: 2px solid green;
-    height: 320px;
-    width: 34%;
-    left: 66%;
-}
-
-.staffMainPage .paidRate .paidRateClick .clickDiv{
-    position: absolute;
+.staffMainPage .paidRate .paidRateBox:last-child{
     cursor: pointer;
-    color: rgba(0, 61, 119, 1);
-    font-size: 30px;
-    width: 70%;
-    height: 100px;
-    left: 15%;
-    top: 100px;
-    line-height: 100px;
-    border-radius: 40px;
-    background: rgba(200, 200, 200, .28);
-    border: 2px solid pink;
+}
+
+.staffMainPage .paidRate .paidRateBox:last-child:active{
+
+     background-color:rgb(138, 209, 215);
+     color: white;
+}
+
+.staffMainPage .paidRate .paidRateBox pre{
+    font-size: 60px;
+    word-wrap: break-word;
+}
+
+.staffMainPage .paidRate :nth-child(1){
+    margin-left: 50px;
 }
 
 .staffMainPage .otherInfoLinks{
-    position: absolute;
-    
     text-align: center;
-    border: 2px solid red;
-    top: 920px;
+    //border: 2px solid red;
     width: 100%;
-    height: 1000px;
+    
 }
 
 .staffMainPage .otherInfoLinks .otherInfo{
-    position: absolute;
-    width: 80%;
-    height: 200px;
-    line-height: 200px;
-    border: 2px solid yellow;
+    width: 90%;
+    height: 150px;
+    line-height: 150px;
+    //border: 2px solid yellow;
     border-bottom: 3px solid #fff;
     margin-top: 20px;
-    left: 10%;
-    background: rgba(200, 200, 200, .28);
+    margin-left: 50px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(103, 116, 153);
+    cursor: pointer;
+    font-size: 50px;
+}
+
+.staffMainPage .otherInfoLinks .otherInfo:active{
+    background-color:rgb(247, 130, 131);
+    color: white;
+}
+
+.staffMainPage .otherInfoLinks :last-child{
+    border-radius: 0px 0px 15px 15px;
+    margin-bottom: 40px;
 }
 
 .staffMainPage .otherInfoLinks :nth-child(1){
-    top:50px;
     border-radius: 15px 15px 0px 0px;
+    margin-top: 40px;
 }
 
 .staffMainPage .otherInfoLinks :nth-child(2){
-    top:270px;
 }
 
 .staffMainPage .otherInfoLinks :nth-child(3){
-    top:490px;
 }
 
 .staffMainPage .otherInfoLinks :nth-child(4){
-    top:710px;
-    border-radius: 0px 0px 15px 15px;
+
 }
 /*
 .staffMainPage .otherInfoLinks .punchReport{
@@ -213,25 +172,28 @@ body.bgbody {
     border-bottom: 3px solid #fff;
 }
 */
+
+/*
 .staffMainPage .otherInfoLinks a{
-    font-size: 500%;
+    font-size: 80px;
 }
 
 .staffMainPage .otherInfoLinks a:link{
-    color:#ffffff;
+    color: rgb(103, 116, 153);
     text-decoration: none;
 }
 
 .staffMainPage .otherInfoLinks a:visited{
-    color:purple;
     text-decoration: none;
 }
 
 .staffMainPage .otherInfoLinks a:hover{
-    text-decoration: underline;
+    color: white;
+    text-decoration: none;
 }
 
 .staffMainPage .otherInfoLinks a:active{
     color:red;
     text-decoration: none;
 }
+*/
