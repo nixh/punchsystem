@@ -48,6 +48,7 @@ app.use(function(req, res, next) {
 
 app.use(authentication());
 
+
 i18n.configure({
     locales: ['en', 'cn'],
     directory: path.join(__dirname, 'i18n/locales'),
@@ -72,7 +73,7 @@ app.use('/comp', comp);
 
 app.use('/company', company)
 
-app.use('/records', records);
+app.use('/', records);
 
 app.use('/delegate', delegate);
 app.use('/comp', comp);

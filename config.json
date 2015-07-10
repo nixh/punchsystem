@@ -1,5 +1,6 @@
 {
     "appKey": "40034f1c7050c8c1e4b8e2a09fddc6b3cc36d94e45cf38b23e1d9359bbf0949a",
+    "mongodbPath": "localhost:27017/punchsystem",
     "email.server": {
         "account": "report@adminsys.us",
         "password": "Future123456#",
@@ -10,5 +11,8 @@
     "app.config": {
         "punchRecords.rowLimit": 5,
         "message.redirectAfter": 5
+    },
+    "paths": {
+        "punch" : "http://192.168.1.117:3000/punch/%s"
     }
 }

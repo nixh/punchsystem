@@ -18,79 +18,86 @@ router.get('/testdb', function(req, res) {
     });
 });
 
+// When punched by the employee
 function insertRecords(req, res) {
-    var uid = 1;
-    var cid = 29;
+    var sid = req.cookies.sessionid;
     var timeNow = new Date().getTime();
     var records = db.get('records');
-    var query = {
-        userid: uid,
-        outDate: {
-            $exists: false
-        }
-    };
-    records.find(query, function(err, docs) {
-        if (!err) {
-            console.log(docs.length);
-            if (docs.length !== 0) {
-                docs[0].outDate = timeNow;
-                //res.json(docs);
-                records.update({
-                    userid: uid,
-                    outDate: {
-                        $exists: false
-                    }
-                }, docs[0], function(err, docs) {
-                    if (err) {
-                        res.send('Fail to punch');
-                    } else {
-                        res.send('Successfully punched, updated');
-                    }
-                });
+    var users = db.get('users');
+    var delegation = db.get('delegation');
+    var session = db.get('session');
+    var jsonData = {};
+    session.findOne({sessionid: sid}, function(err, sdocs) {
+        var uid = sdocs.userid;
+        var cid = sdocs.compid;
+        var query = {userid: uid, outDate: {$exists: false}};
+        records.findOne(query, function(err, docs) {
+            if (!err) {
+                console.log(docs);
+                if (docs) {
+                    docs.outDate = timeNow;
+                    console.log(docs);
+                    records.update({userid: uid, outDate: {$exists: false}}, docs, function(err, records) {
+                        if (err) {
+                            res.send(err.toString());
+                        } else {
+                            users.findOne({userid: uid}, function(err, users) {
+                                console.log(users);
+                                delete users.paassword;
+                                jsonData.user = users;
+                                jsonData.delegate = false;
+                                delegation.find({userid: uid}, function(err, dels) {
+                                    if (dels && dels.length > 0) {
+                                        jsonData.delegate = true;
+                                    }
+                                    res.render('staff/staff_main', jsonData);
+                                });
+                            });
+                        }
+                    });
+                } else {
+                    var insertDoc = {userid: uid, compid: cid, inDate: timeNow, hourlyRate: 8.75, remark: "test"};
+                    dbfunction.newDocWithIncId("records", "reportid", insertDoc, db, function(err, docs) {
+                        if (err) {
+                            res.send('Fail to punch, try again');
+                        } else {
+                            users.findOne({userid: uid}, function(err, users) {
+                                console.log(users);
+                                delete users.paassword;
+                                jsonData.user = users;
+                                jsonData.delegate = false;
+                                delegation.find({userid: uid}, function(err, dels) {
+                                    if (dels && dels.length > 0) {
+                                        jsonData.delegate = true;
+                                    }
+                                    res.render('staff/staff_main', jsonData);
+                                });
+                            });
+                        }
+                    });
+                }
             } else {
-                var insertDoc = {
-                    userid: uid,
-                    compid: cid,
-                    inDate: timeNow,
-                    hourlyRate: 8.75,
-                    remark: "test"
-                };
-                dbfunction.newDocWithIncId("records", "reportid", insertDoc, db, function(err, docs) {
-                    if (err) {
-                        res.send('Fail to punch, try again');
-                    } else {
-                        res.send('Successfully punched, insert new');
-                    }
-                });
+                res.send('Can not connect to db');
             }
-        } else {
-            res.send('Can not connect to db');
-        }
+        });
     });
 }
-
+// Authority of the supervisor
 function deleteRecords(req, res) {
-    //var rid = req.params.rid;
     var rid = parseInt(req.params.rid);
     var records = db.get('records');
-    var query = {
-        reportid: rid
-    };
+    var query = {reportid: rid};
     records.remove(query, function(err, docs) {
         if (err) {
             res.send('<p>Fail to delete</p>');
         } else {
-            records.findOne({
-                reportid: rid
-            }, function(err, docs) {
+            records.findOne({reportid: rid}, function(err, docs) {
                 res.send('<p>Successfully delete</p>');
-                //res.redirect('/records_show/:docs.userid');
             });
         }
     });
 }
-
-//While updating datas in the database, we need to update the information that input
+// Authority of the supervisor
 function updateRecords(req, res) {
     var rid = parseInt(req.params.rid);
     var starttime = new Date().getTime();
@@ -111,29 +118,21 @@ function updateRecords(req, res) {
         }
     });
 }
-
+// Authority of both, but will have different views, only have to modifiy the views of the modifiy and delete
 function searchRecords(req, res) {
 
     var starttime = Date.parse(req.body.startdate);
     var endtime = Date.parse(req.body.enddate);
-    var userid = parseInt(req.body.userid);
+    var userid = req.body.userid;
+    var su = req.path.search("supervisor");
     var records = db.get('records');
-    var query = {
-        inDate: {
-            "$gte": starttime
-        },
-        outDate: {
-            "$lte": endtime
-        },
-        userid: userid
-    };
-    records.find(query, {
-        limit: 30
-    }, function(err, docs) {
+    var query = {inDate : {"$gte" : starttime} , outDate : {"$lte": endtime}, userid: userid};
+    records.find(query, {limit: 30}, function(err, docs) {
         if (err) {
             res.send('System busy, try again!');
         } else {
             jsonData = {};
+            jsonData.su = su;
             jsonData.reports = [];
             docs.forEach(function(doc, index) {
                 var report = {};
@@ -144,7 +143,7 @@ function searchRecords(req, res) {
                 jsonData.reports.push(report);
             });
             db.get("users").findOne({
-                userid: 　userid
+                userid: userid
             }, function(err, docs) {
                 if (err) {
                     res.send('Can not get username');
@@ -158,13 +157,17 @@ function searchRecords(req, res) {
         }
     });
 }
-
+// Authority of both, but will have different views
 function showRecords(req, res) {
+<<<<<<< HEAD
     console.log(req.params.uid);
     // var userid = parseInt(req.params.uid);
     var userid = req.params.uid;
+=======
+    var userid = req.params.uid;
+    var su = req.path.search("supervisor");
+>>>>>>> dev
     var records = db.get('records');
-    var jsonData = {};
     var query = {
         userid: userid
     };
@@ -172,6 +175,8 @@ function showRecords(req, res) {
         if (err) {
             res.send('System busy, try again!');
         } else {
+            jsonData = {};
+            jsonData.su = su;
             jsonData.reports = [];
             docs.forEach(function(doc, index) {
                 var report = {};
@@ -196,15 +201,24 @@ function showRecords(req, res) {
         }
     });
 }
-
+// Punch only for users
 router.get('/records_punch', insertRecords);
-router.get('/records_delete/:rid', deleteRecords);
-router.post('/records_search', searchRecords);
-router.get('/records_show/:uid', showRecords)
-router.get('/records_update/:rid', updateRecords);
+// For both with different views
+router.post('/records_search/', searchRecords);
+// For both with different views
+router.get('/records_show/:uid', showRecords);
+// Search records by the supervisor
+router.post('/supervisor/records_search/:uid', searchRecords);
+// Show records to the supervisor
+router.get('/supervisor/records_show/:uid', showRecords);
+// Delete records, only for supervisor
+router.get('/supervisor/records_delete/:rid', deleteRecords);
+// Update records, only for supervisor
+router.get('/supervisor/ecords_update/:rid', updateRecords);
 
 router.insertRecords = insertRecords;
 router.deleteRecords = deleteRecords;
 router.searchRecords = searchRecords;
 router.updateRecords = updateRecords;
+
 module.exports = router;
