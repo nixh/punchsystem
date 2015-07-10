@@ -1,30 +1,23 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var i18n = require('i18n');
+var express        = require('express');
+var path           = require('path');
+var favicon        = require('serve-favicon');
+var logger         = require('morgan');
+var cookieParser   = require('cookie-parser');
+var bodyParser     = require('body-parser');
+var i18n           = require('i18n');
 var authentication = require('./authentication');
-
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var delegate = require('./routes/delegate');
-var comp = require('./routes/comp');
-
-var company = require('./routes/company');
-var usersettings = require('./routes/usersettings');
-
-var records = require('./routes/records');
-var yongred = require('./routes/yongred');
-
-
-
-var mongo = require('mongodb');
-var monk = require('monk');
-var db = monk('127.0.0.1:27017/punchsystem');
-
-var app = express();
+var routes         = require('./routes/index');
+var users          = require('./routes/users');
+var delegate       = require('./routes/delegate');
+var comp           = require('./routes/comp');
+var company        = require('./routes/company');
+var usersettings   = require('./routes/usersettings');
+var records        = require('./routes/records');
+var yongred        = require('./routes/yongred');
+var utils          = require('./utils');
+var mongo          = require('mongodb');
+var monk           = require('monk');
+var app            = express();
 
 
 //var db=monk('mogodb:192.168.1.112/punchtest');
@@ -41,45 +34,46 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+<<<<<<< HEAD
 app.use(function(req, res, next) {
     req.db = db;
     next();
 });
 
 app.use(authentication());
+=======
+>>>>>>> dev
 
 
 i18n.configure({
     locales: ['en', 'cn'],
     directory: path.join(__dirname, 'i18n/locales'),
-    defaultLocale: 'cn',
+    defaultLocale: 'en',
     cookie: 'lang'
 });
-//
-app.use(function(req, res, next) {
-    req.db = db;
-    next();
-})
 
 app.use(function(req, res, next) {
     i18n.init(req, res);
     return next();
 });
 
+app.use(function(req, res, next) {
+    req.db = monk(utils.getConfig('mongodbPath'));
+    console.log('db opened!')
+    next();
+});
+
+app.use(authentication());
+
 app.use('/', routes);
 app.use('/', yongred);
+app.use('/', records);
 app.use('/users', users);
 app.use('/comp', comp);
-
 app.use('/company', company)
-
-app.use('/', records);
-
 app.use('/delegate', delegate);
 app.use('/comp', comp);
-
 app.use('/usersettings', usersettings)
-
 
 // catch 404 and forward to error handler
 
