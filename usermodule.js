@@ -41,7 +41,7 @@ function validate(userObj){
 };
 
 
-function addUser(userObj, col, callback){
+function addUser(userObj, callback){
 	validate(userObj);
 
 	var addr = trim(userObj.address_street) +"|" + trim(userObj.address_city) + "|" + trim(userObj.address_state) + "|" + trim(userObj.address_zip);
@@ -49,6 +49,8 @@ function addUser(userObj, col, callback){
 	userObj.address = addr;
 
 	console.log(userObj.userid);
+
+	var col = this.db.get('users');
 
 	col.find({"userid": userObj.userid}, function(err, doc){
 		if(err){
@@ -65,7 +67,8 @@ function addUser(userObj, col, callback){
 	});
 }
 
-function searchUser(searchTerm, col, callback){
+function searchUser(searchTerm, callback){
+	var col = this.db.get('users');
 	col.find(
 		{
 			'userid': {$regex: searchTerm}
@@ -75,11 +78,13 @@ function searchUser(searchTerm, col, callback){
 	);
 }
 
-function getAllUsers(col, callback){
+function getAllUsers(callback){
+	var col = this.db.get('users');
 	col.find({}, {}, callback);
 }
 
-function getUserInfo(userid, col, callback){
+function getUserInfo(userid, callback){
+	var col = this.db.get('users');
 	col.findOne(
 		{
 			'userid': userid
@@ -88,7 +93,7 @@ function getUserInfo(userid, col, callback){
 	)
 }
 
-function changeUser(userObj, col, callback){
+function changeUser(userObj, callback){
 	validate(userObj);
 
 	console.log(userObj);
@@ -97,6 +102,7 @@ function changeUser(userObj, col, callback){
 
 	userObj.addr = trim(userObj.address_street) +"|" + trim(userObj.address_city) + "|" + trim(userObj.address_state) + "|" + trim(userObj.address_zip);
 
+	var col = this.db.get('users');
 	col.update(
 		{
 			'_id': _id
@@ -123,7 +129,8 @@ function changeUser(userObj, col, callback){
 	);
 }
 
-function deleteUser(_id, col, callback){
+function deleteUser(_id, callback){
+	var col = this.db.get('users');
 	col.remove(
 		{
 			"_id": _id
