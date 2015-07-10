@@ -3,6 +3,7 @@ var router = express.Router();
 
 var monk = require('monk');
 var db = monk('mongodb://localhost:27017/punchsystem');
+var utils = require('../utils');
 
 
 router.get('/', function(req, res, next) {
@@ -36,7 +37,7 @@ router.get('/staff_main', function(req, res, next){
                 if(!userDoc) {
                     ret.ok = false;
                     ret.msg = "cant find this user";
-                    return res.render('staff/staff_main', ret);
+                    return utils.render('staff/staff_main', ret)(req, res, next);
                 }
                 delete userDoc.password;
                 ret.user = userDoc;
@@ -46,7 +47,7 @@ router.get('/staff_main', function(req, res, next){
                     else
                         ret.delegate = false;
                     
-                    res.render('staff/staff_main', ret);
+                    utils.render('staff/staff_main', ret)(req, res, next);
 
                 });
 

@@ -24,6 +24,7 @@ function newRecordFromUserDoc(userDoc) {
 function validate(record) {
 
 }
+
 function punch(userid, cb) {
     var recordsCol = this.db.get('records');
     var userCol = this.db.get('users');
@@ -37,11 +38,11 @@ function punch(userid, cb) {
                 var recordDoc = newRecordFromUserDoc(userDoc);
                 recordDoc.inDate = currentTime;
                 recordDoc.outDate = null;
-                insertRecord(recordDoc, recordsCol).complete(cb);
+                insertRecord(recordDoc, recordsCol).on('complete',cb);
             } else {
                 userLastRecord.outDate = currentTime;
                 var promise = updateRecord({_id: userLastRecord._id}, {outDate: currentTime}, recordsCol);
-                promise.complete(cb);
+                promise.on('complete', cb);
             }
         });
 
@@ -49,10 +50,9 @@ function punch(userid, cb) {
 }
 
 function checkQrcode(qrid, sessionid, cb) {
-    var sm = new sessionModule(this.db);
     var qrcodeCol = this.db.get('qrcodes');
     var userCol = this.db.get('users');
-    sm.getSessionInfo(sessionid, function(err, doc){
+    this.sm.getSessionInfo(sessionid, function(err, doc){
         qrcodeCol.findOne({qrid: qrid}, {}, function(err, qrDoc){
             if(qrDoc.compid == doc.compid) {
                 userCol.findOne({userid: doc.userid}, {}, function(err, userDoc){
@@ -63,8 +63,34 @@ function checkQrcode(qrid, sessionid, cb) {
             }
         });
     });
+}
 
+function rencentRecords(idObj, cb) {
+    var sessionid = null;
+    var userid = null;
+    
+    if(typeof idObj === 'string')
+        userid = idObj;
+    else if(typeof idObj === 'object') {
+        if(idObj.sessionid)
+            sessionid = idObj.sessionid;
+        else if(idObj.userid)
+            userid = idObj.userid;
+    }
 
+    var recordsCol = this.db.get('records');
+    var recentNumber = utils.getConfig('app.config->recentRecords.limit');
+    if(sessionid) { 
+        this.sm.getSessionInfo(sessionid, function(err, sessionDoc){
+            recordsCol.find({userid: sessionDoc.userid}, {
+                             sort: {inDate: -1}, 
+                             limit: recentNumber}, 
+                            cb);
+        });
+    } else if(userid)
+        recordsCol.find({userid: userid}, {sort: {inDate: -1}, limit: recentNumber}, cb);
+    else
+        cb(new Error('userid or sessionid is required!'));
 }
 
 function Module(settings) {
@@ -72,24 +98,16 @@ function Module(settings) {
     if(!this.db) {
         this.db = monk(utils.getConfig('mongodbPath'));
     }
+    this.sm = new sessionModule(this.db);
 }
 
 
 Module.prototype = {
     punch : punch,
-    checkQrcode: checkQrcode
+    checkQrcode: checkQrcode,
+    rencentRecords: rencentRecords
 }
 
 module.exports = Module 
-
-var module = new Module;
-
-module.punch('LoginName_1', function(punchPromise){
-});
-
-
-
-
-
 
 
