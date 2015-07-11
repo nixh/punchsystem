@@ -4,15 +4,13 @@ body.bgbody{
 
 .staffPunchPage{
     width: 100%;
-    border: 1px solid red;
+    /*border: 1px solid red;*/
     font-family: Arial, Helvetica, sans-serif;
 }
 
 .staffPunchPage .startEndTime{
-	border: 2px solid yellow;
-	height: 200px;
-	width: 90%;
-	margin-left: 5%;
+	/*border: 2px solid yellow;*/
+	width: 100%;
 }
 
 /*
@@ -36,99 +34,129 @@ body.bgbody{
 */
 
 .staffPunchPage .startEndTime input{
-	width: 420px;
-	height: 60%;
-	margin-top: 50px;
-	border-radius: 40px;
-	background: rgba(255, 255, 255, .40);
-	text-align: center;
-	font-size: 60px;
-	color: #fff;
-}
-
-.staffPunchPage .startEndTime :nth-child(2){
-	float: right;
-}
-
-.staffPunchPage .controlButtons{
-	height: 350px;
-	border: 2px solid orange;
+	display: block;
 	width: 90%;
+	height: 110px;
+	margin-top: 30px;
 	margin-left: 5%;
+	margin-bottom: 30px;
+	border-radius: 10px;
+	text-align: left;
+	text-indent: 250px;
+	font-size: 60px;
+	color: rgb(103, 116, 153);
+	background-color: white;
+}
+
+.staffPunchPage .startEndTime input:nth-of-type(1){
+	margin-top: 50px;
+}
+.staffPunchPage .controlButtons{
+	/*border: 2px solid orange;*/
+	width: 100%;
+}
+.staffPunchPage .controlButtons:after {
+	content: "";
+	visibility: hidden;
+	clear: both;
+	display: block;
 }
 
 .staffPunchPage .controlButtons .buttonItem{
-	background-color: rgba(0, 61, 119, 0.28);
+	background-color: rgb(138, 209, 215);
+	color: white;
 	border-radius: 10px;
 	cursor: pointer;
 	float: left;
-	width: 280px;
-	height: 80%;
+	width: 29%;
+	height: 150px;
 	border: 2px solid gray;
+	line-height: 150px;
 	text-align: center;
-	margin-top: 50px;
-	line-height: 180px;
 	font-size: 50px;
-	color: #fff;
+	margin-left: 12px;
+	margin-bottom: 30px;
 }
 
-.staffPunchPage .controlButtons :nth-child(2){
-	margin-left: 15px;
-	margin-right: 15px;
+.staffPunchPage .controlButtons .buttonItem:active{
+	background-color: rgb(247, 130, 131);
 }
 
-.staffPunchPage .reportTable{
-	border: 2px solid green;
-	width: 90%;
+.staffPunchPage .controlButtons :first-child{
 	margin-left: 5%;
 }
 
-.staffPunchPage .reportTable table{
-	margin-top: 20px;
+.staffPunchPage .controlButtons :last-child{
+	margin-right: 5%;
+}
+
+.staffPunchPage .reportTable{
+	/*border: 2px solid green;*/
 	width: 100%;
+}
+
+.staffPunchPage .reportTable table{
+	width: 90%;
 	border-collapse: separate;
 	border-spacing: 5px;
+	margin-left: 5%;
+	color: rgb(103, 116, 153);
 }
 
 .staffPunchPage .reportTable table th{
 	border-radius: 20px 20px 0px 0px;
 	text-align: center;
-	border: 2px solid blue;
+	/*border: 2px solid blue;*/
 	height: 200px;
-	background: rgba(200, 200, 200, .28);
-	color: rgba(0, 61, 119, .5);
 	font-family: "Courier New", Courier, monospace;
 	font-size: 60px;
+	background-color: white;
 }
 
 .staffPunchPage .reportTable table td{
-	border: 2px solid blue;
+	/*border: 2px solid blue;*/
 	height: 200px;
-	background: rgba(200, 200, 200, .28);
+	background-color: white;
 }
 
+
 .staffPunchPage .reportTable table tr :nth-child(1){
-	width: 200px;
+	
 }
 
 .staffPunchPage .reportTable table tr :nth-child(2){
-	width: 300px;
+	
 }
 
 .staffPunchPage .reportTable table tr :nth-child(3){
-	width: 300px;
+	
 }
 
 .staffPunchPage .reportTable table tr :nth-child(4){
-	width: 200px;
+	
 }
 
 .staffPunchPage .reportTable table ul{
+	/*border: 1px solid red;*/
 	list-style: none;
+	padding-left:0;
+	width: 100%;
+	height: 100%;
 }
 
 .staffPunchPage .reportTable table li{
-	color: #fff;
+	/*border: 1px solid red;*/
 	font-size: 40px;
-	margin: 15px;
+	width: 100%;
+	height: 30%;
+	margin-top: 28px;
+	text-align: center;
 }
+
+/*
+light-blue-green  rgb(138, 209, 215)  
+redish  rgb(247, 130, 131)
+blue  rgb(103, 116, 153)
+gray  rgb(238, 238, 238)
+rgba(255, 255, 255, .52)
+*/

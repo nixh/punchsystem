@@ -2,18 +2,18 @@ body.bgbody{
     background-repeat: repeat-y;
 }
 
-.staffMainPage{
+.supervisorMainPage{
 
     width: 100%;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.staffMainPage .avatar{
+.supervisorMainPage .avatar{
     width: 100%;
     text-align: center;
 }
 
-.staffMainPage .avatar img{
+.supervisorMainPage .avatar img{
     width: 300px;
     height: 300px;
     margin-top: 40px;
@@ -21,23 +21,23 @@ body.bgbody{
     border: 20px solid rgb(138, 209, 215);
 }
 
-.staffMainPage .avatar p{
+.supervisorMainPage .avatar p{
     font-size: 50px;
     color: rgb(247, 130, 131);
 }
 
-.staffMainPage .paidRate{
+.supervisorMainPage .paidRate{
     width: 100%;
 }
 
-.staffMainPage .paidRate:after {
+.supervisorMainPage .paidRate:after {
     content: "";
     visibility: hidden;
     clear: both;
     display: block;
 }
 
-.staffMainPage .paidRate .paidRateBox{
+.supervisorMainPage .paidRate .paidRateBox{
     float:left;
     width: 29.5%;
     margin-left: 5px;
@@ -48,40 +48,40 @@ body.bgbody{
     text-align: center;
 } 
 
-.staffMainPage .paidRate .paidRateBox:last-child{
+.supervisorMainPage .paidRate .paidRateBox:last-child{
     cursor: pointer;
 }
 
-.staffMainPage .paidRate .paidRateBox:last-child:active{
+.supervisorMainPage .paidRate .paidRateBox:last-child:active{
      background-color:rgb(138, 209, 215);
      color: white;
 }
 
-.staffMainPage .paidRate .paidRateBox pre{
+.supervisorMainPage .paidRate .paidRateBox pre{
     font-size: 60px;
     word-wrap: break-word;
 }
 
-.staffMainPage .paidRate .paidRateBox .hourRate{
+.supervisorMainPage .paidRate .paidRateBox .hourRate{
     height: 100%;
 }
 
-.staffMainPage .paidRate .paidRateBox .imageCover{
+.supervisorMainPage .paidRate .paidRateBox .imageCover{
     height: 100%;
     background-color: rgb(247, 130, 131);
 }
 
-.staffMainPage .paidRate .paidRateBox:nth-of-type(1){
+.supervisorMainPage .paidRate .paidRateBox:nth-of-type(1){
     margin-left: 50px;
 }
 
-.staffMainPage .otherInfoLinks{
+.supervisorMainPage .otherInfoLinks{
     text-align: center;
     width: 100%;
     
 }
 
-.staffMainPage .otherInfoLinks .otherInfo{
+.supervisorMainPage .otherInfoLinks .otherInfo{
     width: 90%;
     height: 150px;
     line-height: 150px;
@@ -94,27 +94,27 @@ body.bgbody{
     font-size: 50px;
 }
 
-.staffMainPage .otherInfoLinks .otherInfo:active{
+.supervisorMainPage .otherInfoLinks .otherInfo:active{
     background-color:rgb(247, 130, 131);
     color: white;
 }
 
-.staffMainPage .otherInfoLinks :last-child{
+.supervisorMainPage .otherInfoLinks :last-child{
     border-radius: 0px 0px 15px 15px;
     margin-bottom: 40px;
 }
 
-.staffMainPage .otherInfoLinks :nth-child(1){
+.supervisorMainPage .otherInfoLinks :nth-child(1){
     border-radius: 15px 15px 0px 0px;
     margin-top: 40px;
 }
 
-.staffMainPage .otherInfoLinks :nth-child(2){
+.supervisorMainPage .otherInfoLinks :nth-child(2){
 }
 
-.staffMainPage .otherInfoLinks :nth-child(3){
+.supervisorMainPage .otherInfoLinks :nth-child(3){
 }
 
-.staffMainPage .otherInfoLinks :nth-child(4){
+.supervisorMainPage .otherInfoLinks :nth-child(4){
 
 }
