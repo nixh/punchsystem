@@ -1,44 +1,36 @@
-body.bgbody{
+body.bgbody {
     background-repeat: repeat-y;
 }
-
-.supervisorMainPage{
-
+.supervisorMainPage {
     width: 100%;
     font-family: Arial, Helvetica, sans-serif;
 }
-
-.supervisorMainPage .avatar{
+.supervisorMainPage .avatar {
     width: 100%;
     text-align: center;
 }
-
-.supervisorMainPage .avatar img{
+.supervisorMainPage .avatar img {
     width: 300px;
     height: 300px;
     margin-top: 40px;
     border-radius: 50%;
     border: 20px solid rgb(138, 209, 215);
 }
-
-.supervisorMainPage .avatar p{
+.supervisorMainPage .avatar p {
     font-size: 50px;
     color: rgb(247, 130, 131);
 }
-
-.supervisorMainPage .paidRate{
+.supervisorMainPage .paidRate {
     width: 100%;
 }
-
 .supervisorMainPage .paidRate:after {
     content: "";
     visibility: hidden;
     clear: both;
     display: block;
 }
-
-.supervisorMainPage .paidRate .paidRateBox{
-    float:left;
+.supervisorMainPage .paidRate .paidRateBox {
+    float: left;
     width: 29.5%;
     margin-left: 5px;
     margin-top: 20px;
@@ -46,42 +38,39 @@ body.bgbody{
     background-color: rgba(255, 255, 255, .52);
     color: rgb(103, 116, 153);
     text-align: center;
-} 
-
-.supervisorMainPage .paidRate .paidRateBox:last-child{
+    display: table;
+}
+.supervisorMainPage .paidRate .paidRateBox:last-child {
     cursor: pointer;
 }
-
-.supervisorMainPage .paidRate .paidRateBox:last-child:active{
-     background-color:rgb(138, 209, 215);
-     color: white;
+.supervisorMainPage .paidRate .paidRateBox:last-child:active {
+    background-color: rgb(138, 209, 215);
+    color: white;
 }
-
-.supervisorMainPage .paidRate .paidRateBox pre{
+.supervisorMainPage .paidRate .paidRateBox > span {
     font-size: 60px;
     word-wrap: break-word;
+    display: table-cell;
+    vertical-align: middle;
 }
-
-.supervisorMainPage .paidRate .paidRateBox .hourRate{
+.supervisorMainPage .paidRate .paidRateBox .hourRate {
     height: 100%;
+    display: table-cell;
+    vertical-align: middle;
+    word-wrap: break-word;
 }
-
-.supervisorMainPage .paidRate .paidRateBox .imageCover{
+.supervisorMainPage .paidRate .paidRateBox .imageCover {
     height: 100%;
     background-color: rgb(247, 130, 131);
 }
-
-.supervisorMainPage .paidRate .paidRateBox:nth-of-type(1){
+.supervisorMainPage .paidRate .paidRateBox:nth-of-type(1) {
     margin-left: 50px;
 }
-
-.supervisorMainPage .otherInfoLinks{
+.supervisorMainPage .otherInfoLinks {
     text-align: center;
     width: 100%;
-    
 }
-
-.supervisorMainPage .otherInfoLinks .otherInfo{
+.supervisorMainPage .otherInfoLinks .otherInfo {
     width: 90%;
     height: 150px;
     line-height: 150px;
@@ -93,28 +82,16 @@ body.bgbody{
     cursor: pointer;
     font-size: 50px;
 }
-
-.supervisorMainPage .otherInfoLinks .otherInfo:active{
-    background-color:rgb(247, 130, 131);
+.supervisorMainPage .otherInfoLinks .otherInfo:active {
+    background-color: rgb(247, 130, 131);
     color: white;
 }
-
-.supervisorMainPage .otherInfoLinks :last-child{
+.supervisorMainPage .otherInfoLinks:last-child {
     border-radius: 0px 0px 15px 15px;
     margin-bottom: 40px;
 }
-
-.supervisorMainPage .otherInfoLinks :nth-child(1){
+.supervisorMainPage .otherInfoLinks:nth-child(1) {
     border-radius: 15px 15px 0px 0px;
     margin-top: 40px;
 }
-
-.supervisorMainPage .otherInfoLinks :nth-child(2){
-}
-
-.supervisorMainPage .otherInfoLinks :nth-child(3){
-}
-
-.supervisorMainPage .otherInfoLinks :nth-child(4){
-
-}
+.supervisorMainPage .otherInfoLinks:nth-child(2) {} .supervisorMainPage .otherInfoLinks:nth-child(3) {} .supervisorMainPage .otherInfoLinks:nth-child(4) {}

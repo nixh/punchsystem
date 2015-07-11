@@ -1,0 +1,133 @@
+.main {
+    margin: 0 auto;
+    width: 95%;
+    padding-top: 5%;
+    padding-bottom: 4%;
+}
+.companyName {
+    text-align: center;
+    font-size: 85px;
+    font-family: 'anivers reg';
+    margin-bottom: 4%;
+    color: rgb(103, 116, 153);
+
+
+}
+
+table.punchTable {
+    width: 100%;
+    text-align: center;
+    border-spacing: 20px;
+    border-collapse: separate;
+    margin-bottom: 4%;
+}
+
+table.punchTable th {
+    height: 200px;
+    background-color: rgba(255, 255, 255, .52);
+    color: rgba(103, 116, 153, .8);
+    font-size: 55px;
+    font-weight: normal;
+    text-align: center;
+}
+
+table.punchTable th:first-child {
+    border-top-left-radius: 25px;
+}
+
+table.punchTable th:last-child {
+    border-top-right-radius: 25px;
+
+}
+table.punchTable td {
+    vertical-align: middle;
+    height: 200px;
+    background-color: rgba(255, 255, 255, .52);
+    font-size: 50px;
+}
+
+table.punchTable td:nth-child(2) {
+    color: rgba(103, 116, 153, .8);
+}
+table.punchTable td:last-child {
+    cursor: pointer;
+}
+
+
+table.punchTable tr:last-child td:first-child {
+    border-bottom-left-radius: 25px;
+}
+
+table.punchTable tr:last-child td:last-child {
+    
+    border-bottom-right-radius: 25px;
+}
+
+.punchBtn {
+    height: 120px;
+    border-radius: 40px;
+    border: none;
+    line-height: 100%;
+    color: white;
+    background-color: rgb(138, 209, 215);
+    font-size: 75px;
+    width: 100%;
+    cursor: pointer;
+    font-family: "anivers reg";
+    margin: 0 auto;
+}
+
+.in {
+
+}
+
+.out {
+    
+}
+
+.selected {
+    background-color: rgb(231, 130, 131) !important;
+}
+
+.square {
+    width: 70%;
+    height: 70%;
+    border: 4px solid rgba(103, 116, 153, .52); 
+    margin: 0 auto;
+}
+
+.hollowcircle {
+
+    width: 70px;
+    height: 70px;
+    border-radius: 35px;
+    margin: 0 auto;
+}
+
+.red {
+    color: rgb(247, 130, 131);
+}
+.green {
+    color: rgb(138, 209, 215);
+}
+
+.hollowcircle.red {
+    border: 5px solid rgb(247, 130, 131);
+}
+
+.hollowcircle.green {
+    border: 5px solid rgb(138, 209, 215);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

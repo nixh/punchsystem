@@ -11,7 +11,7 @@ block content
         //.userInfo
         .avatar
             img(src="/images/yongred.jpg" alt="User Avatar") 
-            p WELCOME #{user.name}
+            p= tr('welcome') + " " + user.name
             //.acctInfo
                 pre.
                 Company: #{user.compid}
@@ -25,27 +25,24 @@ block content
 
         .paidRate
             .paidRateBox
-                pre.
-                    PAID
-                    RATE
+                span.text= tr('paidrate')
             .paidRateBox
                 .hourRate.hidden
-                    pre.
+                    span.number.
                         $#{user.curRate}
-                        PER HOUR
+                        <br>
+                        #{tr('per_hour')}
                 .imageCover
 
             .paidRateBox.showHideRate.noselect
-                pre.
-                    SHOW
-                    RATE
+                span.text= tr('showrate')
 
 
         .otherInfoLinks.noselect
-            .otherInfo STAFF MANAGEMENT
-            .otherInfo DELEGATE
-            .otherInfo SEARCH STAFF
-            .otherInfo DYNAMIC QRCODE
+            .otherInfo= tr('staffmanagement')
+            .otherInfo= tr('delegate')
+            .otherInfo= tr('view staff')
+            .otherInfo= tr('dynamic_qrcode')
 
             if false
                 .otherInfo SETTING
