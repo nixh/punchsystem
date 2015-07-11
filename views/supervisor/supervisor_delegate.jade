@@ -4,10 +4,10 @@ append links
 	link(rel='stylesheet', href='/stylesheets/supervisorDelegate.css')
 
 block content
-	.supervisorDelegatePage
+	.supervisorDelegatePage(ontouchstart= "")
 		.searchDiv
 			form 
-				input(type= "text" name= "ID" placeholder= " ID#:")
+				input(type= "text" name= "ID" placeholder= " ......")
 				input(type= "submit" value= "Search")
 
 		.delegationTable
@@ -22,9 +22,9 @@ block content
 					td= userInfos[r].name
 					td= userInfos[r].userid
 					td.status
-					td.delegation
+					td.delegation.noselect
 						.authorize(href= "#") Authorize
-						.Revoke.hidden(href= "#") Revoke
+						.revoke.hidden(href= "#") Revoke
 					tr
 
 
