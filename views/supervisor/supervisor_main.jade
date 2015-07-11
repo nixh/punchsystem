@@ -5,6 +5,18 @@ append links
 
 append scripts
     script(src= "/javascripts/showHideRate.js")
+    script.
+        $(function initEvents(){
+            $('.dynacode').on('click', function(){
+                location.href = "/supervisor/showdynacode"
+            });
+            $('.adminpunch').on('click', function(){
+                location.href = '/supervisor/adminpunch';
+            });
+            $('.viewstaff').on('click', function(){
+                location.href = "/supervisor/employees"
+            })
+        });
 
 block content
     .supervisorMainPage(ontouchstart="")
@@ -39,12 +51,13 @@ block content
 
 
         .otherInfoLinks.noselect
-            .otherInfo= tr('staffmanagement')
-            .otherInfo= tr('delegate')
-            .otherInfo= tr('view staff')
-            .otherInfo= tr('dynamic_qrcode')
+            .viewstaff.otherInfo= tr('view staff')
+            .dynacode.otherInfo= tr('dynamic_qrcode')
+            .adminpunch.otherInfo= tr('adminpunch')
 
             if false
+                .management.otherInfo= tr('staffmanagement')
+                .delegate.otherInfo= tr('delegate')
                 .otherInfo SETTING
                 .otherInfo SUPERVISOR MANAGEMENT
                 .otherInfo ADD STAFF
