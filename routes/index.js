@@ -169,13 +169,10 @@ router.get('/punch/:key', function(req, res, next){
     var parts = key.split('.');
     key = utils.base64URLSafeDecode(parts[1]);
     var qrid = signer.unsign(parts[0]+'.'+key);
-<<<<<<< HEAD
-    rm.checkQrcode(qrid,
-     req.cookies.sessionid, function(valid, userInfo){
-=======
+
+
     rm.checkQrcode(qrid, req.cookies.sessionid, function(valid, userInfo){
         var msg;
->>>>>>> dev
         if(valid) {
             msg = { head: res.__('punchSuccessHead'), body: res.__('punchSuccess') };
             rm.punch(userInfo.userid, function(err, record){

@@ -160,15 +160,10 @@ function Module(settings) {
     if(!this.db) {
         this.db = monk(utils.getConfig('mongodbPath'));
     }
-<<<<<<< HEAD
 
-    db = this.db;
 
-    this.sm = new sessionModule(this.db);
-
-=======
     this.sm = new sessionModule({db:this.db});
->>>>>>> dev
+
 }
 
 
