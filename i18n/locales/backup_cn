@@ -1,4 +1,5 @@
 {
+
 	"login_welcome": "欢迎进入打卡系统",
 	"login_username": "用户名",
 	"login_password": "用户密码",
@@ -62,21 +63,7 @@
 	"staffmanagement": "员工管理",
 	"delegate": "授权",
 	"view staff": "浏览员工列表",
-	"dynamic_qrcode": "动态二维码",
-	"adminpunch": "管理员打卡",
-	"logout": "登出",
-	"records": "纪录",
-	"starttime": "开始于：",
-	"endtime": "结束于：",
-	"out": "登出",
-	"in": "登入",
-	"time": "时间",
-	"preview": "预览",
-	"return": "返回",
-	"clearsearch": "清空查找结果",
-	"empty records":"清空纪录",
-	"viewrecords": "浏览记录"
+	"dynamic_qrcode": "动态二维码"
+
 
 }
-
-	
