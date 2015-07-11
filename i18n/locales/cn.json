@@ -49,7 +49,7 @@
 	"modify": "修改",
 	"delete": "删除",
 	"userform_compid": "公司账号",
-	"punchSuccess": "<b>%s</b> <br> 开启 <b>%s</b> <br> 自动 <b>%s</b>.",
+	"punchSuccess": "<b>%s</b> <br> 在 <b>%s</b> <br> 在 <b>%s</b>.",
 	"punchFailedHead": "登陆失败!",
 	"punchFailed": "登陆失败，可能未扫描正确的二维码.",
 	"welcome": "欢迎进入",
@@ -68,6 +68,7 @@
 	"records": "纪录",
 	"starttime": "开始于：",
 	"endtime": "结束于：",
+<<<<<<< HEAD
 	"out": "登出",
 	"in": "登入",
 	"time": "时间",
@@ -80,3 +81,14 @@
 }
 
 	
+=======
+	"out": "签出",
+	"in": "签入",
+	"time": "时间",
+	"preview": "预览",
+	"return": "返回",
+	"empty records": "未找到纪录",
+	"clearsearch": "清空搜索",
+	"viewrecords": "浏览记录"
+}
+>>>>>>> 431fc7a1bdd5204ea932ee411acc4ddbb320409e
