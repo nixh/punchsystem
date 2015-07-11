@@ -16,6 +16,9 @@ append scripts
             $('.viewstaff').on('click', function(){
                 location.href = "/supervisor/employees"
             })
+            $('.logout').on('click', function(){
+                location.href = "/logout";
+            })
         });
 
 block content
@@ -54,6 +57,7 @@ block content
             .viewstaff.otherInfo= tr('view staff')
             .dynacode.otherInfo= tr('dynamic_qrcode')
             .adminpunch.otherInfo= tr('adminpunch')
+            .logout.otherInfo= tr('logout')
 
             if false
                 .management.otherInfo= tr('staffmanagement')

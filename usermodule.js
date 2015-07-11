@@ -78,7 +78,7 @@ function searchUser(searchTerm, compid, callback) {
         callback = compid;
 
     col.find({
-            'userid': {
+            'name': {
                 $regex: searchTerm
             },
             'compid': typeof compid !== 'function'
