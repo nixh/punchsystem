@@ -1,4 +1,5 @@
 {
+
 	"login_welcome": "欢迎进入打卡系统",
 	"login_username": "用户名",
 	"login_password": "用户密码",
@@ -62,10 +63,7 @@
 	"staffmanagement": "员工管理",
 	"delegate": "授权",
 	"view staff": "浏览员工列表",
-	"dynamic_qrcode": "动态二维码",
-	"adminpunch": "adminpunch",
-	"logout": "logout",
-	"clearsearch": "clearsearch",
-	"records": "records",
-	"viewrecords": "viewrecords"
+	"dynamic_qrcode": "动态二维码"
+
+
 }
