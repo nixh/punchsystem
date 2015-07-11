@@ -24,7 +24,6 @@ router.post('/add', function(req, res){
 
 // Display all users and search users
 router.get('/search', function(req, res){
-	var col = req.db.get('users');
 
 	um.getAllUsers(function(err, doc){
 		if(err){
@@ -43,7 +42,6 @@ router.get('/search', function(req, res){
 });
 
 router.post('/search', function(req, res){
-	var col = req.db.get('users');
 	var userid = req.body.userid;
 
 	um.searchUser(userid, function(err, doc){
@@ -64,7 +62,6 @@ router.post('/search', function(req, res){
 //Change the info of a specific user
 router.get('/change/:id', function(req, res){
 	var userid = req.params.id;
-	var col = req.db.get('users');
 
 	um.getUserInfo(userid, function(err, doc){
 		if(err){
@@ -86,7 +83,6 @@ router.get('/change/:id', function(req, res){
 
 router.post('/change', function(req, res){
 	var userObj = req.body;
-	var col = req.db.get('users');
 
 	um.changeUser(userObj, function(err, doc){
 		if(err){
@@ -103,8 +99,6 @@ router.get('/delete/:_id', function(req, res){
 
 	var _id = req.params._id;
 
-	var col = req.db.get('users');
-
 	um.deleteUser(_id, function(err, doc){
 		if(err){
 			res.send('Faield deleting!');
@@ -117,7 +111,6 @@ router.get('/delete/:_id', function(req, res){
 //Delete user
 router.post('/delete', function(req, res){
 	var _id = req.body._id;
-	var col = req.db.get('users');
 
 	um.deleteUser(_id, function(err, doc){
 		if(err){
