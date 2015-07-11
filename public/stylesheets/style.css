@@ -94,6 +94,18 @@ img.icon {
     font-family: "anivers reg";
 }
 
+.button {
+    height: 120px;
+    border-radius: 40px;
+    border: none;
+    line-height: normal;
+    color: white;
+    background-color: rgb(138, 209, 215);
+    font-size: 75px;
+    cursor: pointer;
+    font-family: "anivers reg";
+}
+
 .loginpage .content table input[type='submit']:active {
     background-color: rgb(247, 130, 131);
 }
