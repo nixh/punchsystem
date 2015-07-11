@@ -46,6 +46,7 @@ body.bgbody{
     background-color: rgba(255, 255, 255, .52);
     color: rgb(103, 116, 153);
     text-align: center;
+    display: table;
 } 
 
 .staffMainPage .paidRate .paidRateBox:last-child{
@@ -57,13 +58,16 @@ body.bgbody{
      color: white;
 }
 
-.staffMainPage .paidRate .paidRateBox pre{
+.staffMainPage .paidRate .paidRateBox span{
     font-size: 60px;
-    word-wrap: break-word;
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .staffMainPage .paidRate .paidRateBox .hourRate{
     height: 100%;
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .staffMainPage .paidRate .paidRateBox .imageCover{

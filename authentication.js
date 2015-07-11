@@ -21,7 +21,6 @@ function Authentication() {
             console.log('authentication: session missing -> ' + sessionid);
             return redirectToLogin(req, res);
         }
-
         var db = req.db;
         var sessionCol = db.get('session');
         sessionCol.findOne({ sessionid: sessionid }, {}, function(err, doc) {

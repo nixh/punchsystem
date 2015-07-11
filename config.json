@@ -14,7 +14,6 @@
 
     },
     "paths": {
-        "punch" : "http://192.168.1.226:3000/punch/%s",
-        "dynapunch" : "http://192.168.1.226:3000/dynapunch/%s"
+        "punch" : "http://192.168.1.226:3000/punch/%s"
     }
 }

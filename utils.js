@@ -32,9 +32,8 @@ function Utils() {
                 if (!data) data = {};
                 data['tr'] = res.__;
                 data['redirectTime'] = findConfig('app.config->message.redirectAfter');
-                if(req.db) {
-                    console.log('db closed!')
-                    req.db.close();
+                if(!data['title']) {
+                    data['title'] = 'AdminSys Inc.';
                 }
                 return res.render(tmplPath, data);
             }
