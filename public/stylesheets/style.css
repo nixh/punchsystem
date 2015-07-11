@@ -68,10 +68,11 @@ input[type='password'] {
     width: 99%;
     height: 120px;
     border-radius: 40px;
-    border: none;
+    border:none;
+    /*border: 4px solid rgb(138, 209, 215);*/
     line-height: normal;
     text-indent: 40px;
-    background-color: rgba(255, 255, 255, .70);
+    background: rgba(255, 255, 255, .8);
     color: rgba(103, 116, 153, .8);
     font-size: 50px;
     font-family: "anivers reg";
@@ -91,6 +92,10 @@ img.icon {
     width: 100%;
     cursor: pointer;
     font-family: "anivers reg";
+}
+
+.loginpage .content table input[type='submit']:active {
+    background-color: rgb(247, 130, 131);
 }
 span.number {
     font-family: 'dinbek';

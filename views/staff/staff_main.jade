@@ -11,7 +11,7 @@ block content
         //.userInfo
         .avatar
             img(src="/images/yongred.jpg" alt="User Avatar") 
-            p WELCOME #{user.name}
+            p= tr('welcome') + " " + user.name
             //.acctInfo
                 pre.
                     Company: #{user.compid}
@@ -25,25 +25,20 @@ block content
 
         .paidRate
             .paidRateBox
-                pre.
-                    PAID
-                    RATE
+                span.text= tr('paidrate')
             .paidRateBox
                 .hourRate.hidden
-                    pre.
-                        $#{user.curRate}
-                        PER HOUR
+                    span.number
+                        $#{user.curRate} #{tr('per_hour')}
                 .imageCover
 
             .paidRateBox.showHideRate.noselect
-                pre.
-                    HIDE
-                    RATE
+                span= tr('hiderate')
                     
                
         .otherInfoLinks.noselect
-            .punchReport.otherInfo PUNCH REPORT
-            .wageReport.otherInfo WAGE REPORT
+            .punchReport.otherInfo= tr('punchReport')
+            .wageReport.otherInfo= tr('wageReport')
 
             if false
                 .setting.otherInfo

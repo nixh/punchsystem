@@ -28,6 +28,7 @@ table.punchTable th {
     color: rgba(103, 116, 153, .8);
     font-size: 55px;
     font-weight: normal;
+    text-align: center;
 }
 
 table.punchTable th:first-child {

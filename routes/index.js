@@ -1,8 +1,8 @@
 var express = require('express');
 var router  = express.Router();
 var monk    = require('monk');
-var db      = monk('mongodb://localhost:27017/punchsystem');
 var utils   = require('../utils');
+var db      = monk(utils.getConfig('mongodbPath'));
 var btoa    = require('btoa');
 var nobi    = require('nobi');
 var crypto  = require('crypto');
@@ -50,7 +50,7 @@ function loginpage(req, res, next) {
     loginKeys[parts[1]] = signiture;
     pageUrl = req.url;
     if(req.path === '/login')
-        pageUrl = '/staff_main'
+        pageUrl = '/staff_main';
     utils.render('login', {
         loginKey: parts[1],
         pageUrl: pageUrl,
@@ -62,7 +62,7 @@ function postLogin(req, res, next) {
     var ret = login(req.body, function(err, doc) {
         if (err)
             return res.render('message', {
-                msg: err,
+                msg: { head: 'LOGIN FAILED', body: err.message },
                 success: false
             });
         if (!doc)
@@ -135,10 +135,10 @@ router.get('/logout', function(req, res, next) {
                     return next(err);
                 res.clearCookie('sessionid');
                 res.redirect('/login');
-            })
+            });
         } else {
             res.clearCookie('sessionid');
-            res.redirect('/login')
+            res.redirect('/login');
         }
     });
 });
@@ -150,8 +150,7 @@ function punchData(record, msg, userInfo) {
     var punchout = !!record.outDate;
     var punchtime = punchout ? record.outDate : record.inDate;
     var datetime = moment(punchtime);
-    msg = util.format(msg,
-            userInfo.name,
+    msg.body = util.format(msg.body,
             punchout ? "OUT" : "IN",
             datetime.format("YYYY-MM-DD"),
             datetime.format("HH:mm A"));
@@ -160,22 +159,34 @@ function punchData(record, msg, userInfo) {
         msg: msg,
         record: record,
         punchout: punchout,
-        pageUrl: '/staff_main'
-    }
+        pageUrl: userInfo.owner ? '/supervisor/supervisor_main' : '/staff_main'
+    };
 }
 
 router.get('/punch/:key', function(req, res, next){
-    var rm = new recordsModule({db:req.db});
+    var rm = new recordsModule();
     var key = req.params.key;
     var parts = key.split('.');
     key = utils.base64URLSafeDecode(parts[1]);
     var qrid = signer.unsign(parts[0]+'.'+key);
     rm.checkQrcode(qrid, req.cookies.sessionid, function(valid, userInfo){
+        var msg;
         if(valid) {
+            msg = { head: res.__('punchSuccessHead'), body: res.__('punchSuccess') };
             rm.punch(userInfo.userid, function(err, record){
-                var msg = res.__('punch_success');
+                rm.db.close();
                 utils.render('message', punchData(record, msg, userInfo))(req, res, next);
             });
+        } else {
+            msg = {
+                head : res.__('punchFailedHead'),
+                body : res.__('punchFailed')
+            };
+            utils.render('message', {
+                success : false,
+                msg : msg,
+                pageUrl : '/logout'
+            })(req, res, next);
         }
     });
 
@@ -184,18 +195,18 @@ router.get('/punch/:key', function(req, res, next){
 var qrModule = require('../qrcodeModule');
 
 router.get('/showdynacode', function(req, res, next){
-    var qrm = new qrModule({db:req.db});
+    var qrm = new qrModule();
     
     qrm.getDynacode(req.cookies.sessionid, function(err, mixinData){
-        console.log(mixinData);
+        qrm.db.close();
         utils.render('testqrcode', {data: mixinData})(req, res, next); 
     });
 });
 
 router.get('/recentRecords', function(req, res, next){
-    var rm = new recordsModule({db:req.db});
+    var rm = new recordsModule();
     rm.rencentRecords({sessionid:req.cookies.sessionid}, function(err, recordDocs){
-
+        rm.db.close();
         utils.render('staff/staff_punch_report', {
                      moment: moment,
                      records: recordDocs
@@ -207,18 +218,19 @@ router.get('/recentRecords', function(req, res, next){
 var sModule = require('../sessionModule');
 
 router.get('/supervisor/adminpunch', function(req, res, next){
-    var sm = new sModule({db:req.db});
+    var sm = new sModule();
+    var rm = new recordsModule({db: sm.db});
     sm.getSessionInfo(req.cookies.sessionid, function(err, sObj){
         if(err || !sObj)
             return next(err||new Error('invalid user!'));
-
         sm.db.get('companies').findOne({compid: sObj.compid},{}, function(err, comp){
-            sm.db.get('users').find({compid: comp.compid}, {}, function(err, users){
-
+            rm.findLastRecordsByCompid(sObj.compid, function(err, mixinData){
                 utils.render('adminpunch', {
                     companyName:comp.name,
-                    users: users
+                    users: mixinData.users,
+                    lastRecords: mixinData.lastRecords
                 })(req, res, next);
+                sm.db.close();
             });
 
         });
@@ -226,10 +238,28 @@ router.get('/supervisor/adminpunch', function(req, res, next){
     });
 });
 
+router.post('/supervisor/adminpunch', function(req, res, next){
+    var rm = new recordsModule();
+    var userIdCommaList = req.body.userIdList;
+    var userList = userIdCommaList.split(',');
+
+    rm.punchMany(userList, function(err, records){
+        rm.db.close();
+        if(err) {
+            return next(err);
+        }
+        res.redirect(302, '/supervisor/adminpunch');
+    });
+
+});
+
+
+
 router.get('/supervisor/rencentRecords/:uid', function(req, res, next){
-    var rm = new recordsModule({db:req.db});
+    var rm = new recordsModule();
     var uid = req.params.uid;
     rm.rencentRecords(uid, function(err, recordDocs){
+        rm.db.close();
         utils.render('staff/staff_punch_report', { 
                      moment: moment, 
                      records: recordDocs 
@@ -262,7 +292,7 @@ router.get('/testdb', function(req, res, next) {
     db.get('users').find({}, {}, function(err, docs) {
 
         res.render('message', {
-            msg: 'Haha, Test Successfully! The docs count is ' + docs.length,
+            msg: { head : "TEST", body : 'Haha, Test Successfully! The docs count is ' + docs.length},
             success: true
         });
     });

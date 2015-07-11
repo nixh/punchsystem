@@ -30,8 +30,8 @@ block content
                         setTimeout(function() {
                             var rest = redirectTime-1-sec;
                             $('.redirectText').html("page will redirect in " + rest + " seconds!");
-                            //if(rest === 0)
-                            //    location.href = "#{pageUrl}";
+                            if(rest === 0)
+                                location.href = "#{pageUrl}";
                         }, sec*1000);
                     })(i);
                 }
