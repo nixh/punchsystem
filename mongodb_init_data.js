@@ -27,6 +27,10 @@ for(var i=0; i<companyNumber; i++) {
 var userNumber = 200;
 for(var i=0; i<userNumber; i++) {
     var compid = getRandomNumber(companyNumber);
+    var owner = i === 0 
+                ? true : 
+                    (i+1) % (userNumber / companyNumber) === 0 
+                    ? true : false
     db.users.insert({
         userid: 'LoginName_'+(i+1),
         name: 'UserName_' + (i+1),
@@ -38,7 +42,7 @@ for(var i=0; i<userNumber; i++) {
         tel : '',
         compid : compid + 1,
         curRate: 8.75,
-        owner : i == 0 ? true : false,
+        owner : i % (userNumber / companyNumber) == 0 ? true : false,
         remark : 'User Remark',
         avatar: 'avatar url'
     });
@@ -91,8 +95,9 @@ for(var i=0; i<companyNumber; i++) {
         wifi_verify: !!getRandomNumber(2),
         report_send: !!getRandomNumber(2),
         use_default_email: !!getRandomNumber(2),
-        report_emails: ['company_' + (i+1) + '@xxx.com', 'user_'+(i+1)+'@g.com']
-
+        report_emails: ['company_' + (i+1) + '@xxx.com', 'user_'+(i+1)+'@g.com'],
+        report_send_frequency: getRandomNumber(2),
+        qrcode_update_frequency: getRandomNumber(10) * 1000
     });
 }
 

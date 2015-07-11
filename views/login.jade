@@ -1,7 +1,5 @@
 extends layout
 
-prepend links
-    link(rel='stylesheet', href='/stylesheets/style.css')
 append links
     link(rel="stylesheet" href= "/tagbox/fm.tagator.jquery.css")
 
@@ -12,7 +10,8 @@ block content
     .loginpage
         .topImage
             .staticimg
-                img(src="/images/adminsyslogo.png" width="150" height="150" alt= "panda")
+                img(src="/images/adminsyslogo.png" width="300" height="300" alt= "panda")
+        //
             .loadingimg
                 .loadinglogo.hidden
                     img(src="/images/circle1.png" width="150" height="150" alt= "panda")
@@ -22,44 +21,55 @@ block content
                     img(src="/images/circle3.png" width="150" height="150" alt= "panda")
                 .loadinglogo.hidden
                     img(src="/images/circle4.png" width="150" height="150" alt= "panda")
-        script(type="text/javascript").
-            var $loadings = $('.loadinglogo');
-            var counter=0;
-            var timer;
-            function loop() {
-                $('.staticimg').addClass('hidden');
-                var n = counter % 4;
-                $loadings.each(function(index, logo){
-                    var $logo = $(logo);
-                    if(!$logo.hasClass('hidden'))
-                        $logo.addClass('hidden');
-                });
-                $($loadings[n]).removeClass('hidden');
-                counter++;
-                timer = setTimeout(loop, 75);
-            }
-            loop();
+        //
+            script(type="text/javascript").
+                var $loadings = $('.loadinglogo');
+                var counter=0;
+                var timer;
+                function loop() {
+                    $('.staticimg').addClass('hidden');
+                    var n = counter % 4;
+                    $loadings.each(function(index, logo){
+                        var $logo = $(logo);
+                        if(!$logo.hasClass('hidden'))
+                            $logo.addClass('hidden');
+                    });
+                    $($loadings[n]).removeClass('hidden');
+                    counter++;
+                    timer = setTimeout(loop, 75);
+                }
+                loop();
             
         .content
             form(action="/login" method="POST" autocomplete="off") 
                 table
                     tr
-                        td(style="padding-right:40px;")
-                            img.icon(src="/images/username.png")
+                        td(style="text-align:left;")
+                            img.icon(src="/images/pink personicon.png")
                         td 
-                            input(id="userid" name="userid" type="text")
+                            input(id="userid" placeholder="USERID" name="userid" type="text")
                     tr
-                        td(style="padding-right:40px;")
-                            img.icon(src="/images/password icon.png" width=40 height=50)
+                        td(style="text-align:left;")
+                            img.icon(src="/images/pink lock.png" style="margin-left:10px;width:85px;")
                         td 
-                            input(id="password" name="password" type="password")
+                            input(id="password" placeholder="PASSWORD"  name="password" type="password")
                     tr
-                        td(style="padding-right:40px;")
-                            img.icon(src="/images/submit icon.png" alt="sign logo" width=50 height=50)
+                        td(style="text-align:left;")
+                            img.icon(src="/images/pinkcheck.png" style="width:100px;height:100px;" alt="sign logo" )
                         td
                             input(type= "hidden" name= 'loginKey' value="#{loginKey}")
                             input(type= "hidden" name= 'pageUrl' value="#{pageUrl}")
-                            input(type= 'submit' value= 'Sign In')
+                            input(type= 'submit' value= 'SIGN IN')
 
         .bottom
-            .register
+            .left
+                p 
+                    span.text QQ:
+                    span.number 2851810760
+                    br
+                    span.text www.adminsys.us
+            .right
+                p 
+                    span.number 347-698-8300
+                    br
+                    span.number 917-291-7836
