@@ -192,8 +192,10 @@ router.get('/punch/:key', function(req, res, next){
 
 });
 
-var qrModule = require('../qrcodeModule');
 
+
+/*
+var qrModule = require('../qrcodeModule');
 router.get('/showdynacode', function(req, res, next){
     var qrm = new qrModule();
     
@@ -203,6 +205,7 @@ router.get('/showdynacode', function(req, res, next){
     });
 });
 
+*/
 router.get('/recentRecords', function(req, res, next){
     var rm = new recordsModule();
     rm.rencentRecords({sessionid:req.cookies.sessionid}, function(err, recordDocs){

@@ -12,9 +12,9 @@ $(document).ready(function(){
 
     function changeWord(){
         if(cover.hasClass("hidden")){
-            rateSH.find("pre").html("HIDE<br>RATE");
+            rateSH.find("span").html("hiderate");
         }else{
-            rateSH.find("pre").html("SHOW<br>RATE");
+            rateSH.find("span").html("showrate");
         }
     }
 });
