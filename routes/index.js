@@ -84,7 +84,7 @@ function postLogin(req, res, next) {
         session.findAndModify(
                 { userid: doc.userid },
                 { $set: sessionObj },
-                { new: true, upsert: true }, 
+                { new: true, upsert: true },
         function(err, sDoc) {
             if (err)
                 throw err;
@@ -126,6 +126,7 @@ router.post('/login', postLogin);
 
 
 router.get('/logout', function(req, res, next) {
+
     var sessionCol = db.get('session');
     sessionCol.findOne({sessionid: req.cookies.sessionid}, {}, function(err, doc){
         if(doc) {
@@ -146,18 +147,18 @@ var recordsModule = require('../recordsModule');
 
 function punchData(record, msg, userInfo) {
 
-    var punchout = !!record.outDate;                    
+    var punchout = !!record.outDate;
     var punchtime = punchout ? record.outDate : record.inDate;
     var datetime = moment(punchtime);
-    msg = util.format(msg, 
-            userInfo.name, 
+    msg = util.format(msg,
+            userInfo.name,
             punchout ? "OUT" : "IN",
             datetime.format("YYYY-MM-DD"),
             datetime.format("HH:mm A"));
-    return { 
+    return {
         success: true,
         msg: msg,
-        record: record, 
+        record: record,
         punchout: punchout,
         pageUrl: '/staff_main'
     }
@@ -171,7 +172,7 @@ router.get('/punch/:key', function(req, res, next){
     var qrid = signer.unsign(parts[0]+'.'+key);
     rm.checkQrcode(qrid, req.cookies.sessionid, function(valid, userInfo){
         if(valid) {
-            rm.punch(userInfo.userid, function(err, record){ 
+            rm.punch(userInfo.userid, function(err, record){
                 var msg = res.__('punch_success');
                 utils.render('message', punchData(record, msg, userInfo))(req, res, next);
             });
@@ -195,11 +196,11 @@ router.get('/recentRecords', function(req, res, next){
     var rm = new recordsModule({db:req.db});
     rm.rencentRecords({sessionid:req.cookies.sessionid}, function(err, recordDocs){
 
-        utils.render('staff/staff_punch_report', { 
-                     moment: moment, 
-                     records: recordDocs 
+        utils.render('staff/staff_punch_report', {
+                     moment: moment,
+                     records: recordDocs
                      })(req, res, next);
-        
+
     });
 });
 

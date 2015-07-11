@@ -120,6 +120,7 @@ function updateRecords(req, res) {
 }
 // Authority of both, but will have different views, only have to modifiy the views of the modifiy and delete
 function searchRecords(req, res) {
+
     var starttime = Date.parse(req.body.startdate);
     var endtime = Date.parse(req.body.enddate);
     var userid = req.body.userid;
@@ -158,6 +159,7 @@ function searchRecords(req, res) {
 }
 // Authority of both, but will have different views
 function showRecords(req, res) {
+
     var userid = req.params.uid;
     var su = req.path.search("supervisor");
     var records = db.get('records');

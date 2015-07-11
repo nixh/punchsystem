@@ -40,4 +40,13 @@
 	"select": "SELECT",
 	"punch": "PUNCH",
 	"status": "STATUS"
+	"preivew": "preivew",
+	"export": "export",
+	"punchin": "punchin",
+	"punchout": "punchout",
+	"hourlyrate": "hourlyrate",
+	"cmdtool": "cmdtool",
+	"modify": "modify",
+	"delete": "delete",
+	"userform_compid": "userform_compid",
 }

@@ -36,7 +36,7 @@ for(var i=0; i<userNumber; i++) {
         email: 'useremail'+(i+1)+'@email.com',
         address : '',
         tel : '',
-        compid : compid,
+        compid : compid + 1,
         curRate: 8.75,
         owner : i == 0 ? true : false,
         remark : 'User Remark',
@@ -116,6 +116,7 @@ for(var i=0; i<companyNumber; i++) {
         })
     }
 }
+
 // Initail Sequence data
 var report_seq = db.records.find().sort({reportid:-1}).limit(1).next().reportid;
 db.sequence.insert({'id':'records', seq:report_seq});

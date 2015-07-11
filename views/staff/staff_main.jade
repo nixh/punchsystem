@@ -3,36 +3,51 @@ extends ../layout.jade
 append links
     link(rel='stylesheet', href='/stylesheets/staffMain.css')
 
+append scripts
+    script(src= "/javascripts/showHideRate.js")
+
 block content
-    .staffMainPage
-        .userInfo
-            .avatar
-                img(src="/images/yongred.jpg" alt="User Avatar") 
-                .acctInfo
+    .staffMainPage(ontouchstart="")
+        //.userInfo
+        .avatar
+            img(src="/images/yongred.jpg" alt="User Avatar") 
+            p WELCOME #{user.name}
+            //.acctInfo
+                pre.
+                    Company: #{user.compid}
+                    User Account: #{user.email}
+                    User ID: #{user.userid}
+                    User Name: #{user.name}
+                    Gender: #{user.sex}
+                    Date Enrolled: #{user.createDate}
+                    Address: #{user.address}
+
+
+        .paidRate
+            .paidRateBox
+                pre.
+                    PAID
+                    RATE
+            .paidRateBox
+                .hourRate.hidden
                     pre.
-                        Company: #{user.compid}
-                        User Account: #{user.email}
-                        User ID: #{user.userid}
-                        User Name: #{user.name}
-                        Gender: #{user.sex}
-                        Date Enrolled: #{user.createDate}
-                        Address: #{user.address}
+                        $#{user.curRate}
+                        PER HOUR
+                .imageCover
 
+            .paidRateBox.showHideRate.noselect
+                pre.
+                    HIDE
+                    RATE
+                    
+               
+        .otherInfoLinks.noselect
+            .punchReport.otherInfo PUNCH REPORT
+            .wageReport.otherInfo WAGE REPORT
 
-                .paidRate
-                    .paidRateLabel Paid Rate:
-                        .paidRateDisplay #{user.curRate}
-                        .paidRateClick 
-                            .clickDiv Show Rate
-
-                .otherInfoLinks
-                    .punchReport.otherInfo
-                        a(href= "/user/selfreport/punch") Punch Report
-                        .wageReport.otherInfo
-                            a(href= "/user/selfreport/wage") Wage Report
-
-                        .setting.otherInfo
-                            a(href= "/user/setting") Setting
-                        .delegate.otherInfo
-                            if delegate
-                                a(href= "/user/delegate") Delegate
+            if false
+                .setting.otherInfo
+                    a(href= "/user/setting") Setting
+                .delegate.otherInfo
+                    if delegate
+                        a(href= "/user/delegate") Delegate
