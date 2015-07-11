@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var usersetting = require('../usersettingModule');
 
-var settings = new usersetting();
+
 router.get('/', function(req, res, next){
 
 	res.render('usersettings');
@@ -17,7 +17,7 @@ router.get('/changepwd', function(req, res, next){
 
 router.post('/changepwd', function (req, res) {
 	var userobj=req.body;
-	
+	var settings = new usersetting();
 	settings.changepass(userobj,function(err, doc){
 		if(err) {
 			 res.send("Error!!!");
@@ -30,7 +30,7 @@ router.post('/changepwd', function (req, res) {
 		}
 		else {
 			if(!doc || doc.length === 0){
-				res.send('userid is invailed!');
+				res.send('userid or password invaild');
 			} else{
 			//res.redirect('chargepwd')
 			var email= doc.email;
@@ -53,6 +53,7 @@ router.post('/changepwd', function (req, res) {
 			res.send("invaild email address!")
 		}
 	});
+	settings.db.close();
 })	
 
 		
