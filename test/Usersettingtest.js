@@ -96,7 +96,7 @@ describe ("Module",function(){
 			})
 	})
 })
-
+//test sendmail()
 describe ("Module",function(){
 	describe('#sendemail()',function(){
 		it('should be sent to correct user',function(done){
@@ -131,7 +131,45 @@ describe ("Module",function(){
 	})
 })
 
+// test 
+describe ('Module',function(){
+	describe('#switchinformation()',function(){
+		it ('should insert into users collection',function(done){
+			var userobj = {userid:"LoginName_4",frequency:"1",onoffswitch:"1"};
+			settings.switchinformation(userobj,function(err,doc){
+				
+				assert.equal(doc,1);
+				done();
+			})
+		})
+		it ('should not insert into user collection',function(done){
+		 	var userobj = {userid: " ",frequency:'1',onoffswitch:"0"};
+		 	settings.switchinformation(userobj,function(err,doc){
+		 		
+		 		
+		 		assert.notEqual(doc,1);
+		 		done();
+		 	});
+		 })
 
+		it ('should insert into users collection',function(done){
+			var userobj = {userid:"LoginName_4",frequency:"0",onoffswitch:"0"};
+			settings.switchinformation(userobj,function(err,doc){
+				assert.equal(doc,1);
+				done();
+			})
+		})
+
+
+		it ('should insert into users collection',function(done){
+			var userobj = {userid:"LoginName_4",frequency:" ",onoffswitch:" "};
+			settings.switchinformation(userobj,function(err,doc){
+				assert.equal(doc,1);
+				done();
+			})
+		})
+	})
+})
 
 
 

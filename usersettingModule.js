@@ -7,6 +7,7 @@ var router = express.Router();
 var db;
 
 function vaildate(userobj){
+	
 	if(typeof userobj.userid !== 'string')
 			userobj['userid'].toString();
 	if(typeof userobj.oldpass !== 'string')
@@ -18,14 +19,6 @@ function vaildate(userobj){
 	if(typeof userobj.confirmpass !== 'string')
 			userobj['confirmpass'].toString();
 
-	/*if(typeof userobj.frequency !== 'number'){
-			frequency = parseInt(userobj.frequency);
-			if(frequency == 'NaN'){
-				userobj.frequency = " ";
-			}else{
-				userobj.frequency=frequency;
-			}
-		}*/
 }
 
 function changepass(userobj,callback){
@@ -121,4 +114,4 @@ Module.prototype = {
 
 module.exports = Module 
 
-Module = new Module();
+//Module = new Module();
