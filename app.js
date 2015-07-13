@@ -53,7 +53,7 @@ i18n.configure({
 
 app.use(function(req, res, next) {
     i18n.init(req, res);
-    console.log(res.__('name'));
+    //console.log(res.__('name'));
     return next();
 });
 

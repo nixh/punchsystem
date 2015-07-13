@@ -114,4 +114,4 @@ Module.prototype = {
 
 module.exports = Module 
 
-//Module = new Module();
+Module = new Module();
