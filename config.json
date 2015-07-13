@@ -1,6 +1,7 @@
 {
     "appKey": "40034f1c7050c8c1e4b8e2a09fddc6b3cc36d94e45cf38b23e1d9359bbf0949a",
     "mongodbPath": "localhost:27017/punchsystem",
+    "testMongodbPath": "localhost:27017/punchsystem_test",
     "email.server": {
         "account": "report@adminsys.us",
         "password": "Future123456#",
