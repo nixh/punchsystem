@@ -1,0 +1,1213 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   'qrcode',
+1 verbose cli   '--save' ]
+2 info using npm@2.11.2
+3 info using node@v0.12.5
+4 verbose install initial load of C:\expressdemo\demo\package.json
+5 verbose installManyTop reading scoped package data from C:\expressdemo\demo\node_modules\atob\package.json
+6 verbose installManyTop reading scoped package data from C:\expressdemo\demo\node_modules\body-parser\package.json
+7 verbose installManyTop reading scoped package data from C:\expressdemo\demo\node_modules\btoa\package.json
+8 verbose installManyTop reading scoped package data from C:\expressdemo\demo\node_modules\cheerio\package.json
+9 verbose installManyTop reading scoped package data from C:\expressdemo\demo\node_modules\cookie-parser\package.json
+10 verbose installManyTop reading scoped package data from C:\expressdemo\demo\node_modules\debug\package.json
+11 verbose installManyTop reading scoped package data from C:\expressdemo\demo\node_modules\emailjs\package.json
+12 verbose installManyTop reading scoped package data from C:\expressdemo\demo\node_modules\express\package.json
+13 verbose installManyTop reading scoped package data from C:\expressdemo\demo\node_modules\graceful-fs\package.json
+14 verbose installManyTop reading scoped package data from C:\expressdemo\demo\node_modules\i18n\package.json
+15 verbose installManyTop reading scoped package data from C:\expressdemo\demo\node_modules\iconv-lite\package.json
+16 verbose installManyTop reading scoped package data from C:\expressdemo\demo\node_modules\jade\package.json
+17 verbose installManyTop reading scoped package data from C:\expressdemo\demo\node_modules\moment\package.json
+18 verbose installManyTop reading scoped package data from C:\expressdemo\demo\node_modules\mongodb\package.json
+19 verbose installManyTop reading scoped package data from C:\expressdemo\demo\node_modules\monk\package.json
+20 verbose installManyTop reading scoped package data from C:\expressdemo\demo\node_modules\morgan\package.json
+21 verbose installManyTop reading scoped package data from C:\expressdemo\demo\node_modules\multer\package.json
+22 verbose installManyTop reading scoped package data from C:\expressdemo\demo\node_modules\nobi\package.json
+23 verbose installManyTop reading scoped package data from C:\expressdemo\demo\node_modules\node-uuid\package.json
+24 verbose installManyTop reading scoped package data from C:\expressdemo\demo\node_modules\request\package.json
+25 verbose installManyTop reading scoped package data from C:\expressdemo\demo\node_modules\serve-favicon\package.json
+26 verbose installManyTop reading scoped package data from C:\expressdemo\demo\node_modules\underscore\package.json
+27 info package.json i18n@0.5.0 No license field.
+28 info package.json nobi@0.0.1 license should be a valid SPDX license expression
+29 info package.json atob@1.1.2 license should be a valid SPDX license expression
+30 info package.json btoa@1.1.2 license should be a valid SPDX license expression
+31 info package.json emailjs@0.3.16 No license field.
+32 info package.json moment@2.10.3 No license field.
+33 info package.json monk@1.0.1 No license field.
+34 info package.json node-uuid@1.4.3 No license field.
+35 verbose readDependencies loading dependencies from C:\expressdemo\demo\package.json
+36 silly cache add args [ 'qrcode', null ]
+37 verbose cache add spec qrcode
+38 silly cache add parsed spec { raw: 'qrcode',
+38 silly cache add   scope: null,
+38 silly cache add   name: 'qrcode',
+38 silly cache add   rawSpec: '',
+38 silly cache add   spec: '*',
+38 silly cache add   type: 'range' }
+39 silly addNamed qrcode@*
+40 verbose addNamed "*" is a valid semver range for qrcode
+41 silly addNameRange { name: 'qrcode', range: '*', hasData: false }
+42 silly mapToRegistry name qrcode
+43 silly mapToRegistry using default registry
+44 silly mapToRegistry registry https://registry.npmjs.org/
+45 silly mapToRegistry uri https://registry.npmjs.org/qrcode
+46 verbose addNameRange registry:https://registry.npmjs.org/qrcode not in flight; fetching
+47 verbose request uri https://registry.npmjs.org/qrcode
+48 verbose request no auth needed
+49 info attempt registry request try #1 at 10:35:09
+50 verbose request id 243cf47a2632b3ff
+51 verbose etag "DIEQD93JUVQFUA5MCQ0QQ49ZQ"
+52 http request GET https://registry.npmjs.org/qrcode
+53 http 304 https://registry.npmjs.org/qrcode
+54 silly get cb [ 304,
+54 silly get   { date: 'Sat, 11 Jul 2015 14:35:34 GMT',
+54 silly get     via: '1.1 varnish',
+54 silly get     'cache-control': 'max-age=60',
+54 silly get     etag: '"DIEQD93JUVQFUA5MCQ0QQ49ZQ"',
+54 silly get     age: '0',
+54 silly get     connection: 'keep-alive',
+54 silly get     'x-served-by': 'cache-iad2126-IAD',
+54 silly get     'x-cache': 'HIT',
+54 silly get     'x-cache-hits': '1',
+54 silly get     'x-timer': 'S1436625334.632663,VS0,VE56',
+54 silly get     vary: 'Accept' } ]
+55 verbose etag https://registry.npmjs.org/qrcode from cache
+56 verbose get saving qrcode to C:\Users\yongding\AppData\Roaming\npm-cache\registry.npmjs.org\qrcode\.cache.json
+57 silly addNameRange number 2 { name: 'qrcode', range: '*', hasData: true }
+58 silly addNameRange versions [ 'qrcode',
+58 silly addNameRange   [ '0.0.1',
+58 silly addNameRange     '0.0.2',
+58 silly addNameRange     '0.0.3',
+58 silly addNameRange     '0.1.0',
+58 silly addNameRange     '0.1.1',
+58 silly addNameRange     '0.2.2',
+58 silly addNameRange     '0.2.3',
+58 silly addNameRange     '0.2.4',
+58 silly addNameRange     '0.2.5',
+58 silly addNameRange     '0.2.6',
+58 silly addNameRange     '0.2.7',
+58 silly addNameRange     '0.2.8',
+58 silly addNameRange     '0.2.9',
+58 silly addNameRange     '0.2.10',
+58 silly addNameRange     '0.2.11',
+58 silly addNameRange     '0.2.12' ] ]
+59 silly addNamed qrcode@0.2.12
+60 verbose addNamed "0.2.12" is a plain semver version for qrcode
+61 silly cache afterAdd qrcode@0.2.12
+62 verbose afterAdd C:\Users\yongding\AppData\Roaming\npm-cache\qrcode\0.2.12\package\package.json not in flight; writing
+63 verbose afterAdd C:\Users\yongding\AppData\Roaming\npm-cache\qrcode\0.2.12\package\package.json written
+64 silly install resolved [ { name: 'qrcode',
+64 silly install resolved     description: 'QRCode / 2d Barcode api with both server side and client side support using canvas',
+64 silly install resolved     version: '0.2.12',
+64 silly install resolved     author: { name: 'Ryan Day', email: 'soldair@gmail.com' },
+64 silly install resolved     keywords: [ 'canvas', 'qrcode', 'barcode' ],
+64 silly install resolved     main: './qrcode.js',
+64 silly install resolved     homepage: 'http://github.com/soldair/node-qrcode',
+64 silly install resolved     scripts:
+64 silly install resolved      { pretest: 'node build.js',
+64 silly install resolved        prepublish: 'node build.js',
+64 silly install resolved        test: 'tap test/url.js' },
+64 silly install resolved     bin: { qrcode: './bin/qrcode' },
+64 silly install resolved     dependencies: { canvas: '~1.1.6', colors: '*', bops: '0.0.6' },
+64 silly install resolved     devDependencies:
+64 silly install resolved      { express: '2.5.x',
+64 silly install resolved        browserify: '~2.29.0',
+64 silly install resolved        'uglify-js': '1.2.x',
+64 silly install resolved        canvasutil: '*',
+64 silly install resolved        tap: '*' },
+64 silly install resolved     repository: { type: 'git', url: 'git://github.com/soldair/node-qrcode.git' },
+64 silly install resolved     engines: { node: '>= 0.6.0' },
+64 silly install resolved     gitHead: 'e9dbcd102297deb82f174c2a458758a4dd53a166',
+64 silly install resolved     bugs: { url: 'https://github.com/soldair/node-qrcode/issues' },
+64 silly install resolved     _id: 'qrcode@0.2.12',
+64 silly install resolved     _shasum: 'fbe89ce3ca608c90546c7ac63dce04d136c96a6e',
+64 silly install resolved     _from: 'qrcode@*',
+64 silly install resolved     _npmVersion: '1.4.20',
+64 silly install resolved     _npmUser: { name: 'soldair', email: 'soldair@gmail.com' },
+64 silly install resolved     maintainers: [ [Object] ],
+64 silly install resolved     dist:
+64 silly install resolved      { shasum: 'fbe89ce3ca608c90546c7ac63dce04d136c96a6e',
+64 silly install resolved        tarball: 'http://registry.npmjs.org/qrcode/-/qrcode-0.2.12.tgz' },
+64 silly install resolved     directories: {},
+64 silly install resolved     _resolved: 'https://registry.npmjs.org/qrcode/-/qrcode-0.2.12.tgz',
+64 silly install resolved     readme: 'ERROR: No README data found!' } ]
+65 info install qrcode@0.2.12 into C:\expressdemo\demo
+66 info installOne qrcode@0.2.12
+67 verbose installOne of qrcode to C:\expressdemo\demo not in flight; installing
+68 verbose lock using C:\Users\yongding\AppData\Roaming\npm-cache\_locks\qrcode-4f73f486e42c6fdb.lock for C:\expressdemo\demo\node_modules\qrcode
+69 silly install write writing qrcode 0.2.12 to C:\expressdemo\demo\node_modules\qrcode
+70 verbose unbuild node_modules\qrcode
+71 silly gentlyRm C:\expressdemo\demo\node_modules\qrcode is being purged from base C:\expressdemo\demo
+72 verbose gentlyRm don't care about contents; nuking C:\expressdemo\demo\node_modules\qrcode
+73 verbose tar unpack C:\Users\yongding\AppData\Roaming\npm-cache\qrcode\0.2.12\package.tgz
+74 verbose tar unpacking to C:\expressdemo\demo\node_modules\qrcode
+75 silly gentlyRm C:\expressdemo\demo\node_modules\qrcode is being purged
+76 verbose gentlyRm don't care about contents; nuking C:\expressdemo\demo\node_modules\qrcode
+77 silly gunzTarPerm modes [ '777', '666' ]
+78 silly gunzTarPerm extractEntry package.json
+79 silly gunzTarPerm modified mode [ 'package.json', 436, 438 ]
+80 silly gunzTarPerm extractEntry .npmignore
+81 silly gunzTarPerm modified mode [ '.npmignore', 436, 438 ]
+82 silly gunzTarPerm extractEntry README.md
+83 silly gunzTarPerm modified mode [ 'README.md', 436, 438 ]
+84 silly gunzTarPerm extractEntry a.js
+85 silly gunzTarPerm modified mode [ 'a.js', 436, 438 ]
+86 silly gunzTarPerm extractEntry b.js
+87 silly gunzTarPerm modified mode [ 'b.js', 436, 438 ]
+88 silly gunzTarPerm extractEntry build.js
+89 silly gunzTarPerm modified mode [ 'build.js', 436, 438 ]
+90 silly gunzTarPerm extractEntry qrcode.js
+91 silly gunzTarPerm modified mode [ 'qrcode.js', 436, 438 ]
+92 silly gunzTarPerm extractEntry qrcodeclient.js
+93 silly gunzTarPerm modified mode [ 'qrcodeclient.js', 436, 438 ]
+94 silly gunzTarPerm extractEntry .travis.yml
+95 silly gunzTarPerm modified mode [ '.travis.yml', 436, 438 ]
+96 silly gunzTarPerm extractEntry file.txt
+97 silly gunzTarPerm modified mode [ 'file.txt', 436, 438 ]
+98 silly gunzTarPerm extractEntry .jshintignore
+99 silly gunzTarPerm modified mode [ '.jshintignore', 436, 438 ]
+100 silly gunzTarPerm extractEntry lib/qrcapacitytable.js
+101 silly gunzTarPerm modified mode [ 'lib/qrcapacitytable.js', 436, 438 ]
+102 silly gunzTarPerm extractEntry lib/qrcode-draw.js
+103 silly gunzTarPerm modified mode [ 'lib/qrcode-draw.js', 436, 438 ]
+104 silly gunzTarPerm extractEntry lib/qrcode.js
+105 silly gunzTarPerm modified mode [ 'lib/qrcode.js', 436, 438 ]
+106 silly gunzTarPerm extractEntry lib/termialrender.js
+107 silly gunzTarPerm modified mode [ 'lib/termialrender.js', 436, 438 ]
+108 silly gunzTarPerm extractEntry test.png
+109 silly gunzTarPerm modified mode [ 'test.png', 436, 438 ]
+110 silly gunzTarPerm extractEntry vendors/excanvas/README
+111 silly gunzTarPerm modified mode [ 'vendors/excanvas/README', 436, 438 ]
+112 silly gunzTarPerm extractEntry vendors/excanvas/excanvas.compiled.js
+113 silly gunzTarPerm modified mode [ 'vendors/excanvas/excanvas.compiled.js', 436, 438 ]
+114 silly gunzTarPerm extractEntry vendors/excanvas/excanvas.js
+115 silly gunzTarPerm modified mode [ 'vendors/excanvas/excanvas.js', 436, 438 ]
+116 silly gunzTarPerm extractEntry bin/qrcode
+117 silly gunzTarPerm modified mode [ 'bin/qrcode', 493, 511 ]
+118 silly gunzTarPerm extractEntry build/qrcode.js
+119 silly gunzTarPerm modified mode [ 'build/qrcode.js', 436, 438 ]
+120 silly gunzTarPerm extractEntry build/qrcode.min.js
+121 silly gunzTarPerm modified mode [ 'build/qrcode.min.js', 436, 438 ]
+122 silly gunzTarPerm extractEntry build/.g
+123 silly gunzTarPerm modified mode [ 'build/.g', 436, 438 ]
+124 silly gunzTarPerm extractEntry test/cli.js
+125 silly gunzTarPerm modified mode [ 'test/cli.js', 436, 438 ]
+126 silly gunzTarPerm extractEntry test/clientsideserver.js
+127 silly gunzTarPerm modified mode [ 'test/clientsideserver.js', 436, 438 ]
+128 silly gunzTarPerm extractEntry test/save.js
+129 silly gunzTarPerm modified mode [ 'test/save.js', 436, 438 ]
+130 silly gunzTarPerm extractEntry test/server.js
+131 silly gunzTarPerm modified mode [ 'test/server.js', 436, 438 ]
+132 silly gunzTarPerm extractEntry test/url.js
+133 silly gunzTarPerm modified mode [ 'test/url.js', 436, 438 ]
+134 silly gunzTarPerm extractEntry test/clientside.html
+135 silly gunzTarPerm modified mode [ 'test/clientside.html', 436, 438 ]
+136 silly gunzTarPerm extractEntry test/fixtures/bacon-bikini.png
+137 silly gunzTarPerm modified mode [ 'test/fixtures/bacon-bikini.png', 436, 438 ]
+138 silly gunzTarPerm extractEntry test/fixtures/bacon-love.png
+139 silly gunzTarPerm modified mode [ 'test/fixtures/bacon-love.png', 436, 438 ]
+140 silly gunzTarPerm extractEntry test.html
+141 silly gunzTarPerm modified mode [ 'test.html', 436, 438 ]
+142 silly gunzTarPerm extractEntry hi.png
+143 silly gunzTarPerm modified mode [ 'hi.png', 436, 438 ]
+144 verbose write writing to C:\expressdemo\demo\node_modules\qrcode\package.json
+145 info preinstall qrcode@0.2.12
+146 verbose readDependencies loading dependencies from C:\expressdemo\demo\node_modules\qrcode\package.json
+147 silly prepareForInstallMany adding canvas@~1.1.6 from qrcode dependencies
+148 silly prepareForInstallMany adding colors@* from qrcode dependencies
+149 silly prepareForInstallMany adding bops@0.0.6 from qrcode dependencies
+150 verbose readDependencies loading dependencies from C:\expressdemo\demo\node_modules\qrcode\package.json
+151 silly cache add args [ 'canvas@~1.1.6', null ]
+152 verbose cache add spec canvas@~1.1.6
+153 silly cache add args [ 'colors@*', null ]
+154 verbose cache add spec colors@*
+155 silly cache add parsed spec { raw: 'canvas@~1.1.6',
+155 silly cache add   scope: null,
+155 silly cache add   name: 'canvas',
+155 silly cache add   rawSpec: '~1.1.6',
+155 silly cache add   spec: '>=1.1.6 <1.2.0',
+155 silly cache add   type: 'range' }
+156 silly addNamed canvas@>=1.1.6 <1.2.0
+157 verbose addNamed ">=1.1.6 <1.2.0" is a valid semver range for canvas
+158 silly addNameRange { name: 'canvas', range: '>=1.1.6 <1.2.0', hasData: false }
+159 silly mapToRegistry name canvas
+160 silly mapToRegistry using default registry
+161 silly mapToRegistry registry https://registry.npmjs.org/
+162 silly mapToRegistry uri https://registry.npmjs.org/canvas
+163 verbose addNameRange registry:https://registry.npmjs.org/canvas not in flight; fetching
+164 silly cache add parsed spec { raw: 'colors@*',
+164 silly cache add   scope: null,
+164 silly cache add   name: 'colors',
+164 silly cache add   rawSpec: '*',
+164 silly cache add   spec: '*',
+164 silly cache add   type: 'range' }
+165 silly addNamed colors@*
+166 verbose addNamed "*" is a valid semver range for colors
+167 silly addNameRange { name: 'colors', range: '*', hasData: false }
+168 silly mapToRegistry name colors
+169 silly mapToRegistry using default registry
+170 silly mapToRegistry registry https://registry.npmjs.org/
+171 silly mapToRegistry uri https://registry.npmjs.org/colors
+172 verbose addNameRange registry:https://registry.npmjs.org/colors not in flight; fetching
+173 silly cache add args [ 'bops@0.0.6', null ]
+174 verbose cache add spec bops@0.0.6
+175 silly cache add parsed spec { raw: 'bops@0.0.6',
+175 silly cache add   scope: null,
+175 silly cache add   name: 'bops',
+175 silly cache add   rawSpec: '0.0.6',
+175 silly cache add   spec: '0.0.6',
+175 silly cache add   type: 'version' }
+176 silly addNamed bops@0.0.6
+177 verbose addNamed "0.0.6" is a plain semver version for bops
+178 silly mapToRegistry name bops
+179 silly mapToRegistry using default registry
+180 silly mapToRegistry registry https://registry.npmjs.org/
+181 silly mapToRegistry uri https://registry.npmjs.org/bops
+182 verbose addNameVersion registry:https://registry.npmjs.org/bops not in flight; fetching
+183 verbose request uri https://registry.npmjs.org/bops
+184 verbose request no auth needed
+185 info attempt registry request try #1 at 10:35:09
+186 verbose etag "CC6MB6CS1YHVHPC00XWMHSYYS"
+187 http request GET https://registry.npmjs.org/bops
+188 verbose request uri https://registry.npmjs.org/colors
+189 verbose request no auth needed
+190 info attempt registry request try #1 at 10:35:09
+191 verbose etag "4T831QUZETJ2KNRJWDE5M63AT"
+192 http request GET https://registry.npmjs.org/colors
+193 verbose request uri https://registry.npmjs.org/canvas
+194 verbose request no auth needed
+195 info attempt registry request try #1 at 10:35:09
+196 verbose etag "1E0VM74J09VH1CQCM3TU57NM4"
+197 http request GET https://registry.npmjs.org/canvas
+198 http 304 https://registry.npmjs.org/bops
+199 silly get cb [ 304,
+199 silly get   { date: 'Sat, 11 Jul 2015 14:35:35 GMT',
+199 silly get     via: '1.1 varnish',
+199 silly get     'cache-control': 'max-age=60',
+199 silly get     etag: '"CC6MB6CS1YHVHPC00XWMHSYYS"',
+199 silly get     age: '14',
+199 silly get     connection: 'keep-alive',
+199 silly get     'x-served-by': 'cache-iad2125-IAD',
+199 silly get     'x-cache': 'HIT',
+199 silly get     'x-cache-hits': '1',
+199 silly get     'x-timer': 'S1436625335.404426,VS0,VE0',
+199 silly get     vary: 'Accept' } ]
+200 verbose etag https://registry.npmjs.org/bops from cache
+201 verbose get saving bops to C:\Users\yongding\AppData\Roaming\npm-cache\registry.npmjs.org\bops\.cache.json
+202 silly cache afterAdd bops@0.0.6
+203 verbose afterAdd C:\Users\yongding\AppData\Roaming\npm-cache\bops\0.0.6\package\package.json not in flight; writing
+204 verbose afterAdd C:\Users\yongding\AppData\Roaming\npm-cache\bops\0.0.6\package\package.json written
+205 http 200 https://registry.npmjs.org/colors
+206 silly get cb [ 200,
+206 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+206 silly get     etag: '"D9S5SS520L14KMER0MWHVWTOU"',
+206 silly get     'content-type': 'application/json',
+206 silly get     'cache-control': 'max-age=60',
+206 silly get     'content-length': '19491',
+206 silly get     'accept-ranges': 'bytes',
+206 silly get     date: 'Sat, 11 Jul 2015 14:35:35 GMT',
+206 silly get     via: '1.1 varnish',
+206 silly get     age: '34',
+206 silly get     connection: 'keep-alive',
+206 silly get     'x-served-by': 'cache-iad2133-IAD',
+206 silly get     'x-cache': 'HIT',
+206 silly get     'x-cache-hits': '1',
+206 silly get     'x-timer': 'S1436625335.404542,VS0,VE0',
+206 silly get     vary: 'Accept' } ]
+207 verbose get saving colors to C:\Users\yongding\AppData\Roaming\npm-cache\registry.npmjs.org\colors\.cache.json
+208 silly addNameRange number 2 { name: 'colors', range: '*', hasData: true }
+209 silly addNameRange versions [ 'colors',
+209 silly addNameRange   [ '0.3.0',
+209 silly addNameRange     '0.5.0',
+209 silly addNameRange     '0.5.1',
+209 silly addNameRange     '0.6.0',
+209 silly addNameRange     '0.6.0-1',
+209 silly addNameRange     '0.6.1',
+209 silly addNameRange     '0.6.2',
+209 silly addNameRange     '1.0.0',
+209 silly addNameRange     '1.0.1',
+209 silly addNameRange     '1.0.2',
+209 silly addNameRange     '1.0.3',
+209 silly addNameRange     '1.1.0',
+209 silly addNameRange     '1.1.1',
+209 silly addNameRange     '1.1.2' ] ]
+210 silly addNamed colors@1.1.2
+211 verbose addNamed "1.1.2" is a plain semver version for colors
+212 silly cache afterAdd colors@1.1.2
+213 verbose afterAdd C:\Users\yongding\AppData\Roaming\npm-cache\colors\1.1.2\package\package.json not in flight; writing
+214 verbose afterAdd C:\Users\yongding\AppData\Roaming\npm-cache\colors\1.1.2\package\package.json written
+215 http 304 https://registry.npmjs.org/canvas
+216 silly get cb [ 304,
+216 silly get   { date: 'Sat, 11 Jul 2015 14:35:35 GMT',
+216 silly get     via: '1.1 varnish',
+216 silly get     'cache-control': 'max-age=60',
+216 silly get     etag: '"1E0VM74J09VH1CQCM3TU57NM4"',
+216 silly get     age: '0',
+216 silly get     connection: 'keep-alive',
+216 silly get     'x-served-by': 'cache-iad2120-IAD',
+216 silly get     'x-cache': 'HIT',
+216 silly get     'x-cache-hits': '1',
+216 silly get     'x-timer': 'S1436625335.404438,VS0,VE354',
+216 silly get     vary: 'Accept' } ]
+217 verbose etag https://registry.npmjs.org/canvas from cache
+218 verbose get saving canvas to C:\Users\yongding\AppData\Roaming\npm-cache\registry.npmjs.org\canvas\.cache.json
+219 silly addNameRange number 2 { name: 'canvas', range: '>=1.1.6 <1.2.0', hasData: true }
+220 silly addNameRange versions [ 'canvas',
+220 silly addNameRange   [ '0.0.1',
+220 silly addNameRange     '0.0.2',
+220 silly addNameRange     '0.0.3',
+220 silly addNameRange     '0.0.4',
+220 silly addNameRange     '0.0.5',
+220 silly addNameRange     '0.0.6',
+220 silly addNameRange     '0.0.7',
+220 silly addNameRange     '0.0.8',
+220 silly addNameRange     '0.1.0',
+220 silly addNameRange     '0.2.0',
+220 silly addNameRange     '0.2.1',
+220 silly addNameRange     '0.3.0',
+220 silly addNameRange     '0.3.1',
+220 silly addNameRange     '0.3.2',
+220 silly addNameRange     '0.3.3',
+220 silly addNameRange     '0.4.0',
+220 silly addNameRange     '0.4.1',
+220 silly addNameRange     '0.4.2',
+220 silly addNameRange     '0.4.3',
+220 silly addNameRange     '0.5.0',
+220 silly addNameRange     '0.5.1',
+220 silly addNameRange     '0.5.2',
+220 silly addNameRange     '0.5.3',
+220 silly addNameRange     '0.5.4',
+220 silly addNameRange     '0.6.0',
+220 silly addNameRange     '0.7.0',
+220 silly addNameRange     '0.7.1',
+220 silly addNameRange     '0.7.2',
+220 silly addNameRange     '0.7.3',
+220 silly addNameRange     '0.8.0',
+220 silly addNameRange     '0.8.1',
+220 silly addNameRange     '0.8.2',
+220 silly addNameRange     '0.8.3',
+220 silly addNameRange     '0.9.0',
+220 silly addNameRange     '0.10.0',
+220 silly addNameRange     '0.10.1',
+220 silly addNameRange     '0.10.2',
+220 silly addNameRange     '0.10.3',
+220 silly addNameRange     '0.11.0',
+220 silly addNameRange     '0.11.1',
+220 silly addNameRange     '0.11.2',
+220 silly addNameRange     '0.11.3',
+220 silly addNameRange     '0.12.0',
+220 silly addNameRange     '0.12.1',
+220 silly addNameRange     '0.13.0',
+220 silly addNameRange     '0.13.1',
+220 silly addNameRange     '1.0.0',
+220 silly addNameRange     '1.0.1',
+220 silly addNameRange     '1.0.2',
+220 silly addNameRange     '1.0.3',
+220 silly addNameRange     '1.0.4',
+220 silly addNameRange     '1.1.0',
+220 silly addNameRange     '1.1.1',
+220 silly addNameRange     '1.1.2',
+220 silly addNameRange     '1.1.3',
+220 silly addNameRange     '1.1.4',
+220 silly addNameRange     '1.1.5',
+220 silly addNameRange     '1.1.6',
+220 silly addNameRange     '1.2.0',
+220 silly addNameRange     '1.2.1',
+220 silly addNameRange     '1.2.2',
+220 silly addNameRange     '1.2.3' ] ]
+221 silly addNamed canvas@1.1.6
+222 verbose addNamed "1.1.6" is a plain semver version for canvas
+223 silly cache afterAdd canvas@1.1.6
+224 verbose afterAdd C:\Users\yongding\AppData\Roaming\npm-cache\canvas\1.1.6\package\package.json not in flight; writing
+225 verbose afterAdd C:\Users\yongding\AppData\Roaming\npm-cache\canvas\1.1.6\package\package.json written
+226 silly install resolved [ { name: 'bops',
+226 silly install resolved     version: '0.0.6',
+226 silly install resolved     description: 'buffer operations',
+226 silly install resolved     main: 'index.js',
+226 silly install resolved     scripts: { test: 'node test/index.js' },
+226 silly install resolved     browser:
+226 silly install resolved      { './copy.js': './typedarray/copy.js',
+226 silly install resolved        './create.js': './typedarray/create.js',
+226 silly install resolved        './from.js': './typedarray/from.js',
+226 silly install resolved        './join.js': './typedarray/join.js',
+226 silly install resolved        './mapped.js': './typedarray/mapped.js',
+226 silly install resolved        './read.js': './typedarray/read.js',
+226 silly install resolved        './subarray.js': './typedarray/subarray.js',
+226 silly install resolved        './to.js': './typedarray/to.js',
+226 silly install resolved        './is.js': './typedarray/is.js',
+226 silly install resolved        './write.js': './typedarray/write.js' },
+226 silly install resolved     repository: { type: 'git', url: 'git://github.com/chrisdickinson/bops.git' },
+226 silly install resolved     keywords: [ 'buffer', 'operations', 'binary' ],
+226 silly install resolved     author: { name: 'Chris Dickinson', email: 'chris@neversaw.us' },
+226 silly install resolved     license: 'MIT',
+226 silly install resolved     gitHead: '11f41e69b1ab4507027ac162981913b268445b4a',
+226 silly install resolved     devDependencies: { tape: '~1.0.1' },
+226 silly install resolved     dependencies: { 'base64-js': '0.0.2', 'to-utf8': '0.0.1' },
+226 silly install resolved     testling: { files: 'test/index.js', browsers: [Object] },
+226 silly install resolved     _id: 'bops@0.0.6',
+226 silly install resolved     dist:
+226 silly install resolved      { shasum: '082d1d55fa01e60dbdc2ebc2dba37f659554cf3a',
+226 silly install resolved        tarball: 'http://registry.npmjs.org/bops/-/bops-0.0.6.tgz' },
+226 silly install resolved     _from: 'bops@0.0.6',
+226 silly install resolved     _npmVersion: '1.2.14',
+226 silly install resolved     _npmUser: { name: 'chrisdickinson', email: 'chris@neversaw.us' },
+226 silly install resolved     maintainers: [ [Object] ],
+226 silly install resolved     directories: {},
+226 silly install resolved     _shasum: '082d1d55fa01e60dbdc2ebc2dba37f659554cf3a',
+226 silly install resolved     _resolved: 'https://registry.npmjs.org/bops/-/bops-0.0.6.tgz',
+226 silly install resolved     bugs: { url: 'https://github.com/chrisdickinson/bops/issues' },
+226 silly install resolved     readme: 'ERROR: No README data found!',
+226 silly install resolved     homepage: 'https://github.com/chrisdickinson/bops#readme' },
+226 silly install resolved   { name: 'colors',
+226 silly install resolved     description: 'get colors in your node.js console',
+226 silly install resolved     version: '1.1.2',
+226 silly install resolved     author: { name: 'Marak Squires' },
+226 silly install resolved     homepage: 'https://github.com/Marak/colors.js',
+226 silly install resolved     bugs: { url: 'https://github.com/Marak/colors.js/issues' },
+226 silly install resolved     keywords: [ 'ansi', 'terminal', 'colors' ],
+226 silly install resolved     repository:
+226 silly install resolved      { type: 'git',
+226 silly install resolved        url: 'git+ssh://git@github.com/Marak/colors.js.git' },
+226 silly install resolved     license: 'MIT',
+226 silly install resolved     scripts: { test: 'node tests/basic-test.js && node tests/safe-test.js' },
+226 silly install resolved     engines: { node: '>=0.1.90' },
+226 silly install resolved     main: 'lib',
+226 silly install resolved     files: [ 'examples', 'lib', 'LICENSE', 'safe.js', 'themes' ],
+226 silly install resolved     gitHead: '8bf2ad9fa695dcb30b7e9fd83691b139fd6655c4',
+226 silly install resolved     _id: 'colors@1.1.2',
+226 silly install resolved     _shasum: '168a4701756b6a7f51a12ce0c97bfa28c084ed63',
+226 silly install resolved     _from: 'colors@*',
+226 silly install resolved     _npmVersion: '2.1.8',
+226 silly install resolved     _nodeVersion: '0.11.13',
+226 silly install resolved     _npmUser: { name: 'marak', email: 'marak.squires@gmail.com' },
+226 silly install resolved     maintainers: [ [Object] ],
+226 silly install resolved     dist:
+226 silly install resolved      { shasum: '168a4701756b6a7f51a12ce0c97bfa28c084ed63',
+226 silly install resolved        tarball: 'http://registry.npmjs.org/colors/-/colors-1.1.2.tgz' },
+226 silly install resolved     directories: {},
+226 silly install resolved     _resolved: 'https://registry.npmjs.org/colors/-/colors-1.1.2.tgz',
+226 silly install resolved     readme: 'ERROR: No README data found!' },
+226 silly install resolved   { name: 'canvas',
+226 silly install resolved     description: 'Canvas graphics API backed by Cairo',
+226 silly install resolved     version: '1.1.6',
+226 silly install resolved     author: { name: 'TJ Holowaychuk', email: 'tj@learnboost.com' },
+226 silly install resolved     contributors: [ [Object], [Object], [Object] ],
+226 silly install resolved     keywords:
+226 silly install resolved      [ 'canvas',
+226 silly install resolved        'graphic',
+226 silly install resolved        'graphics',
+226 silly install resolved        'pixman',
+226 silly install resolved        'cairo',
+226 silly install resolved        'image',
+226 silly install resolved        'images',
+226 silly install resolved        'pdf' ],
+226 silly install resolved     homepage: 'https://github.com/learnboost/node-canvas',
+226 silly install resolved     repository:
+226 silly install resolved      { type: 'git',
+226 silly install resolved        url: 'git://github.com/learnboost/node-canvas.git' },
+226 silly install resolved     scripts: { test: 'make test', install: 'node-gyp rebuild' },
+226 silly install resolved     dependencies: { nan: '~1.2.0' },
+226 silly install resolved     devDependencies: { express: '3.0', jade: '0.28.1', mocha: '*', should: '*' },
+226 silly install resolved     engines: { node: '>= 0.6.0' },
+226 silly install resolved     main: './lib/canvas.js',
+226 silly install resolved     gypfile: true,
+226 silly install resolved     gitHead: '138abe9aa30b75e8406ceddd9177bff20ac44ceb',
+226 silly install resolved     bugs: { url: 'https://github.com/learnboost/node-canvas/issues' },
+226 silly install resolved     _id: 'canvas@1.1.6',
+226 silly install resolved     _shasum: 'd84b088f3bcd3840fe14977cd3625f5fe89f81ee',
+226 silly install resolved     _from: 'canvas@>=1.1.6 <1.2.0',
+226 silly install resolved     _npmVersion: '1.4.21',
+226 silly install resolved     _npmUser: { name: 'tootallnate', email: 'nathan@tootallnate.net' },
+226 silly install resolved     maintainers: [ [Object], [Object], [Object], [Object] ],
+226 silly install resolved     dist:
+226 silly install resolved      { shasum: 'd84b088f3bcd3840fe14977cd3625f5fe89f81ee',
+226 silly install resolved        tarball: 'http://registry.npmjs.org/canvas/-/canvas-1.1.6.tgz' },
+226 silly install resolved     directories: {},
+226 silly install resolved     _resolved: 'https://registry.npmjs.org/canvas/-/canvas-1.1.6.tgz',
+226 silly install resolved     readme: 'ERROR: No README data found!' } ]
+227 info install bops@0.0.6 into C:\expressdemo\demo\node_modules\qrcode
+228 info install colors@1.1.2 into C:\expressdemo\demo\node_modules\qrcode
+229 info install canvas@1.1.6 into C:\expressdemo\demo\node_modules\qrcode
+230 info installOne bops@0.0.6
+231 verbose installOne of bops to C:\expressdemo\demo\node_modules\qrcode not in flight; installing
+232 info installOne colors@1.1.2
+233 verbose installOne of colors to C:\expressdemo\demo\node_modules\qrcode not in flight; installing
+234 info installOne canvas@1.1.6
+235 verbose installOne of canvas to C:\expressdemo\demo\node_modules\qrcode not in flight; installing
+236 verbose lock using C:\Users\yongding\AppData\Roaming\npm-cache\_locks\bops-13cfc664a1280133.lock for C:\expressdemo\demo\node_modules\qrcode\node_modules\bops
+237 silly install write writing bops 0.0.6 to C:\expressdemo\demo\node_modules\qrcode\node_modules\bops
+238 verbose lock using C:\Users\yongding\AppData\Roaming\npm-cache\_locks\colors-84c764c40e87e317.lock for C:\expressdemo\demo\node_modules\qrcode\node_modules\colors
+239 verbose lock using C:\Users\yongding\AppData\Roaming\npm-cache\_locks\canvas-45b8a1e9401a1974.lock for C:\expressdemo\demo\node_modules\qrcode\node_modules\canvas
+240 silly install write writing colors 1.1.2 to C:\expressdemo\demo\node_modules\qrcode\node_modules\colors
+241 silly install write writing canvas 1.1.6 to C:\expressdemo\demo\node_modules\qrcode\node_modules\canvas
+242 verbose unbuild node_modules\qrcode\node_modules\bops
+243 verbose unbuild node_modules\qrcode\node_modules\colors
+244 verbose unbuild node_modules\qrcode\node_modules\canvas
+245 silly gentlyRm C:\expressdemo\demo\node_modules\qrcode\node_modules\bops is being purged from base C:\expressdemo\demo
+246 verbose gentlyRm don't care about contents; nuking C:\expressdemo\demo\node_modules\qrcode\node_modules\bops
+247 verbose tar unpack C:\Users\yongding\AppData\Roaming\npm-cache\bops\0.0.6\package.tgz
+248 verbose tar unpacking to C:\expressdemo\demo\node_modules\qrcode\node_modules\bops
+249 silly gentlyRm C:\expressdemo\demo\node_modules\qrcode\node_modules\bops is being purged
+250 verbose gentlyRm don't care about contents; nuking C:\expressdemo\demo\node_modules\qrcode\node_modules\bops
+251 silly gentlyRm C:\expressdemo\demo\node_modules\qrcode\node_modules\colors is being purged from base C:\expressdemo\demo
+252 verbose gentlyRm don't care about contents; nuking C:\expressdemo\demo\node_modules\qrcode\node_modules\colors
+253 silly gentlyRm C:\expressdemo\demo\node_modules\qrcode\node_modules\canvas is being purged from base C:\expressdemo\demo
+254 verbose gentlyRm don't care about contents; nuking C:\expressdemo\demo\node_modules\qrcode\node_modules\canvas
+255 silly gunzTarPerm modes [ '777', '666' ]
+256 verbose tar unpack C:\Users\yongding\AppData\Roaming\npm-cache\colors\1.1.2\package.tgz
+257 verbose tar unpacking to C:\expressdemo\demo\node_modules\qrcode\node_modules\colors
+258 silly gentlyRm C:\expressdemo\demo\node_modules\qrcode\node_modules\colors is being purged
+259 verbose gentlyRm don't care about contents; nuking C:\expressdemo\demo\node_modules\qrcode\node_modules\colors
+260 verbose tar unpack C:\Users\yongding\AppData\Roaming\npm-cache\canvas\1.1.6\package.tgz
+261 verbose tar unpacking to C:\expressdemo\demo\node_modules\qrcode\node_modules\canvas
+262 silly gentlyRm C:\expressdemo\demo\node_modules\qrcode\node_modules\canvas is being purged
+263 verbose gentlyRm don't care about contents; nuking C:\expressdemo\demo\node_modules\qrcode\node_modules\canvas
+264 silly gunzTarPerm modes [ '777', '666' ]
+265 silly gunzTarPerm modes [ '777', '666' ]
+266 silly gunzTarPerm extractEntry package.json
+267 silly gunzTarPerm modified mode [ 'package.json', 420, 438 ]
+268 silly gunzTarPerm extractEntry package.json
+269 silly gunzTarPerm modified mode [ 'package.json', 420, 438 ]
+270 silly gunzTarPerm extractEntry LICENSE
+271 silly gunzTarPerm modified mode [ 'LICENSE', 420, 438 ]
+272 silly gunzTarPerm extractEntry safe.js
+273 silly gunzTarPerm modified mode [ 'safe.js', 420, 438 ]
+274 silly gunzTarPerm extractEntry README.md
+275 silly gunzTarPerm modified mode [ 'README.md', 420, 438 ]
+276 silly gunzTarPerm extractEntry copy.js
+277 silly gunzTarPerm modified mode [ 'copy.js', 420, 438 ]
+278 silly gunzTarPerm extractEntry ReadMe.md
+279 silly gunzTarPerm modified mode [ 'ReadMe.md', 420, 438 ]
+280 silly gunzTarPerm extractEntry examples/normal-usage.js
+281 silly gunzTarPerm modified mode [ 'examples/normal-usage.js', 420, 438 ]
+282 silly gunzTarPerm extractEntry from.js
+283 silly gunzTarPerm modified mode [ 'from.js', 420, 438 ]
+284 silly gunzTarPerm extractEntry index.js
+285 silly gunzTarPerm modified mode [ 'index.js', 420, 438 ]
+286 silly gunzTarPerm extractEntry examples/safe-string.js
+287 silly gunzTarPerm modified mode [ 'examples/safe-string.js', 420, 438 ]
+288 silly gunzTarPerm extractEntry lib/colors.js
+289 silly gunzTarPerm modified mode [ 'lib/colors.js', 420, 438 ]
+290 silly gunzTarPerm extractEntry package.json
+291 silly gunzTarPerm modified mode [ 'package.json', 420, 438 ]
+292 silly gunzTarPerm extractEntry is.js
+293 silly gunzTarPerm modified mode [ 'is.js', 420, 438 ]
+294 silly gunzTarPerm extractEntry join.js
+295 silly gunzTarPerm modified mode [ 'join.js', 420, 438 ]
+296 silly gunzTarPerm extractEntry .npmignore
+297 silly gunzTarPerm modified mode [ '.npmignore', 420, 438 ]
+298 silly gunzTarPerm extractEntry index.js
+299 silly gunzTarPerm modified mode [ 'index.js', 420, 438 ]
+300 silly gunzTarPerm extractEntry lib/extendStringPrototype.js
+301 silly gunzTarPerm modified mode [ 'lib/extendStringPrototype.js', 420, 438 ]
+302 silly gunzTarPerm extractEntry create.js
+303 silly gunzTarPerm modified mode [ 'create.js', 420, 438 ]
+304 silly gunzTarPerm extractEntry subarray.js
+305 silly gunzTarPerm modified mode [ 'subarray.js', 420, 438 ]
+306 silly gunzTarPerm extractEntry History.md
+307 silly gunzTarPerm modified mode [ 'History.md', 420, 438 ]
+308 silly gunzTarPerm extractEntry Makefile
+309 silly gunzTarPerm modified mode [ 'Makefile', 420, 438 ]
+310 silly gunzTarPerm extractEntry to.js
+311 silly gunzTarPerm modified mode [ 'to.js', 420, 438 ]
+312 silly gunzTarPerm extractEntry write.js
+313 silly gunzTarPerm modified mode [ 'write.js', 420, 438 ]
+314 silly gunzTarPerm extractEntry lib/index.js
+315 silly gunzTarPerm modified mode [ 'lib/index.js', 420, 438 ]
+316 silly gunzTarPerm extractEntry lib/styles.js
+317 silly gunzTarPerm modified mode [ 'lib/styles.js', 420, 438 ]
+318 silly gunzTarPerm extractEntry Readme.md
+319 silly gunzTarPerm modified mode [ 'Readme.md', 420, 438 ]
+320 silly gunzTarPerm extractEntry binding.gyp
+321 silly gunzTarPerm modified mode [ 'binding.gyp', 420, 438 ]
+322 silly gunzTarPerm extractEntry .gitmodules
+323 silly gunzTarPerm modified mode [ '.gitmodules', 420, 438 ]
+324 silly gunzTarPerm extractEntry read.js
+325 silly gunzTarPerm modified mode [ 'read.js', 420, 438 ]
+326 silly gunzTarPerm extractEntry test/copy.js
+327 silly gunzTarPerm modified mode [ 'test/copy.js', 420, 438 ]
+328 silly gunzTarPerm extractEntry lib/custom/trap.js
+329 silly gunzTarPerm modified mode [ 'lib/custom/trap.js', 420, 438 ]
+330 silly gunzTarPerm extractEntry lib/custom/zalgo.js
+331 silly gunzTarPerm modified mode [ 'lib/custom/zalgo.js', 420, 438 ]
+332 silly gunzTarPerm extractEntry test/create.js
+333 silly gunzTarPerm modified mode [ 'test/create.js', 420, 438 ]
+334 silly gunzTarPerm extractEntry install
+335 silly gunzTarPerm modified mode [ 'install', 493, 511 ]
+336 silly gunzTarPerm extractEntry lib/bindings.js
+337 silly gunzTarPerm modified mode [ 'lib/bindings.js', 420, 438 ]
+338 silly gunzTarPerm extractEntry test/from.js
+339 silly gunzTarPerm modified mode [ 'test/from.js', 420, 438 ]
+340 silly gunzTarPerm extractEntry test/index.js
+341 silly gunzTarPerm modified mode [ 'test/index.js', 420, 438 ]
+342 silly gunzTarPerm extractEntry lib/canvas.js
+343 silly gunzTarPerm modified mode [ 'lib/canvas.js', 420, 438 ]
+344 silly gunzTarPerm extractEntry lib/context2d.js
+345 silly gunzTarPerm modified mode [ 'lib/context2d.js', 420, 438 ]
+346 silly gunzTarPerm extractEntry test/is.js
+347 silly gunzTarPerm modified mode [ 'test/is.js', 420, 438 ]
+348 silly gunzTarPerm extractEntry test/join.js
+349 silly gunzTarPerm modified mode [ 'test/join.js', 420, 438 ]
+350 silly gunzTarPerm extractEntry lib/maps/america.js
+351 silly gunzTarPerm modified mode [ 'lib/maps/america.js', 420, 438 ]
+352 silly gunzTarPerm extractEntry lib/maps/rainbow.js
+353 silly gunzTarPerm modified mode [ 'lib/maps/rainbow.js', 420, 438 ]
+354 silly gunzTarPerm extractEntry test/read.js
+355 silly gunzTarPerm modified mode [ 'test/read.js', 420, 438 ]
+356 silly gunzTarPerm extractEntry test/subarray.js
+357 silly gunzTarPerm modified mode [ 'test/subarray.js', 420, 438 ]
+358 silly gunzTarPerm extractEntry lib/image.js
+359 silly gunzTarPerm modified mode [ 'lib/image.js', 420, 438 ]
+360 silly gunzTarPerm extractEntry lib/jpegstream.js
+361 silly gunzTarPerm modified mode [ 'lib/jpegstream.js', 420, 438 ]
+362 silly gunzTarPerm extractEntry test/to.js
+363 silly gunzTarPerm modified mode [ 'test/to.js', 420, 438 ]
+364 silly gunzTarPerm extractEntry test/write.js
+365 silly gunzTarPerm modified mode [ 'test/write.js', 420, 438 ]
+366 silly gunzTarPerm extractEntry lib/maps/random.js
+367 silly gunzTarPerm modified mode [ 'lib/maps/random.js', 420, 438 ]
+368 silly gunzTarPerm extractEntry lib/maps/zebra.js
+369 silly gunzTarPerm modified mode [ 'lib/maps/zebra.js', 420, 438 ]
+370 silly gunzTarPerm extractEntry lib/pixelarray.js
+371 silly gunzTarPerm modified mode [ 'lib/pixelarray.js', 420, 438 ]
+372 silly gunzTarPerm extractEntry lib/pngstream.js
+373 silly gunzTarPerm modified mode [ 'lib/pngstream.js', 420, 438 ]
+374 silly gunzTarPerm extractEntry typedarray/copy.js
+375 silly gunzTarPerm modified mode [ 'typedarray/copy.js', 420, 438 ]
+376 silly gunzTarPerm extractEntry typedarray/create.js
+377 silly gunzTarPerm modified mode [ 'typedarray/create.js', 420, 438 ]
+378 silly gunzTarPerm extractEntry src/Image.h
+379 silly gunzTarPerm modified mode [ 'src/Image.h', 420, 438 ]
+380 silly gunzTarPerm extractEntry src/Canvas.cc
+381 silly gunzTarPerm modified mode [ 'src/Canvas.cc', 420, 438 ]
+382 silly gunzTarPerm extractEntry typedarray/from.js
+383 silly gunzTarPerm modified mode [ 'typedarray/from.js', 420, 438 ]
+384 silly gunzTarPerm extractEntry typedarray/is.js
+385 silly gunzTarPerm modified mode [ 'typedarray/is.js', 420, 438 ]
+386 silly gunzTarPerm extractEntry lib/system/supports-colors.js
+387 silly gunzTarPerm modified mode [ 'lib/system/supports-colors.js', 420, 438 ]
+388 silly gunzTarPerm extractEntry themes/generic-logging.js
+389 silly gunzTarPerm modified mode [ 'themes/generic-logging.js', 420, 438 ]
+390 silly gunzTarPerm extractEntry src/CanvasGradient.cc
+391 silly gunzTarPerm modified mode [ 'src/CanvasGradient.cc', 420, 438 ]
+392 silly gunzTarPerm extractEntry src/CanvasGradient.h
+393 silly gunzTarPerm modified mode [ 'src/CanvasGradient.h', 420, 438 ]
+394 silly gunzTarPerm extractEntry typedarray/join.js
+395 silly gunzTarPerm modified mode [ 'typedarray/join.js', 420, 438 ]
+396 silly gunzTarPerm extractEntry typedarray/mapped.js
+397 silly gunzTarPerm modified mode [ 'typedarray/mapped.js', 420, 438 ]
+398 silly gunzTarPerm extractEntry src/CanvasPattern.cc
+399 silly gunzTarPerm modified mode [ 'src/CanvasPattern.cc', 420, 438 ]
+400 silly gunzTarPerm extractEntry src/CanvasPattern.h
+401 silly gunzTarPerm modified mode [ 'src/CanvasPattern.h', 420, 438 ]
+402 silly gunzTarPerm extractEntry typedarray/read.js
+403 silly gunzTarPerm modified mode [ 'typedarray/read.js', 420, 438 ]
+404 silly gunzTarPerm extractEntry typedarray/subarray.js
+405 silly gunzTarPerm modified mode [ 'typedarray/subarray.js', 420, 438 ]
+406 silly gunzTarPerm extractEntry typedarray/to.js
+407 silly gunzTarPerm modified mode [ 'typedarray/to.js', 420, 438 ]
+408 silly gunzTarPerm extractEntry typedarray/write.js
+409 silly gunzTarPerm modified mode [ 'typedarray/write.js', 420, 438 ]
+410 silly gunzTarPerm extractEntry src/CanvasRenderingContext2d.cc
+411 silly gunzTarPerm modified mode [ 'src/CanvasRenderingContext2d.cc', 420, 438 ]
+412 silly gunzTarPerm extractEntry src/CanvasRenderingContext2d.h
+413 silly gunzTarPerm modified mode [ 'src/CanvasRenderingContext2d.h', 420, 438 ]
+414 silly gunzTarPerm extractEntry src/FontFace.cc
+415 silly gunzTarPerm modified mode [ 'src/FontFace.cc', 420, 438 ]
+416 silly gunzTarPerm extractEntry src/FontFace.h
+417 silly gunzTarPerm modified mode [ 'src/FontFace.h', 420, 438 ]
+418 silly gunzTarPerm extractEntry src/Image.cc
+419 silly gunzTarPerm modified mode [ 'src/Image.cc', 420, 438 ]
+420 silly gunzTarPerm extractEntry src/Canvas.h
+421 silly gunzTarPerm modified mode [ 'src/Canvas.h', 420, 438 ]
+422 silly gunzTarPerm extractEntry src/ImageData.cc
+423 silly gunzTarPerm modified mode [ 'src/ImageData.cc', 420, 438 ]
+424 silly gunzTarPerm extractEntry src/ImageData.h
+425 silly gunzTarPerm modified mode [ 'src/ImageData.h', 420, 438 ]
+426 silly gunzTarPerm extractEntry src/JPEGStream.h
+427 silly gunzTarPerm modified mode [ 'src/JPEGStream.h', 420, 438 ]
+428 silly gunzTarPerm extractEntry src/PNG.h
+429 silly gunzTarPerm modified mode [ 'src/PNG.h', 420, 438 ]
+430 silly gunzTarPerm extractEntry src/PixelArray.cc
+431 silly gunzTarPerm modified mode [ 'src/PixelArray.cc', 420, 438 ]
+432 silly gunzTarPerm extractEntry src/PixelArray.h
+433 silly gunzTarPerm modified mode [ 'src/PixelArray.h', 420, 438 ]
+434 silly gunzTarPerm extractEntry src/Point.h
+435 silly gunzTarPerm modified mode [ 'src/Point.h', 420, 438 ]
+436 silly gunzTarPerm extractEntry src/closure.h
+437 silly gunzTarPerm modified mode [ 'src/closure.h', 420, 438 ]
+438 verbose write writing to C:\expressdemo\demo\node_modules\qrcode\node_modules\colors\package.json
+439 silly gunzTarPerm extractEntry src/color.cc
+440 silly gunzTarPerm modified mode [ 'src/color.cc', 420, 438 ]
+441 silly gunzTarPerm extractEntry src/color.h
+442 silly gunzTarPerm modified mode [ 'src/color.h', 420, 438 ]
+443 silly gunzTarPerm extractEntry src/init.cc
+444 silly gunzTarPerm modified mode [ 'src/init.cc', 493, 511 ]
+445 silly gunzTarPerm extractEntry .travis.yml
+446 silly gunzTarPerm modified mode [ '.travis.yml', 420, 438 ]
+447 info preinstall colors@1.1.2
+448 verbose readDependencies loading dependencies from C:\expressdemo\demo\node_modules\qrcode\node_modules\colors\package.json
+449 silly gunzTarPerm extractEntry util/cairo_include.sh
+450 silly gunzTarPerm modified mode [ 'util/cairo_include.sh', 493, 511 ]
+451 silly gunzTarPerm extractEntry util/has_cairo_freetype.sh
+452 silly gunzTarPerm modified mode [ 'util/has_cairo_freetype.sh', 493, 511 ]
+453 verbose readDependencies loading dependencies from C:\expressdemo\demo\node_modules\qrcode\node_modules\colors\package.json
+454 silly install resolved []
+455 verbose about to build C:\expressdemo\demo\node_modules\qrcode\node_modules\colors
+456 info build C:\expressdemo\demo\node_modules\qrcode\node_modules\colors
+457 info linkStuff colors@1.1.2
+458 silly linkStuff colors@1.1.2 has C:\expressdemo\demo\node_modules\qrcode\node_modules as its parent node_modules
+459 silly gunzTarPerm extractEntry util/has_lib.sh
+460 silly gunzTarPerm modified mode [ 'util/has_lib.sh', 493, 511 ]
+461 silly gunzTarPerm extractEntry util/lib_lookup.sh
+462 silly gunzTarPerm modified mode [ 'util/lib_lookup.sh', 493, 511 ]
+463 verbose linkBins colors@1.1.2
+464 verbose linkMans colors@1.1.2
+465 verbose rebuildBundles colors@1.1.2
+466 info install colors@1.1.2
+467 info postinstall colors@1.1.2
+468 verbose unlock done using C:\Users\yongding\AppData\Roaming\npm-cache\_locks\colors-84c764c40e87e317.lock for C:\expressdemo\demo\node_modules\qrcode\node_modules\colors
+469 verbose write writing to C:\expressdemo\demo\node_modules\qrcode\node_modules\bops\package.json
+470 info preinstall bops@0.0.6
+471 verbose readDependencies loading dependencies from C:\expressdemo\demo\node_modules\qrcode\node_modules\bops\package.json
+472 silly prepareForInstallMany adding base64-js@0.0.2 from bops dependencies
+473 silly prepareForInstallMany adding to-utf8@0.0.1 from bops dependencies
+474 verbose readDependencies loading dependencies from C:\expressdemo\demo\node_modules\qrcode\node_modules\bops\package.json
+475 silly cache add args [ 'base64-js@0.0.2', null ]
+476 verbose cache add spec base64-js@0.0.2
+477 silly cache add args [ 'to-utf8@0.0.1', null ]
+478 verbose cache add spec to-utf8@0.0.1
+479 silly cache add parsed spec { raw: 'base64-js@0.0.2',
+479 silly cache add   scope: null,
+479 silly cache add   name: 'base64-js',
+479 silly cache add   rawSpec: '0.0.2',
+479 silly cache add   spec: '0.0.2',
+479 silly cache add   type: 'version' }
+480 silly addNamed base64-js@0.0.2
+481 verbose addNamed "0.0.2" is a plain semver version for base64-js
+482 silly mapToRegistry name base64-js
+483 silly mapToRegistry using default registry
+484 silly mapToRegistry registry https://registry.npmjs.org/
+485 silly mapToRegistry uri https://registry.npmjs.org/base64-js
+486 verbose addNameVersion registry:https://registry.npmjs.org/base64-js not in flight; fetching
+487 silly cache add parsed spec { raw: 'to-utf8@0.0.1',
+487 silly cache add   scope: null,
+487 silly cache add   name: 'to-utf8',
+487 silly cache add   rawSpec: '0.0.1',
+487 silly cache add   spec: '0.0.1',
+487 silly cache add   type: 'version' }
+488 silly addNamed to-utf8@0.0.1
+489 verbose addNamed "0.0.1" is a plain semver version for to-utf8
+490 silly mapToRegistry name to-utf8
+491 silly mapToRegistry using default registry
+492 silly mapToRegistry registry https://registry.npmjs.org/
+493 silly mapToRegistry uri https://registry.npmjs.org/to-utf8
+494 verbose addNameVersion registry:https://registry.npmjs.org/to-utf8 not in flight; fetching
+495 verbose request uri https://registry.npmjs.org/to-utf8
+496 verbose request no auth needed
+497 info attempt registry request try #1 at 10:35:10
+498 verbose etag "37E3BUX6G8KNXLTKZURFJ9HAE"
+499 http request GET https://registry.npmjs.org/to-utf8
+500 verbose request uri https://registry.npmjs.org/base64-js
+501 verbose request no auth needed
+502 info attempt registry request try #1 at 10:35:10
+503 verbose etag "JGQZCY27M4205HIW08DHNGRY"
+504 http request GET https://registry.npmjs.org/base64-js
+505 verbose write writing to C:\expressdemo\demo\node_modules\qrcode\node_modules\canvas\package.json
+506 info preinstall canvas@1.1.6
+507 verbose readDependencies loading dependencies from C:\expressdemo\demo\node_modules\qrcode\node_modules\canvas\package.json
+508 silly prepareForInstallMany adding nan@~1.2.0 from canvas dependencies
+509 verbose readDependencies loading dependencies from C:\expressdemo\demo\node_modules\qrcode\node_modules\canvas\package.json
+510 silly cache add args [ 'nan@~1.2.0', null ]
+511 verbose cache add spec nan@~1.2.0
+512 silly cache add parsed spec { raw: 'nan@~1.2.0',
+512 silly cache add   scope: null,
+512 silly cache add   name: 'nan',
+512 silly cache add   rawSpec: '~1.2.0',
+512 silly cache add   spec: '>=1.2.0 <1.3.0',
+512 silly cache add   type: 'range' }
+513 silly addNamed nan@>=1.2.0 <1.3.0
+514 verbose addNamed ">=1.2.0 <1.3.0" is a valid semver range for nan
+515 silly addNameRange { name: 'nan', range: '>=1.2.0 <1.3.0', hasData: false }
+516 silly mapToRegistry name nan
+517 silly mapToRegistry using default registry
+518 silly mapToRegistry registry https://registry.npmjs.org/
+519 silly mapToRegistry uri https://registry.npmjs.org/nan
+520 verbose addNameRange registry:https://registry.npmjs.org/nan not in flight; fetching
+521 verbose request uri https://registry.npmjs.org/nan
+522 verbose request no auth needed
+523 info attempt registry request try #1 at 10:35:11
+524 verbose etag "CWMZR9BQ6YD6KL99MGG0CU5U5"
+525 http request GET https://registry.npmjs.org/nan
+526 http 304 https://registry.npmjs.org/base64-js
+527 silly get cb [ 304,
+527 silly get   { date: 'Sat, 11 Jul 2015 14:35:36 GMT',
+527 silly get     via: '1.1 varnish',
+527 silly get     'cache-control': 'max-age=60',
+527 silly get     etag: '"JGQZCY27M4205HIW08DHNGRY"',
+527 silly get     age: '50',
+527 silly get     connection: 'keep-alive',
+527 silly get     'x-served-by': 'cache-iad2125-IAD',
+527 silly get     'x-cache': 'HIT',
+527 silly get     'x-cache-hits': '1',
+527 silly get     'x-timer': 'S1436625336.387966,VS0,VE0',
+527 silly get     vary: 'Accept' } ]
+528 verbose etag https://registry.npmjs.org/base64-js from cache
+529 verbose get saving base64-js to C:\Users\yongding\AppData\Roaming\npm-cache\registry.npmjs.org\base64-js\.cache.json
+530 http 304 https://registry.npmjs.org/to-utf8
+531 silly get cb [ 304,
+531 silly get   { date: 'Sat, 11 Jul 2015 14:35:36 GMT',
+531 silly get     via: '1.1 varnish',
+531 silly get     'cache-control': 'max-age=60',
+531 silly get     etag: '"37E3BUX6G8KNXLTKZURFJ9HAE"',
+531 silly get     age: '0',
+531 silly get     connection: 'keep-alive',
+531 silly get     'x-served-by': 'cache-iad2136-IAD',
+531 silly get     'x-cache': 'HIT',
+531 silly get     'x-cache-hits': '1',
+531 silly get     'x-timer': 'S1436625336.377310,VS0,VE12',
+531 silly get     vary: 'Accept' } ]
+532 verbose etag https://registry.npmjs.org/to-utf8 from cache
+533 verbose get saving to-utf8 to C:\Users\yongding\AppData\Roaming\npm-cache\registry.npmjs.org\to-utf8\.cache.json
+534 silly cache afterAdd to-utf8@0.0.1
+535 verbose afterAdd C:\Users\yongding\AppData\Roaming\npm-cache\to-utf8\0.0.1\package\package.json not in flight; writing
+536 verbose afterAdd C:\Users\yongding\AppData\Roaming\npm-cache\to-utf8\0.0.1\package\package.json written
+537 silly cache afterAdd base64-js@0.0.2
+538 verbose afterAdd C:\Users\yongding\AppData\Roaming\npm-cache\base64-js\0.0.2\package\package.json not in flight; writing
+539 verbose afterAdd C:\Users\yongding\AppData\Roaming\npm-cache\base64-js\0.0.2\package\package.json written
+540 silly install resolved [ { name: 'to-utf8',
+540 silly install resolved     version: '0.0.1',
+540 silly install resolved     description: 'single-function form of node\'s Buffer.toString(utf8)',
+540 silly install resolved     main: 'index.js',
+540 silly install resolved     scripts: { test: 'node test.js' },
+540 silly install resolved     repository:
+540 silly install resolved      { type: 'git',
+540 silly install resolved        url: 'git://github.com/chrisdickinson/to-utf8.git' },
+540 silly install resolved     keywords: [ 'utf8', 'buffer' ],
+540 silly install resolved     author: { name: 'Chris Dickinson', email: 'chris@neversaw.us' },
+540 silly install resolved     license: 'MIT',
+540 silly install resolved     devDependencies: { tape: '~0.2.2' },
+540 silly install resolved     _id: 'to-utf8@0.0.1',
+540 silly install resolved     dist:
+540 silly install resolved      { shasum: 'd17aea72ff2fba39b9e43601be7b3ff72e089852',
+540 silly install resolved        tarball: 'http://registry.npmjs.org/to-utf8/-/to-utf8-0.0.1.tgz' },
+540 silly install resolved     _npmVersion: '1.1.69',
+540 silly install resolved     _npmUser: { name: 'chrisdickinson', email: 'chris@neversaw.us' },
+540 silly install resolved     maintainers: [ [Object] ],
+540 silly install resolved     directories: {},
+540 silly install resolved     _shasum: 'd17aea72ff2fba39b9e43601be7b3ff72e089852',
+540 silly install resolved     _resolved: 'https://registry.npmjs.org/to-utf8/-/to-utf8-0.0.1.tgz',
+540 silly install resolved     _from: 'to-utf8@0.0.1',
+540 silly install resolved     bugs: { url: 'https://github.com/chrisdickinson/to-utf8/issues' },
+540 silly install resolved     readme: 'ERROR: No README data found!',
+540 silly install resolved     homepage: 'https://github.com/chrisdickinson/to-utf8#readme' },
+540 silly install resolved   { author:
+540 silly install resolved      { name: 'T. Jameson Little',
+540 silly install resolved        email: 't.jameson.little@gmail.com' },
+540 silly install resolved     name: 'base64-js',
+540 silly install resolved     description: 'Base64 encoding/decoding in pure JS',
+540 silly install resolved     version: '0.0.2',
+540 silly install resolved     repository:
+540 silly install resolved      { type: 'git',
+540 silly install resolved        url: 'git://github.com/beatgammit/deflate-js.git' },
+540 silly install resolved     main: 'lib/b64.js',
+540 silly install resolved     scripts: { test: 'cd test; node runner.js; cd -' },
+540 silly install resolved     engines: { node: '>= 0.4' },
+540 silly install resolved     dependencies: {},
+540 silly install resolved     devDependencies: {},
+540 silly install resolved     _npmUser: { name: 'beatgammit', email: 't.jameson.little@gmail.com' },
+540 silly install resolved     _id: 'base64-js@0.0.2',
+540 silly install resolved     _engineSupported: true,
+540 silly install resolved     _npmVersion: '1.0.106',
+540 silly install resolved     _nodeVersion: 'v0.6.2',
+540 silly install resolved     _defaultsLoaded: true,
+540 silly install resolved     dist:
+540 silly install resolved      { shasum: '024f0f72afa25b75f9c0ee73cd4f55ec1bed9784',
+540 silly install resolved        tarball: 'http://registry.npmjs.org/base64-js/-/base64-js-0.0.2.tgz' },
+540 silly install resolved     maintainers: [ [Object] ],
+540 silly install resolved     directories: {},
+540 silly install resolved     _shasum: '024f0f72afa25b75f9c0ee73cd4f55ec1bed9784',
+540 silly install resolved     _resolved: 'https://registry.npmjs.org/base64-js/-/base64-js-0.0.2.tgz',
+540 silly install resolved     _from: 'base64-js@0.0.2',
+540 silly install resolved     bugs: { url: 'https://github.com/beatgammit/deflate-js/issues' },
+540 silly install resolved     readme: 'ERROR: No README data found!',
+540 silly install resolved     homepage: 'https://github.com/beatgammit/deflate-js#readme' } ]
+541 info install to-utf8@0.0.1 into C:\expressdemo\demo\node_modules\qrcode\node_modules\bops
+542 info install base64-js@0.0.2 into C:\expressdemo\demo\node_modules\qrcode\node_modules\bops
+543 info installOne to-utf8@0.0.1
+544 verbose installOne of to-utf8 to C:\expressdemo\demo\node_modules\qrcode\node_modules\bops not in flight; installing
+545 info installOne base64-js@0.0.2
+546 verbose installOne of base64-js to C:\expressdemo\demo\node_modules\qrcode\node_modules\bops not in flight; installing
+547 verbose lock using C:\Users\yongding\AppData\Roaming\npm-cache\_locks\base64-js-b66820f9e3cfd79a.lock for C:\expressdemo\demo\node_modules\qrcode\node_modules\bops\node_modules\base64-js
+548 silly install write writing base64-js 0.0.2 to C:\expressdemo\demo\node_modules\qrcode\node_modules\bops\node_modules\base64-js
+549 verbose lock using C:\Users\yongding\AppData\Roaming\npm-cache\_locks\to-utf8-f58781a812c8bb43.lock for C:\expressdemo\demo\node_modules\qrcode\node_modules\bops\node_modules\to-utf8
+550 silly install write writing to-utf8 0.0.1 to C:\expressdemo\demo\node_modules\qrcode\node_modules\bops\node_modules\to-utf8
+551 verbose unbuild node_modules\qrcode\node_modules\bops\node_modules\base64-js
+552 silly gentlyRm C:\expressdemo\demo\node_modules\qrcode\node_modules\bops\node_modules\base64-js is being purged from base C:\expressdemo\demo
+553 verbose gentlyRm don't care about contents; nuking C:\expressdemo\demo\node_modules\qrcode\node_modules\bops\node_modules\base64-js
+554 verbose unbuild node_modules\qrcode\node_modules\bops\node_modules\to-utf8
+555 verbose tar unpack C:\Users\yongding\AppData\Roaming\npm-cache\base64-js\0.0.2\package.tgz
+556 verbose tar unpacking to C:\expressdemo\demo\node_modules\qrcode\node_modules\bops\node_modules\base64-js
+557 silly gentlyRm C:\expressdemo\demo\node_modules\qrcode\node_modules\bops\node_modules\base64-js is being purged
+558 verbose gentlyRm don't care about contents; nuking C:\expressdemo\demo\node_modules\qrcode\node_modules\bops\node_modules\base64-js
+559 silly gunzTarPerm modes [ '777', '666' ]
+560 silly gentlyRm C:\expressdemo\demo\node_modules\qrcode\node_modules\bops\node_modules\to-utf8 is being purged from base C:\expressdemo\demo
+561 verbose gentlyRm don't care about contents; nuking C:\expressdemo\demo\node_modules\qrcode\node_modules\bops\node_modules\to-utf8
+562 verbose tar unpack C:\Users\yongding\AppData\Roaming\npm-cache\to-utf8\0.0.1\package.tgz
+563 verbose tar unpacking to C:\expressdemo\demo\node_modules\qrcode\node_modules\bops\node_modules\to-utf8
+564 silly gentlyRm C:\expressdemo\demo\node_modules\qrcode\node_modules\bops\node_modules\to-utf8 is being purged
+565 verbose gentlyRm don't care about contents; nuking C:\expressdemo\demo\node_modules\qrcode\node_modules\bops\node_modules\to-utf8
+566 silly gunzTarPerm modes [ '777', '666' ]
+567 http 304 https://registry.npmjs.org/nan
+568 silly get cb [ 304,
+568 silly get   { date: 'Sat, 11 Jul 2015 14:35:36 GMT',
+568 silly get     via: '1.1 varnish',
+568 silly get     'cache-control': 'max-age=60',
+568 silly get     etag: '"CWMZR9BQ6YD6KL99MGG0CU5U5"',
+568 silly get     age: '31',
+568 silly get     connection: 'keep-alive',
+568 silly get     'x-served-by': 'cache-iad2121-IAD',
+568 silly get     'x-cache': 'HIT',
+568 silly get     'x-cache-hits': '1',
+568 silly get     'x-timer': 'S1436625336.517573,VS0,VE0',
+568 silly get     vary: 'Accept' } ]
+569 verbose etag https://registry.npmjs.org/nan from cache
+570 verbose get saving nan to C:\Users\yongding\AppData\Roaming\npm-cache\registry.npmjs.org\nan\.cache.json
+571 silly gunzTarPerm extractEntry package.json
+572 silly gunzTarPerm modified mode [ 'package.json', 420, 438 ]
+573 silly gunzTarPerm extractEntry README.md
+574 silly gunzTarPerm modified mode [ 'README.md', 420, 438 ]
+575 silly gunzTarPerm extractEntry lib/b64.js
+576 silly gunzTarPerm modified mode [ 'lib/b64.js', 420, 438 ]
+577 silly addNameRange number 2 { name: 'nan', range: '>=1.2.0 <1.3.0', hasData: true }
+578 silly addNameRange versions [ 'nan',
+578 silly addNameRange   [ '0.3.0-wip',
+578 silly addNameRange     '0.3.0-wip2',
+578 silly addNameRange     '0.3.0',
+578 silly addNameRange     '0.3.1',
+578 silly addNameRange     '0.3.2',
+578 silly addNameRange     '0.4.0',
+578 silly addNameRange     '0.4.1',
+578 silly addNameRange     '0.4.2',
+578 silly addNameRange     '0.4.3',
+578 silly addNameRange     '0.4.4',
+578 silly addNameRange     '0.5.0',
+578 silly addNameRange     '0.5.1',
+578 silly addNameRange     '0.5.2',
+578 silly addNameRange     '0.6.0',
+578 silly addNameRange     '0.7.0',
+578 silly addNameRange     '0.7.1',
+578 silly addNameRange     '0.8.0',
+578 silly addNameRange     '1.0.0',
+578 silly addNameRange     '1.1.0',
+578 silly addNameRange     '1.1.1',
+578 silly addNameRange     '1.1.2',
+578 silly addNameRange     '1.2.0',
+578 silly addNameRange     '1.3.0',
+578 silly addNameRange     '1.4.0',
+578 silly addNameRange     '1.4.1',
+578 silly addNameRange     '1.5.0',
+578 silly addNameRange     '1.4.2',
+578 silly addNameRange     '1.4.3',
+578 silly addNameRange     '1.5.1',
+578 silly addNameRange     '1.5.2',
+578 silly addNameRange     '1.6.0',
+578 silly addNameRange     '1.5.3',
+578 silly addNameRange     '1.6.1',
+578 silly addNameRange     '1.6.2',
+578 silly addNameRange     '1.7.0',
+578 silly addNameRange     '1.8.0',
+578 silly addNameRange     '1.8.1',
+578 silly addNameRange     '1.8.2',
+578 silly addNameRange     '1.8.3',
+578 silly addNameRange     '1.8.4' ] ]
+579 silly addNamed nan@1.2.0
+580 verbose addNamed "1.2.0" is a plain semver version for nan
+581 silly gunzTarPerm extractEntry package.json
+582 silly gunzTarPerm modified mode [ 'package.json', 420, 438 ]
+583 silly gunzTarPerm extractEntry test/runner.js
+584 silly gunzTarPerm modified mode [ 'test/runner.js', 420, 438 ]
+585 silly gunzTarPerm extractEntry README.md
+586 silly gunzTarPerm modified mode [ 'README.md', 420, 438 ]
+587 silly gunzTarPerm extractEntry index.js
+588 silly gunzTarPerm modified mode [ 'index.js', 420, 438 ]
+589 silly gunzTarPerm extractEntry test.js
+590 silly gunzTarPerm modified mode [ 'test.js', 420, 438 ]
+591 verbose write writing to C:\expressdemo\demo\node_modules\qrcode\node_modules\bops\node_modules\base64-js\package.json
+592 verbose write writing to C:\expressdemo\demo\node_modules\qrcode\node_modules\bops\node_modules\to-utf8\package.json
+593 info preinstall to-utf8@0.0.1
+594 silly cache afterAdd nan@1.2.0
+595 verbose afterAdd C:\Users\yongding\AppData\Roaming\npm-cache\nan\1.2.0\package\package.json not in flight; writing
+596 verbose readDependencies loading dependencies from C:\expressdemo\demo\node_modules\qrcode\node_modules\bops\node_modules\to-utf8\package.json
+597 verbose readDependencies loading dependencies from C:\expressdemo\demo\node_modules\qrcode\node_modules\bops\node_modules\to-utf8\package.json
+598 verbose afterAdd C:\Users\yongding\AppData\Roaming\npm-cache\nan\1.2.0\package\package.json written
+599 silly install resolved [ { name: 'nan',
+599 silly install resolved     version: '1.2.0',
+599 silly install resolved     description: 'Native Abstractions for Node.js: C++ header for Node 0.8->0.12 compatibility',
+599 silly install resolved     main: 'include_dirs.js',
+599 silly install resolved     repository: { type: 'git', url: 'git://github.com/rvagg/nan.git' },
+599 silly install resolved     contributors: [ [Object], [Object], [Object], [Object], [Object], [Object] ],
+599 silly install resolved     license: 'MIT',
+599 silly install resolved     bugs: { url: 'https://github.com/rvagg/nan/issues' },
+599 silly install resolved     homepage: 'https://github.com/rvagg/nan',
+599 silly install resolved     _id: 'nan@1.2.0',
+599 silly install resolved     dist:
+599 silly install resolved      { shasum: '9c4d63ce9e4f8e95de2d574e18f7925554a8a8ef',
+599 silly install resolved        tarball: 'http://registry.npmjs.org/nan/-/nan-1.2.0.tgz' },
+599 silly install resolved     _from: 'nan@>=1.2.0 <1.3.0',
+599 silly install resolved     _npmVersion: '1.4.3',
+599 silly install resolved     _npmUser: { name: 'rvagg', email: 'rod@vagg.org' },
+599 silly install resolved     maintainers: [ [Object] ],
+599 silly install resolved     directories: {},
+599 silly install resolved     _shasum: '9c4d63ce9e4f8e95de2d574e18f7925554a8a8ef',
+599 silly install resolved     _resolved: 'https://registry.npmjs.org/nan/-/nan-1.2.0.tgz',
+599 silly install resolved     readme: 'ERROR: No README data found!' } ]
+600 info install nan@1.2.0 into C:\expressdemo\demo\node_modules\qrcode\node_modules\canvas
+601 info installOne nan@1.2.0
+602 verbose installOne of nan to C:\expressdemo\demo\node_modules\qrcode\node_modules\canvas not in flight; installing
+603 silly install resolved []
+604 verbose about to build C:\expressdemo\demo\node_modules\qrcode\node_modules\bops\node_modules\to-utf8
+605 info build C:\expressdemo\demo\node_modules\qrcode\node_modules\bops\node_modules\to-utf8
+606 info linkStuff to-utf8@0.0.1
+607 silly linkStuff to-utf8@0.0.1 has C:\expressdemo\demo\node_modules\qrcode\node_modules\bops\node_modules as its parent node_modules
+608 verbose lock using C:\Users\yongding\AppData\Roaming\npm-cache\_locks\nan-d90e29f6d561ae65.lock for C:\expressdemo\demo\node_modules\qrcode\node_modules\canvas\node_modules\nan
+609 silly install write writing nan 1.2.0 to C:\expressdemo\demo\node_modules\qrcode\node_modules\canvas\node_modules\nan
+610 verbose unbuild node_modules\qrcode\node_modules\canvas\node_modules\nan
+611 verbose linkBins to-utf8@0.0.1
+612 verbose linkMans to-utf8@0.0.1
+613 verbose rebuildBundles to-utf8@0.0.1
+614 silly gentlyRm C:\expressdemo\demo\node_modules\qrcode\node_modules\canvas\node_modules\nan is being purged from base C:\expressdemo\demo
+615 verbose gentlyRm don't care about contents; nuking C:\expressdemo\demo\node_modules\qrcode\node_modules\canvas\node_modules\nan
+616 info install to-utf8@0.0.1
+617 verbose tar unpack C:\Users\yongding\AppData\Roaming\npm-cache\nan\1.2.0\package.tgz
+618 verbose tar unpacking to C:\expressdemo\demo\node_modules\qrcode\node_modules\canvas\node_modules\nan
+619 silly gentlyRm C:\expressdemo\demo\node_modules\qrcode\node_modules\canvas\node_modules\nan is being purged
+620 verbose gentlyRm don't care about contents; nuking C:\expressdemo\demo\node_modules\qrcode\node_modules\canvas\node_modules\nan
+621 silly gunzTarPerm modes [ '777', '666' ]
+622 info postinstall to-utf8@0.0.1
+623 info preinstall base64-js@0.0.2
+624 verbose unlock done using C:\Users\yongding\AppData\Roaming\npm-cache\_locks\to-utf8-f58781a812c8bb43.lock for C:\expressdemo\demo\node_modules\qrcode\node_modules\bops\node_modules\to-utf8
+625 verbose readDependencies loading dependencies from C:\expressdemo\demo\node_modules\qrcode\node_modules\bops\node_modules\base64-js\package.json
+626 verbose readDependencies loading dependencies from C:\expressdemo\demo\node_modules\qrcode\node_modules\bops\node_modules\base64-js\package.json
+627 silly install resolved []
+628 verbose about to build C:\expressdemo\demo\node_modules\qrcode\node_modules\bops\node_modules\base64-js
+629 info build C:\expressdemo\demo\node_modules\qrcode\node_modules\bops\node_modules\base64-js
+630 info linkStuff base64-js@0.0.2
+631 silly linkStuff base64-js@0.0.2 has C:\expressdemo\demo\node_modules\qrcode\node_modules\bops\node_modules as its parent node_modules
+632 verbose linkBins base64-js@0.0.2
+633 verbose linkMans base64-js@0.0.2
+634 verbose rebuildBundles base64-js@0.0.2
+635 info install base64-js@0.0.2
+636 info postinstall base64-js@0.0.2
+637 verbose unlock done using C:\Users\yongding\AppData\Roaming\npm-cache\_locks\base64-js-b66820f9e3cfd79a.lock for C:\expressdemo\demo\node_modules\qrcode\node_modules\bops\node_modules\base64-js
+638 verbose about to build C:\expressdemo\demo\node_modules\qrcode\node_modules\bops
+639 info build C:\expressdemo\demo\node_modules\qrcode\node_modules\bops
+640 info linkStuff bops@0.0.6
+641 silly linkStuff bops@0.0.6 has C:\expressdemo\demo\node_modules\qrcode\node_modules as its parent node_modules
+642 verbose linkBins bops@0.0.6
+643 verbose linkMans bops@0.0.6
+644 verbose rebuildBundles bops@0.0.6
+645 verbose rebuildBundles [ 'base64-js', 'to-utf8' ]
+646 info install bops@0.0.6
+647 info postinstall bops@0.0.6
+648 verbose unlock done using C:\Users\yongding\AppData\Roaming\npm-cache\_locks\bops-13cfc664a1280133.lock for C:\expressdemo\demo\node_modules\qrcode\node_modules\bops
+649 silly gunzTarPerm extractEntry package.json
+650 silly gunzTarPerm modified mode [ 'package.json', 420, 438 ]
+651 silly gunzTarPerm extractEntry README.md
+652 silly gunzTarPerm modified mode [ 'README.md', 420, 438 ]
+653 silly gunzTarPerm extractEntry LICENSE
+654 silly gunzTarPerm modified mode [ 'LICENSE', 420, 438 ]
+655 silly gunzTarPerm extractEntry include_dirs.js
+656 silly gunzTarPerm modified mode [ 'include_dirs.js', 420, 438 ]
+657 silly gunzTarPerm extractEntry .dntrc
+658 silly gunzTarPerm modified mode [ '.dntrc', 420, 438 ]
+659 silly gunzTarPerm extractEntry build/config.gypi
+660 silly gunzTarPerm modified mode [ 'build/config.gypi', 420, 438 ]
+661 silly gunzTarPerm extractEntry nan.h
+662 silly gunzTarPerm modified mode [ 'nan.h', 420, 438 ]
+663 verbose write writing to C:\expressdemo\demo\node_modules\qrcode\node_modules\canvas\node_modules\nan\package.json
+664 info preinstall nan@1.2.0
+665 verbose readDependencies loading dependencies from C:\expressdemo\demo\node_modules\qrcode\node_modules\canvas\node_modules\nan\package.json
+666 verbose readDependencies loading dependencies from C:\expressdemo\demo\node_modules\qrcode\node_modules\canvas\node_modules\nan\package.json
+667 silly install resolved []
+668 verbose about to build C:\expressdemo\demo\node_modules\qrcode\node_modules\canvas\node_modules\nan
+669 info build C:\expressdemo\demo\node_modules\qrcode\node_modules\canvas\node_modules\nan
+670 info linkStuff nan@1.2.0
+671 silly linkStuff nan@1.2.0 has C:\expressdemo\demo\node_modules\qrcode\node_modules\canvas\node_modules as its parent node_modules
+672 verbose linkBins nan@1.2.0
+673 verbose linkMans nan@1.2.0
+674 verbose rebuildBundles nan@1.2.0
+675 info install nan@1.2.0
+676 info postinstall nan@1.2.0
+677 verbose unlock done using C:\Users\yongding\AppData\Roaming\npm-cache\_locks\nan-d90e29f6d561ae65.lock for C:\expressdemo\demo\node_modules\qrcode\node_modules\canvas\node_modules\nan
+678 verbose about to build C:\expressdemo\demo\node_modules\qrcode\node_modules\canvas
+679 info build C:\expressdemo\demo\node_modules\qrcode\node_modules\canvas
+680 info linkStuff canvas@1.1.6
+681 silly linkStuff canvas@1.1.6 has C:\expressdemo\demo\node_modules\qrcode\node_modules as its parent node_modules
+682 verbose linkBins canvas@1.1.6
+683 verbose linkMans canvas@1.1.6
+684 verbose rebuildBundles canvas@1.1.6
+685 verbose rebuildBundles [ 'nan' ]
+686 info install canvas@1.1.6
+687 verbose unsafe-perm in lifecycle true
+688 info canvas@1.1.6 Failed to exec install script
+689 verbose unlock done using C:\Users\yongding\AppData\Roaming\npm-cache\_locks\canvas-45b8a1e9401a1974.lock for C:\expressdemo\demo\node_modules\qrcode\node_modules\canvas
+690 verbose about to build C:\expressdemo\demo\node_modules\qrcode
+691 verbose unlock done using C:\Users\yongding\AppData\Roaming\npm-cache\_locks\qrcode-4f73f486e42c6fdb.lock for C:\expressdemo\demo\node_modules\qrcode
+692 verbose stack Error: canvas@1.1.6 install: `node-gyp rebuild`
+692 verbose stack Exit status 1
+692 verbose stack     at EventEmitter.<anonymous> (C:\Program Files\nodejs\node_modules\npm\lib\utils\lifecycle.js:213:16)
+692 verbose stack     at EventEmitter.emit (events.js:110:17)
+692 verbose stack     at ChildProcess.<anonymous> (C:\Program Files\nodejs\node_modules\npm\lib\utils\spawn.js:24:14)
+692 verbose stack     at ChildProcess.emit (events.js:110:17)
+692 verbose stack     at maybeClose (child_process.js:1015:16)
+692 verbose stack     at Process.ChildProcess._handle.onexit (child_process.js:1087:5)
+693 verbose pkgid canvas@1.1.6
+694 verbose cwd C:\expressdemo\demo
+695 error Windows_NT 6.3.9600
+696 error argv "C:\\Program Files\\nodejs\\\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "qrcode" "--save"
+697 error node v0.12.5
+698 error npm  v2.11.2
+699 error code ELIFECYCLE
+700 error canvas@1.1.6 install: `node-gyp rebuild`
+700 error Exit status 1
+701 error Failed at the canvas@1.1.6 install script 'node-gyp rebuild'.
+701 error This is most likely a problem with the canvas package,
+701 error not with npm itself.
+701 error Tell the author that this fails on your system:
+701 error     node-gyp rebuild
+701 error You can get their info via:
+701 error     npm owner ls canvas
+701 error There is likely additional logging output above.
+702 verbose exit [ 1, true ]
+703 verbose unbuild node_modules\qrcode\node_modules\canvas
+704 info preuninstall canvas@1.1.6
+705 info uninstall canvas@1.1.6
+706 verbose unbuild rmStuff canvas@1.1.6 from C:\expressdemo\demo\node_modules
+707 verbose unbuild rmStuff in C:\expressdemo\demo\node_modules\qrcode\node_modules
+708 info postuninstall canvas@1.1.6
+709 silly gentlyRm C:\expressdemo\demo\node_modules\qrcode\node_modules\canvas is being purged from base C:\expressdemo\demo
+710 verbose gentlyRm don't care about contents; nuking C:\expressdemo\demo\node_modules\qrcode\node_modules\canvas
+711 silly vacuum-fs purging C:\expressdemo\demo\node_modules\qrcode\node_modules\canvas
+712 silly vacuum-fs quitting because other entries in C:\expressdemo\demo\node_modules\qrcode\node_modules
+713 verbose unbuild node_modules\qrcode
+714 info preuninstall qrcode@0.2.12
+715 info uninstall qrcode@0.2.12
+716 verbose unbuild rmStuff qrcode@0.2.12 from C:\expressdemo\demo\node_modules
+717 silly gentlyRm C:\expressdemo\demo\node_modules\.bin\qrcode.cmd is being gently removed
+718 silly gentlyRm verifying C:\expressdemo\demo is an npm working directory
+719 silly gentlyRm containing path C:\expressdemo\demo is under npm's control, in C:\expressdemo\demo
+720 silly gentlyRm deletion target C:\expressdemo\demo\node_modules\.bin\qrcode.cmd is under C:\expressdemo\demo
+721 verbose gentlyRm vacuuming from C:\expressdemo\demo\node_modules\.bin\qrcode.cmd up to C:\expressdemo\demo
+722 silly gentlyRm C:\expressdemo\demo\node_modules\.bin\qrcode is being gently removed
+723 silly gentlyRm verifying C:\expressdemo\demo is an npm working directory
+724 silly gentlyRm containing path C:\expressdemo\demo is under npm's control, in C:\expressdemo\demo
+725 silly gentlyRm deletion target C:\expressdemo\demo\node_modules\.bin\qrcode is under C:\expressdemo\demo
+726 verbose gentlyRm vacuuming from C:\expressdemo\demo\node_modules\.bin\qrcode up to C:\expressdemo\demo
+727 info postuninstall qrcode@0.2.12
+728 silly gentlyRm C:\expressdemo\demo\node_modules\qrcode is being purged from base C:\expressdemo\demo
+729 verbose gentlyRm don't care about contents; nuking C:\expressdemo\demo\node_modules\qrcode
+730 silly vacuum-fs purging C:\expressdemo\demo\node_modules\qrcode
+731 silly vacuum-fs quitting because other entries in C:\expressdemo\demo\node_modules

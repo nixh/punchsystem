@@ -2,6 +2,7 @@ extends ../layout.jade
 
 append links
 	link(rel='stylesheet', href='/stylesheets/supervisorDelegate.css')
+	link(rel='stylesheet', href='/stylesheets/adminpunch.css')
 
 block content
 	.supervisorDelegatePage(ontouchstart= "")
@@ -22,6 +23,8 @@ block content
 					td= userInfos[r].name
 					td= userInfos[r].userid
 					td.status
+						.hollowcircle.red.hidden &nbsp;
+						.hollowcircle.green &nbsp;
 					td.delegation.noselect
 						.authorize(href= "#") Authorize
 						.revoke.hidden(href= "#") Revoke
@@ -36,9 +39,11 @@ block content
 			$(".status").each(function(){
 				var hiddeKid= $(this).siblings('.delegation').find(".hidden");
 				if(hiddeKid.hasClass("authorize")){
-					$(this).html("Authorize");
+					$(this).find('.red').removeClass('hidden');
+					$(this).find('.green').addClass('hidden');
 				}else{
-					$(this).html("Unauthorize");
+					$(this).find('.green').removeClass('hidden');
+					$(this).find('.red').addClass('hidden');
 				}
 			});
 		}
