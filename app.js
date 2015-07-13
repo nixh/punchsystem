@@ -21,7 +21,7 @@ var app            = express();
 
 var db = monk(utils.getConfig('mongodbPath'));
 
-//var db=monk('mogodb:192.168.1.112/punchtest');
+//var db=monk('mogodb:127.0.0.1:27017/punchtest');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -36,15 +36,24 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+/*app.use(function(req, res, next) {
+    req.db = db;
+    next();
+});*/
+
+//app.use(authentication());
+
+
 i18n.configure({
-    locales: ['en', 'cn'],
+    locales: ['cn'],
     directory: path.join(__dirname, 'i18n/locales'),
-    cookie: 'lang',
-    defaultLocale: 'en'
+    defaultLocale: 'cn'
 });
 
 app.use(function(req, res, next) {
     i18n.init(req, res);
+    console.log(res.__('name'));
     return next();
 });
 

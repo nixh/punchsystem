@@ -1,14 +1,60 @@
-
+var utils = require('./utils');
+var _ = require('underscore');
 var monk = require('monk');
+<<<<<<< HEAD
+var express = require('express');
+var router = express.Router();
+var email= require('./email');
+var db =monk(utils.getConfig('mongodbPath'));
+/*function vaildate(userobj){
+	if(typeof userobj.userid !== 'string')
+			userobj.userid.toString();
+	if(typeof userobj.oldpass !== 'string')
+			userobj.oldpass.toString();
+
+	if(typeof userobj.newpass !== 'string')
+			userobj.newpass.toString();
+
+	if(typeof userobj.freqz !== 'number')
+			userobj.freqz= parseInt(userobj.freqz);
+			
+	if(typeof userobj.switchs !== 'number')
+			userobj.switchs= parseInt(userobj.switchs);
+					
+	};*/
+
+module.exports = { 
+	changepass : function(userobj,callback){
+		//vaildate(userobj);
+=======
 var mongoUrl = "mongodb://127.0.0.1:27017/punchsystem";
 var email = require("emailjs/email");
 
 module.exports = {
 	changepass : function(userid, oldpass,newpass,callback){
 		var db=monk(mongoUrl);
+>>>>>>> dev
 		var collection=db.get("users");
-		collection.update({'password':oldpass,'userid':userid},{"$set":{'password':newpass}},
+		collection.update({
+			'password':userobj.oldpass,
+			'userid':userobj.userid
+			},
+				{"$set":{
+					'password':userobj.newpass
+					}
+				},
 			callback);
+<<<<<<< HEAD
+	},
+
+	receiveemail : function(userobj,callback) {
+		//vaildate(userobj);
+		var collection=db.get("users");
+	
+		collection.findOne({'userid':userobj.userid}, {fields: { "email":1,"_id":0}} ,function(err,doc){
+			console.log(doc.email);
+		});
+=======
 
 		
 		//updatepassword(userid, oldpass,newpass, callback);
@@ -36,18 +82,23 @@ module.exports = {
 
 		sendmail(usermail);
 
+>>>>>>> dev
 	},
 
-	/*avelocation : function(userid,location,callback){
-		var db = monk(mongoUrl);
-		collection = db.get('company');
-		var longitude = location.longitude;
-		var	altitude = location.altitude;
-		var heading = location.heading;
-		collection.update(
-			{
-				"userid":userid
+	switchinformation : function(userobj,callback){
+		//vaildate(userobj);
+		var collection = db.get('users');
+		collection.update({
+			'userid':userobj.userid
 			},
+<<<<<<< HEAD
+				{"$set":{
+						'freqz':userobj.frequency,
+						'switch':userobj.switchs
+					}
+				},callback)
+	}		
+=======
 				{
 					"$set":{"location":
 							{
@@ -65,4 +116,5 @@ module.exports = {
 
 
 
+>>>>>>> dev
 };

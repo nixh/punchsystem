@@ -1,67 +1,60 @@
 var express = require('express');
 var router = express.Router();
+var usersetting = require('../usersettingModule');
 
-var settings = require('../usersetting')
-
+var settings = new usersetting();
 router.get('/', function(req, res, next){
 
 	res.render('usersettings');
 });
 
 router.get('/changepwd', function(req, res, next){
-	
-	//var db = req.db;
-	//console.log(123);
-	//db.get('users').findOne({userid:1}, {}, function(err,  doc){
 
 		res.render('changepwd');
 
 });
-	
-	
-
 
 
 router.post('/changepwd', function (req, res) {
-	var userid=req.body.userid;
-	var collection=req.db.get('users');
-	var oldpass= req.body.oldpass;
-	var newpass= req.body.newpass;
+	var userobj=req.body;
 	
-	
-	userid = parseInt(userid);
-	/*settings.savelocation(userid,location,function(err,doc){
-		if(err)
-			return res.send("Error!");
-	})*/
-	settings.changepass(userid,oldpass,newpass, function(err, doc){
+	settings.changepass(userobj,function(err, doc){
 		if(err) {
 			 res.send("Error!!!");
 		}
-		//else{
-			//res.render('changepwd');
-		//}
-	})
+	});
 
-	settings.receiveemail(userid,function(err,doc){
+	 settings.receiveemail(userobj,function(err,doc){
 		if(err) {
 			return res.send("Error!");
 		}
 		else {
+			if(!doc || doc.length === 0){
+				res.send('userid is invailed!');
+			} else{
 			//res.redirect('chargepwd')
-			var email= doc.email
-			console.log(email);
+			var email= doc.email;
 			res.render('changepwd',{"receiveemail":email});
 			//res.send(doc);
 		}
-	})
-
-	settings.enablesendemail(userid,req.body.frequency,function(err,doc){
+	}
+});
+	
+	settings.switchinformation(userobj,function(err,doc){
 		if(err) {
-			res.send("Email Error!");
+			 res.send("Error!!!");
 		}
+	});
 
-	})
+	settings.sendemail(userobj,function(err,doc){
+		if(err){
+			res.send('error')
+		}else if(!doc|| doc.length ===0){
+			res.send("invaild email address!")
+		}
+	});
+})	
 
-})
+		
+
 module.exports = router;
