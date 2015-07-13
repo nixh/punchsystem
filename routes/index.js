@@ -93,14 +93,14 @@ function postLogin(req, res, next) {
                 httpOnly: true
             });
             var pageUrl = req.body.pageUrl;
-            pageUrl = pageUrl === '/staff_main' ? 
-                        sDoc.compowner ? 
-                        "/supervisor/supervisor_main" : pageUrl 
+            pageUrl = pageUrl === '/staff_main' ?
+                        sDoc.compowner ?
+                        "/supervisor/supervisor_main" : pageUrl
                         : pageUrl;
             utils.render('message', {
                 msg: {head : 'LOGIN SUCCESSFULLY!', body: 'Hello ' + doc.name + ", Welcome to our system"},
                 success: true,
-                pageUrl: pageUrl 
+                pageUrl: pageUrl
             })(req, res, next);
         });
 
@@ -192,16 +192,16 @@ router.get('/punch/:key', function(req, res, next){
 
 });
 
-var qrModule = require('../qrcodeModule');
-
-router.get('/showdynacode', function(req, res, next){
-    var qrm = new qrModule();
-    
-    qrm.getDynacode(req.cookies.sessionid, function(err, mixinData){
-        qrm.db.close();
-        utils.render('testqrcode', {data: mixinData})(req, res, next); 
-    });
-});
+// var qrModule = require('../qrcodeModule');
+//
+// router.get('/showdynacode', function(req, res, next){
+//     var qrm = new qrModule();
+//
+//     qrm.getDynacode(req.cookies.sessionid, function(err, mixinData){
+//         qrm.db.close();
+//         utils.render('testqrcode', {data: mixinData})(req, res, next);
+//     });
+// });
 
 router.get('/recentRecords', function(req, res, next){
     var rm = new recordsModule();
@@ -260,11 +260,11 @@ router.get('/supervisor/rencentRecords/:uid', function(req, res, next){
     var uid = req.params.uid;
     rm.rencentRecords(uid, function(err, recordDocs){
         rm.db.close();
-        utils.render('staff/staff_punch_report', { 
-                     moment: moment, 
-                     records: recordDocs 
+        utils.render('staff/staff_punch_report', {
+                     moment: moment,
+                     records: recordDocs
                      })(req, res, next);
-        
+
     });
 });
 
@@ -276,7 +276,7 @@ router.get('/supervisor/rencentRecords/:uid', function(req, res, next){
 //    var qrid = signer.unsign(parts[0]+'.'+key);
 //    rm.checkDynaQrcode(qrid, req.cookies.sessionid, function(valid, userInfo){
 //        if(valid) {
-//            rm.punch(userInfo.userid, function(err, record){ 
+//            rm.punch(userInfo.userid, function(err, record){
 //                var msg = res.__('punch_success');
 //                utils.render('message', punchData(record, msg, userInfo))(req, res, next);
 //            });
