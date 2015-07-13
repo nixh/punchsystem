@@ -1,0 +1,134 @@
+.main {
+    width: 95%;
+    margin: 0 auto;
+    padding-top: 5%;
+
+}
+
+.main > form {
+    width: 98%;
+    margin: 0 auto;
+}
+
+.searchbox {
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+    text-align: center;
+}
+
+
+.cmd {
+    width: 100%;
+    text-align: center;
+}
+
+.searchicon {
+    margin-left: 1%;
+    line-height: normal;
+    font-size: 50px;
+    margin-top:-20px;
+    
+}
+
+.searchtext {
+    width: 93%;
+    border: none;
+    height: 120px;
+    line-height: normal;
+    text-indent: 40px;
+    color: rgba(103, 116, 153, .8);
+    font-size: 50px;
+    font-family: "dinbek";
+}
+
+
+.searchtext::-webkit-input-placeholder,
+.searchtext::-moz-placeholder, 
+.searchtext:-ms-input-placeholder{
+   color: red;
+}
+
+.search {
+    width: 49%;
+    margin-right: 2%;
+    height: 120px;
+    border-radius: 10px;
+    border: none;
+    line-height: normal;
+    color: white;
+    background-color: rgb(138, 209, 215);
+    font-size: 75px;
+    cursor: pointer;
+    font-family: "anivers reg";
+}
+
+.search:active {
+    background-color: rgb(247, 130, 131);
+}
+
+.clear {
+    width: 49%;
+    height: 120px;
+    border-radius: 10px;
+    border: none;
+    line-height: normal;
+    color: white;
+    background-color: rgb(138, 209, 215);
+    font-size: 75px;
+    cursor: pointer;
+    font-family: "anivers reg";
+}
+
+.clear:active {
+    background-color: rgb(247, 130, 131);
+}
+
+.userTable {
+    width: 100%;
+    text-align: center;
+    border-spacing: 20px;
+    border-collapse: separate;
+
+    margin-bottom: 4%;
+
+}
+
+.userTable th {
+    height: 200px;
+    background-color: rgba(255, 255, 255, .52);
+    color: rgba(103, 116, 153, .8);
+    font-size: 55px;
+    font-weight: normal;
+    text-align: center;
+}
+
+.userTable th:first-child {
+    border-top-left-radius: 25px;
+}
+
+.userTable th:last-child {
+    border-top-right-radius: 25px;
+
+}
+.userTable td {
+    vertical-align: middle;
+    height: 200px;
+    background-color: rgba(255, 255, 255, .52);
+    font-size: 50px;
+}
+.userTable tr td:last-child {
+    background-color: rgb(247, 130, 131);
+}
+
+
+
+.userTable tr:last-child td:first-child {
+    border-bottom-left-radius: 25px;
+}
+
+.userTable tr:last-child td:last-child {
+    
+    border-bottom-right-radius: 25px;
+}
+

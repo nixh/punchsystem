@@ -5,6 +5,17 @@ append links
 
 append scripts
     script(src= "/javascripts/showHideRate.js")
+    script.
+        $(function initEvent(){
+            $('.punchReport').on('click', function(){
+                location.href = "/recentRecords";
+            });
+
+            $('.logout').on('click', function(){
+                location.href = "/logout";
+            });
+        });
+
 
 block content
     .staffMainPage(ontouchstart="")
@@ -22,7 +33,6 @@ block content
                     Date Enrolled: #{user.createDate}
                     Address: #{user.address}
 
-
         .paidRate
             .paidRateBox
                 span.text= tr('paidrate')
@@ -38,9 +48,10 @@ block content
                
         .otherInfoLinks.noselect
             .punchReport.otherInfo= tr('punchReport')
-            .wageReport.otherInfo= tr('wageReport')
-
+            .logout.otherInfo= tr('logout')
             if false
+                .wageReport.otherInfo= tr('wageReport')
+
                 .setting.otherInfo
                     a(href= "/user/setting") Setting
                 .delegate.otherInfo

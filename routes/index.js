@@ -1,15 +1,15 @@
 var express = require('express');
-var router  = express.Router();
-var monk    = require('monk');
-var utils   = require('../utils');
-var db      = monk(utils.getConfig('mongodbPath'));
-var btoa    = require('btoa');
-var nobi    = require('nobi');
-var crypto  = require('crypto');
-var signer  = nobi(utils.getConfig('appKey'));
-var uuid    = require('node-uuid');
-var util    = require('util');
-var moment  = require('moment');
+var router = express.Router();
+var monk = require('monk');
+var utils = require('../utils');
+var db = monk(utils.getConfig('mongodbPath'));
+var btoa = require('btoa');
+var nobi = require('nobi');
+var crypto = require('crypto');
+var signer = nobi(utils.getConfig('appKey'));
+var uuid = require('node-uuid');
+var util = require('util');
+var moment = require('moment');
 
 var loginKeys = {};
 
@@ -34,7 +34,7 @@ function login(loginObj, cb) {
     shapwd = loginObj.password;
     var userid = loginObj.userid;
     userid = parseInt(userid);
-    if(isNaN(userid))
+    if (isNaN(userid))
         userid = loginObj.userid;
 
     userCol.findOne({
@@ -49,7 +49,7 @@ function loginpage(req, res, next) {
     var parts = signiture.split('.');
     loginKeys[parts[1]] = signiture;
     pageUrl = req.url;
-    if(req.path === '/login')
+    if (req.path === '/login')
         pageUrl = '/staff_main';
     utils.render('login', {
         loginKey: parts[1],
@@ -62,12 +62,18 @@ function postLogin(req, res, next) {
     var ret = login(req.body, function(err, doc) {
         if (err)
             return res.render('message', {
-                msg: { head: 'LOGIN FAILED', body: err.message },
+                msg: {
+                    head: 'LOGIN FAILED',
+                    body: err.message
+                },
                 success: false
             });
         if (!doc)
             return utils.render('message', {
-                msg: { head: 'LOGIN FAILED', body: 'username or password error!' },
+                msg: {
+                    head: 'LOGIN FAILED',
+                    body: 'username or password error!'
+                },
                 success: false
             })(req, res, next);
 
@@ -81,28 +87,34 @@ function postLogin(req, res, next) {
         };
 
         var session = db.get('session');
-        session.findAndModify(
-                { userid: doc.userid },
-                { $set: sessionObj },
-                { new: true, upsert: true },
-        function(err, sDoc) {
-            if (err)
-                throw err;
-            res.cookie('sessionid', sDoc.sessionid, {
-                maxAge: 24 * 3600 * 1000,
-                httpOnly: true
+        session.findAndModify({
+                userid: doc.userid
+            }, {
+                $set: sessionObj
+            }, {
+                new: true,
+                upsert: true
+            },
+            function(err, sDoc) {
+                if (err)
+                    throw err;
+                res.cookie('sessionid', sDoc.sessionid, {
+                    maxAge: 24 * 3600 * 1000,
+                    httpOnly: true
+                });
+                var pageUrl = req.body.pageUrl;
+                pageUrl = pageUrl === '/staff_main' ?
+                    sDoc.compowner ?
+                    "/supervisor/supervisor_main" : pageUrl : pageUrl;
+                utils.render('message', {
+                    msg: {
+                        head: 'LOGIN SUCCESSFULLY!',
+                        body: 'Hello ' + doc.name + ", Welcome to our system"
+                    },
+                    success: true,
+                    pageUrl: pageUrl
+                })(req, res, next);
             });
-            var pageUrl = req.body.pageUrl;
-            pageUrl = pageUrl === '/staff_main' ? 
-                        sDoc.compowner ? 
-                        "/supervisor/supervisor_main" : pageUrl 
-                        : pageUrl;
-            utils.render('message', {
-                msg: {head : 'LOGIN SUCCESSFULLY!', body: 'Hello ' + doc.name + ", Welcome to our system"},
-                success: true,
-                pageUrl: pageUrl 
-            })(req, res, next);
-        });
 
     });
     if (ret)
@@ -128,10 +140,14 @@ router.post('/login', postLogin);
 router.get('/logout', function(req, res, next) {
 
     var sessionCol = db.get('session');
-    sessionCol.findOne({sessionid: req.cookies.sessionid}, {}, function(err, doc){
-        if(doc) {
-            sessionCol.remove({userid: doc.userid}, function(err){
-                if(err)
+    sessionCol.findOne({
+        sessionid: req.cookies.sessionid
+    }, {}, function(err, doc) {
+        if (doc) {
+            sessionCol.remove({
+                userid: doc.userid
+            }, function(err) {
+                if (err)
                     return next(err);
                 res.clearCookie('sessionid');
                 res.redirect('/login');
@@ -151,9 +167,9 @@ function punchData(record, msg, userInfo) {
     var punchtime = punchout ? record.outDate : record.inDate;
     var datetime = moment(punchtime);
     msg.body = util.format(msg.body,
-            punchout ? "OUT" : "IN",
-            datetime.format("YYYY-MM-DD"),
-            datetime.format("HH:mm A"));
+        punchout ? "OUT" : "IN",
+        datetime.format("YYYY-MM-DD"),
+        datetime.format("HH:mm A"));
     return {
         success: true,
         msg: msg,
@@ -163,70 +179,81 @@ function punchData(record, msg, userInfo) {
     };
 }
 
-router.get('/punch/:key', function(req, res, next){
+router.get('/punch/:key', function(req, res, next) {
     var rm = new recordsModule();
     var key = req.params.key;
     var parts = key.split('.');
     key = utils.base64URLSafeDecode(parts[1]);
-    var qrid = signer.unsign(parts[0]+'.'+key);
-    rm.checkQrcode(qrid, req.cookies.sessionid, function(valid, userInfo){
+    var qrid = signer.unsign(parts[0] + '.' + key);
+    rm.checkQrcode(qrid, req.cookies.sessionid, function(valid, userInfo) {
         var msg;
-        if(valid) {
-            msg = { head: res.__('punchSuccessHead'), body: res.__('punchSuccess') };
-            rm.punch(userInfo.userid, function(err, record){
+        if (valid) {
+            msg = {
+                head: res.__('punchSuccessHead'),
+                body: res.__('punchSuccess')
+            };
+            rm.punch(userInfo.userid, function(err, record) {
                 rm.db.close();
                 utils.render('message', punchData(record, msg, userInfo))(req, res, next);
             });
         } else {
             msg = {
-                head : res.__('punchFailedHead'),
-                body : res.__('punchFailed')
+                head: res.__('punchFailedHead'),
+                body: res.__('punchFailed')
             };
             utils.render('message', {
-                success : false,
-                msg : msg,
-                pageUrl : '/logout'
+                success: false,
+                msg: msg,
+                pageUrl: '/logout'
             })(req, res, next);
         }
     });
 
 });
 
-var qrModule = require('../qrcodeModule');
+// var qrModule = require('../qrcodeModule');
+//
+// router.get('/supervisor/showdynacode', function(req, res, next) {
+//     var qrm = new qrModule();
+//
+//     qrm.getDynacode(req.cookies.sessionid, function(err, mixinData) {
+//         qrm.db.close();
+//         utils.render('testqrcode', {
+//             data: mixinData
+//         })(req, res, next);
+//     });
+// });
 
-router.get('/showdynacode', function(req, res, next){
-    var qrm = new qrModule();
-    
-    qrm.getDynacode(req.cookies.sessionid, function(err, mixinData){
-        qrm.db.close();
-        utils.render('testqrcode', {data: mixinData})(req, res, next); 
-    });
-});
-
-router.get('/recentRecords', function(req, res, next){
+router.get('/recentRecords', function(req, res, next) {
     var rm = new recordsModule();
-    rm.rencentRecords({sessionid:req.cookies.sessionid}, function(err, recordDocs){
+    rm.rencentRecords({
+        sessionid: req.cookies.sessionid
+    }, function(err, recordDocs) {
         rm.db.close();
         utils.render('staff/staff_punch_report', {
-                     moment: moment,
-                     records: recordDocs
-                     })(req, res, next);
+            moment: moment,
+            records: recordDocs
+        })(req, res, next);
 
     });
 });
 
 var sModule = require('../sessionModule');
 
-router.get('/supervisor/adminpunch', function(req, res, next){
+router.get('/supervisor/adminpunch', function(req, res, next) {
     var sm = new sModule();
-    var rm = new recordsModule({db: sm.db});
-    sm.getSessionInfo(req.cookies.sessionid, function(err, sObj){
-        if(err || !sObj)
-            return next(err||new Error('invalid user!'));
-        sm.db.get('companies').findOne({compid: sObj.compid},{}, function(err, comp){
-            rm.findLastRecordsByCompid(sObj.compid, function(err, mixinData){
+    var rm = new recordsModule({
+        db: sm.db
+    });
+    sm.getSessionInfo(req.cookies.sessionid, function(err, sObj) {
+        if (err || !sObj)
+            return next(err || new Error('invalid user!'));
+        sm.db.get('companies').findOne({
+            compid: sObj.compid
+        }, {}, function(err, comp) {
+            rm.findLastRecordsByCompid(sObj.compid, function(err, mixinData) {
                 utils.render('adminpunch', {
-                    companyName:comp.name,
+                    companyName: comp.name,
                     users: mixinData.users,
                     lastRecords: mixinData.lastRecords
                 })(req, res, next);
@@ -238,14 +265,14 @@ router.get('/supervisor/adminpunch', function(req, res, next){
     });
 });
 
-router.post('/supervisor/adminpunch', function(req, res, next){
+router.post('/supervisor/adminpunch', function(req, res, next) {
     var rm = new recordsModule();
     var userIdCommaList = req.body.userIdList;
     var userList = userIdCommaList.split(',');
 
-    rm.punchMany(userList, function(err, records){
+    rm.punchMany(userList, function(err, records) {
         rm.db.close();
-        if(err) {
+        if (err) {
             return next(err);
         }
         res.redirect(302, '/supervisor/adminpunch');
@@ -255,16 +282,65 @@ router.post('/supervisor/adminpunch', function(req, res, next){
 
 
 
-router.get('/supervisor/rencentRecords/:uid', function(req, res, next){
+router.get('/supervisor/rencentRecords/:uid', function(req, res, next) {
     var rm = new recordsModule();
     var uid = req.params.uid;
-    rm.rencentRecords(uid, function(err, recordDocs){
+    rm.rencentRecords(uid, function(err, recordDocs) {
         rm.db.close();
-        utils.render('staff/staff_punch_report', { 
-                     moment: moment, 
-                     records: recordDocs 
-                     })(req, res, next);
-        
+        utils.render('staff/staff_punch_report', {
+            moment: moment,
+            records: recordDocs,
+            userid: uid,
+        })(req, res, next);
+    });
+});
+
+
+var userMoudle = require('../usermodule');
+
+router.get('/supervisor/employees', function(req, res, next) {
+    var um = new userMoudle();
+    var sm = new sModule(um.db);
+    sm.getSessionInfo(req.cookies.sessionid, function(err, sObj) {
+
+        um.getAllUsers({
+            compid: sObj.compid
+        }, function(err, users) {
+
+            utils.render('users/search', {
+                msg: 'hello',
+                userlist: users
+            })(req, res, next);
+        });
+    });
+});
+
+
+router.post('/supervisor/employees', function(req, res) {
+    var sm = new sModule();
+    var um = new userMoudle({db:sm.db});
+    var userid = req.body.userid;
+    sm.getSessionInfo(req.cookies.sessionid, function(err, sObj) {
+        um.searchUser(userid, sObj.compid, function(err, doc) {
+            var title;
+            if (err) {
+                utils.render('users/search', {
+                    'title': 'Search Error!'
+                });
+            } else {
+                if (doc.length === 0) {
+                    title = "No such userid";
+                } else {
+                    title = "Searching Results for " + userid;
+                }
+                utils.render('users/search', {
+                    'search_term': userid,
+                    'title': title,
+                    'userlist': doc
+                })(req, res);
+            }
+            sm.db.close();
+        });
     });
 });
 
@@ -276,7 +352,7 @@ router.get('/supervisor/rencentRecords/:uid', function(req, res, next){
 //    var qrid = signer.unsign(parts[0]+'.'+key);
 //    rm.checkDynaQrcode(qrid, req.cookies.sessionid, function(valid, userInfo){
 //        if(valid) {
-//            rm.punch(userInfo.userid, function(err, record){ 
+//            rm.punch(userInfo.userid, function(err, record){
 //                var msg = res.__('punch_success');
 //                utils.render('message', punchData(record, msg, userInfo))(req, res, next);
 //            });
@@ -285,14 +361,23 @@ router.get('/supervisor/rencentRecords/:uid', function(req, res, next){
 //
 //});
 
-router.get('/message', utils.render('message', {msg:{head:'Hello', body:"we are still testing although it is 7:20PM now!!"}, success:false}));
+router.get('/message', utils.render('message', {
+    msg: {
+        head: 'Hello',
+        body: "we are still testing although it is 7:20PM now!!"
+    },
+    success: false
+}));
 
 router.get('/testdb', function(req, res, next) {
 
     db.get('users').find({}, {}, function(err, docs) {
 
         res.render('message', {
-            msg: { head : "TEST", body : 'Haha, Test Successfully! The docs count is ' + docs.length},
+            msg: {
+                head: "TEST",
+                body: 'Haha, Test Successfully! The docs count is ' + docs.length
+            },
             success: true
         });
     });

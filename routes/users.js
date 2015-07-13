@@ -25,38 +25,55 @@ router.post('/add', function(req, res){
 // Display all users and search users
 router.get('/search', function(req, res){
 
-	um.getAllUsers(function(err, doc){
+        var sm = new sModule();
+	var col = sm.db.get('users');
+	var userid = req.body.userid;
+
+        sm.getSessionInfo(req.cookies.sessionid, function(err, sObj){
+
+            um.getAllUsers({compid: sObj.compid}, function(err, doc){
+                var title;
 		if(err){
 			utils.render('users/search', {'title': 'Loading Users Erro!'})(req, res);
 		}else{
 			if(doc.length === 0){
-				var title = "There is not even one user!";
+				title = "There is not even one user!";
 			}else{
-				var title = "All User List";
+				title = "All User List";
 			}
 
 			utils.render('users/search', {'title': title, 'userlist': doc})(req, res);
 		}
-	});
+            });
 
+        });
 });
 
+var sModule = require('../sessionModule');
+
 router.post('/search', function(req, res){
+    var sm = new sModule();
+	var col = sm.db.get('users');
 	var userid = req.body.userid;
 
-	um.searchUser(userid, function(err, doc){
-		if(err){
-			utils.render('users/search', {'title': 'Search Error!'});
-		}else{
-			if(doc.length === 0){
-				var title = "No such userid";
-			}else{
-				var title = "Searching Results for " + userid;
-			}
+        sm.getSessionInfo(req.cookies.sessionid, function(err, sObj){
+            um.searchUser(userid, sObj.compid, function(err, doc){
+                var title;
+                    if(err){
+                            utils.render('users/search', {'title': 'Search Error!'});
+                    }else{
+                            if(doc.length === 0){
+                                    title = "No such userid";
+                            }else{
+                                    title = "Searching Results for " + userid;
+                            }
+                            utils.render('users/search', {'search_term': userid, 'title': title, 'userlist': doc})(req, res);
+                    }
+                    sm.db.close();
+            });
 
-			utils.render('users/search', {'search_term': userid, 'title': title, 'userlist': doc.map(function(d){ d['_id'] = col.cast(d['_id'])})})(req, res);
-		}
-	});
+        });
+
 });
 
 //Change the info of a specific user
@@ -89,9 +106,9 @@ router.post('/change', function(req, res){
 			res.end('Faield to update!');
 		}else{
 			// console.log(doc);
-			res.redirect('search');
+			res.redirect('/supervisor/employees');
 		}
-	})
+	});
 });
 
 
@@ -105,7 +122,7 @@ router.get('/delete/:_id', function(req, res){
 		}else{
 			res.redirect('../search');
 		}
-	})
+	});
 });
 
 //Delete user
