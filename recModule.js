@@ -55,7 +55,7 @@ function searchRecords(query, su, callback) {
             db.get("users").findOne({userid: userid}, function(err, docs) {
                 console.log(docs);
                 if(err || !docs) {
-                    
+
                 } else {
                     jsonData.username = docs.name;
                     jsonData.userid = userid;
