@@ -106,7 +106,7 @@ describe ("Module",function(){
 						doc= {email: " "};
 					assert.equal(doc.email,userobj.email);
 					done();
-			}); 
+			});
 		})
 
 		it('should not be sent',function(done){
@@ -116,7 +116,7 @@ describe ("Module",function(){
 						doc= {email: " "};
 					assert.notEqual(doc.email,userobj.email);
 					done();
-			}); 
+			});
 		})
 
 		it('should not be sent',function(done){
@@ -126,27 +126,7 @@ describe ("Module",function(){
 						doc= {email: " "};
 					assert.notEqual(doc.email,userobj.email);
 					done();
-			}); 
+			});
 		})
 	})
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

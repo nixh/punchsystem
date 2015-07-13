@@ -15,11 +15,43 @@ function updateRecord(query, record, recordsCol) {
     return recordsCol.findAndModify(query, { $set: record }, { new: true });
 }
 
+function findLastRecord(query, callback) {
+    var records = this.db.get(records);
+    records.findOne(query, {sort: {inDate: -1}, limit: 1}, callback)
+}
+//********** Functions for punch **************//
+function punch(userid, callback) {
+    var records = this.db.get('records');
+    var users = this.db.get('users');
+    query = {userid: 'userid'};
+    this.findLastRecord(query, function(err, lastRecord) {
+        if (err) {
+            callback(undefined);
+        }
+        users.findOne(query, {}, function(err, user) {
+            var timeNow = new Date().getTime();
+            if (!lastRecord || lastRecord.outDate) {
+                var newRec = {};
+                newRec.userid = user.userid;
+                newRec.compid = user.compid;
+                newRec.inDate = timeNow;
+                newRec.outDate = null;
+                newRec.hourlyrate = 8.75;
+                newRec.remark = 'test';
+                records.insert(newRec);
+            } else {
+                // lastRecord.outDate = timeNow;
+                records.update({_id: lastRecord._id}, {$set: {outDate: timeNow}});
+            }
+        });
+    });
+}
+//*********************************************//
 
 //********** Functions for delete **************//
 function deleteRecords(reportid, callback) {
     var db = this.db;
-    var records =db.get('records');
+    var records = db.get('records');
     var query = {reportid: reportid};
     records.remove(query, function(err, docs) {
         var msg = "Successfully delete records";
@@ -36,7 +68,6 @@ function searchRecords(query, su, callback) {
     var db = this.db;
     var records = db.get('records');
     records.find(query, function(err, recs) {
-        console.log(recs);
         if (err) {
             res.send('Can not get records, try again!');
         } else {
@@ -45,6 +76,7 @@ function searchRecords(query, su, callback) {
             jsonData.records=[];
             recs.forEach(function(rec, index) {
                 var record = {};
+                record.userid = query.userid;
                 record.reportid = rec.reportid;
                 record.inDate = rec.inDate;
                 record.outDate = rec.outDate;
@@ -53,7 +85,6 @@ function searchRecords(query, su, callback) {
             });
             var userid = query.userid;
             db.get("users").findOne({userid: userid}, function(err, docs) {
-                console.log(docs);
                 if(err || !docs) {
 
                 } else {
@@ -90,6 +121,7 @@ function Module(settings) {
 }
 
 Module.prototype = {
+    findLastRecord: findLastRecord,
     delete : deleteRecords,
     searchRecords : searchRecords,
     modify : updateRecords
