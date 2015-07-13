@@ -1,4 +1,5 @@
 {
+
 	"login_welcome": "欢迎进入打卡系统",
 	"login_username": "用户名",
 	"login_password": "用户密码",
@@ -49,7 +50,7 @@
 	"modify": "修改",
 	"delete": "删除",
 	"userform_compid": "公司账号",
-	"punchSuccess": "<b>%s</b> <br> 在 <b>%s</b> <br> 在 <b>%s</b>.",
+	"punchSuccess": "<b>%s</b> <br> 开启 <b>%s</b> <br> 自动 <b>%s</b>.",
 	"punchFailedHead": "登陆失败!",
 	"punchFailed": "登陆失败，可能未扫描正确的二维码.",
 	"welcome": "欢迎进入",
@@ -62,18 +63,7 @@
 	"staffmanagement": "员工管理",
 	"delegate": "授权",
 	"view staff": "浏览员工列表",
-	"dynamic_qrcode": "动态二维码",
-	"adminpunch": "管理员打卡",
-	"logout": "登出",
-	"records": "纪录",
-	"starttime": "开始于：",
-	"endtime": "结束于：",
-	"out": "签出",
-	"in": "签入",
-	"time": "时间",
-	"preview": "预览",
-	"return": "返回",
-	"empty records": "未找到纪录",
-	"clearsearch": "清空搜索",
-	"viewrecords": "浏览记录"
+	"dynamic_qrcode": "动态二维码"
+
+
 }

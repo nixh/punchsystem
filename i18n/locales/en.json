@@ -62,5 +62,17 @@
 	"staffmanagement": "staffmanagement",
 	"delegate": "delegate",
 	"view staff": "view staff",
-	"dynamic_qrcode": "dynamic_qrcode"
+	"dynamic_qrcode": "dynamic_qrcode",
+	"adminpunch": "adminpunch",
+	"logout": "logout",
+	"records": "records",
+	"starttime": "starttime",
+	"endtime": "endtime",
+	"out": "out",
+	"in": "in",
+	"time": "time",
+	"preview": "preview",
+	"return": "return",
+	"clearsearch": "clearsearch",
+	"empty records": "empty records"
 }

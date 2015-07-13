@@ -1,11 +1,14 @@
+
 extends ../layout.jade
 
 append links
-    link(rel='stylesheet', href='/stylesheets/staffPunchReport.css')
+    link(rel="stylesheet" href="/stylesheets/adminpunch.css") 
+    link(rel='stylesheet' href='/stylesheets/staffPunchReport.css')
     link(rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css")
     link(rel="stylesheet" href="/pickadate/lib/themes/default.css" id="theme_base")
     link(rel="stylesheet" href="/pickadate/lib/themes/default.date.css" id="theme_date")
     link(rel="stylesheet" href="/pickadate/lib/themes/default.time.css" id="theme_time")
+
     //link(rel= "stylesheet" href= "/datepicker/css/datepicker.css")
 append scripts
     script(src="/pickadate/lib/picker.js")
@@ -17,6 +20,14 @@ append scripts
     script.
         $(document).ready(function(){
             $(".useDatePicker").pickadate();
+            $('.preview').on('click', function(){
+                $('#searchform').submit();
+
+            });
+            $('.return').on('click', function(){
+                location.href = "/supervisor/employees";
+
+            });
         });
 
     - function getTime(tstamp) {
@@ -27,36 +38,49 @@ append scripts
     - }
 block content
     .staffPunchPage(ontouchstart="")
-        .startEndTime
-            //.startTime 
-            input.useDatePicker(type= "text" placeholder="START TIME ") 
-            //.endTime 
-            input.useDatePicker(type= "text" placeholder="END TIME ")
+        form#searchform(action="/records_search" method="POST")
+            .startEndTime
+                input.useDatePicker(type= "text" name="startdate" placeholder="#{tr('starttime')}") 
+                //.endTime 
+                input.useDatePicker(type= "text" name="enddate" placeholder="#{tr('endtime')}")
+                input(type="hidden" name="userid" value="#{userid}")
 
-        .controlButtons
-            .buttonItem preview
-            .buttonItem export 
-            .buttonItem return 
+            .controlButtons
+                .preview.buttonItem= tr('preview')
+                .buttonItem= tr('export')
+                .return.buttonItem= tr('return')
 
         .reportTable
             table 
                 tr
-                    th(colspan='4') TIME IN / OUT
-                each record in records
+                    th(colspan='4')
+                        = tr('time') + " "
+                        = tr('in') + "/"
+                        = tr('out')
+
+                if records.length === 0
                     tr
-                        td 
-                            ul
-                                li DOT
-                                li DOT
-                        td
-                            ul.dateList
-                                li.inDate= getDate(record.inDate)
-                                li.outDate= record.outDate ? getDate(record.outDate) : ""
-                        td
-                            ul.timeList
-                                li.inTime= getTime(record.inDate)
-                                li.outTime= record.outDate ? getTime(record.outDate) : ""
-                        td
-                            ul
-                                li IN
-                                li OUT
+                        td(colspan=3 align="center")
+                            span.text= tr('empty records')
+                else
+                    each record in records
+                        tr
+                            td 
+                                ul
+                                    li 
+                                        .hollowcircle.green
+                                    li 
+                                        .hollowcircle.red
+                            td
+                                ul.dateList
+                                    li.outDate= record.outDate ? getDate(record.outDate) : ""
+                                    li.inDate= getDate(record.inDate)
+                            td
+                                ul.timeList
+                                    li.outTime= record.outDate ? getTime(record.outDate) : ""
+                                    li.inTime= getTime(record.inDate)
+                            td
+                                ul
+                                    li= tr('out')
+                                    li= tr('in')
+>>>>>>> dev
