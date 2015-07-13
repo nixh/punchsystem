@@ -16,6 +16,8 @@ router.post('/add', function(req, res){
 		if(err){
 			res.send('Add user failed!');
 		}else{
+			console.log("The returned doc of adduser is...");
+			console.log(doc);
 			res.redirect('search');
 		}
 	});

@@ -51,7 +51,7 @@ function addUser(userObj, callback) {
 
     userObj.address = addr;
 
-    console.log(userObj.userid);
+    // console.log(userObj.userid);
 
     var col = this.db.get('users');
 
@@ -61,8 +61,8 @@ function addUser(userObj, callback) {
         if (err) {
             res.send('Search user error!');
         } else {
-            console.log('The doc is ...');
-            console.log(doc);
+            // console.log('The doc is ...');
+            // console.log(doc);
             if (!doc || doc.length === 0) {
                 col.insert(userObj, callback);
             } else {
