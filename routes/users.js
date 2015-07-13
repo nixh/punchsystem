@@ -27,7 +27,7 @@ router.post('/add', function(req, res){
 // Display all users and search users
 router.get('/search', function(req, res){
 
-        var sm = new sModule();
+    var sm = new sModule();
 	var col = sm.db.get('users');
 	var userid = req.body.userid;
 
