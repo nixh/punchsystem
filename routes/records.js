@@ -18,7 +18,7 @@ router.post('/records_search', function(req, res, next) {
     var endtime = Date.parse(req.body.enddate);
     var userid = req.body.userid;
     var su = req.path.search("supervisor");
-    var query = {inDate : {"$gte" : starttime} , outDate : {"$lte": endtime}, userid: userid};
+    var query = {inDate: {"$gte": starttime} , outDate: {"$lte": endtime}, userid: userid};
     rm.searchRecords(query, su, function(jsonData) {
         jsonData.tr = res.__;
         jsonData.moment = moment;
