@@ -1,0 +1,191 @@
+
+body.bgbody{
+    background-repeat: repeat-y;
+}
+
+.staffSettingPage{
+    width: 100%;
+}
+
+.staffSettingPage .inputBar{
+    display: block;
+    width: 90%;
+    height: 110px;
+    margin-left: 5%;
+    border-radius: 10px;
+}
+
+.staffSettingPage .textBox{
+    background: white;
+    text-indent: 20px;
+    line-height: normal;
+    font-size: 50px;
+    border: none;
+}
+
+.staffSettingPage .longButton{
+    -webkit-appearance: none;
+    background-color: rgb(138, 209, 215);
+    text-align: center;
+    font-size: 60px;
+    color: #fff;
+    border: none;
+}
+
+/*
+.staffSettingPage input[type= "radio"]{
+    -webkit-appearance: radio;
+}
+*/
+.staffSettingPage .passwordChange{
+    width: 100%;
+}
+
+.staffSettingPage .passwordChange .passwordLabel{
+    font-size: 60px;
+    color: rgb(247, 130, 131);
+    margin-left: 5%;
+    margin-top: 100px;
+    margin-bottom: 30px;
+    display: inline-block;
+}
+
+.staffSettingPage .passwordChange .textBox{
+    margin-bottom: 25px;
+}
+
+.staffSettingPage .switchButton{
+    width: 100%;
+}
+
+.staffSettingPage .switchButton .switchLabel{
+    font-size: 60px;
+    color: rgb(247, 130, 131);
+    margin-left: 20%;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    display: inline-block;
+}
+
+.staffSettingPage .switchButton .onOff{
+    font-size: 50px;
+    color: white;
+    margin-left: 30px;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    padding: 8px;
+    display: inline-block;
+    background-color: rgb(103, 116, 153);
+}
+
+.staffSettingPage .switchButton .onOff span{
+    
+}
+
+
+.staffSettingPage .EmailReportSetting{
+    width: 100%;
+    padding-bottom: 100px;
+}
+
+.staffSettingPage .EmailReportSetting .textBox{
+    margin-bottom: 30px;
+}
+
+.staffSettingPage .EmailReportSetting .radioButton{
+    width: 100%;
+}
+
+.staffSettingPage .EmailReportSetting .radioButton:after {
+    content: "";
+    visibility: hidden;
+    clear: both;
+    display: block;
+}
+
+.staffSettingPage .EmailReportSetting .chooseLabel{
+    margin-left: 5%;
+    color: rgb(103, 116, 153);
+    font-size: 40px;
+    display: inline-block;
+    height: 300px;
+    float: left;
+}
+
+.staffSettingPage .EmailReportSetting .radioMonth{
+    height: 300px;
+    float: left;
+    text-align: center;
+    margin-left: 6%;
+}
+
+.staffSettingPage .EmailReportSetting .radioWeek{
+    height: 300px;
+    float: left;
+    text-align: center;
+}
+
+.staffSettingPage .EmailReportSetting .monthlyLabel{
+    font-size: 40px;
+    color: gray;
+    display: block;
+}
+
+.staffSettingPage .EmailReportSetting .weeklyLabel{
+    font-size: 40px;
+    color: gray;
+    display: block;
+}
+
+.staffSettingPage .EmailReportSetting .orLabel{
+    float: left;
+    height: 300px;
+    line-height: 240px;
+    margin-left: 5%;
+    margin-right: 5%;
+    font-size: 30px;
+    color: gray;
+}
+
+.staffSettingPage .EmailReportSetting .radioButton .radioLabel{
+    display: block;
+    font-size: 40px;
+    color: rgb(170,170,170);
+    cursor: pointer;
+}
+
+.staffSettingPage .EmailReportSetting input[type= "radio"]{
+    width:150px;
+    height:150px;
+    border:10px solid rgb(247, 130, 131);
+    border-radius:50%;
+    outline:none;
+    margin-top: 10%;
+    cursor: pointer;
+}
+
+.staffSettingPage .EmailReportSetting input[type= "radio"] + .staffSettingPage .EmailReportSetting .radioLabel:before{
+
+}
+
+.staffSettingPage .EmailReportSetting input[type= "radio"]:checked{
+    /*
+    background-color: rgb(247, 130, 131);
+    background-position: center;
+    background-size: 60px 60px;
+    background-repeat: no-repeat;
+    */
+    background-color: rgb(247, 130, 131);
+    background-position: center;
+    background-size: 10%;
+    background-repeat: no-repeat;
+}
+
+.staffSettingPage .EmailReportSetting input[type= "radio"]:nth-of-type(1){
+}
+
+.staffSettingPage .EmailReportSetting input[type= "radio"]:nth-of-type(2){
+}
+
+.staffSettingPage .EmailReportSetting .longButton{
+}
