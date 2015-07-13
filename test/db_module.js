@@ -8,6 +8,17 @@ describe("DBModule", function(){
         idName: 'testid'
     });
 
+    describe('#requireModule', function(){
+
+        it('should require a module', function(){
+            var module = db.requireModule('usermodule');
+            assert.equal(!!module, true);
+            assert.equal(typeof module.addUser, 'function');
+            
+        });
+
+    });
+
     describe("#drop", function(){
 
         it("should drop db." + db.schemaName, function(done){
@@ -74,7 +85,7 @@ describe("DBModule", function(){
                 assert.equal(doc.testid, 1);
                 assert.equal(doc.name, "Q");
                 done();
-            })
+            });
         });
 
         it('should add another new doc into db.' + db.schemaName, function(done){
@@ -84,7 +95,7 @@ describe("DBModule", function(){
                 assert.equal(doc.testid, 2);
                 assert.equal(doc.name, "E");
                 done();
-            })
+            });
         });
 
         it('should update doc on db.' + db.schemaName, function(done){
@@ -94,7 +105,7 @@ describe("DBModule", function(){
                 assert.equal(doc.testid, 1);
                 assert.equal(doc.name, "E");
                 done();
-            })
+            });
         });
     });
 
@@ -138,7 +149,16 @@ describe("DBModule", function(){
                 assert.equal(doc.name, 'E');
                 assert.equal(doc.age, 19);
                 done();
-            })
+            });
+
+        });
+    });
+
+    describe('#closeDb', function(){
+
+        it('should close db', function(){
+            db.closeDb();
+            assert.equal(db.db, undefined);
 
         });
     });

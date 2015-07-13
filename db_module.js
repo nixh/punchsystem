@@ -4,7 +4,6 @@ var monk = require('monk');
 var __module_cache = {};
 var utils = require('./utils');
 var dbpath = utils.getConfig('testMongodbPath');
-console.log(dbpath);
 
 function checkDbAvailable(module) {
     if(module.db)
@@ -123,7 +122,7 @@ Module.prototype = {
         var modulePath = "";
         if(!moduleObject) {
             modulePath = path ? path : "./";
-            var requirePath = path + moduleName;
+            var requirePath = modulePath + moduleName;
             var module = require(requirePath);
             if(!module)
                 throw new Error('cant find moudle in ' + requirePath);
