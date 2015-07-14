@@ -16,6 +16,8 @@ router.post('/add', function(req, res){
 		if(err){
 			res.send('Add user failed!');
 		}else{
+			console.log("The returned doc of adduser is...");
+			console.log(doc);
 			res.redirect('search');
 		}
 	});
@@ -25,10 +27,10 @@ router.post('/add', function(req, res){
 // Display all users and search users
 router.get('/search', function(req, res){
 
-        var sm = new sModule();
+    var sm = new sModule();
 	var col = sm.db.get('users');
 	var userid = req.body.userid;
-        
+
         sm.getSessionInfo(req.cookies.sessionid, function(err, sObj){
 
             um.getAllUsers({compid: sObj.compid}, function(err, doc){
@@ -52,10 +54,10 @@ router.get('/search', function(req, res){
 var sModule = require('../sessionModule');
 
 router.post('/search', function(req, res){
-        var sm = new sModule();
+    var sm = new sModule();
 	var col = sm.db.get('users');
 	var userid = req.body.userid;
-        
+
         sm.getSessionInfo(req.cookies.sessionid, function(err, sObj){
             um.searchUser(userid, sObj.compid, function(err, doc){
                 var title;
@@ -73,13 +75,12 @@ router.post('/search', function(req, res){
             });
 
         });
-        
+
 });
 
 //Change the info of a specific user
 router.get('/change/:id', function(req, res){
 	var userid = req.params.id;
-	var col = req.db.get('users');
 
 	um.getUserInfo(userid, function(err, doc){
 		if(err){
@@ -101,7 +102,6 @@ router.get('/change/:id', function(req, res){
 
 router.post('/change', function(req, res){
 	var userObj = req.body;
-	var col = req.db.get('users');
 
 	um.changeUser(userObj, function(err, doc){
 		if(err){
@@ -118,8 +118,6 @@ router.get('/delete/:_id', function(req, res){
 
 	var _id = req.params._id;
 
-	var col = req.db.get('users');
-
 	um.deleteUser(_id, function(err, doc){
 		if(err){
 			res.send('Faield deleting!');
@@ -132,7 +130,6 @@ router.get('/delete/:_id', function(req, res){
 //Delete user
 router.post('/delete', function(req, res){
 	var _id = req.body._id;
-	var col = req.db.get('users');
 
 	um.deleteUser(_id, function(err, doc){
 		if(err){

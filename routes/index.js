@@ -115,7 +115,6 @@ function postLogin(req, res, next) {
                     pageUrl: pageUrl
                 })(req, res, next);
             });
-
     });
     if (ret)
         res.render('message', ret);
@@ -211,7 +210,8 @@ router.get('/punch/:key', function(req, res, next) {
 
 });
 
-/*var qrModule = require('../qrcodeModule');
+
+var qrModule = require('../qrcodeModule');
 
 router.get('/supervisor/showdynacode', function(req, res, next) {
     var qrm = new qrModule();
@@ -223,8 +223,10 @@ router.get('/supervisor/showdynacode', function(req, res, next) {
         })(req, res, next);
     });
 });
-*/
+
+
 router.get('/recentRecords', function(req, res, next) {
+
     var rm = new recordsModule();
     rm.rencentRecords({
         sessionid: req.cookies.sessionid
@@ -352,7 +354,7 @@ router.post('/supervisor/employees', function(req, res) {
 //    var qrid = signer.unsign(parts[0]+'.'+key);
 //    rm.checkDynaQrcode(qrid, req.cookies.sessionid, function(valid, userInfo){
 //        if(valid) {
-//            rm.punch(userInfo.userid, function(err, record){ 
+//            rm.punch(userInfo.userid, function(err, record){
 //                var msg = res.__('punch_success');
 //                utils.render('message', punchData(record, msg, userInfo))(req, res, next);
 //            });

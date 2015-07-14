@@ -1,76 +1,60 @@
 extends ../layout.jade
 
+append links
+	link(rel='stylesheet' href='/stylesheets/staffSetting.css')
+	link(rel='stylesheet' href='/toggleSwitch/normalize.css')
+	link(rel='stylesheet' href="/stylesheets/toggleSwitchAdjust.css")
+append scripts
+	script(src= "/toggleSwitch/prefixfree.min.js")
+	script(src= "/javascripts/toggleSwitchAdjust.js")
 
 block content
-	.passwordChange
-		form 
-			label Old Password:
-			input(type ='password' name= 'oldPassword')
-			br
-			label Password: 
-			input(type ='password' name= 'password')
-			br
-			label Confirm: 
-			input(type ='password' name= 'confirm')
-			br
-			input(type= 'submit' value= 'Submit')
+	.staffSettingPage
+		.passwordChange
+			.passwordLabel PASSWORD
+			form 
+				input.textBox.inputBar(type ='password' name= 'oldPassword'  placeholder= "OLD PASSWORD")
+				input.textBox.inputBar(type ='password' name= 'password' placeholder= "NEW PASSWORD")
+				input.textBox.inputBar(type ='password' name= 'confirm' placeholder= "CONFIRM PASSWORD")
+				input.longButton.inputBar(type= 'submit' value= 'SUBMIT')
 
-			br
-			br
+		.emailSwitch.switchButton
+			.switchLabel EMAIL REPORT
+			.onOff.toggle.emailToggle.toggle-on 
+			
+		.EmailReportSetting.toggleTarget
+			//(action="/usersettings" method="POST")
+			form(method="POST")
+				input.textBox.inputBar(type= "text" id = "receiveEmails" name = 'receiveEmails' placeholder= "EMAIL ADDRESS")
 
-	.switchButton(style= "position:relative; width:5%;")
-		.cover
-		span.onSide(style= "width:50%;") ON 
-		span.offSide(style= "width:50%;") OFF
+				.radioButton
+					.chooseLabel CHOOSE
 
-	br
-	br
-		
-	.EmailReportSetting(hidden)
-		//(action="/usersettings" method="POST")
-		form
-			label Receive Email:
-			input(type= "text" id = "receiveEmails" name = 'receiveEmails' value = report)
-			br
-			label Choose Report Time Period:
-			br
-			input(type = "radio" name= "timePeriod" value= "weekly") 
-			|weekly
-			br
-			input(type = "radio" name= "timePeriod" value= "monthly") 
-			|monthly
-			br
-			input(type= 'submit' value= 'submit')
+					.radioMonth
+						input(id="mRadio" type = "radio" name= "timePeriod" value= "monthly" checked = false)
+						label.radioLabel(for="mRadio") MONTHLY
+					
+					.orLabel OR
 
-	script.
-		var switchBtn = false;
-		var onSide = $(".onSide");
-		var offSide= $(".offSide");
-
-		var cover= $(".cover");
-		cover.css({
-			position: "absolute",
-			width: "50%",
-			height: "100%",
-			background: "#ccc",
-			cursor: "pointer"
-
-		});
-		
-		cover.on("click", function(e){
-			if(switchBtn){
-				//$cover.appendTo(onSide.css("position", "relative"));
+					.radioWeek
+						input(id="wRadio" type = "radio" name= "timePeriod" value= "weekly" checked= true)
+						label.radioLabel(for="wRadio") WEEKLY
 				
-				cover.animate({left:0}, 400);
-				switchBtn= false;
-				$(".EmailReportSetting").slideUp("slow");
-			}else{
-				//$cover.appendTo(offSide.css("position", "relative"));
+				input.longButton.inputBar(type= 'submit' value= 'SUBMIT')
 
-				cover.animate({right:0}, 400);
-				switchBtn= true;
-				$(".EmailReportSetting").slideDown("slow");
-			}
-		});
-
+		.overTimeSwitch.switchButton
+			.switchLabel OVERTIME SETTING
+			.onOff.toggle.overTimeToggle.toggle-on
 		
+		.overTimeSetting.toggleTarget1
+			.thresholdDiv
+				.thresholdLabel 
+					span OVERTIME THRESHOLD
+				input.hourDisplay.noselect(type= "text" value= "40" readonly)
+				.perWeekLabel
+					span HRS PER WEEK
+			.rateDiv
+				.rateLabel
+					span OVERTIME RATE
+				input.rateDisplay.noselect(type= "text" value="1.5x" readonly)
+			input.longButton.inputBar(type= 'submit' value= 'SUBMIT')
