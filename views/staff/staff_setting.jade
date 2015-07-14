@@ -47,14 +47,15 @@ block content
 			.onOff.toggle.overTimeToggle.toggle-on
 		
 		.overTimeSetting.toggleTarget1
-			.thresholdDiv
-				.thresholdLabel 
-					span OVERTIME THRESHOLD
-				input.hourDisplay.noselect(type= "text" value= "40" readonly)
-				.perWeekLabel
-					span HRS PER WEEK
-			.rateDiv
-				.rateLabel
-					span OVERTIME RATE
-				input.rateDisplay.noselect(type= "text" value="1.5x" readonly)
-			input.longButton.inputBar(type= 'submit' value= 'SUBMIT')
+			form(method="POST")
+				.thresholdDiv
+					.thresholdLabel 
+						span OVERTIME THRESHOLD
+					input.hourDisplay.noselect(type= "text" value= "40" readonly)
+					.perWeekLabel
+						span HRS PER WEEK
+				.rateDiv
+					.rateLabel
+						span OVERTIME RATE
+					input.rateDisplay.noselect(type= "text" value="1.5x" readonly)
+				input.longButton.inputBar(type= 'submit' value= 'SUBMIT')
