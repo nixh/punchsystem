@@ -64,7 +64,7 @@ describe ("Module",function(){
 describe ("Module",function(){
 	describe('#receiveemail()',function(){
 			it ('should return user email as expected',function(done){
-				var userobj = {userid: "LoginName_11",email:'useremail11@email.com'};
+				var userobj = {userid: "LoginName_11",email:'useremail11@email.com',onoffswitch:"1"};
 				settings.receiveemail(userobj,function(err,doc){
 					if(!doc|| doc.length === 0)
 						doc= {email: " "};
@@ -74,7 +74,7 @@ describe ("Module",function(){
 
 			})
 			it ('should not return user email as expected',function(done){
-				var userobj = {userid: "1",email:'useremail11@email.com'};
+				var userobj = {userid: "LoginName_11",email:'useremail11@email.com',onoffswitch:"0"};
 				settings.receiveemail(userobj,function(err,doc){
 					if(!doc|| doc.length === 0)
 						doc= {email: " "};
@@ -85,7 +85,7 @@ describe ("Module",function(){
 			})
 
 			it ('should not return user email as expected',function(done){
-				var userobj = {userid: " ",email:'useremail11@email.com'};
+				var userobj = {userid: " ",email:'useremail11@email.com',onoffswitch:"1"};
 				settings.receiveemail(userobj,function(err,doc){
 					if(!doc|| doc.length === 0)
 						doc= {email: " "};
