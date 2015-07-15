@@ -4,7 +4,7 @@ var _ = require('underscore');
 var monk = require('monk');
 
 /**
- * 
+ *
  *
  */
 function findSessionInfo(sessionid, cb) {
