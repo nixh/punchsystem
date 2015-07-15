@@ -75,7 +75,7 @@ var Module = function(settings) {
         this.getCol().insert(query, cb);
     });
     this.query = dbTemplate(function(query, doc, options, cb){
-        var col = this.getCol();    
+        var col = this.getCol();
         col.find(query, options, cb);
     });
     this.updateOne = dbTemplate(function(query, doc, options, cb){
@@ -144,4 +144,4 @@ Module.prototype = {
 var mixEmiterProto = new events.EventEmitter();
 _.extend(Module.prototype, mixEmiterProto);
 
-module.exports = Module; 
+module.exports = Module;

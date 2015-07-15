@@ -1,9 +1,8 @@
-
 extends ../layout.jade
 
 append links
     link(rel="stylesheet" href="/stylesheets/adminpunch.css") 
-    link(rel='stylesheet' href='/stylesheets/staffPunchReport.css')
+    link(rel='stylesheet' href='/stylesheets/supervisorPunchReport.css')
     link(rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css")
     link(rel="stylesheet" href="/pickadate/lib/themes/default.css" id="theme_base")
     link(rel="stylesheet" href="/pickadate/lib/themes/default.date.css" id="theme_date")
@@ -13,8 +12,9 @@ append scripts
     script(src="/pickadate/lib/picker.js")
     script(src="/pickadate/lib/picker.date.js")
     script(src="/pickadate/lib/picker.time.js")
-    script(src= "/javascripts/pickadateControl.js")  
-   
+    script(src= "/javascripts/pickadateControl.js")
+    script(src="/javascripts/editPunchTime.js")
+
     - function getTime(tstamp) {
     -   return moment(tstamp).format("HH:mm A");
     - }
@@ -22,7 +22,7 @@ append scripts
     -   return moment(tstamp).format("YYYY-MM-DD");
     - }
 block content
-    .staffPunchPage(ontouchstart="")
+    .supervisorPunchPage(ontouchstart="")
         form#searchform(action="/records_search" method="POST")
             .startEndTime
                 input.useDatePicker(type= "text" name="startdate" placeholder="#{tr('starttime')}") 
@@ -58,13 +58,29 @@ block content
                                         .hollowcircle.red
                             td
                                 ul.dateList
-                                    li.outDate= record.outDate ? getDate(record.outDate) : ""
-                                    li.inDate= getDate(record.inDate)
+                                    li.outDate
+                                        span= record.outDate ? getDate(record.outDate) : ""
+                                        input.outDateInput.hidden(type= "text")
+                                    li.inDate
+                                        span= getDate(record.inDate)
+                                        input.inDateInput.hidden(type= "text")
                             td
                                 ul.timeList
-                                    li.outTime= record.outDate ? getTime(record.outDate) : ""
-                                    li.inTime= getTime(record.inDate)
+                                    li.outTime
+                                        span= record.outDate ? getTime(record.outDate) : ""
+                                        input.outTimeInput.hidden(type= "text")
+                                    li.inTime
+                                        span= getTime(record.inDate)
+                                        input.inTimeInput.hidden(type= "text")
                             td
                                 ul
-                                    li= tr('out')
-                                    li= tr('in')
+                                    li
+                                        button.editOutButton.editButton EDIT
+                                        .outConfirmReturn.hidden
+                                            button.confirmButton CONFIRM 
+                                            button.returnButton RETURN
+                                    li
+                                        button.editInButton.editButton EDIT
+                                        .inConfirmReturn.hidden
+                                            button.confirmButton CONFIRM 
+                                            button.returnButton RETURN

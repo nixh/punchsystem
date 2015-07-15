@@ -46,14 +46,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 i18n.configure({
-    locales: ['en', 'cn'],
+    locales: ['cn'],
     directory: path.join(__dirname, 'i18n/locales'),
-    cookie: 'lang',
-    defaultLocale: 'en'
+    defaultLocale: 'cn'
 });
 
 app.use(function(req, res, next) {
     i18n.init(req, res);
+    console.log(res.__('name'));
     return next();
 });
 

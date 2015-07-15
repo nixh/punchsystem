@@ -26,7 +26,7 @@ block content
                     tr
                         td(style="padding: 10px")= user.name
                         td(style="padding: 10px")
-                            a(href="/supervisor/rencentRecords/#{user.userid}") View Records
+                            a(href="/supervisor/rencentRecords/#{user.userid}")= tr('viewrecords')
                         td(style="padding: 10px")
                             a(href="/users/delete/#{user._id}")
                                 img(src="/images/X transparent.png" alt="cross icon")
