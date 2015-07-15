@@ -10,9 +10,28 @@ router.get('/', function(req, res, next){
 
 router.get('/changepwd/:userid', function (req, res, next){
 		var userid=req.params.userid;
-		res.render('./staff/staff_setting',{"userid":userid});
+		var userobj = {
+			"userid":userid
+		}
+		
+			res.render('./staff/staff_setting',{"userid":userid});
+			
+		
 });
-
+router.post('/changepwd/:userid', function (req, res, next){
+		var userid=req.params.userid;
+		var userobj = {
+			"userid":userid
+		}
+		settings.receiveemail(userobj,function (err,doc){
+			if(err){
+				res.send('err')
+			}else{
+				res.render('./staff/staff_setting',{"userid":userid,"receiveEmails":doc.email});
+			}
+		})
+		
+});
 router.get('/sendemail/:userid', function (req, res, next){
 		var userid=req.params.userid;
 		res.render('./staff/staff_setting',{"userid":userid});
@@ -24,7 +43,7 @@ router.get('/setrate/:userid',function (req,res){
 });
 
 router.post('/enableEmail/:switchs',function (req,res){
-	var switchs
+	var switchs = parseInt(req.params.switchs)
 	if(req.params.switchs == 1){
 		switchs=0;
 	}else{
@@ -33,12 +52,11 @@ router.post('/enableEmail/:switchs',function (req,res){
 	//res.render('./staff/staff_setting');
 	userobj={'userid': req.body.id,
 			'enableEmail':switchs};
-	console.log(userobj)
 	settings.enableEmail(userobj,function(err,doc){
 			if(err) {
 			 	res.send("Error!!!");
 		}else{
-			res.render('./staff/staff_setting',{"userid":req.body.userid})
+			res.render('./staff/staff_setting',{"userid":req.body.userid,"enableEmail":switchs})
 		}
 	})
 
@@ -59,7 +77,7 @@ router.post('/enablerate/:switchs',function (req,res){
 			if(err) {
 			 	res.send("Error!!!");
 		}else{
-			res.render('./staff/staff_setting',{"userid":req.body.userid})
+			res.render('./staff/staff_setting',{"userid":req.body.userid,"enablerate":switchs})
 		}
 	})
 
@@ -97,8 +115,8 @@ router.post('/changepwd', function (req, res) {
 
 router.post('/sendemail', function (req, res) {
 	var userobj=req.body;
-	
-	settings.receiveemail(userobj,function(err,doc){
+	console.log(userobj)
+	settings.updateemail(userobj,function(err,doc){
 		
 		if(err) {
 			 res.send("Error!");
@@ -107,8 +125,8 @@ router.post('/sendemail', function (req, res) {
 				res.send('userid or password invaild');
 			} 
 			else{
+			console.log(doc)
 			res.render('./staff/staff_setting',{"userid":userobj.userid,"receiveEmails":doc.email});
-			//res.send(doc);
 		}
 	});
 

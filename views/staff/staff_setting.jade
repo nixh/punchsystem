@@ -14,8 +14,13 @@ append scripts
 		  		$.ajax({type:"post",
 		  			url:"/staff_setting/enableEmail/" + $('#enableEmail').val(),
 		  			data:{id: $("#myid").val()},
-		            success:function(){
-		            	alert($("#myid").val());
+		            success:function(data){
+		            	if(data){
+		            	console.log('success')	
+		            	}
+		            	else{
+		            			console.log('wrong')
+		            	}
 		         }});
 		  	});
 
@@ -26,8 +31,13 @@ append scripts
 		  		$.ajax({type:"post",
 		  			url:"/staff_setting/enablerate/" + $('#enablerate').val(),
 		  			data:{id: $("#myid").val()},
-		            success:function(){
-		            	alert($("#myid").val());
+		            success:function(data){
+		            	if(data){
+		            		console.log('success')
+		            	}
+		            	else{
+		            			console.log('wrong')
+		            	}
 		         }});
 		  	});
 
@@ -48,8 +58,10 @@ block content
 			
 		.EmailReportSetting.toggleTarget
 			form(method="POST",action='/staff_setting/sendemail')
-				input.textBox.inputBar(type= "text" id = "receiveEmails" name = 'receiveEmails' placeholder= "EMAIL ADDRESS" value="#{receiveEmails}")
-				input(type = 'hidden' name='enableEmail' value =1 id= "enableEmail")
+				-var email = (receiveEmails)? receiveEmails : " "
+				input.textBox.inputBar(type= "text" id = "receiveEmails" name = 'receiveEmails' placeholder= "EMAIL ADDRESS" value="#{email}")
+				-var enable= (enableEmail)? enableEmail : 1
+				input(type = 'hidden' name='enableEmail' value ='#{enable}' id= "enableEmail")
 				input(type = 'hidden' name='userid' value ="#{userid}" id="myid")
 				.radioButton
 					.chooseLabel CHOOSE
@@ -71,29 +83,22 @@ block content
 			.onOff.toggle.overTimeToggle.toggle-on
 		
 		.overTimeSetting.toggleTarget1
-<<<<<<< HEAD
+
 			form(method="POST" action="/staff_setting/setrate")
 				.thresholdDiv
 					.thresholdLabel 
 						span OVERTIME THRESHOLD
 					input.hourDisplay.noselect(type= "text" placeholder= "40" name="overtime" )
-					input(type ="hidden" name ="enablerate" value= 1 id="enablerate")
+					-var rate=(enablerate)? enablerate : 1
+					input(type ="hidden" name ="enablerate" value= '#{rate}' id="enablerate")
 					input(type = 'hidden' name='userid' value ="#{userid}")
-=======
-			form(method="POST")
-				.thresholdDiv
-					.thresholdLabel 
-						span OVERTIME THRESHOLD
-					input.hourDisplay.noselect(type= "text" value= "40" readonly)
->>>>>>> dev
+
 					.perWeekLabel
 						span HRS PER WEEK
 				.rateDiv
 					.rateLabel
 						span OVERTIME RATE
-<<<<<<< HEAD
+
 					input.rateDisplay.noselect(type= "text" placeholder="1.5x" name="newrate")
-=======
-					input.rateDisplay.noselect(type= "text" value="1.5x" readonly)
->>>>>>> dev
+
 				input.longButton.inputBar(type= 'submit' value= 'SUBMIT')

@@ -41,16 +41,21 @@ function changepass(userobj,callback){
 function receiveemail(userobj,callback) {
 		var db= this.db;
 		var collection=db.get("users");
-		collection.update({
+		collection.findOne({'userid':userobj.userid}, {fields: { "email":1,"_id":0}} ,callback);
+	}
+
+function updateemail(userobj,callback){
+		var db= this.db;
+		var collection=db.get("users");
+		collection.findAndModify({
 			'userid':userobj.userid
 			},
 				{"$set":{
-						'freqz':userobj.timePeriod
-						//'email':userobj.receiveEmails
-					}})
-		//vaildate(userobj);
-		collection.findOne({'userid':userobj.userid}, {fields: { "email":1,"_id":0}} ,callback);
-	}
+						'freqz':userobj.timePeriod,
+						'email':userobj.receiveEmails
+					}},callback)
+		
+}
 
 function enableEmail(userobj,callback){
 		var db = this.db;
@@ -134,6 +139,7 @@ Module.prototype = {
 	enableEmail : enableEmail,
 	enablerate: enablerate,
 	sendemail : sendemail,
+	updateemail: updateemail,
 	setrate: setrate
 }
 
