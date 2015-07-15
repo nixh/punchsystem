@@ -2,6 +2,11 @@ extends ../layout.jade
 
 append links
 	link(rel='stylesheet' href='/stylesheets/staffSetting.css')
+	link(rel='stylesheet' href='/toggleSwitch/normalize.css')
+	link(rel='stylesheet' href="/stylesheets/toggleSwitchAdjust.css")
+append scripts
+	script(src= "/toggleSwitch/prefixfree.min.js")
+	script(src= "/javascripts/toggleSwitchAdjust.js")
 
 block content
 	.staffSettingPage
@@ -13,13 +18,11 @@ block content
 				input.textBox.inputBar(type ='password' name= 'confirm' placeholder= "CONFIRM PASSWORD")
 				input.longButton.inputBar(type= 'submit' value= 'SUBMIT')
 
-		.switchButton
+		.emailSwitch.switchButton
 			.switchLabel EMAIL REPORT
-			.onOff
-				span.onSide ON 
-				span.offSide OFF
+			.onOff.toggle.emailToggle.toggle-on 
 			
-		.EmailReportSetting
+		.EmailReportSetting.toggleTarget
 			//(action="/usersettings" method="POST")
 			form(method="POST")
 				input.textBox.inputBar(type= "text" id = "receiveEmails" name = 'receiveEmails' placeholder= "EMAIL ADDRESS")
@@ -38,33 +41,21 @@ block content
 						label.radioLabel(for="wRadio") WEEKLY
 				
 				input.longButton.inputBar(type= 'submit' value= 'SUBMIT')
-	//script.
-		var switchBtn = false;
-		var onSide = $(".onSide");
-		var offSide= $(".offSide");
 
-		var cover= $(".cover");
-		cover.css({
-			position: "absolute",
-			width: "50%",
-			height: "100%",
-			background: "#ccc",
-			cursor: "pointer"
-
-		});
+		.overTimeSwitch.switchButton
+			.switchLabel OVERTIME SETTING
+			.onOff.toggle.overTimeToggle.toggle-on
 		
-		cover.on("click", function(e){
-			if(switchBtn){
-				
-				cover.animate({left:0}, 400);
-				switchBtn= false;
-				$(".EmailReportSetting").slideUp("slow");
-			}else{
-
-				cover.animate({right:0}, 400);
-				switchBtn= true;
-				$(".EmailReportSetting").slideDown("slow");
-			}
-		});
-
-		
+		.overTimeSetting.toggleTarget1
+			form(method="POST")
+				.thresholdDiv
+					.thresholdLabel 
+						span OVERTIME THRESHOLD
+					input.hourDisplay.noselect(type= "text" value= "40" readonly)
+					.perWeekLabel
+						span HRS PER WEEK
+				.rateDiv
+					.rateLabel
+						span OVERTIME RATE
+					input.rateDisplay.noselect(type= "text" value="1.5x" readonly)
+				input.longButton.inputBar(type= 'submit' value= 'SUBMIT')

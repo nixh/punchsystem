@@ -226,6 +226,21 @@ router.get('/recentRecords', function(req, res, next) {
     });
 });
 
+router.get('/supervisor/recentRecords', function(req, res, next) {
+
+    var rm = new recordsModule();
+    rm.rencentRecords({
+        sessionid: req.cookies.sessionid
+    }, function(err, recordDocs) {
+        rm.db.close();
+        utils.render('supervisor/supervisor_punch_report', {
+            moment: moment,
+            records: recordDocs
+        })(req, res, next);
+
+    });
+});
+
 var sModule = require('../sessionModule');
 
 router.get('/supervisor/adminpunch', function(req, res, next) {
