@@ -8,25 +8,49 @@ append scripts
 	script(src= "/toggleSwitch/prefixfree.min.js")
 	script(src= "/javascripts/toggleSwitchAdjust.js")
 
+	script.
+		$(function initEvent(){
+			$('.emailSwitch > .onOff').on("click",function(){
+		  		$.ajax({type:"post",
+		  			url:"/staff_setting/enableEmail/" + $('#enableEmail').val(),
+		  			data:{id: $("#myid").val()},
+		            success:function(){
+		            	alert($("#myid").val());
+		         }});
+		  	});
+
+		});
+	script.
+		$(function initEvent(){
+			$('.overTimeSwitch > .onOff').on("click",function(){
+		  		$.ajax({type:"post",
+		  			url:"/staff_setting/enablerate/" + $('#enablerate').val(),
+		  			data:{id: $("#myid").val()},
+		            success:function(){
+		            	alert($("#myid").val());
+		         }});
+		  	});
+
+		});
 block content
 	.staffSettingPage
 		.passwordChange
 			.passwordLabel PASSWORD
-			form 
-				input.textBox.inputBar(type ='password' name= 'oldPassword'  placeholder= "OLD PASSWORD")
-				input.textBox.inputBar(type ='password' name= 'password' placeholder= "NEW PASSWORD")
-				input.textBox.inputBar(type ='password' name= 'confirm' placeholder= "CONFIRM PASSWORD")
+			form(method="POST",action="/staff_setting/changepwd") 
+				input.textBox.inputBar(type ='password' name= 'oldpass'  placeholder= "OLD PASSWORD")
+				input.textBox.inputBar(type ='password' name= 'newpass' placeholder= "NEW PASSWORD")
+				input.textBox.inputBar(type ='password' name= 'confirmpass' placeholder= "CONFIRM PASSWORD")
 				input.longButton.inputBar(type= 'submit' value= 'SUBMIT')
-
+				input(type = 'hidden' name='userid' value ="#{userid}")
 		.emailSwitch.switchButton
 			.switchLabel EMAIL REPORT
 			.onOff.toggle.emailToggle.toggle-on 
 			
 		.EmailReportSetting.toggleTarget
-			//(action="/usersettings" method="POST")
-			form(method="POST")
-				input.textBox.inputBar(type= "text" id = "receiveEmails" name = 'receiveEmails' placeholder= "EMAIL ADDRESS")
-
+			form(method="POST",action='/staff_setting/sendemail')
+				input.textBox.inputBar(type= "text" id = "receiveEmails" name = 'receiveEmails' placeholder= "EMAIL ADDRESS" value="#{receiveEmails}")
+				input(type = 'hidden' name='enableEmail' value =1 id= "enableEmail")
+				input(type = 'hidden' name='userid' value ="#{userid}" id="myid")
 				.radioButton
 					.chooseLabel CHOOSE
 
@@ -47,14 +71,17 @@ block content
 			.onOff.toggle.overTimeToggle.toggle-on
 		
 		.overTimeSetting.toggleTarget1
-			.thresholdDiv
-				.thresholdLabel 
-					span OVERTIME THRESHOLD
-				input.hourDisplay.noselect(type= "text" value= "40" readonly)
-				.perWeekLabel
-					span HRS PER WEEK
-			.rateDiv
-				.rateLabel
-					span OVERTIME RATE
-				input.rateDisplay.noselect(type= "text" value="1.5x" readonly)
-			input.longButton.inputBar(type= 'submit' value= 'SUBMIT')
+			form(method="POST" action="/staff_setting/setrate")
+				.thresholdDiv
+					.thresholdLabel 
+						span OVERTIME THRESHOLD
+					input.hourDisplay.noselect(type= "text" placeholder= "40" name="overtime" )
+					input(type ="hidden" name ="enablerate" value= 1 id="enablerate")
+					input(type = 'hidden' name='userid' value ="#{userid}")
+					.perWeekLabel
+						span HRS PER WEEK
+				.rateDiv
+					.rateLabel
+						span OVERTIME RATE
+					input.rateDisplay.noselect(type= "text" placeholder="1.5x" name="newrate")
+				input.longButton.inputBar(type= 'submit' value= 'SUBMIT')

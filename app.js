@@ -72,7 +72,7 @@ app.use('/comp', comp);
 app.use('/company', company)
 app.use('/delegate', delegate);
 app.use('/comp', comp);
-app.use('/usersettings', usersettings)
+app.use('/staff_setting', usersettings)
 
 // catch 404 and forward to error handler
 

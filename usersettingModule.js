@@ -26,7 +26,7 @@ function changepass(userobj,callback){
 		var	db= this.db;
 		var collection=db.get("users");
 		if(userobj.newpass ===userobj.confirmpass){
-			collection.update({
+			collection.findAndModify({
 				'password':userobj.oldpass,
 				'userid':userobj.userid
 				},
@@ -45,13 +45,14 @@ function receiveemail(userobj,callback) {
 			'userid':userobj.userid
 			},
 				{"$set":{
-						'freqz':userobj.frequency
+						'freqz':userobj.timePeriod
+						//'email':userobj.receiveEmails
 					}})
 		//vaildate(userobj);
 		collection.findOne({'userid':userobj.userid}, {fields: { "email":1,"_id":0}} ,callback);
 	}
 
-function switchinformation(userobj,callback){
+function enableEmail(userobj,callback){
 		var db = this.db;
 		var collection = db.get('users');
 		//vaildate(userobj);
@@ -59,12 +60,24 @@ function switchinformation(userobj,callback){
 			'userid':userobj.userid
 			},
 				{"$set":{
-						'switch':userobj.enableEmail,
-						'enablerate':userobj.enablerate
+						'enableEmail':userobj.enableEmail,
+						
 					}
 				},callback)
 	}		
 
+function enablerate(userobj,callback){
+		var db = this.db;
+		var collection = db.get('users');
+		//vaildate(userobj);
+		collection.update({
+			'userid':userobj.userid
+			},
+				{"$set":{
+						'enablerate':userobj.enablerate
+					}
+				},callback)
+	}		
 
 function sendemail(userobj){
 		var conf = this.conf;
@@ -118,7 +131,8 @@ function Module(settings) {
 Module.prototype = {
 	changepass : changepass,
 	receiveemail : receiveemail,
-	switchinformation : switchinformation,
+	enableEmail : enableEmail,
+	enablerate: enablerate,
 	sendemail : sendemail,
 	setrate: setrate
 }

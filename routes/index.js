@@ -211,7 +211,7 @@ router.get('/punch/:key', function(req, res, next) {
 });
 
 
-var qrModule = require('../qrcodeModule');
+/*var qrModule = require('../qrcodeModule');
 
 router.get('/supervisor/showdynacode', function(req, res, next) {
     var qrm = new qrModule();
@@ -223,7 +223,7 @@ router.get('/supervisor/showdynacode', function(req, res, next) {
         })(req, res, next);
     });
 });
-
+*/
 
 router.get('/recentRecords', function(req, res, next) {
 
