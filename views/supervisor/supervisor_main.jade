@@ -25,7 +25,7 @@ block content
     .supervisorMainPage(ontouchstart="")
         //.userInfo
         .avatar
-            img(src="/images/yongred.jpg" alt="User Avatar") 
+            img(src="#{user.avatar ? user.avatar : user.sex ? '/images/boydefaultpicture.png' : '/images/girl default picture.png'}" alt="User Avatar") 
             p= tr('welcome') + " " + user.name
             //.acctInfo
                 pre.

@@ -1,0 +1,66 @@
+extends layout
+block content
+    .main
+        .avatarsection
+            .avatarimg
+                img(src="#{user.avatar}")
+            .avatarupload
+                input.uploadfield(type="file")
+                .submitupload
+
+        .infosection
+            .sectiontitle
+                span= tr('basic_info')
+            .sectionfields
+
+                label.title= tr('userid')
+                input(id="userid" name="userid" type="text").textinput()
+                label.title= tr('name')
+                input(id="name" name="name" type="text").textinput()
+                label.title= tr('password')
+                input(id="password" type="password").passinput()
+                .sexinput
+                    label.title= tr('sex')
+                    .radioinput
+                        input(type="radio" id="sex_male" name="sex")
+                        label.radiolabel(for="sex_male")=  tr('sex_male')
+                    .radioinput
+                        input(type="radio" id="sex_female" name="sex")
+                        label.radiolabel(for="sex_female")=  tr('sex_female')
+            button.nextBtn
+
+        .infosection
+            button.previousBtn
+            .sectiontitle
+                span= tr('address')
+            .sectionfields
+                label.title= tr('userform_address_street')
+                input(type="text" id="address_street" name="address_street").textinput
+                label.title= tr('userform_address_city')
+                input(type="text" id="address_city" name="address_city").textinput
+                label.title= tr('userform_address_state')
+                input.textinput.small.inline(id="address_state" name="address_state")
+                label.title= tr('userform_address_zip')
+                input.textinput.small.inline(id="address_zip" name="address_zip")
+            button.nextBtn
+
+        .infosection
+            button.previousBtn
+            .sectiontitle
+                span= tr('other')
+            .sectionfields
+                label.title= tr('paid_rate')
+                input.textinput.small.inline(id="payrate" name="rate")
+                label.textinput
+                .textinput
+                .textinput
+                .textareainput
+            .nextBtn
+
+        .previewall
+            .previewtable
+
+        .cmdtools
+            .submitbutton
+            .submitbutton
+
