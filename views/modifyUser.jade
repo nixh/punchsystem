@@ -1,18 +1,41 @@
 extends layout
+append links
+    link(rel="stylesheet" href="/stylesheets/userform.css")
+append scripts
+    script.
+        $(function initEvents(){
+            $('.radioinput').on('click', function(){
+                var $this = $(this);
+                $('.radioinput').each(function(i, radio){
+
+                    $(radio).removeClass('radioselected');
+                });
+                $this.addClass('radioselected');
+            });
+            $('#choosepic').on('click', function(e){
+                e.preventDefault();
+                $('.uploadfield').trigger('click');
+            });
+            
+        });
+
 block content
     .main
         .avatarsection
             .avatarimg
-                img(src="#{user.avatar}")
+                img(src="/images/boydefaultpicture.png")
             .avatarupload
-                input.uploadfield(type="file")
+                .uploadfield 
+                    input.textinput(type="text")
+                    #choosepic.submitbutton= tr('...')
+                    #submitupload.submitbutton= tr('upload')
+                    input.uploadfield.hidden(type="file")
                 .submitupload
 
         .infosection
             .sectiontitle
                 span= tr('basic_info')
             .sectionfields
-
                 label.title= tr('userid')
                 input(id="userid" name="userid" type="text").textinput()
                 label.title= tr('name')
@@ -21,16 +44,19 @@ block content
                 input(id="password" type="password").passinput()
                 .sexinput
                     label.title= tr('sex')
+                    .radioinput.radioselected
+                        .outer
+                            .inner
+                        .label= tr('sex_male')
                     .radioinput
-                        input(type="radio" id="sex_male" name="sex")
-                        label.radiolabel(for="sex_male")=  tr('sex_male')
-                    .radioinput
-                        input(type="radio" id="sex_female" name="sex")
-                        label.radiolabel(for="sex_female")=  tr('sex_female')
-            button.nextBtn
+                        .outer
+                            .inner
+                        .label= tr('sex_female')
+                    input(name="sex" type="hidden" value="")
+            .nextBtn.submitbutton= tr('next')
 
         .infosection
-            button.previousBtn
+            .previousBtn.submitbutton= tr('previous')
             .sectiontitle
                 span= tr('address')
             .sectionfields
@@ -42,25 +68,77 @@ block content
                 input.textinput.small.inline(id="address_state" name="address_state")
                 label.title= tr('userform_address_zip')
                 input.textinput.small.inline(id="address_zip" name="address_zip")
-            button.nextBtn
+            .nextBtn.submitbutton= tr('next')
 
         .infosection
-            button.previousBtn
+            .previousBtn.submitbutton= tr('previous')
             .sectiontitle
                 span= tr('other')
             .sectionfields
                 label.title= tr('paid_rate')
                 input.textinput.small.inline(id="payrate" name="rate")
-                label.textinput
-                .textinput
-                .textinput
+                label.title= tr('rate_change_date')
+                input.textinput.small.inline.datepicker(id="change_from" name="rate_change_date")
+                label.title= tr('userform_tel')
+                input.textinput(name="tel")
+                label.title= tr('userform_email')
+                input.textinput(name="email")
                 .textareainput
-            .nextBtn
+                    label.title= tr('remark')
+                    textarea
+            .nextBtn.submitbutton= tr('next')
 
         .previewall
-            .previewtable
+            table.previewtable()
+                tr
+                    th= tr('userid')
+                    td
+                        span#useridtext
+                tr
+                    th= tr('name')
+                    td
+                        span#nametext
+                tr
+                    th= tr('password')
+                    td
+                        span#passwordtext
+                tr
+                    th= tr('sex')
+                    td
+                        span#sextext
+                tr
+                    th= tr('userform_address')
+                    td
+                        span#streettext
+                tr
+                    td(colspan=2)
+                        span#citytext 
+                        span#statetext
+                        span#ziptext
 
+                tr
+                    th= tr('paid_rate')
+                    td
+                        span#ratetext
+                tr
+                    th= tr('rate_date')
+                    td
+                        span#ratedatetext
+                tr
+                    th= tr('userform_tel')
+                    td
+                        span#teltext
+                tr
+                    th= tr('userform_email')
+                    td
+                        span
+                tr
+                    td(colspan=2)
+                        span.label= tr('remark')
+                        span#remarktext 
         .cmdtools
-            .submitbutton
-            .submitbutton
+                #makechange.submitbutton
+                    = tr('make_change')
+                #confim.submitbutton
+                    = tr('submit_change')
 

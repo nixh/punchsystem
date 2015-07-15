@@ -75,5 +75,20 @@
 	"return": "返回",
 	"empty records": "未找到纪录",
 	"clearsearch": "清空搜索",
-	"viewrecords": "浏览记录"
+	"viewrecords": "浏览记录",
+	"basic_info": "basic_info",
+	"next": "next",
+	"previous": "previous",
+	"address": "address",
+	"other": "other",
+	"paid_rate": "paid_rate",
+	"rate_change_date": "rate_change_date",
+	"rate_date": "rate_date",
+	"tel": "tel",
+	"email": "email",
+	"make_change": "make_change",
+	"submit_change": "submit_change",
+	"choose pictures": "choose pictures",
+	"upload": "upload",
+	"...": "..."
 }

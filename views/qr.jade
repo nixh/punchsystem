@@ -1,0 +1,20 @@
+append links
+    link(rel='stylesheet', href='/stylesheets/qr.css')
+
+block content
+    .total
+        .companyname
+            h1 ADMINSYS INC
+        .phone
+            .phoneleft
+                h1 347-698-8300
+            .phoneright
+                h1 917-291-7836
+        .address
+            h1 140-75 ASH AVE, SUITE 2F
+            h1 Flushing, NY 11355
+        .qrframe
+            img(src="#{data.qrdata}")
+
+        .button
+            h1 punch

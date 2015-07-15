@@ -65,7 +65,8 @@ body.bgbody {
     padding-bottom: 40px;
 }
 .loginpage .content table input[type='text'],
-input[type='password'] {
+.loginpage .content table input[type='password']
+ {
     width: 99%;
     height: 120px;
     border-radius: 40px;
