@@ -1,8 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var usermodule = require('../usermodule');
 
+var usermodule = require('../usermodule');
 var utils = require("../utils");
+
+var multiparty = require('multiparty');
+var util = require('util');
 
 var um = new usermodule();
 
@@ -26,29 +29,28 @@ router.post('/add', function(req, res){
 
 // Display all users and search users
 router.get('/search', function(req, res){
-
     var sm = new sModule();
 	var col = sm.db.get('users');
 	var userid = req.body.userid;
 
-        sm.getSessionInfo(req.cookies.sessionid, function(err, sObj){
+    sm.getSessionInfo(req.cookies.sessionid, function(err, sObj){
 
-            um.getAllUsers({compid: sObj.compid}, function(err, doc){
-                var title;
-		if(err){
-			utils.render('users/search', {'title': 'Loading Users Erro!'})(req, res);
+        um.getAllUsers({compid: sObj.compid}, function(err, doc){
+            var title;
+	if(err){
+		utils.render('users/search', {'title': 'Loading Users Erro!'})(req, res);
+	}else{
+		if(doc.length === 0){
+			title = "There is not even one user!";
 		}else{
-			if(doc.length === 0){
-				title = "There is not even one user!";
-			}else{
-				title = "All User List";
-			}
-
-			utils.render('users/search', {'title': title, 'userlist': doc})(req, res);
+			title = "All User List";
 		}
-            });
 
+		utils.render('users/search', {'title': title, 'userlist': doc})(req, res);
+	}
         });
+
+    });
 });
 
 var sModule = require('../sessionModule');
@@ -61,17 +63,18 @@ router.post('/search', function(req, res){
         sm.getSessionInfo(req.cookies.sessionid, function(err, sObj){
             um.searchUser(userid, sObj.compid, function(err, doc){
                 var title;
-                    if(err){
-                            utils.render('users/search', {'title': 'Search Error!'});
-                    }else{
-                            if(doc.length === 0){
-                                    title = "No such userid";
-                            }else{
-                                    title = "Searching Results for " + userid;
-                            }
-                            utils.render('users/search', {'search_term': userid, 'title': title, 'userlist': doc})(req, res);
-                    }
-                    sm.db.close();
+
+                if(err){
+                        utils.render('users/search', {'title': 'Search Error!'});
+                }else{
+                        if(doc.length === 0){
+                                title = "No such userid";
+                        }else{
+                                title = "Searching Results for " + userid;
+                        }
+                        utils.render('users/search', {'search_term': userid, 'title': title, 'userlist': doc})(req, res);
+                }
+                sm.db.close();
             });
 
         });
@@ -100,17 +103,68 @@ router.get('/change/:id', function(req, res){
 	});
 });
 
-router.post('/change', function(req, res){
-	var userObj = req.body;
+var fs = require('fs');
 
-	um.changeUser(userObj, function(err, doc){
-		if(err){
-			res.end('Faield to update!');
+router.post('/change', function(req, res){
+
+	var form = new multiparty.Form();
+
+	form.parse(req, function(err, fields, files){
+		console.log(fields);
+		console.log(files);
+
+		var userObj = {};
+		for(var key in fields){
+			userObj[key] = fields[key][0];
+		}
+
+		if(files.avatar[0].size == 0){
+
+			um.changeUser(userObj, function(err, doc){
+			   	if(err){
+			   		utils.render('users/search')(req, res);
+			   	}else{
+			   		// console.log(doc);
+			   		res.redirect('/supervisor/employees');
+			   	}
+			});
+
 		}else{
-			// console.log(doc);
-			res.redirect('/supervisor/employees');
+			var image = files.avatar[0];
+			var imgPath = image.path;
+
+			fs.readFile(imgPath, function(err, data){
+				if(err){
+					utils.render('users/search')(req, res);
+				}else{
+					var base64Image = new Buffer(data, 'binary').toString('base64');
+					var finalData = "data:" + image.headers['content-type']  + "; base64," + base64Image;
+
+					userObj['avatar'] = finalData;
+
+					um.changeUser(userObj, function(err, doc){
+					   	if(err){
+					   		utils.render('users/search')(req, res);
+					   	}else{
+					   		// console.log(doc);
+					   		res.redirect('/supervisor/employees');
+					   	}
+					});
+
+				}
+			});
 		}
 	});
+	// var userObj = req.body;
+	//
+	// um.changeUser(userObj, function(err, doc){
+	// 	if(err){
+	// 		res.end('Faield to update!');
+	// 	}else{
+	// 		// console.log(doc);
+	// 		res.redirect('/supervisor/employees');
+	// 	}
+	// });
 });
 
 
