@@ -166,7 +166,7 @@ function deleteUser(_id, callback) {
 function Module(settings) {
     _.extend(this, settings);
     if (!this.db) {
-        this.db = monk(utils.getConfig('testMongodbPath'));
+        this.db = monk(utils.getConfig('mongodbPath'));
     }
 }
 

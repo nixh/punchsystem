@@ -89,6 +89,18 @@
 	"return": "返回",
 	"empty records": "未找到纪录",
 	"clearsearch": "清空搜索",
+<<<<<<< HEAD
 	"viewrecords": "浏览记录"
 }
 >>>>>>> 431fc7a1bdd5204ea932ee411acc4ddbb320409e
+=======
+	"viewrecords": "浏览记录",
+	"UserName_28": "UserName_28",
+	"UserName_73": "UserName_73",
+	"UserName_115": "UserName_115",
+	"UserName_143": "UserName_143",
+	"Roman Wang": "Roman Wang",
+	"avatar_preview": "avatar_preview",
+	"Preview Avatar": "Preview Avatar"
+}
+>>>>>>> 66cf6e20038ca901b4b21920e031740db93ccae3

@@ -71,6 +71,7 @@ block content
 			.onOff.toggle.overTimeToggle.toggle-on
 		
 		.overTimeSetting.toggleTarget1
+<<<<<<< HEAD
 			form(method="POST" action="/staff_setting/setrate")
 				.thresholdDiv
 					.thresholdLabel 
@@ -78,10 +79,21 @@ block content
 					input.hourDisplay.noselect(type= "text" placeholder= "40" name="overtime" )
 					input(type ="hidden" name ="enablerate" value= 1 id="enablerate")
 					input(type = 'hidden' name='userid' value ="#{userid}")
+=======
+			form(method="POST")
+				.thresholdDiv
+					.thresholdLabel 
+						span OVERTIME THRESHOLD
+					input.hourDisplay.noselect(type= "text" value= "40" readonly)
+>>>>>>> dev
 					.perWeekLabel
 						span HRS PER WEEK
 				.rateDiv
 					.rateLabel
 						span OVERTIME RATE
+<<<<<<< HEAD
 					input.rateDisplay.noselect(type= "text" placeholder="1.5x" name="newrate")
+=======
+					input.rateDisplay.noselect(type= "text" value="1.5x" readonly)
+>>>>>>> dev
 				input.longButton.inputBar(type= 'submit' value= 'SUBMIT')
