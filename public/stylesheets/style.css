@@ -41,6 +41,15 @@ body.bgbody {
 .show {
     display: '';
 }
+
+.inputError{
+    border:5px solid red;
+}
+
+.avoid-clicks {
+  pointer-events: none;
+}
+
 .loginpage {
     position: relative;
     width: 100%;

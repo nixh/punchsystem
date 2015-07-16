@@ -3,10 +3,13 @@ extends ../layout.jade
 append links
 	link(rel='stylesheet' href='/stylesheets/staffSetting.css')
 	link(rel='stylesheet' href='/toggleSwitch/normalize.css')
+	link(rel= "stylesheet" href= "/tagbox/fm.tagator.jquery.css")
 	link(rel='stylesheet' href="/stylesheets/toggleSwitchAdjust.css")
 append scripts
 	script(src= "/toggleSwitch/prefixfree.min.js")
+	script(src="/tagbox/fm.tagator.jquery.js")
 	script(src= "/javascripts/toggleSwitchAdjust.js")
+	script(src= "/javascripts/tagatorAdjust.js")
 
 	script.
 		$(function initEvent(){
@@ -59,7 +62,7 @@ block content
 		.EmailReportSetting.toggleTarget
 			form(method="POST",action='/staff_setting/sendemail')
 				-var email = (receiveEmails)? receiveEmails : "EMAIL ADDRESS"
-				input.textBox.inputBar(type= "text" id = "receiveEmails" name = 'receiveEmails' placeholder= "EMAIL ADDRESS" value="#{email}")
+				input.textBox.inputBar.useTagator(type= "text" id = "receiveEmails" name = 'receiveEmails' placeholder= "EMAIL ADDRESS" value="#{email}")
 				-var enable= (enableEmail)? enableEmail : 1
 				input(type = 'hidden' name='enableEmail' value ='#{enable}' id= "enableEmail")
 				input(type = 'hidden' name='userid' value ="#{userid}" id="myid")
@@ -88,7 +91,7 @@ block content
 				.thresholdDiv
 					.thresholdLabel 
 						span OVERTIME THRESHOLD
-					input.hourDisplay.noselect(type= "text" placeholder= "40" name="overtime" )
+					input.hourDisplay.noselect.avoid-clicks(type= "text" placeholder= "40" name="overtime" )
 					-var rate=(enablerate)? enablerate : 1
 					input(type ="hidden" name ="enablerate" value= '#{rate}' id="enablerate")
 					input(type = 'hidden' name='userid' value ="#{userid}")
@@ -99,6 +102,6 @@ block content
 					.rateLabel
 						span OVERTIME RATE
 
-					input.rateDisplay.noselect(type= "text" placeholder="1.5x" name="newrate")
+					input.rateDisplay.noselect.avoid-clicks(type= "text" placeholder="1.5x" name="newrate")
 
 				input.longButton.inputBar(type= 'submit' value= 'SUBMIT')

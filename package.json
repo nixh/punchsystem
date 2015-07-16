@@ -16,6 +16,7 @@
     "express": "~4.12.4",
     "graceful-fs": "~4.1.2",
     "i18n": "^0.5.0",
+    "iconv-lite": "^0.4.11",
     "jade": "~1.9.2",
     "moment": "^2.10.3",
     "mongodb": "~2.0.34",
@@ -28,6 +29,7 @@
     "qrcode": "*",
     "request": "~2.58.0",
     "underscore": "~1.8.3"
+
   },
   "devDependencies": {
     "grunt": "~0.4.5",
