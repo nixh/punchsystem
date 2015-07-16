@@ -46,6 +46,10 @@ body.bgbody {
     border:5px solid red;
 }
 
+.avoid-clicks {
+  pointer-events: none;
+}
+
 .loginpage {
     position: relative;
     width: 100%;
