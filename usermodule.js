@@ -146,6 +146,10 @@ function changeUser(userObj, callback) {
                         'owner': userObj.owner,
                         'remark': userObj.remark,
                         'avatar': userObj.avatar
+                    },
+
+                    '$push': {
+                        'rates': {changetime: new Date().getTime(), rate: userObj.curRate}
                     }
             }
 

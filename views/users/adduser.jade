@@ -113,6 +113,7 @@ block content
         var $form = $('#addform');
         
         $('#sub').click(function(){
+            $form.attr('enctype', 'multipart/form-data')
             $form.attr('action', '/users/add');
             $form.attr('method', 'post');
             $form.submit();

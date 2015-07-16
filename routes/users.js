@@ -4,7 +4,10 @@ var router = express.Router();
 var usermodule = require('../usermodule');
 var utils = require("../utils");
 
+var Imagemin = require('imagemin');
+
 var multiparty = require('multiparty');
+
 var util = require('util');
 
 var um = new usermodule();
@@ -105,12 +108,14 @@ router.get('/change/:id', function(req, res){
 
 var fs = require('fs');
 
-router.post('/change', function(req, res){
+router.post('/change', function(req, res, next){
 
 	var form = new multiparty.Form();
 
 	form.parse(req, function(err, fields, files){
-		console.log(fields);
+		if(err)
+			return next(err);
+
 		console.log(files);
 
 		var userObj = {};
@@ -118,6 +123,7 @@ router.post('/change', function(req, res){
 			userObj[key] = fields[key][0];
 		}
 
+		//Avatar is from url
 		if(files.avatar[0].size == 0){
 
 			um.changeUser(userObj, function(err, doc){
@@ -129,6 +135,7 @@ router.post('/change', function(req, res){
 			   	}
 			});
 
+		//Avatar from upload
 		}else{
 			var image = files.avatar[0];
 			var imgPath = image.path;
@@ -153,18 +160,19 @@ router.post('/change', function(req, res){
 
 				}
 			});
+
+			// 并没有卵用
+			// var image = files.avatar[0];
+			// var imgPath = image.path;
+			//
+			// var path = __dirname + "/../resize/";
+			//
+			// new Imagemin().src(imgPath).dest(path).use(Imagemin.jpegtran({progressive: true})).run(function(err, file){
+			// 	console.log(file[0]);
+			// 	var base64Image = file[0]
+			// });
 		}
 	});
-	// var userObj = req.body;
-	//
-	// um.changeUser(userObj, function(err, doc){
-	// 	if(err){
-	// 		res.end('Faield to update!');
-	// 	}else{
-	// 		// console.log(doc);
-	// 		res.redirect('/supervisor/employees');
-	// 	}
-	// });
 });
 
 

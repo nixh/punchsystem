@@ -27,14 +27,17 @@ for(var i=0; i<companyNumber; i++) {
 var userNumber = 200;
 for(var i=0; i<userNumber; i++) {
     var compid = getRandomNumber(companyNumber);
-    var owner = i === 0 
-                ? true : 
-                    (i+1) % (userNumber / companyNumber) === 0 
-                    ? true : false
+    var owner = i === 0
+                ? true :
+                    (i+1) % (userNumber / companyNumber) === 0
+                    ? true : false;
+
+    var initDate = new Date().getTime();
+
     db.users.insert({
         userid: 'LoginName_'+(i+1),
         name: 'UserName_' + (i+1),
-        createDate: new Date().getTime(),
+        createDate: initDate,
         password : '123123123',
         sex: !!getRandomNumber(2),
         email: 'useremail'+(i+1)+'@email.com',
@@ -42,6 +45,7 @@ for(var i=0; i<userNumber; i++) {
         tel : '',
         compid : compid + 1,
         curRate: 8.75,
+        rates: [{changetime: initDate, rate: 8.75}],
         owner : i % (userNumber / companyNumber) == 0 ? true : false,
         remark : 'User Remark',
         avatar: 'avatar url'
