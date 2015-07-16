@@ -64,7 +64,7 @@ describe ("Module",function(){
 describe ("Module",function(){
 	describe('#receiveemail()',function(){
 			it ('should return user email as expected',function(done){
-				var userobj = {userid: "LoginName_11",email:'useremail11@email.com'};
+				var userobj = {userid: "LoginName_11",email:'useremail11@email.com',onoffswitch:"1"};
 				settings.receiveemail(userobj,function(err,doc){
 					if(!doc|| doc.length === 0)
 						doc= {email: " "};
@@ -74,7 +74,7 @@ describe ("Module",function(){
 
 			})
 			it ('should not return user email as expected',function(done){
-				var userobj = {userid: "1",email:'useremail11@email.com'};
+				var userobj = {userid: "LoginName_11",email:'useremail11@email.com',onoffswitch:"0"};
 				settings.receiveemail(userobj,function(err,doc){
 					if(!doc|| doc.length === 0)
 						doc= {email: " "};
@@ -85,7 +85,7 @@ describe ("Module",function(){
 			})
 
 			it ('should not return user email as expected',function(done){
-				var userobj = {userid: " ",email:'useremail11@email.com'};
+				var userobj = {userid: " ",email:'useremail11@email.com',onoffswitch:"1"};
 				settings.receiveemail(userobj,function(err,doc){
 					if(!doc|| doc.length === 0)
 						doc= {email: " "};
@@ -96,7 +96,7 @@ describe ("Module",function(){
 			})
 	})
 })
-
+//test sendmail()
 describe ("Module",function(){
 	describe('#sendemail()',function(){
 		it('should be sent to correct user',function(done){
@@ -130,3 +130,63 @@ describe ("Module",function(){
 		})
 	})
 })
+
+
+// test 
+describe ('Module',function(){
+	describe('#switchinformation()',function(){
+		it ('should insert into users collection',function(done){
+			var userobj = {userid:"LoginName_4",frequency:"1",onoffswitch:"1"};
+			settings.switchinformation(userobj,function(err,doc){
+				
+				assert.equal(doc,1);
+				done();
+			})
+		})
+		it ('should not insert into user collection',function(done){
+		 	var userobj = {userid: " ",frequency:'1',onoffswitch:"0"};
+		 	settings.switchinformation(userobj,function(err,doc){
+		 		
+		 		
+		 		assert.notEqual(doc,1);
+		 		done();
+		 	});
+		 })
+
+		it ('should insert into users collection',function(done){
+			var userobj = {userid:"LoginName_4",frequency:"0",onoffswitch:"0"};
+			settings.switchinformation(userobj,function(err,doc){
+				assert.equal(doc,1);
+				done();
+			})
+		})
+
+
+		it ('should insert into users collection',function(done){
+			var userobj = {userid:"LoginName_4",frequency:" ",onoffswitch:" "};
+			settings.switchinformation(userobj,function(err,doc){
+				assert.equal(doc,1);
+				done();
+			})
+		})
+	})
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

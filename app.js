@@ -17,6 +17,7 @@ var yongred        = require('./routes/yongred');
 var utils          = require('./utils');
 var mongo          = require('mongodb');
 var monk           = require('monk');
+var moment        = require('moment');
 var app            = express();
 
 var db = monk(utils.getConfig('mongodbPath'));
@@ -25,6 +26,7 @@ var db = monk(utils.getConfig('mongodbPath'));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+app.locals.moment = moment;
 
 // uncomment after placing your favicon in /public
 app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -53,7 +55,7 @@ i18n.configure({
 
 app.use(function(req, res, next) {
     i18n.init(req, res);
-    console.log(res.__('name'));
+    //console.log(res.__('name'));
     return next();
 });
 
@@ -72,7 +74,7 @@ app.use('/comp', comp);
 app.use('/company', company)
 app.use('/delegate', delegate);
 app.use('/comp', comp);
-app.use('/usersettings', usersettings)
+app.use('/staff_setting', usersettings)
 
 // catch 404 and forward to error handler
 

@@ -26,7 +26,8 @@ body {
 body.bgbody {
     background: rgb(245, 237, 228);
 }
-.loadinglogo {} .noselect {
+.loadinglogo {} 
+.noselect {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -64,7 +65,8 @@ body.bgbody {
     padding-bottom: 40px;
 }
 .loginpage .content table input[type='text'],
-input[type='password'] {
+.loginpage .content table input[type='password']
+ {
     width: 99%;
     height: 120px;
     border-radius: 40px;

@@ -27,10 +27,7 @@ append scripts
 
 block content
     h1 Modify User Info
-    
-    if msg
-        p= msg
-    
+        
     if userinfo
         form#myform
             table(border=1)
@@ -58,9 +55,9 @@ block content
                     td
                         -var male = userinfo.sex
                         -var female = !userinfo.sex
-                        input(type="radio" checked=male id="male_rd" name="sex" value="1" )
+                        input(style="width: 30px; height: 30px" type="radio" checked=male id="male_rd" name="sex" value="1" )
                         label(for="male_rd")= tr('sex_male')
-                        input( type="radio" checked=female id="female_rd" name="sex" value="0")
+                        input( style="width: 30px; height: 30px" type="radio" checked=female id="female_rd" name="sex" value="0")
                         label(for="female_rd")= tr('sex_female')
                 tr
                     td= tr('userform_email')
@@ -94,8 +91,12 @@ block content
                 tr
                     td= tr('avatar_url')
                     td
-                        input( name="avatar" type="text" value = "#{userinfo.avatar}" )
-                
+                        input( name="avatar" type="text" value = "#{userinfo.avatar}" placeholder="Enter image url" )
+                        input( name="avatar" type="file" value = "#{userinfo.avatar}" multiple="multiple")
+                tr
+                    td= tr('Preview Avatar')
+                    td
+                        img(src="#{userinfo.avatar}" height="64" width="64")
                 tr
                     td= tr('remark')
                     td
@@ -107,9 +108,11 @@ block content
     script.
         var $form = $('#myform');
         $('#btn1').click(function(){
+            $form.attr('enctype', 'multipart/form-data')
             $form.attr('action', '/users/change');
             $form.attr('method', 'post');
             $form.submit();
+            
         });
         
         $('#btn2').click(function(){
@@ -127,11 +130,3 @@ block content
             $form.attr('method', 'get');
             $form.submit();
         });
-        
-        //- //- $('#btn2').click(function(){
-        //- //-     if( $('input').attr('readonly')){
-        //- //-         $('input').attr('readonly', null);
-        //- //-     }else{
-        //-         $('inpuit').attr('readonly', 'readonly');
-        //-     }
-        //- });

@@ -2,7 +2,7 @@ var utils = require('./utils');
 var _ = require('underscore');
 var monk = require('monk');
 
-var db = require('./db/db');
+var DBModule = require('./db_module');
 
 // Trim leading and trailing spances
 function trim(s) {
@@ -51,28 +51,43 @@ function addUser(userObj, callback) {
 
     userObj.address = addr;
 
-    console.log(userObj.userid);
-
     var col = this.db.get('users');
 
     col.find({
         "userid": userObj.userid
     }, function(err, doc) {
         if (err) {
-            res.send('Search user error!');
-        } else {
-            console.log('The doc is ...');
-            console.log(doc);
-            if (!doc || doc.length === 0) {
+            callback(new Error('user error!'));
+        }
+        else{
+            if(!doc || doc.length === 0){
                 col.insert(userObj, callback);
-            } else {
-                throw "User already exists!";
+            }else{
+                callback(new Error("User already exists!"));
             }
         }
     });
+
+    // var db = new DBModule({
+    //     schemaName: 'users',
+    //     idName: 'userid'
+    // });
+
+    // db.loadById(userObj.userid, function(err, doc){
+    //     if(err)
+    //         callback(new Error('search error!'));
+    //     if(!doc || doc.length === 0)
+    //         return db.insert(userObj, callback)
+    //     callback(new Error("User already exists!"));
+    //
+    // });
 }
 
 function searchUser(searchTerm, compid, callback) {
+
+    console.log("The search term is ..." + searchTerm);
+    console.log("The company id is..." + compid);
+
     var col = this.db.get('users');
     if (typeof compid === 'function')
         callback = compid;
@@ -112,24 +127,32 @@ function changeUser(userObj, callback) {
     userObj.addr = trim(userObj.address_street) + "|" + trim(userObj.address_city) + "|" + trim(userObj.address_state) + "|" + trim(userObj.address_zip);
 
     var col = this.db.get('users');
-    col.update({
-            '_id': _id
-        }, {
-            '$set': {
-                'userid': userObj.userid,
-                'name': userObj.name,
-                'createDate': userObj.createDate,
-                'password': userObj.password,
-                'sex': !!parseInt(userObj.sex),
-                'email': userObj.email,
-                'address': userObj.addr,
-                'compid': userObj.compid,
-                'tel': userObj.tel,
-                'curRate': userObj.curRate,
-                'owner': userObj.owner,
-                'remark': userObj.remark,
-                'avatar': userObj.avatar
+    col.findAndModify(
+        {
+            query: {'_id': _id},
+
+            update: {
+                    '$set': {
+                        'userid': userObj.userid,
+                        'name': userObj.name,
+                        'createDate': userObj.createDate,
+                        'password': userObj.password,
+                        'sex': !!parseInt(userObj.sex),
+                        'email': userObj.email,
+                        'address': userObj.addr,
+                        'compid': userObj.compid,
+                        'tel': userObj.tel,
+                        'curRate': userObj.curRate,
+                        'owner': userObj.owner,
+                        'remark': userObj.remark,
+                        'avatar': userObj.avatar
+                    },
+
+                    '$push': {
+                        'rates': {changetime: new Date().getTime(), rate: userObj.curRate}
+                    }
             }
+
         },
         callback
     );

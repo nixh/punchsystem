@@ -103,6 +103,7 @@ block content
                 td= tr('avatar_url')
                 td
                     input(name="avatar" type="text")
+                    input(name='avatar' type='file')
             
             
         input#sub(type="button" value="#{tr('submit')}")
@@ -112,6 +113,7 @@ block content
         var $form = $('#addform');
         
         $('#sub').click(function(){
+            $form.attr('enctype', 'multipart/form-data')
             $form.attr('action', '/users/add');
             $form.attr('method', 'post');
             $form.submit();

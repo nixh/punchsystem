@@ -7,6 +7,7 @@ var router = express.Router();
 var db;
 
 function vaildate(userobj){
+	
 	if(typeof userobj.userid !== 'string')
 			userobj['userid'].toString();
 	if(typeof userobj.oldpass !== 'string')
@@ -18,14 +19,6 @@ function vaildate(userobj){
 	if(typeof userobj.confirmpass !== 'string')
 			userobj['confirmpass'].toString();
 
-	/*if(typeof userobj.frequency !== 'number'){
-			frequency = parseInt(userobj.frequency);
-			if(frequency == 'NaN'){
-				userobj.frequency = " ";
-			}else{
-				userobj.frequency=frequency;
-			}
-		}*/
 }
 
 function changepass(userobj,callback){
@@ -33,7 +26,7 @@ function changepass(userobj,callback){
 		var	db= this.db;
 		var collection=db.get("users");
 		if(userobj.newpass ===userobj.confirmpass){
-			collection.update({
+			collection.findAndModify({
 				'password':userobj.oldpass,
 				'userid':userobj.userid
 				},
@@ -48,51 +41,78 @@ function changepass(userobj,callback){
 function receiveemail(userobj,callback) {
 		var db= this.db;
 		var collection=db.get("users");
-		//vaildate(userobj);
 		collection.findOne({'userid':userobj.userid}, {fields: { "email":1,"_id":0}} ,callback);
 	}
 
-function switchinformation(userobj,callback){
+function updateemail(userobj,callback){
+		var db= this.db;
+		var collection=db.get("users");
+			collection.findAndModify({
+				'userid':userobj.userid
+				},
+					{"$set":{
+							'freqz':userobj.timePeriod,
+							'email':userobj.receiveEmails
+						}},callback)
+}
+
+function enableEmail(userobj,callback){
 		var db = this.db;
 		var collection = db.get('users');
 		//vaildate(userobj);
-		if(userobj.onoffswitch == null)
-			userobj.onoffswitch = '0';
 		collection.update({
 			'userid':userobj.userid
 			},
 				{"$set":{
-						'freqz':userobj.frequency,
-						'switch':userobj.onoffswitch
+						'enableEmail':userobj.enableEmail
+						
 					}
 				},callback)
 	}		
 
-
-function sendemail(userobj,callback){
+function enablerate(userobj,callback){
+		var db = this.db;
+		var collection = db.get('users');
 		//vaildate(userobj);
+		collection.update({
+			'userid':userobj.userid
+			},
+				{"$set":{
+						'enablerate':userobj.enablerate
+					}
+				},callback)
+	}		
+
+function sendemail(userobj){
 		var conf = this.conf;
 		var db = this.db;
-		var info =this.mailinfo
+		var info =this.mailinfo;
 		var collection = db.get('users');
 		collection.findOne({'userid':userobj.userid}, {fields: { "email":1,"_id":0}} ,function(err,doc){
 			if(err){
 				console.log('undefine');
 			}
-			else if(!doc || doc.length === 0){
+			else if(!doc || doc.length === 0||userobj.enableEmail!=="0"){
 				var to = " ";
-				
 			}
 			else{
 				var to = doc.email;
 				email(conf).sendEmail(to, info.cc, info.subject, info.html, info.csvStringForAttachments);
 				
 			}
-			callback(doc);
 		})
-	}
+}
 
-
+function setrate(userobj,callback){
+	var db = this.db;
+	var collection = db.get("users");
+	collection.findAndModify(
+		{"userid":userobj.userid},
+		{$set:
+			{"curRate":userobj.newrate,
+			"overtime":userobj.overtime}
+		},callback);
+}
 
 function Module(settings) {
 	_.extend(this, settings);
@@ -115,10 +135,13 @@ function Module(settings) {
 Module.prototype = {
 	changepass : changepass,
 	receiveemail : receiveemail,
-	switchinformation : switchinformation,
-	sendemail : sendemail
+	enableEmail : enableEmail,
+	enablerate: enablerate,
+	sendemail : sendemail,
+	updateemail: updateemail,
+	setrate: setrate
 }
 
 module.exports = Module 
 
-Module = new Module();
+//Module = new Module();

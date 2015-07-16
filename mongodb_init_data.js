@@ -33,11 +33,13 @@ for(var i=0; i<userNumber; i++) {
     var owner = i === 0
                 ? true :
                     (i+1) % (userNumber / companyNumber) === 0
-                    ? true : false
+                    ? true : false;
+
+    var initDate = new Date().getTime();
     db.users.insert({
         userid: 'LoginName_'+(i+1),
         name: 'UserName_' + (i+1),
-        createDate: new Date().getTime(),
+        createDate: initDate,
         password : '123123123',
         sex: !!getRandomNumber(2),
         email: 'useremail'+(i+1)+'@email.com',

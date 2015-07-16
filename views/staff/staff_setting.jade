@@ -1,76 +1,104 @@
 extends ../layout.jade
 
-
-block content
-	.passwordChange
-		form 
-			label Old Password:
-			input(type ='password' name= 'oldPassword')
-			br
-			label Password: 
-			input(type ='password' name= 'password')
-			br
-			label Confirm: 
-			input(type ='password' name= 'confirm')
-			br
-			input(type= 'submit' value= 'Submit')
-
-			br
-			br
-
-	.switchButton(style= "position:relative; width:5%;")
-		.cover
-		span.onSide(style= "width:50%;") ON 
-		span.offSide(style= "width:50%;") OFF
-
-	br
-	br
-		
-	.EmailReportSetting(hidden)
-		//(action="/usersettings" method="POST")
-		form
-			label Receive Email:
-			input(type= "text" id = "receiveEmails" name = 'receiveEmails' value = report)
-			br
-			label Choose Report Time Period:
-			br
-			input(type = "radio" name= "timePeriod" value= "weekly") 
-			|weekly
-			br
-			input(type = "radio" name= "timePeriod" value= "monthly") 
-			|monthly
-			br
-			input(type= 'submit' value= 'submit')
+append links
+	link(rel='stylesheet' href='/stylesheets/staffSetting.css')
+	link(rel='stylesheet' href='/toggleSwitch/normalize.css')
+	link(rel='stylesheet' href="/stylesheets/toggleSwitchAdjust.css")
+append scripts
+	script(src= "/toggleSwitch/prefixfree.min.js")
+	script(src= "/javascripts/toggleSwitchAdjust.js")
 
 	script.
-		var switchBtn = false;
-		var onSide = $(".onSide");
-		var offSide= $(".offSide");
-
-		var cover= $(".cover");
-		cover.css({
-			position: "absolute",
-			width: "50%",
-			height: "100%",
-			background: "#ccc",
-			cursor: "pointer"
+		$(function initEvent(){
+			$('.emailSwitch > .onOff').on("click",function(){
+		  		$.ajax({type:"post",
+		  			url:"/staff_setting/enableEmail/" + $('#enableEmail').val(),
+		  			data:{id: $("#myid").val()},
+		            success:function(data){
+		            	if(data){
+		            	console.log('success')	
+		            	}
+		            	else{
+		            			console.log('wrong')
+		            	}
+		         }});
+		  	});
 
 		});
-		
-		cover.on("click", function(e){
-			if(switchBtn){
-				//$cover.appendTo(onSide.css("position", "relative"));
+	script.
+		$(function initEvent(){
+			$('.overTimeSwitch > .onOff').on("click",function(){
+		  		$.ajax({type:"post",
+		  			url:"/staff_setting/enablerate/" + $('#enablerate').val(),
+		  			data:{id: $("#myid").val()},
+		            success:function(data){
+		            	if(data){
+		            		console.log('success')
+		            	}
+		            	else{
+		            			console.log('wrong')
+		            	}
+		         }});
+		  	});
+
+		});
+block content
+	.staffSettingPage
+		.passwordChange
+			.passwordLabel PASSWORD
+			form(method="POST",action="/staff_setting/changepwd") 
+				input.textBox.inputBar(type ='password' name= 'oldpass'  placeholder= "OLD PASSWORD")
+				input.textBox.inputBar(type ='password' name= 'newpass' placeholder= "NEW PASSWORD")
+				input.textBox.inputBar(type ='password' name= 'confirmpass' placeholder= "CONFIRM PASSWORD")
+				input.longButton.inputBar(type= 'submit' value= 'SUBMIT')
+				input(type = 'hidden' name='userid' value ="#{userid}")
+		.emailSwitch.switchButton
+			.switchLabel EMAIL REPORT
+			.onOff.toggle.emailToggle.toggle-on 
+			
+		.EmailReportSetting.toggleTarget
+			form(method="POST",action='/staff_setting/sendemail')
+				-var email = (receiveEmails)? receiveEmails : "EMAIL ADDRESS"
+				input.textBox.inputBar(type= "text" id = "receiveEmails" name = 'receiveEmails' placeholder= "EMAIL ADDRESS" value="#{email}")
+				-var enable= (enableEmail)? enableEmail : 1
+				input(type = 'hidden' name='enableEmail' value ='#{enable}' id= "enableEmail")
+				input(type = 'hidden' name='userid' value ="#{userid}" id="myid")
+				.radioButton
+					.chooseLabel CHOOSE
+
+					.radioMonth
+						input(id="mRadio" type = "radio" name= "timePeriod" value= "monthly" checked = false)
+						label.radioLabel(for="mRadio") MONTHLY
+					
+					.orLabel OR
+
+					.radioWeek
+						input(id="wRadio" type = "radio" name= "timePeriod" value= "weekly" checked= true)
+						label.radioLabel(for="wRadio") WEEKLY
 				
-				cover.animate({left:0}, 400);
-				switchBtn= false;
-				$(".EmailReportSetting").slideUp("slow");
-			}else{
-				//$cover.appendTo(offSide.css("position", "relative"));
+				input.longButton.inputBar(type= 'submit' value= 'SUBMIT')
 
-				cover.animate({right:0}, 400);
-				switchBtn= true;
-				$(".EmailReportSetting").slideDown("slow");
-			}
-		});
-
+		.overTimeSwitch.switchButton
+			.switchLabel OVERTIME SETTING
+			.onOff.toggle.overTimeToggle.toggle-on
 		
+		.overTimeSetting.toggleTarget1
+
+			form(method="POST" action="/staff_setting/setrate")
+				.thresholdDiv
+					.thresholdLabel 
+						span OVERTIME THRESHOLD
+					input.hourDisplay.noselect(type= "text" placeholder= "40" name="overtime" )
+					-var rate=(enablerate)? enablerate : 1
+					input(type ="hidden" name ="enablerate" value= '#{rate}' id="enablerate")
+					input(type = 'hidden' name='userid' value ="#{userid}")
+
+					.perWeekLabel
+						span HRS PER WEEK
+				.rateDiv
+					.rateLabel
+						span OVERTIME RATE
+
+					input.rateDisplay.noselect(type= "text" placeholder="1.5x" name="newrate")
+
+				input.longButton.inputBar(type= 'submit' value= 'SUBMIT')

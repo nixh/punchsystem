@@ -169,7 +169,7 @@ function punchData(record, msg, userInfo) {
     msg.body = util.format(msg.body,
         punchout ? "OUT" : "IN",
         datetime.format("YYYY-MM-DD"),
-        datetime.format("HH:mm A"));
+        datetime.format("hh:mm A"));
     return {
         success: true,
         msg: msg,
@@ -212,13 +212,11 @@ router.get('/punch/:key', function(req, res, next) {
 });
 
 var qrModule = require('../qrcodeModule');
-
 router.get('/supervisor/showdynacode', function(req, res, next) {
     var qrm = new qrModule();
-
     qrm.getDynacode(req.cookies.sessionid, function(err, mixinData) {
         qrm.db.close();
-        utils.render('testqrcode', {
+        utils.render('qr', {
             data: mixinData
         })(req, res, next);
     });
@@ -303,10 +301,12 @@ router.get('/supervisor/employees', function(req, res, next) {
     var sm = new sModule(um.db);
     sm.getSessionInfo(req.cookies.sessionid, function(err, sObj) {
 
+        console.log(sObj.compid);
+
         um.getAllUsers({
             compid: sObj.compid
         }, function(err, users) {
-
+            console.log(JSON.stringify(users));
             utils.render('users/search', {
                 msg: 'hello',
                 userlist: users
@@ -344,6 +344,39 @@ router.post('/supervisor/employees', function(req, res) {
     });
 });
 
+router.get('/supervisor/employees/:id', function(req, res){
+    var sm = new sModule();
+    var um = new userMoudle({db: sm.db});
+
+    sm.getSessionInfo(req.cookies.sessionid, function(err, sObj) {
+
+        // console.log(sObj.compid);
+        // console.log(req.params.id);
+
+        um.getUserInfo(req.params.id, function(err, user) {
+            if(err){
+                utils.render('users/search');
+            }else{
+                // console.log('This is the user being searched...');
+                // console.log(user);
+
+                if(user && user.address){
+    				var addr = user.address.split('|');
+
+    				user['address_street'] = addr[0];
+    				user['address_city'] = addr[1];
+    				user['address_state'] = addr[2];
+    				user['address_zip'] = addr[3];
+    			}
+
+                utils.render('users/detail', {
+                    userinfo: user
+                })(req, res);
+            }
+        });
+    });
+});
+
 //router.get('/dynapunch/:key', function(req, res, next){
 //    var rm = new recordsModule(req.db);
 //    var key = req.params.key;
@@ -360,6 +393,23 @@ router.post('/supervisor/employees', function(req, res) {
 //    });
 //
 //});
+
+router.get('/testoverview', function(req, res, next){ 
+    utils.render('overviewreport', {})(req, res, next);
+});
+
+router.get('/teststaffview', function(req, res, next){ 
+    utils.render('staffreport', {})(req, res, next);
+});
+
+router.get('/testusermodify/:id', function(req, res, next){
+
+    var um = new userMoudle();
+    um.getUserInfo(req.params.id, function(err, doc){
+        utils.render('modifyUser', { user: doc })(req, res, next);
+    });
+    
+});
 
 router.get('/message', utils.render('message', {
     msg: {

@@ -1,3 +1,4 @@
+
 extends ../layout.jade
 
 append links
@@ -8,27 +9,12 @@ append links
     link(rel="stylesheet" href="/pickadate/lib/themes/default.date.css" id="theme_date")
     link(rel="stylesheet" href="/pickadate/lib/themes/default.time.css" id="theme_time")
 
-    //link(rel= "stylesheet" href= "/datepicker/css/datepicker.css")
 append scripts
     script(src="/pickadate/lib/picker.js")
     script(src="/pickadate/lib/picker.date.js")
     script(src="/pickadate/lib/picker.time.js")
-    //script(src="/datepicker/js/bootstrap-datepicker.js")
-    //script(src="/javascripts/datePickerAdjust.js")
-
-    script.
-        $(document).ready(function(){
-            $(".useDatePicker").pickadate();
-            $('.preview').on('click', function(){
-                $('#searchform').submit();
-
-            });
-            $('.return').on('click', function(){
-                location.href = "/supervisor/employees";
-
-            });
-        });
-
+    script(src= "/javascripts/pickadateControl.js")  
+   
     - function getTime(tstamp) {
     -   return moment(tstamp).format("HH:mm A");
     - }
