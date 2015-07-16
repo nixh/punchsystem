@@ -25,11 +25,14 @@ for(var i=0; i<companyNumber; i++) {
 //initialize User data
 
 var userNumber = 200;
+var changetime1 = new Date(2015, 6, 9);
+var changetime2 = new Date(2015, 7, 15);
+var changetime3 = new Date(2015, 7, 21);
 for(var i=0; i<userNumber; i++) {
     var compid = getRandomNumber(companyNumber);
-    var owner = i === 0 
-                ? true : 
-                    (i+1) % (userNumber / companyNumber) === 0 
+    var owner = i === 0
+                ? true :
+                    (i+1) % (userNumber / companyNumber) === 0
                     ? true : false
     db.users.insert({
         userid: 'LoginName_'+(i+1),
@@ -40,8 +43,14 @@ for(var i=0; i<userNumber; i++) {
         email: 'useremail'+(i+1)+'@email.com',
         address : '',
         tel : '',
-        compid : compid + 1,
-        curRate: 8.75,
+        compid : getRandomNumber(10),
+        //curRate: 8.75,
+        hourlyRate :
+        [
+            {changetime: changetime1, rate: 8.75},
+            {changetime: changetime2, rate: 12},
+            {changetime: changetime3, rate: 15}
+        ],
         owner : i % (userNumber / companyNumber) == 0 ? true : false,
         remark : 'User Remark',
         avatar: 'avatar url'
