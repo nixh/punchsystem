@@ -9,6 +9,7 @@ userIdList
 
 var results = db.records.aggregate([
         { $match: { userid: { $in: userIdList } } },
+        { $sort: { inDate: 1 } },
         { $group: { 
                 _id: { rate: '$hourlyRate', userid:'$userid' }, 
                 totalIn: { $sum: '$inDate' }, 
@@ -22,15 +23,22 @@ var results = db.records.aggregate([
                 from: { $first: "$from" },
                 to: { $last: '$to' },
                 totalHours: { $sum : {$subtract: ['$totalOut', '$totalIn'] } },
-                rates: { $push : { rate: '$_id.rate' } }
+                avgRate: { $avg : "$_id.rate" },
+                rates: {
+                    $push : { 
+                        rate: '$_id.rate', 
+                        workhours: { $subtract:['$totalOut','$totalIn'] }
+                    } 
+                }
             }
         },
         { $project: {
                 userid: "$_id.userid",
                 from: '$from',
                 to: '$to',
-                totalHours: '$totalHours',
+                totalhours: '$totalHours',
                 rates: '$rates',
+                avgRate : '$avgRate',
                 _id: 0
             }
         }
