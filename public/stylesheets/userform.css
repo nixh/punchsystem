@@ -142,6 +142,12 @@ functions
 .textinput:-ms-input-placeholder {
   color: #677499;
 }
+.radioinput {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
 .radioinput .outer {
   border-radius: 50%;
   border: 15px solid #8ad1d7;
@@ -171,7 +177,7 @@ functions
   line-height: 120px;
   font-family: 'anivers reg';
   font-size: 50px;
-  display: inline-block;
+  margin-left: 5%;
 }
 .radioinput.radioselected .inner {
   display: block;
@@ -211,19 +217,13 @@ body {
   margin: 0 auto;
   color: #677499;
   outline: 0;
+  padding-top: 15%;
+  position: relative;
 }
 .main .avatarsection {
-  box-sizing: content-box;
   width: 100%;
   display: table;
-}
-.main .avatarsection:after {
-  content: "";
-  display: block;
-  visibility: hidden;
-  clear: both;
-  zoom: 1;
-  height: 0px;
+  margin-bottom: 8%;
 }
 .main .avatarsection .avatarimg {
   display: table-cell;
@@ -241,13 +241,14 @@ body {
   font-size: 0;
   display: table-cell;
   vertical-align: middle;
+  padding-left: calc(100%/16);
 }
 .main .avatarsection .avatarupload .textinput {
   display: inline-block;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
   width: 81.25%;
-  margin-bottom: 2%;
+  margin-bottom: 5%;
 }
 .main .avatarsection .avatarupload #choosepic {
   display: inline-block;
@@ -255,13 +256,22 @@ body {
   border-bottom-left-radius: 0px;
   width: 18.75%;
 }
+.main .avatarsection .avatarupload .submitbutton {
+  width: 100%;
+}
+.main .infosection {
+  position: absolute;
+}
+.main .infosection .sectiontitle {
+  margin-bottom: 5%;
+}
 .main .infosection .sectiontitle span {
   font-family: 'anivers reg';
   font-size: 75px;
   color: #8ad1d7;
 }
 .main .infosection .sectionfields {
-  margin-bottom: 3%;
+  margin-bottom: 20%;
 }
 .main .infosection .sectionfields label.title {
   background-color: #f78283;
@@ -306,7 +316,7 @@ body {
 .main .infosection .sectionfields .sexinput .radioinput {
   margin-left: 5%;
   float: left;
-  width: 18.75%;
+  width: 25%;
 }
 .main .infosection .sectionfields .textareainput {
   position: relative;
@@ -337,11 +347,16 @@ body {
   text-indent: calc(100%/4 + 25px);
   line-height: 120px;
 }
+.main .previewall {
+  width: 100%;
+  position: absolute;
+}
 .main .previewall table.previewtable {
   border-spacing: 20px 20px;
   border-collapse: separate;
   margin-left: -20px;
   width: calc(100% + 40px);
+  margin-bottom: 2%;
 }
 .main .previewall table.previewtable th {
   background-color: #f78283;
@@ -378,4 +393,7 @@ body {
   text-align: center;
   vertical-align: top;
   width: 31.25%;
+}
+.main .previewall .cmdtools .submitbutton {
+  margin-bottom: 5%;
 }

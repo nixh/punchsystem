@@ -139,6 +139,7 @@ functions
 }
 
 .basic-radioinput(@outercolor:@green, @outerthick:15px, @innercolor:@green, @innersize:50px) {
+    .non-selectable;
     .outer {
         .hollowcircle(@basic-ctrol-height, @outerthick, @outercolor);
         float: left;
@@ -160,7 +161,7 @@ functions
         height: @basic-ctrol-height;
         line-height: @basic-ctrol-height;
         .normal-font;
-        display: inline-block;
+        margin-left: 5%;
     }
 }
 

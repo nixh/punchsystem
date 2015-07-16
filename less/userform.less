@@ -11,13 +11,12 @@ body {
     .mcenter;
     color: @text-color;
     outline: 0;
+    padding-top: 15%;
+    position: relative;
     .avatarsection {
-        box-sizing: content-box;
         .width-16;
         display: table;
-        &:after {
-            .after-float;    
-        }
+        .mb(8%);
         .avatarimg {
             display: table-cell;
             vertical-align: middle;
@@ -31,14 +30,15 @@ body {
             font-size:0;
             display: table-cell;
             vertical-align: middle;
+            padding-left: calc(~"100%/16");
+
             .textinput {
                 display: inline-block;
                 border-top-right-radius: 0px;
                 border-bottom-right-radius: 0px;
                 .width-13;
-                margin-bottom: 2%;
+                margin-bottom: 5%;
             }
-
             #choosepic {
                 display: inline-block;
                 border-top-left-radius: 0px;
@@ -46,20 +46,24 @@ body {
                 .width-3;
             }
 
+            .submitbutton {
+                .width-16;
+            }
         }
     }
 
     .infosection {
-
+        position: absolute;
         .sectiontitle {
             span {
                 .header-font;
                 color: @green;
             }
+            .mb(5%)
         }
 
         .sectionfields {
-            .mb(3%);
+            .mb(20%);
             label.title {
                 .basic-label();
             }
@@ -80,7 +84,7 @@ body {
                 .radioinput {
                     margin-left: 5%;
                     float: left;
-                    .width-3;
+                    .width-4;
                 }
             }
             .textareainput {
@@ -109,12 +113,15 @@ body {
     }
     
     .previewall {
+        .width-16;
+        position: absolute;
+
         table.previewtable {
             border-spacing: 20px 20px;
             border-collapse: separate;
             margin-left: -20px;
             width: calc(~"100% + 40px");
-
+            .mb(2%);
             th {
                 height: @basic-ctrol-height;
                 .basic-label;
@@ -137,8 +144,11 @@ body {
                 }
             }
         }
+        .cmdtools {
+            .submitbutton {
+                .mb(5%);
+            }
+        }
     }
-    
 }
-
 
