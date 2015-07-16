@@ -41,6 +41,11 @@ body.bgbody {
 .show {
     display: '';
 }
+
+.inputError{
+    border:5px solid red;
+}
+
 .loginpage {
     position: relative;
     width: 100%;

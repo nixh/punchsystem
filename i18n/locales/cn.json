@@ -7,7 +7,8 @@
 	"newcomp_expire": "使用期限：",
 	"newcomp_iplist": "可以使用的IP：",
 	"newcomp_complogo": "公司商标",
-	"newcomp_compremark": "备注", "submit": "提交",
+	"newcomp_compremark": "备注",
+	"submit": "提交",
 	"userform_userid": "用户账号",
 	"userform_pwd": "用户密码",
 	"userform_name": "用户名",
@@ -72,14 +73,11 @@
 	"time": "时间",
 	"preview": "预览",
 	"return": "返回",
-	"clearsearch": "清空查找结果",
-	"empty records":"清空纪录",
+	"clearsearch": "清空搜索",
+	"empty records": "未找到纪录",
 	"viewrecords": "浏览记录",
 	"avatar_preview": "展示",
-	"Preview Avatar": "展示代理"
-	"empty records": "未找到纪录",
-	"clearsearch": "清空搜索",
-	"viewrecords": "浏览记录",
+	"Preview Avatar": "展示代理",
 	"basic_info": "basic_info",
 	"next": "next",
 	"previous": "previous",
@@ -94,6 +92,10 @@
 	"submit_change": "submit_change",
 	"choose pictures": "choose pictures",
 	"upload": "upload",
-	"...": "..."
+	"...": "...",
+	"UserName_77": "UserName_77",
+	"UserName_2": "UserName_2",
+	"UserName_50": "UserName_50",
+	"UserName_73": "UserName_73",
+	"UserName_76": "UserName_76"
 }
->>>>>>> qiuli

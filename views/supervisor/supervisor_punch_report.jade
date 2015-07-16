@@ -38,7 +38,7 @@ block content
         .reportTable
             table 
                 tr
-                    th(colspan='4')
+                    th.tableHead(colspan='4')
                         = tr('time') + " "
                         = tr('in') + "/"
                         = tr('out')
@@ -50,37 +50,37 @@ block content
                 else
                     each record in records
                         tr
-                            td 
+                            td.tableData 
                                 ul
-                                    li 
+                                    li.listItem 
                                         .hollowcircle.green
-                                    li 
+                                    li.listItem  
                                         .hollowcircle.red
-                            td
+                            td.tableData
                                 ul.dateList
-                                    li.outDate
+                                    li.listItem.outDate
                                         span= record.outDate ? getDate(record.outDate) : ""
-                                        input.outDateInput.hidden(type= "text")
-                                    li.inDate
+                                        input.outDateInput.useDatePicker.hidden(type= "text")
+                                    li.listItem.inDate
                                         span= getDate(record.inDate)
-                                        input.inDateInput.hidden(type= "text")
-                            td
+                                        input.inDateInput.useDatePicker.hidden(type= "text")
+                            td.tableData
                                 ul.timeList
-                                    li.outTime
+                                    li.listItem.outTime
                                         span= record.outDate ? getTime(record.outDate) : ""
-                                        input.outTimeInput.hidden(type= "text")
-                                    li.inTime
+                                        input.outTimeInput.useTimePicker.hidden(type= "text")
+                                    li.listItem.inTime
                                         span= getTime(record.inDate)
-                                        input.inTimeInput.hidden(type= "text")
-                            td
+                                        input.inTimeInput.useTimePicker.hidden(type= "text")
+                            td.tableData
                                 ul
-                                    li
+                                    li.listItem 
                                         button.editOutButton.editButton EDIT
-                                        .outConfirmReturn.hidden
-                                            button.confirmButton CONFIRM 
-                                            button.returnButton RETURN
-                                    li
+                                        .confirmReturn.outConfirmReturn.hidden
+                                            button.confirmButton O 
+                                            button.returnButton X
+                                    li.listItem 
                                         button.editInButton.editButton EDIT
-                                        .inConfirmReturn.hidden
-                                            button.confirmButton CONFIRM 
-                                            button.returnButton RETURN
+                                        .confirmReturn.inConfirmReturn.hidden
+                                            button.confirmButton O 
+                                            button.returnButton X
