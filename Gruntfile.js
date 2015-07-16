@@ -11,9 +11,13 @@ grunt.config.init({
                     })
                 ],
             },
-            files: {
-                "public/stylesheets/userform.css": "less/userform.less"
-            }
+            files: [{
+                expand: true,
+                cwd: 'less',
+                src: ['*.less'],
+                dest: 'public/stylesheets/',
+                ext: '.css'
+            }]
         },
         production: {
             options: {
@@ -24,9 +28,16 @@ grunt.config.init({
                     new(require('less-plugin-clean-css'))()
                 ],
             },
-            files: {
+            temp: {
                 "public/stylesheets/userform.css": "less/userform.less"
-            }
+            },
+            files: [{
+                expand: true,
+                cwd: 'less',
+                src: ['*.less'],
+                dest: 'public/stylesheets/',
+                ext: '.css'
+            }]
         }
 
     },

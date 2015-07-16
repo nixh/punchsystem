@@ -4,7 +4,7 @@ var router = express.Router();
 var usermodule = require('../usermodule');
 var utils = require("../utils");
 
-var Imagemin = require('imagemin');
+//var Imagemin = require('imagemin');
 
 var multiparty = require('multiparty');
 

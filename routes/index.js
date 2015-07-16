@@ -394,6 +394,14 @@ router.get('/supervisor/employees/:id', function(req, res){
 //
 //});
 
+router.get('/testoverview', function(req, res, next){ 
+    utils.render('overviewreport', {})(req, res, next);
+});
+
+router.get('/teststaffview', function(req, res, next){ 
+    utils.render('staffreport', {})(req, res, next);
+});
+
 router.get('/testusermodify/:id', function(req, res, next){
 
     var um = new userMoudle();
