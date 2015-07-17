@@ -34,9 +34,9 @@ block content
             span OVERVIEW SUMMARY
         .cmdtools
             .monthly
-                .submitbutton MONTH OF #{month} #{year}
+                .submitbutton MONTH OF #{month} <br> #{year}
             .weekly
-                .submitbutton WEEKLY REPORT
+                .submitbutton WEEKLY <br> REPORT
                 .weeklist.hidden
                     ul
                         each week, index in weeklist
@@ -46,7 +46,7 @@ block content
         table.overviewtable
             tr
                 th= tr('name')
-                th= tr('start_end_date')
+                th!= tr('start_end_date')
                 th= tr('paid_rate')
                 th= tr('hours')
                 th= tr('totalpay')

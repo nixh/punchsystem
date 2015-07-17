@@ -35,6 +35,11 @@ function Authentication() {
                 return next(err);
             }
 
+            res.cookie('sessionid', sessionid, {
+                maxAge: 24 * 3600 * 1000,
+                httpOnly: true
+            });
+
             next();
         });
 
