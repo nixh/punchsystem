@@ -23,8 +23,8 @@ router.get('/settings', function (req, res, next){
 									if(err){
 										res.send('err')
 									}else{
-										res.render('./staff/staff_setting',
-											{"userid":userid,"receiveEmails":doc.email});
+										res.render('./staff/staff_setting_su',
+											{"userid":userid,"receiveEmails":doc.email,"su":false});
 									}
 					})
 				}
@@ -47,7 +47,7 @@ router.get('/supervisor/settings', function (req, res, next){
 										res.send('err')
 									}else{
 										res.render('./staff/staff_setting_su',
-											{"userid":userid,"receiveEmails":doc.email});
+											{"userid":userid,"receiveEmails":doc.email,"su":true});
 									}
 					})
 				}
@@ -145,7 +145,7 @@ router.post('/settings', function (req, res) {
 		if(err) {
 			 res.send("Error!!!");
 		}else{
-				res.render("./staff/staff_setting",{"userid":userobj.userid});
+				res.render("./staff/staff_setting_su",{"userid":userobj.userid,"su":false});
 				}
 	});
 });
@@ -159,7 +159,7 @@ router.post('/supervisor/settings', function (req, res) {
 		}else{
 			console.log(doc)
 				res.render("./staff/staff_setting_su",
-					{"userid":userobj.userid,"receiveEmails":doc.email});
+					{"userid":userobj.userid,"receiveEmails":doc.email,"su":true});
 				}
 	});
 });
