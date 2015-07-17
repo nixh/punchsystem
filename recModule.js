@@ -1,5 +1,6 @@
 var utils = require('./utils');
-var db = require('./db/db');
+var sessionModule = require('./sessionModule');
+var moment  = require('moment');
 var _ = require('underscore');
 var monk = require('monk');
 
@@ -7,36 +8,188 @@ function validate(record) {
 
 }
 
-function insertRecord(record, recordsCol) {
-    return recordsCol.insert(record);
+function insertRecord(record, records) {
+    return records.insert(record);
 }
 
-function updateRecord(query, record, recordsCol) {
-    return recordsCol.findAndModify(query, { $set: record }, { new: true });
+function updateRecord(query, record, records) {
+    return records.findAndModify(query, { $set: record }, { new: true });
 }
 
+function newRecordFromUserDoc(userDoc) {
+    return {
+        compid: userDoc.compid,
+        userid: userDoc.userid,
+        //hourlyrate: userDoc.curRate,
+        remark: 'defaut remark'
+    }
+}
 
-//********** Functions for delete **************//
-function deleteRecords(reportid, callback) {
-    var db = this.db;
-    var records =db.get('records');
-    var query = {reportid: reportid};
-    records.remove(query, function(err, docs) {
-        var msg = "Successfully delete records";
+function findLastUserRecord(query, callback) {
+    var records = this.db.get('records');
+    records.findOne(query, {sort: {inDate: -1}, limit: 1}, callback);
+}
+
+function findLastRecordsByCompid(compid, callback) {
+    var records = this.db.get('records');
+    var users = this.db.get('users');
+    users.find({compid: compid}, {}, function(err, users) {
+        var userid = users.map(function(u) { return u.userid });
+        records.col.aggregate([
+            { $match : { userid : { $in : userId } } },
+            { $sort : { inDate : -1 } },
+            { $group :
+                {
+                    _id : '$userid',
+                    lastIn : { $first : '$inDate' },
+                    lastOut : {$first : '$outDate' }
+                }
+            },
+            { $project :
+                {
+                    userid : '$_id',
+                    inDate : '$lastIn',
+                    outDate : 'lastOut'
+                }
+            }
+        ], function(err, lastRecords) {
+            if (err) {
+                return callback(err);
+            }
+            var mixinData = {
+                users : users,
+                lastRecords : lastRecords
+            };
+            return callback(null, mixinData);
+        });
+    });
+}
+
+function checkQrcode(qrid, sessionid, callback) {
+    var qrcodes = this.db.get('qrcodes');
+    var users = this.db.get('users');
+    this.sm.getSessionInfo(sessonid, function(err, doc) {
+        qrcodes.findOne({ qrid : qrid }, {}, function(err, qrDoc) {
+            if (qrDoc.compid == doc.compid) {
+                users.findOne({ userid : doc.userid }, {}, function(err, uDoc) {
+                    callback(true, uDoc);
+                });
+            } else {
+                callback(false);
+            }
+        });
+    });
+}
+
+function rencentRecords(idObj, callback) {
+    var sessionid = null;
+    var userid = null;
+
+    if(typeof idObj === 'string')
+        userid = idObj;
+    else if(typeof idObj === 'object') {
+        if(idObj.sessionid)
+            sessionid = idObj.sessionid;
+        else if(idObj.userid)
+            userid = idObj.userid;
+    }
+
+    var records = this.db.get('records');
+    var recentNumber = utils.getConfig('app.config->recentRecords.limit');
+    if(sessionid) {
+        this.sm.getSessionInfo(sessionid, function(err, sessionDoc){
+            records.find({userid: sessionDoc.userid}, {
+                             sort: {inDate: -1},
+                             limit: recentNumber},
+                            callback);
+        });
+    } else if(userid)
+        records.find({userid: userid}, {sort: {inDate: -1}, limit: recentNumber}, cb);
+    else
+        callback(new Error('userid or sessionid is required!'));
+}
+
+function getCurrentRate(userid, users) {
+    users.findOne({userid: userid}, function(err, user) {
+        if(err) {
+            console.log(err);
+        } else {
+            var hourlyRate = user.houlyRate;
+            hourlyRate.sort().reverse();
+            return hourlyRate[0].rate;
+        }
+    });
+}
+//********** Functions for punch **************//
+function punch(query, callback) {
+    var records = this.db.get('records');
+    var users = this.db.get('users');
+    this.findLastUserRecord(query, function(err, lastRecord) {
         if (err) {
-            msg = "Failed to delete record";
+            callback(err);
+        }
+        users.findOne(query, {}, function(err, user) {
+            var timeNow = new Date().getTime();
+            if (!lastRecord || lastRecord.outDate) {
+                var newRecord = newRecordFromUserDoc(user);
+                newRecord.hourlyrate = getCurrentRate(userid, users);
+                newRecord.inDate = timeNow;
+                newRecord.outDate = null;
+                insertRecord(newRecord, records).on('complete', callback);
+            } else {
+                lastRecord.outDate = timeNow;
+                var promise = updateRecord({_id: lastRecord._id}, {outDate: timeNow}, records);
+                promise.on('complete', callback);
+            }
+        });
+    });
+}
+
+function punchMany(userIdList, callback) {
+    var length = userIdList.length;
+    var counter = 0;
+    var success = 0;
+    var records = [];
+    var module = this;
+    _.each(userIdList, function(userid) {
+        module.punch(userid, function(err, record) {
+            counter++;
+            if (!err) {
+                success++;
+                records.push(record);
+            }
+            if (counter === length) {
+                var err = success === counter ? null : new Error('punch error!');
+                return callback(err, records);
+            }
+        });
+    });
+}
+//*********************************************//
+function getOneRecord(query, callback) {
+    var db = this.db;
+    var records = db.get('records');
+    records.findOne(query, {}, callback);
+}
+//********** Functions for delete **************//
+function deleteRecords(rid, callback) {
+    var db = this.db;
+    var records = db.get('records');
+    var query = {_id: rid};
+    records.remove(query, function(err, docs) {
+        var msg = true;
+        if (err) {
+            msg = false;
         }
         callback(msg);
     });
 }
 //*********************************************//
-
 //********** Functions for search&show **************//
 function searchRecords(query, su, callback) {
     var db = this.db;
     var records = db.get('records');
     records.find(query, function(err, recs) {
-        console.log(recs);
         if (err) {
             res.send('Can not get records, try again!');
         } else {
@@ -45,6 +198,7 @@ function searchRecords(query, su, callback) {
             jsonData.records=[];
             recs.forEach(function(rec, index) {
                 var record = {};
+                record.userid = query.userid;
                 record.reportid = rec.reportid;
                 record.inDate = rec.inDate;
                 record.outDate = rec.outDate;
@@ -53,9 +207,8 @@ function searchRecords(query, su, callback) {
             });
             var userid = query.userid;
             db.get("users").findOne({userid: userid}, function(err, docs) {
-                console.log(docs);
                 if(err || !docs) {
-                    
+
                 } else {
                     jsonData.username = docs.name;
                     jsonData.userid = userid;
@@ -66,31 +219,224 @@ function searchRecords(query, su, callback) {
     });
 }
 //*********************************************//
-
 //********** Functions for modify **************//
 function updateRecords(query, newrec, callback) {
     var db = this.db;
     var records = db.get('records');
-    records.update(query, {"$set": newrec}, function(err, docs) {
-        var msg = "Successfully update the records";
-        if (err) {
-            msg = "Failed to update the records";
-        }
-        callback(msg);
+    records.findAndModify(query, {"$set": newrec}, {new: true}, function(err, docs) {
+        callback(err, docs);
     });
 }
 //*********************************************//
+//********* Functions for getting wages *********//
+function getTotalHoursByRate(records, query, callback) {
+    var userid = query.userid;
+    var startDate = query.startDate;
+    var endDate = query.endDate;
+    records.col.aggregate([
+        {
+            $sort: {
+                inDate: 1
+            }
+        },
+        {
+            $match: {
+                userid: 'LoginName_1', inDate: {$gte: startDate}, outDate: {$lte: endDate}
+            }
+        },
+        {
+            $group: {
+            _id: '$userid',
+            salaryByRate: { $sum : { $multiply: { $subtract: ['$outDate', '$inDate']}}},
+            hoursOfUsers: { $sum : { $subtract: ['$outDate', '$inDate']}}
+            }
+        }
+    ], function(err, recs) {
+        if (err) {
+            console.log(err);
+        }
+        callback(err, recs);
+    });
+}
 
+function getWageOfUser(query, callback) {
+    //console.log(query);
+    var db = this.db;
+    var records = db.get('records');
+    var users = db.get('users');
+    var userid = query.userid;
+    getTotalHoursByRate(records, query, function(err, recs) {
+        if (err) {
+            console.log(err);
+        } else {
+            var totalWage = 0;
+            var totalHours = 0;
+            var sumRate = 0;
+            recs.forEach(function(rec, index) {
+                sumRate += rec._id;
+                totalHours += (rec.totalOut - rec.totalIn) / (1000 * 3600);
+                totalWage += totalHours * rec._id;
+            });
+            //console.log(totalWage);
+            var avgRate = sumRate / recs.length;
+            var overTime = 0;
+            if (totalHours > 40) {
+                overTime = totalHours - 40;
+            }
+            totalWage += overTime * avgRate * 0.5;
+            jsonData = {};
+            jsonData.totalHours = totalHours;
+            jsonData.overTime = overTime;
+            jsonData.totalWage = totalWage;
+            users.find({userid : userid}, function(err, user) {
+                if (err) {
+                    console.log(err);
+                    callback(err);
+                } else {
+                    jsonData.user = user;
+                    callback(jsonData);
+                }
+            });
+        }
+    });
+}
+//Assume that function get a week time as argument
+function getWageByWeek(query, callback) {
+    var db = this.db;
+    var records = db.get('records');
+    var users = db.get('users');
+    var compid = query.compid;
+    var startDate = query.startDate;
+    var endDate = query.endDate;
+    //console.log(query);
+    users.find({ compid : compid }, function(err, userList) {
+        if (err) {
+            console.log(err);
+        } else {
+            //console.log(userList);
+            var userIdList = userList.map(function(u) {return u.userid});
+            //console.log(userIdList);
+            records.col.aggregate([
+                { $match : {  userid: {$in : userIdList} , inDate: {$gte: startDate}, outDate: {$lte: endDate} } },
+                { $sort : { inDate : 1} },
+                { $group : {
+                        _id : { rate : '$hourlyRate', userid : '$userid' },
+                        totalIn : { $sum : '$inDate' },
+                        totalOut : { $sum : '$outDate' },
+                        from : { $first : '$inDate' },
+                        to : {$last : '$outDate'}
+                    }
+                },
+                { $group : {
+                        _id : {userid : '$_id.userid' },
+                        from : { $first : '$from' },
+                        to : { $last : '$to' },
+                        totalHours : { $sum : { $subtract : ['$totalOut', '$totalIn'] } },
+                        avgRate : { $avg : '$_id.rate' },
+                        rates : {
+                            $push : {
+                                rate : '$_id.rate',
+                                workhours : { $subtract : ['$totalOut', '$totalIn'] }
+                            }
+                        }
+                    }
+                },
+                { $project : {
+                        userid : '$_id.userid',
+                        from : '$from',
+                        to : '$to',
+                        totalhours : '$totalHours',
+                        rates : '$rates',
+                        avgRate : '$avgRate',
+                        _id : 0
+                    }
+                }
+            ], function(err, reports) {
+                if (err) {
+                    console.log(err);
+                    return callback(err);
+                } else {
+                    jsonData = {};
+                    jsonData.userReports = [];
+
+                    reports.forEach(function(report, index) {
+                        var totalhours = report.totalhours / (1000 * 3600);
+                        userReport = {};
+                        userReport.userid = report.userid;
+                        userReport.from = moment(report.from).format("LLLL");
+                        userReport.to = moment(report.to).format("LLLL");
+                        userReport.totalhours = totalhours;
+                        userReport.avgRate = report.avgRate;
+                        var totalWage = 0;
+                        var rates = report.rates;
+                        rates.forEach(function(userRate, i) {
+                            totalWage += userRate.rate * userRate.workhours / (3600 * 1000);
+                        });
+                        var overTime = totalhours - 40;
+                        if (overTime > 0) {
+                            totalWage += overTime * report.avgRate * 0.5;
+                        }
+                        userReport.totalWage = totalWage;
+                        jsonData.userReports.push(userReport);
+                    });
+                    callback(jsonData);
+                }
+            });
+        }
+    });
+}
+
+function getWageByMonth(query, callback) {
+    var startDate = moment(query.startDate);
+    //var endDate = moment(query.endDate);
+    // console.log(startDate.format("LLLL"));
+    // console.log(startDate.startOf("week").format("LLLL"));
+    // console.log(startDate.add(1, 'w').format("LLLL"));
+    jsonDataArray = [];
+    if(startDate.day() != 1) {
+        startDate.add(1, 'w');
+    }
+    var counter = 0;
+    var calltimes = 4;
+    for (var i = 0; i < calltimes; i++) {
+        startDate = startDate.startOf('week');
+        var start = startDate.valueOf();
+        //console.log(startDate.format('LLLL'));
+        startDate.add(1, 'w');
+        //console.log(startDate.format('LLLL'));
+        var end = startDate.valueOf();
+
+        newQuery = {compid : query.compid, startDate : start, endDate : end};
+
+        //console.log(newQuery);
+        this.getWageByWeek(newQuery, function(jsonData) {
+            jsonDataArray.push(jsonData);
+            if(++counter === calltimes)
+                callback(jsonDataArray);
+        });
+    }
+}
+//*********************************************//
+var db_module = require('./db_module');
 function Module(settings) {
     _.extend(this, settings);
     if(!this.db) {
         this.db = monk(utils.getConfig('mongodbPath'));
     }
-    //db = this.db;
+    this.sm = new sessionModule({db:this.db});
 }
 
 Module.prototype = {
-    delete : deleteRecords,
+    getWageByMonth : getWageByMonth,
+    getWageByWeek : getWageByWeek,
+    getWageOfUser : getWageOfUser,
+    updateRecords : updateRecords,
+    getOneRecord : getOneRecord,
+    findLastRecordsByCompid : findLastRecordsByCompid,
+    punch : punch,
+    punchMany : punchMany,
+    findLastUserRecord: findLastUserRecord,
+    deleteRecords : deleteRecords,
     searchRecords : searchRecords,
     modify : updateRecords
 }

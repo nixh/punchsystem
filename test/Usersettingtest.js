@@ -95,15 +95,50 @@ describe ("Module",function(){
 
 			})
 	})
-})
+});
 
-// test 
+describe ("Module",function(){
+	describe('#sendemail()',function(){
+		it('should be sent to correct user',function(done){
+			var userobj = {userid: "LoginName_4",email:'useremail4@email.com'};
+			settings.sendemail(userobj,function(doc){
+					if(!doc|| doc.length === 0)
+						doc= {email: " "};
+					assert.equal(doc.email,userobj.email);
+					done();
+			});
+		})
+
+		it('should not be sent',function(done){
+			var userobj = {userid: "1",email:'useremail4@email.com'};
+			settings.sendemail(userobj,function(doc){
+					if(!doc|| doc.length === 0)
+						doc= {email: " "};
+					assert.notEqual(doc.email,userobj.email);
+					done();
+			});
+		})
+
+		it('should not be sent',function(done){
+			var userobj = {userid: " ",email:'useremail4@email.com'};
+			settings.sendemail(userobj,function(doc){
+					if(!doc|| doc.length === 0)
+						doc= {email: " "};
+					assert.notEqual(doc.email,userobj.email);
+					done();
+			});
+		})
+	})
+});
+
+
+// test
 describe ('Module',function(){
 	describe('#switchinformation()',function(){
 		it ('should insert into users collection',function(done){
 			var userobj = {userid:"LoginName_4",frequency:"1",onoffswitch:"1"};
 			settings.switchinformation(userobj,function(err,doc){
-				
+
 				assert.equal(doc,1);
 				done();
 			})
@@ -111,8 +146,8 @@ describe ('Module',function(){
 		it ('should not insert into user collection',function(done){
 		 	var userobj = {userid: " ",frequency:'1',onoffswitch:"0"};
 		 	settings.switchinformation(userobj,function(err,doc){
-		 		
-		 		
+
+
 		 		assert.notEqual(doc,1);
 		 		done();
 		 	});
@@ -136,21 +171,3 @@ describe ('Module',function(){
 		})
 	})
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
