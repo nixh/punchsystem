@@ -12,10 +12,12 @@ body {
 }
 
 .title1{
+	margin-top: 5%;
+	margin-bottom: 5%;
 	width:100%;
 	text-align: center;
 	color:rgb(138,209,215);
-	font-size: 230%;
+	font-size: 75px;
 }
 
 .button1 {
@@ -25,11 +27,11 @@ body {
 	text-align:center;
 	display:inline-block;
 	background:white;
-	font-size:200%;
+	font-size:50px;
 	display:inline-block;
 	line-height: 12%;
 	color:rgb(103,116,153);
-	line-height: 25px; 
+	line-height: 125px; 
 	cursor: pointer; 
      }
 
@@ -49,13 +51,14 @@ body {
 	height:120px;
 	text-align:center;
 	background:white;
-	font-size:200%;
+	font-size:50px;
 	display:inline-block;
 	line-height: 12%;
 	color:rgb(103,116,153);
 	margin-bottom: 0;
 	font-weight: 100;
 	cursor: pointer;
+	line-height: 125px; 
 }
 .summary:active{ background:rgb(247,130,131); color:white;}
 
@@ -65,17 +68,19 @@ body {
 }
 
 .title{
+	margin-top: 5%;
+	margin-bottom: 5%;
 	width:100%;
 	text-align: center;
 	color:rgb(138,209,215);
-	font-size: 230%
+	font-size: 75px;
 
 }
 
 table
   {
   width:90%;
-  font-size: 400%;
+  font-size: 50px;
   margin-left:5%;
   text-align: center;
   color: rgb(103,116,153);
@@ -86,12 +91,11 @@ table
 
 .calendar table th
   {height:175px;
-   font-weight: 700;
+ 
   }
 
 .calendar table td{
 	height:175px;
-   font-weight: 700;
 	cursor: pointer;
 	background-color: white;
 }

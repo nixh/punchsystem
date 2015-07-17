@@ -6,6 +6,12 @@
     font-family: "dinbek";
     src: url('/fonts/DINBek.ttf');
 }
+
+@font-face {
+    font-family: "open sans";
+    src: url('/fonts/OpenSans-Regular.ttf');
+}
+
 @font-face {
     font-family: "simhei";
     src: url('/fonts/SimHei.ttf');

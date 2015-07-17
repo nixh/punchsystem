@@ -16,6 +16,10 @@ Common Settings
   font-family: "simhei";
   src: url('/fonts/SimHei.ttf');
 }
+@font-face {
+  font-family: "open sans";
+  src: url('/fonts/OpenSans-Regular.ttf');
+}
 .text {
   font-family: 'anivers reg', 'simhei';
 }
@@ -244,10 +248,18 @@ functions
   line-height: 80px;
   color: #677499;
   background-color: white;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   border-bottom: 2px solid #8ad1d7;
   border-left: 2px solid #8ad1d7;
   border-right: 2px solid #8ad1d7;
   cursor: pointer;
+}
+.main .cmdtools .monthly .weeklist ul li:active,
+.main .cmdtools .weekly .weeklist ul li:active {
+  background-color: #8ad1d7;
 }
 .main .cmdtools .monthly .weeklist ul li:first-child,
 .main .cmdtools .weekly .weeklist ul li:first-child {
@@ -370,10 +382,18 @@ functions
   line-height: 80px;
   color: #677499;
   background-color: white;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   border-bottom: 2px solid #8ad1d7;
   border-left: 2px solid #8ad1d7;
   border-right: 2px solid #8ad1d7;
   cursor: pointer;
+}
+.main .cmdtools .monthly .weeklist ul li:active,
+.main .cmdtools .weekly .weeklist ul li:active {
+  background-color: #8ad1d7;
 }
 .main .cmdtools .monthly .weeklist ul li:first-child,
 .main .cmdtools .weekly .weeklist ul li:first-child {

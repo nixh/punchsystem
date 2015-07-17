@@ -11,6 +11,10 @@
             line-height: @basic-ctrol-height / 1.5;
             color: @text-color;
             background-color: @white;
+            .non-selectable;
+            &:active {
+                background-color: @green;
+            }
             &:first-child {
                 border-top-right-radius: @basic-radius;
                 border-top-left-radius: @basic-radius;

@@ -1,44 +1,37 @@
 extends layout
 
 append links
-	link(rel='stylesheet' href='/stylesheets/reportselect.css')
-					
-block content						
-	.total(ontouchstart="")
-		.title1
-			h1 SELECT REPORT
-		.button1.noselect
-			h1 ACTIVITY
-		
+    link(rel='stylesheet', href='/stylesheets/reportselect.css')
 
-		.summary.noselect
-			h1 SUMMARY
+append scripts
+    script.
+        $(document).ready(function() {
+            $('.summary').click(function(){
+                $('.calendar').slideToggle("slow");
+            });
+            $('.button1').click(function(){
+                var owner = #{owner ? true : false};
+                if(!owner)
+                    location.href = "/recentRecords";
+            });
+        });
 
-			script.
+block content                       
+    .total(ontouchstart="")
+        .title1= tr('select_report_type')
+        .button1.noselect= tr('report_activity')
+        .summary.noselect= tr('report_summary')
+        .calendar.noselect.hidden
+            - var months = [tr('JAN'), tr('FEB'), tr('MAR'), tr('APR'), tr('MAY'), tr('JUNE'), tr('JULY'), tr('AUG'), tr('SEPT'), tr('OCT'), tr('NOV'), tr('DEV')];
+            .title
+               = tr('select_month')
 
-				$(document).ready(function() {
-					$('.summary').click(function(){
-
-						$('.calendar').slideToggle("fast");
-					});
-				});
-
-				
-					
-		
-		
-
-		.calendar.noselect.hidden
-			- var months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUNE', 'JULY', 'AUG', 'SEPT', 'OCT', 'NOV', 'DEV'];
-			.title
-				h1 SELECT MONTH
-
-			table
-				- var threshold = 3;
-				each m, index in months
-					if index ==0 || index % 3 == 0 
-						tr
-					td(data-url="report/summary/#{m}")= m
+            table
+                - var threshold = 3;
+                each m, index in months
+                    if index ==0 || index % threshold == 0 
+                        tr
+                    td(data-url="report/summary/#{m}")= m
 
 
 
