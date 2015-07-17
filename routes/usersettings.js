@@ -2,36 +2,83 @@ var express = require('express');
 var router = express.Router();
 var usersetting = require('../usersettingModule');
 var settings = new usersetting();
-
+var session = require('../sessionModule');
+var sid = new session();
 router.get('/', function(req, res, next){
 
 	res.render('usersettings');
 });
 
-router.get('/changepwd/:userid', function (req, res, next){
-		var userid=req.params.userid;
-		var userobj = {
-			"userid":userid
-		}
-		settings.receiveemail(userobj,function (err,doc){
-		if(err){
-			res.send('err')
-		}else{
-			res.render('./staff/staff_setting',{"userid":userid,"receiveEmails":doc.email});
-		}
-	})
-			
-		
+router.get('/settings', function (req, res, next){
+		var id = req.cookies.sessionid;
+		var userid;
+		var userobj;
+		sid.getSessionInfo(id,function(err,doc){
+				if (err){
+					res.send("error!")
+				}else{
+					userid = doc.userid;
+					userobj = {"userid":userid};
+					settings.receiveemail(userobj,function (err,doc){
+									if(err){
+										res.send('err')
+									}else{
+										res.render('./staff/staff_setting',
+											{"userid":userid,"receiveEmails":doc.email});
+									}
+					})
+				}
+
+		})
 });
 
-router.get('/sendemail/:userid', function (req, res, next){
-		var userid=req.params.userid;
-		res.render('./staff/staff_setting',{"userid":userid});
+router.get('/supervisor/settings', function (req, res, next){
+		var id = req.cookies.sessionid;
+		var userid;
+		var userobj;
+		sid.getSessionInfo(id,function(err,doc){
+				if (err){
+					res.send("error!")
+				}else{
+					userid = doc.userid;
+					userobj = {"userid":userid};
+					settings.receiveemail(userobj,function (err,doc){
+									if(err){
+										res.send('err')
+									}else{
+										res.render('./staff/staff_setting_su',
+											{"userid":userid,"receiveEmails":doc.email});
+									}
+					})
+				}
+
+		})
 });
 
-router.get('/setrate/:userid',function (req,res){
-	var userid=req.params.userid;
-	res.render('./staff/staff_setting',{"userid":userid});
+router.get('/sendemail', function (req, res, next){
+		var id = req.cookies.sessionid;
+		var userid;
+		var userobj;
+		sid.getSessionInfo(id,function(err,doc){
+			if (err){
+				res.send('err')
+			}else{
+				res.render('./staff/staff_setting_su',{"userid":doc.userid});
+			}
+		})
+});
+
+router.get('/setrate',function (req,res){
+	var id = req.cookies.sessionid;
+		var userid;
+		var userobj;
+		sid.getSessionInfo(id,function(err,doc){
+			if (err){
+				res.send('err')
+			}else{
+				res.render('./staff/staff_setting_su',{"userid":doc.userid});
+			}
+		})
 });
 
 router.post('/enableEmail/:switchs',function (req,res){
@@ -48,7 +95,7 @@ router.post('/enableEmail/:switchs',function (req,res){
 			if(err) {
 			 	res.send("Error!!!");
 		}else{
-			res.render('./staff/staff_setting',{"userid":req.body.userid,"enableEmail":switchs})
+			res.render('./staff/staff_setting_su',{"userid":req.body.userid,"enableEmail":switchs})
 		}
 	})
 
@@ -69,12 +116,12 @@ router.post('/enablerate/:switchs',function (req,res){
 			if(err) {
 			 	res.send("Error!!!");
 		}else{
-			res.render('./staff/staff_setting',{"userid":req.body.userid,"enablerate":switchs})
+			res.render('./staff/staff_setting_su',{"userid":req.body.userid,"enablerate":switchs})
 		}
 	})
 
 })
-router.post('/setrate',function (req,res){
+router.post('/supervisor/setrate',function (req,res){
 	var userobj=req.body;
 	console.log(userobj)
 	settings.enablerate(userobj,function(err,doc){
@@ -87,25 +134,37 @@ router.post('/setrate',function (req,res){
 			res.send('err');
 		}else{
 			//console.log(doc)
-			res.render("./staff/staff_setting",{"userid":userobj.userid});
+			res.render("./staff/staff_setting_su",{"userid":userobj.userid,"receiveEmails":doc.email});
 		}
 	})
 });
 
-router.post('/changepwd', function (req, res) {
+router.post('/settings', function (req, res) {
 	var userobj=req.body;
-
 	settings.changepass(userobj,function(err, doc){
 		if(err) {
 			 res.send("Error!!!");
 		}else{
-			
-			res.render("./staff/staff_setting",{"userid":userobj.userid});
-		}
+				res.render("./staff/staff_setting",{"userid":userobj.userid});
+				}
 	});
 });
 
-router.post('/sendemail', function (req, res) {
+router.post('/supervisor/settings', function (req, res) {
+	var userobj=req.body;
+	console.log(userobj)
+	settings.changepass(userobj,function (err, doc){
+		if(err) {
+			 res.send("Error!!!");
+		}else{
+			console.log(doc)
+				res.render("./staff/staff_setting_su",
+					{"userid":userobj.userid,"receiveEmails":doc.email});
+				}
+	});
+});
+
+router.post('/supervisor/sendemail', function (req, res) {
 	var userobj=req.body;
 	console.log(userobj)
 	settings.updateemail(userobj,function(err,doc){
@@ -117,8 +176,9 @@ router.post('/sendemail', function (req, res) {
 				res.send('userid or password invaild');
 			} 
 			else{
-			console.log(doc)
-			res.render('./staff/staff_setting',{"userid":userobj.userid,"receiveEmails":userobj.receiveEmails});
+				console.log(doc)
+			res.render('./staff/staff_setting_su',{"userid":userobj.userid,
+						"receiveEmails":userobj.receiveEmails});
 		}
 	});
 
