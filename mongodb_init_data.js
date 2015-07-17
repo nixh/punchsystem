@@ -25,6 +25,9 @@ for(var i=0; i<companyNumber; i++) {
 //initialize User data
 
 var userNumber = 200;
+var changetime1 = new Date(2015, 6, 9);
+var changetime2 = new Date(2015, 7, 15);
+var changetime3 = new Date(2015, 7, 21);
 for(var i=0; i<userNumber; i++) {
     var compid = getRandomNumber(companyNumber);
     var owner = i === 0
@@ -33,7 +36,6 @@ for(var i=0; i<userNumber; i++) {
                     ? true : false;
 
     var initDate = new Date().getTime();
-
     db.users.insert({
         userid: 'LoginName_'+(i+1),
         name: 'UserName_' + (i+1),
@@ -43,9 +45,14 @@ for(var i=0; i<userNumber; i++) {
         email: 'useremail'+(i+1)+'@email.com',
         address : '',
         tel : '',
-        compid : compid + 1,
-        curRate: 8.75,
-        rates: [{changetime: initDate, rate: 8.75}],
+        compid : getRandomNumber(10),
+        //curRate: 8.75,
+        hourlyRate :
+        [
+            {changetime: changetime1, rate: 8.75},
+            {changetime: changetime2, rate: 12},
+            {changetime: changetime3, rate: 15}
+        ],
         owner : i % (userNumber / companyNumber) == 0 ? true : false,
         remark : 'User Remark',
         avatar: 'avatar url'
@@ -68,12 +75,14 @@ users_cursor.forEach(function(doc){
     var possibleEndHours = [17, 18, 19];
     var date = startDate;
 
+    (function(d) {
     for(var i=0; i<20; i++) {
         report_id_counter += 1;
         var index = getRandomNumber(3)
-        var inTime = date + hourToMillis(possibleStartHours[index]);
+        var inTime = d + hourToMillis(possibleStartHours[index]);
         index = getRandomNumber(3);
-        var outTime = date + hourToMillis(possibleEndHours[index]);
+        var outTime = d + hourToMillis(possibleEndHours[index]);
+
         db.records.insert({
             reportid : report_id_counter,
             compid : compid,
@@ -82,8 +91,9 @@ users_cursor.forEach(function(doc){
             outDate : outTime,
             hourlyRate : 8.75,
             remark : 'test'
-        });
+        }, function(){ d += 24 * 3600 * 1000; });
     }
+    })(date);
 });
 
 // initialize session
