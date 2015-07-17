@@ -7,12 +7,12 @@ var db;
 
 function insertRecord(record, recordsCol) {
     return recordsCol.insert(record);
-    
+
 }
 
 function updateRecord(query, record, recordsCol) {
     return recordsCol.findAndModify(query, { $set: record }, { new: true });
-   
+
 }
 
 function newRecordFromUserDoc(userDoc) {
@@ -20,7 +20,7 @@ function newRecordFromUserDoc(userDoc) {
         compid: userDoc.compid,
         userid: userDoc.userid,
         hourlyRate: userDoc.curRate,
-        remark: 'default remark'        
+        remark: 'default remark'
     };
 }
 
@@ -47,10 +47,10 @@ function findLastRecordsByCompid(compid, cb) {
                 lastOut:{ $first : '$outDate' }
               }
             },
-            { $project: { 
-                userid:"$_id", 
-                inDate: "$lastIn", 
-                outDate: "$lastOut" 
+            { $project: {
+                userid:"$_id",
+                inDate: "$lastIn",
+                outDate: "$lastOut"
               }
             }], function(err, lastRecords){
                 if(err)
@@ -65,7 +65,7 @@ function findLastRecordsByCompid(compid, cb) {
 }
 
 function punchMany(userIdList, cb) {
-    
+
     var length = userIdList.length;
     var counter = 0;
     var success = 0;
@@ -130,7 +130,7 @@ function checkQrcode(qrid, sessionid, cb) {
 function rencentRecords(idObj, cb) {
     var sessionid = null;
     var userid = null;
-    
+
     if(typeof idObj === 'string')
         userid = idObj;
     else if(typeof idObj === 'object') {
@@ -142,11 +142,11 @@ function rencentRecords(idObj, cb) {
 
     var recordsCol = this.db.get('records');
     var recentNumber = utils.getConfig('app.config->recentRecords.limit');
-    if(sessionid) { 
+    if(sessionid) {
         this.sm.getSessionInfo(sessionid, function(err, sessionDoc){
             recordsCol.find({userid: sessionDoc.userid}, {
-                             sort: {inDate: -1}, 
-                             limit: recentNumber}, 
+                             sort: {inDate: -1},
+                             limit: recentNumber},
                             cb);
         });
     } else if(userid)
@@ -160,8 +160,6 @@ function Module(settings) {
     if(!this.db) {
         this.db = monk(utils.getConfig('mongodbPath'));
     }
-
-
     this.sm = new sessionModule({db:this.db});
 
 }
@@ -185,7 +183,7 @@ module.exports = Module;
 //    console.log(doc.users.length);
 //    console.log(doc.lastRecords.length);
 //    rm.db.close();
-//    
+//
 //});
 
 //var rm = new Module();
@@ -203,9 +201,3 @@ module.exports = Module;
 
 //module.punch('LoginName_1', function(punchPromise){
 //});
-
-
-
-
-
-
