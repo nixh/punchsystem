@@ -211,6 +211,7 @@ router.get('/punch/:key', function(req, res, next) {
 
 });
 
+/*
 var qrModule = require('../qrcodeModule');
 router.get('/supervisor/showdynacode', function(req, res, next) {
     var qrm = new qrModule();
@@ -221,7 +222,7 @@ router.get('/supervisor/showdynacode', function(req, res, next) {
         })(req, res, next);
     });
 });
-
+*/
 router.get('/recentRecords', function(req, res, next) {
     var rm = new recordsModule();
     rm.rencentRecords({
@@ -285,7 +286,7 @@ router.get('/supervisor/rencentRecords/:uid', function(req, res, next) {
     var uid = req.params.uid;
     rm.rencentRecords(uid, function(err, recordDocs) {
         rm.db.close();
-        utils.render('staff/staff_punch_report', {
+        utils.render('supervisor/supervisor_punch_report', {
             moment: moment,
             records: recordDocs,
             userid: uid,
