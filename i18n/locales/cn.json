@@ -93,12 +93,11 @@
 	"choose pictures": "choose pictures",
 	"upload": "upload",
 	"...": "...",
-	"UserName_25": "UserName_25",
-	"UserName_65": "UserName_65",
-	"UserName_73": "UserName_73",
-	"UserName_86": "UserName_86",
-	"UserName_97": "UserName_97",
-	"UserName_160": "UserName_160",
-	"UserName_185": "UserName_185",
-	"UserName_3": "UserName_3"
+
+
+	"start_end_date": "start_end_date",
+	"hours": "hours",
+	"totalpay": "totalpay",
+	"back": "back"
+
 }

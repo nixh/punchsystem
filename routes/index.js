@@ -211,16 +211,18 @@ router.get('/punch/:key', function(req, res, next) {
 
 });
 
-// var qrModule = require('../qrcodeModule');
-// router.get('/supervisor/showdynacode', function(req, res, next) {
-//     var qrm = new qrModule();
-//     qrm.getDynacode(req.cookies.sessionid, function(err, mixinData) {
-//         qrm.db.close();
-//         utils.render('qr', {
-//             data: mixinData
-//         })(req, res, next);
-//     });
-// });
+/*
+var qrModule = require('../qrcodeModule');
+router.get('/supervisor/showdynacode', function(req, res, next) {
+    var qrm = new qrModule();
+    qrm.getDynacode(req.cookies.sessionid, function(err, mixinData) {
+        qrm.db.close();
+        utils.render('qr', {
+            data: mixinData
+        })(req, res, next);
+    });
+});
+*/
 
 router.get('/recentRecords', function(req, res, next) {
     var rm = new recordsModule();
@@ -285,7 +287,7 @@ router.get('/supervisor/rencentRecords/:uid', function(req, res, next) {
     var uid = req.params.uid;
     rm.rencentRecords(uid, function(err, recordDocs) {
         rm.db.close();
-        utils.render('staff/staff_punch_report', {
+        utils.render('supervisor/supervisor_punch_report', {
             moment: moment,
             records: recordDocs,
             userid: uid,
@@ -393,6 +395,14 @@ router.get('/supervisor/employees/:id', function(req, res){
 //    });
 //
 //});
+
+router.get('/testoverview', function(req, res, next){
+    utils.render('overviewreport', {})(req, res, next);
+});
+
+router.get('/teststaffview', function(req, res, next){
+    utils.render('staffreport', {})(req, res, next);
+});
 
 router.get('/testusermodify/:id', function(req, res, next){
 

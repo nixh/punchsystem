@@ -1,0 +1,52 @@
+@import './lib/commonlib.less';
+.weeklist() {
+    position: absolute;
+    .width-16;
+    ul {
+        list-style: none;
+        padding-left: 0;
+        li {
+            .normal-font;
+            .number;
+            line-height: @basic-ctrol-height / 1.5;
+            .mb;
+            border-radius: @basic-radius;
+            color: @text-color;
+            background-color: fade(@white, 80%);
+            cursor: pointer;
+        }
+    }
+}
+
+.main {
+    .width-14;
+    .mcenter;
+    .header {
+        text-align: center;
+        span {
+            .header-font;
+            color: @pink;
+        }
+    }
+    .cmdtools {
+        text-align: center;
+        .width-16;
+        .monthly, .weekly {
+            display: inline-block;
+            width: calc(~"100%/2 - 2%");
+            position: relative;
+            .weeklist {
+                .weeklist;
+            }
+        }
+        .monthly {
+            margin-right: 2%;
+        }
+        .weekly {
+            margin-left: 2%;
+        }
+    }
+    table.overviewtable {
+        .basic-table;
+    }
+}

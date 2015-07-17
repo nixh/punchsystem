@@ -203,197 +203,199 @@ functions
   background-color: #f78283;
   color: white;
 }
-body {
-  margin: 0;
-  padding: 0;
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
+.main {
+  width: 87.5%;
+  margin: 0 auto;
+}
+.main .header {
+  text-align: center;
+}
+.main .header span {
+  font-family: 'anivers reg', 'simhei';
+  font-size: 75px;
+  color: #f78283;
+}
+.main .cmdtools {
+  text-align: center;
   width: 100%;
-  background-color: #f5ede4;
+}
+.main .cmdtools .monthly,
+.main .cmdtools .weekly {
+  display: inline-block;
+  width: calc(100%/2 - 2%);
+  position: relative;
+}
+.main .cmdtools .monthly .weeklist,
+.main .cmdtools .weekly .weeklist {
+  position: absolute;
+  width: 100%;
+}
+.main .cmdtools .monthly .weeklist ul,
+.main .cmdtools .weekly .weeklist ul {
+  list-style: none;
+  padding-left: 0;
+}
+.main .cmdtools .monthly .weeklist ul li,
+.main .cmdtools .weekly .weeklist ul li {
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+  font-family: 'dinbeck';
+  line-height: 80px;
+  margin-bottom: 2%;
+  border-radius: 25px;
+  color: #677499;
+  background-color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+}
+.main .cmdtools .monthly {
+  margin-right: 2%;
+}
+.main .cmdtools .weekly {
+  margin-left: 2%;
+}
+.main table.overviewtable {
+  border-collapse: separate;
+  border-spacing: 20px;
+  margin-left: -20px;
+  width: calc(100% + 2*20px);
+}
+.main table.overviewtable th {
+  font-family: 'anivers reg', 'simhei';
+  font-size: 75px;
+  background-color: #f78283;
+  color: white;
+}
+.main table.overviewtable th:first-child {
+  border-top-left-radius: 25px;
+}
+.main table.overviewtable th:last-child {
+  border-top-right-radius: 25px;
+}
+.main table.overviewtable tr:last-child td:first-child {
+  border-bottom-left-radius: 25px;
+}
+.main table.overviewtable tr:last-child td:last-child {
+  border-bottom-right-radius: 25px;
+}
+.main table.overviewtable tr td {
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #677499;
+  text-align: center;
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
 }
 .main {
   width: 87.5%;
   margin: 0 auto;
-  color: #677499;
-  outline: 0;
-  padding-top: 15%;
-  position: relative;
 }
-.main .avatarsection {
-  width: 100%;
-  display: table;
-  margin-bottom: 8%;
+.main .header {
+  text-align: center;
 }
-.main .avatarsection .avatarimg {
-  display: table-cell;
-  vertical-align: middle;
-  width: 300px;
-  font-size: 0;
-}
-.main .avatarsection .avatarimg img {
-  border-radius: 50%;
-  border: 20px solid #8ad1d7;
-  width: 300px;
-  height: 300px;
-}
-.main .avatarsection .avatarupload {
-  font-size: 0;
-  display: table-cell;
-  vertical-align: middle;
-  padding-left: calc(100%/16);
-}
-.main .avatarsection .avatarupload .textinput {
-  display: inline-block;
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
-  width: 81.25%;
-  margin-bottom: 5%;
-}
-.main .avatarsection .avatarupload #choosepic {
-  display: inline-block;
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
-  width: 18.75%;
-}
-.main .avatarsection .avatarupload .submitbutton {
-  width: 100%;
-}
-.main .infosection {
-  position: absolute;
-}
-.main .infosection .sectiontitle {
-  margin-bottom: 5%;
-}
-.main .infosection .sectiontitle span {
+.main .header span {
   font-family: 'anivers reg', 'simhei';
   font-size: 75px;
-  color: #8ad1d7;
+  color: #f78283;
 }
-.main .infosection .sectionfields {
-  margin-bottom: 20%;
-}
-.main .infosection .sectionfields label.title {
-  background-color: #f78283;
-  color: white;
-  font-family: 'anivers reg', 'simhei';
-  font-size: 50px;
-  width: 25%;
-  height: 120px;
-  display: inline-block;
-  line-height: 120px;
+.main .cmdtools {
   text-align: center;
+  width: 100%;
 }
-.main .infosection .sectionfields .textinput,
-.main .infosection .sectionfields .passinput {
-  width: 75%;
-  border-radius: 0px;
-  margin-bottom: 2%;
-}
-.main .infosection .sectionfields .sexinput {
-  margin-bottom: 2%;
-}
-.main .infosection .sectionfields .sexinput:after {
-  content: "";
-  display: block;
-  visibility: hidden;
-  clear: both;
-  zoom: 1;
-  height: 0px;
-}
-.main .infosection .sectionfields .sexinput label.title {
-  float: left;
-  background-color: #f78283;
-  color: white;
-  font-family: 'anivers reg', 'simhei';
-  font-size: 50px;
-  width: 25%;
-  height: 120px;
+.main .cmdtools .monthly,
+.main .cmdtools .weekly {
   display: inline-block;
-  line-height: 120px;
-  text-align: center;
-}
-.main .infosection .sectionfields .sexinput .radioinput {
-  margin-left: 5%;
-  float: left;
-  width: 25%;
-}
-.main .infosection .sectionfields .textareainput {
+  width: calc(100%/2 - 2%);
   position: relative;
-  margin-bottom: 2%;
 }
-.main .infosection .sectionfields .textareainput label.title {
+.main .cmdtools .monthly .weeklist,
+.main .cmdtools .weekly .weeklist {
   position: absolute;
-  background-color: #f78283;
-  color: white;
-  font-family: 'anivers reg', 'simhei';
-  font-size: 50px;
-  width: 25%;
-  height: 120px;
-  display: inline-block;
-  line-height: 120px;
-  text-align: center;
-}
-.main .infosection .sectionfields .textareainput textarea {
   width: 100%;
-  height: 360px;
-  resize: none;
-  overflow-y: scroll;
+}
+.main .cmdtools .monthly .weeklist ul,
+.main .cmdtools .weekly .weeklist ul {
+  list-style: none;
+  padding-left: 0;
+}
+.main .cmdtools .monthly .weeklist ul li,
+.main .cmdtools .weekly .weeklist ul li {
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
+  font-family: 'dinbeck';
+  line-height: 80px;
+  margin-bottom: 2%;
+  border-radius: 25px;
   color: #677499;
-  outline: 0;
-  border: none;
-  text-indent: calc(100%/4 + 25px);
-  line-height: 120px;
+  background-color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
 }
-.main .previewall {
-  width: 100%;
-  position: absolute;
+.main .cmdtools .monthly {
+  margin-right: 2%;
 }
-.main .previewall table.previewtable {
-  border-spacing: 20px 20px;
+.main .cmdtools .weekly {
+  margin-left: 2%;
+}
+.main table.overviewtable {
   border-collapse: separate;
+  border-spacing: 20px;
   margin-left: -20px;
-  width: calc(100% + 40px);
-  margin-bottom: 2%;
+  width: calc(100% + 2*20px);
 }
-.main .previewall table.previewtable th {
+.main table.overviewtable th {
+  font-family: 'anivers reg', 'simhei';
+  font-size: 75px;
   background-color: #f78283;
   color: white;
+}
+.main table.overviewtable th:first-child {
+  border-top-left-radius: 25px;
+}
+.main table.overviewtable th:last-child {
+  border-top-right-radius: 25px;
+}
+.main table.overviewtable tr:last-child td:first-child {
+  border-bottom-left-radius: 25px;
+}
+.main table.overviewtable tr:last-child td:last-child {
+  border-bottom-right-radius: 25px;
+}
+.main table.overviewtable tr td {
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #677499;
+  text-align: center;
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
-  width: 25%;
-  height: 120px;
-  display: inline-block;
-  line-height: 120px;
-  text-align: center;
-  width: 100%;
 }
-.main .previewall table.previewtable td {
-  background: rgba(255, 255, 255, 0.52);
-  height: 120px;
+.main table.staffview {
+  border-collapse: separate;
+  border-spacing: 20px;
+  margin-left: -20px;
+  width: calc(100% + 2*20px);
 }
-.main .previewall table.previewtable td:not([colspan]) {
-  width: 68.75%;
+.main table.staffview th {
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #f78283;
+  font-family: 'anivers reg', 'simhei';
+  font-size: 75px;
+  font-weight: normal;
+  width: 43.75%;
 }
-.main .previewall table.previewtable tr:last-child td {
-  height: 360px;
-  vertical-align: top;
-}
-.main .previewall table.previewtable tr:last-child td span.label {
-  background-color: #f78283;
-  color: white;
+.main table.staffview td {
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #677499;
+  width: 56.25%;
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
-  width: 25%;
-  height: 120px;
-  display: inline-block;
-  line-height: 120px;
   text-align: center;
-  vertical-align: top;
-  width: 31.25%;
 }
-.main .previewall .cmdtools .submitbutton {
-  margin-bottom: 5%;
+.main table.staffview tr:first-child th {
+  border-top-left-radius: 25px;
+}
+.main table.staffview tr:first-child td {
+  border-top-right-radius: 25px;
+}
+.main table.staffview tr:last-child th {
+  border-bottom-left-radius: 25px;
+}
+.main table.staffview tr:last-child td {
+  border-bottom-right-radius: 25px;
 }

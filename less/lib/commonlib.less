@@ -28,7 +28,7 @@ Common Settings
 }
 
 .text {
-    font-family: 'anivers reg';
+    font-family: 'anivers reg', 'simhei';
 }
 .number {
     font-family: 'dinbeck';
@@ -128,6 +128,39 @@ functions
     }
     .non-selectable;
     cursor: pointer;
+}
+
+.basic-table(@border-spacing: 20px) {
+    border-collapse: separate;
+    border-spacing: @border-spacing;
+    margin-left: -@border-spacing;
+    width: calc(~"100% + 2*@{border-spacing}");
+    th {
+        .header-font;
+        background-color: @table-header-background;
+        color: @table-header-color;
+        &:first-child {
+            border-top-left-radius: @basic-radius;
+        }
+        &:last-child {
+            border-top-right-radius: @basic-radius;
+        }
+    }
+    tr {
+        &:last-child td:first-child {
+            border-bottom-left-radius: @basic-radius;
+        }
+        &:last-child td:last-child {
+            border-bottom-right-radius: @basic-radius;
+        }
+        td {
+            background-color: @table-cell-background;
+            color: @table-cell-color;
+            text-align: center;
+            .normal-font;
+        }
+    }
+    
 }
 
 .textinput {
