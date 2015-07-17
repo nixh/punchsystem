@@ -3,7 +3,7 @@
     	format: 'yyyy-mm-dd'
     });
     $(".useTimePicker").pickatime({
-    	interval:15
+    	interval:10
     });
 
     $('.preview').on('click', function(){
