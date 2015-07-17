@@ -58,7 +58,7 @@ block content
 			
 		.EmailReportSetting.toggleTarget
 			form(method="POST",action='/staff_setting/sendemail')
-				-var email = (receiveEmails)? receiveEmails : " "
+				-var email = (receiveEmails)? receiveEmails : "EMAIL ADDRESS"
 				input.textBox.inputBar(type= "text" id = "receiveEmails" name = 'receiveEmails' placeholder= "EMAIL ADDRESS" value="#{email}")
 				-var enable= (enableEmail)? enableEmail : 1
 				input(type = 'hidden' name='enableEmail' value ='#{enable}' id= "enableEmail")

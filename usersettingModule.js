@@ -47,14 +47,13 @@ function receiveemail(userobj,callback) {
 function updateemail(userobj,callback){
 		var db= this.db;
 		var collection=db.get("users");
-		collection.findAndModify({
-			'userid':userobj.userid
-			},
-				{"$set":{
-						'freqz':userobj.timePeriod,
-						'email':userobj.receiveEmails
-					}},callback)
-		
+			collection.findAndModify({
+				'userid':userobj.userid
+				},
+					{"$set":{
+							'freqz':userobj.timePeriod,
+							'email':userobj.receiveEmails
+						}},callback)
 }
 
 function enableEmail(userobj,callback){
@@ -65,7 +64,7 @@ function enableEmail(userobj,callback){
 			'userid':userobj.userid
 			},
 				{"$set":{
-						'enableEmail':userobj.enableEmail,
+						'enableEmail':userobj.enableEmail
 						
 					}
 				},callback)

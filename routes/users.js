@@ -57,6 +57,10 @@ router.get('/search', function(req, res){
 var sModule = require('../sessionModule');
 
 router.post('/search', function(req, res){
+
+	console.log('Now in the users router, receiving post request from others...');
+	console.log(JSON.stringify(req.body));
+
     var sm = new sModule();
 	var col = sm.db.get('users');
 	var userid = req.body.userid;
@@ -108,7 +112,11 @@ var fs = require('fs');
 
 router.post('/change', function(req, res, next){
 
+
 	var form = new multiparty.Form();
+
+	console.log(JSON.stringify(req.body));
+	console.log('Now changing user info');
 
 	form.parse(req, function(err, fields, files){
 		if(err)
@@ -171,6 +179,10 @@ router.post('/change', function(req, res, next){
 			// });
 		}
 	});
+});
+
+router.post('/preview', function(req, res){
+
 });
 
 

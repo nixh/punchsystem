@@ -43,11 +43,22 @@
 }
 
 
-.searchtext::-webkit-input-placeholder,
-.searchtext::-moz-placeholder, 
-.searchtext:-ms-input-placeholder{
-   color: red;
+.searchtext::-webkit-input-placeholder {
+    color:rgb(247, 130, 131);
 }
+
+.searchtext:-moz-placeholder { /* Firefox 18- */
+    color:rgb(247, 130, 131);
+}
+
+.searchtext::-moz-placeholder {  /* Firefox 19+ */
+    color:rgb(247, 130, 131);
+}
+
+.searchtext:-ms-input-placeholder {  
+    color:rgb(247, 130, 131);
+}
+
 
 .search {
     width: 49%;

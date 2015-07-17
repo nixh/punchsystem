@@ -85,6 +85,7 @@ function addUser(userObj, callback) {
 
 function searchUser(searchTerm, compid, callback) {
 
+    console.log('Now in usermodule.js, doing searching...');
     console.log("The search term is ..." + searchTerm);
     console.log("The company id is..." + compid);
 
@@ -120,6 +121,7 @@ function getUserInfo(userid, callback) {
 function changeUser(userObj, callback) {
     validate(userObj);
 
+    console.log('Now in usermodule.js, changing the user...');
     console.log(userObj);
 
     var _id = userObj._id;
