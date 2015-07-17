@@ -1,0 +1,198 @@
+extends layout
+append links
+    link(rel="stylesheet" href="/stylesheets/userform.css")
+append scripts
+    script(src="/javascripts/jquery-ui.min.js")
+    script.
+        $(function initEvents(){
+            $('.radioinput').on('click', function(){
+                var $this = $(this);
+                $('.radioinput').each(function(i, radio){
+                    $(radio).removeClass('radioselected');
+                });
+                $this.addClass('radioselected');
+                $('.sexinput>input').val($this.attr('data-value'));
+            });
+            $('#choosepic').on('click', function(e){
+                e.preventDefault();
+                $('.uploadfield').trigger('click');
+            });
+            $('input[type="file"]').change(function(e){
+                var fileInput = $(this)[0];
+                var files = fileInput.files;
+                var fileNames = [];
+                $.each(files, function(i, v){
+                    fileNames.push(v.name);
+
+                });
+                $('.uploadfield>input:first-child').val(fileNames.join(', '));
+            });
+            $('.page').each(function(i, val){
+                if(i != 0) {
+                    $(this).hide();    
+                }
+            });
+            var curPage = 1;
+            function changePage(nextOrPrev) {
+                if(nextOrPrev)
+                    curPage+=1;
+                else
+                    curPage-=1;
+                var selected = null;
+                $('.page').each(function(){
+                    var $this = $(this);
+                    if(+$this.attr('data-value') === curPage) {
+                        selected = $this;
+                    }
+                });
+                var $visible = $('.page:visible');
+                if(nextOrPrev) {
+                    $visible.eq(0).hide('slide', { direction: 'left' }, 400);
+                    selected.show('slide', { direction: 'right' }, 600);
+                }
+                else {
+                    $visible.eq(0).hide('slide', { direction: 'right' }, 400);
+                    selected.show('slide', { direction: 'left' }, 600);
+
+                }
+
+                
+            }
+            $('.nextBtn').on('click', function(){
+                changePage(true);
+            });
+
+            $('.previousBtn').on('click', function(){
+                changePage(false);
+            });
+            $('#makechange').on('click', function(){
+                $('.previewall').eq(0).hide('slide', { direction: 'right' }, 400);
+                $('.page:eq(0)').show('slide', { direction: 'left' }, 600);
+                curPage = 1;
+            });
+            
+        });
+
+block content
+    .main
+        form
+            .infosection.page(data-value="1")
+                .avatarsection
+                    .avatarimg
+                        img(src="/images/boydefaultpicture.png")
+                    .avatarupload
+                        .uploadfield 
+                            input.textinput(type="text")
+                            #choosepic.submitbutton= tr('...')
+                            #submitupload.submitbutton= tr('upload')
+                            input.uploadfield.hidden(type="file" name="avatar" multiple="multiple")
+                        .submitupload
+                .sectiontitle
+                    span= tr('basic_info')
+                .sectionfields
+                    label.title= tr('userid')
+                    input(id="userid" name="userid" type="text").textinput()
+                    label.title= tr('name')
+                    input(id="name" name="name" type="text").textinput()
+                    label.title= tr('password')
+                    input(id="password" type="password").passinput()
+                    .sexinput
+                        label.title= tr('sex')
+                        .radioinput.radioselected(data-value="1")
+                            .outer
+                                .inner
+                            .label= tr('sex_male')
+                        .radioinput(data-value="0")
+                            .outer
+                                .inner
+                            .label= tr('sex_female')
+                        input(name="sex" type="hidden" value="")
+                .nextBtn.submitbutton= tr('next')
+
+            .infosection.page(data-value='2')
+                .previousBtn.submitbutton= tr('previous')
+                .sectiontitle
+                    span= tr('address')
+                .sectionfields
+                    label.title= tr('userform_address_street')
+                    input(type="text" id="address_street" name="address_street").textinput
+                    label.title= tr('userform_address_city')
+                    input(type="text" id="address_city" name="address_city").textinput
+                    label.title= tr('userform_address_state')
+                    input.textinput.small.inline(id="address_state" name="address_state")
+                    label.title= tr('userform_address_zip')
+                    input.textinput.small.inline(id="address_zip" name="address_zip")
+                .nextBtn.submitbutton= tr('next')
+
+            .infosection.page(data-value='3')
+                .previousBtn.submitbutton= tr('previous')
+                .sectiontitle
+                    span= tr('other')
+                .sectionfields
+                    label.title= tr('paid_rate')
+                    input.textinput.small.inline(id="payrate" name="rate")
+                    label.title= tr('rate_change_date')
+                    input.textinput.small.inline.datepicker(id="change_from" name="rate_change_date")
+                    label.title= tr('userform_tel')
+                    input.textinput(name="tel")
+                    label.title= tr('userform_email')
+                    input.textinput(name="email")
+                    .textareainput
+                        label.title= tr('remark')
+                        textarea
+                .nextBtn.submitbutton= tr('next')
+
+        .previewall.page(data-value='4')
+            table.previewtable()
+                tr
+                    th= tr('userid')
+                    td
+                        span#useridtext
+                tr
+                    th= tr('name')
+                    td
+                        span#nametext
+                tr
+                    th= tr('password')
+                    td
+                        span#passwordtext
+                tr
+                    th= tr('sex')
+                    td
+                        span#sextext
+                tr
+                    th= tr('userform_address')
+                    td
+                        span#streettext
+                tr
+                    td(colspan=2)
+                        span#citytext 
+                        span#statetext
+                        span#ziptext
+
+                tr
+                    th= tr('paid_rate')
+                    td
+                        span#ratetext
+                tr
+                    th= tr('rate_date')
+                    td
+                        span#ratedatetext
+                tr
+                    th= tr('userform_tel')
+                    td
+                        span#teltext
+                tr
+                    th= tr('userform_email')
+                    td
+                        span
+                tr
+                    td(colspan=2)
+                        span.label= tr('remark')
+                        span#remarktext 
+            .cmdtools
+                    #makechange.submitbutton
+                        = tr('make_change')
+                    #confim.submitbutton
+                        = tr('submit_change')
+

@@ -79,8 +79,10 @@
   min-width: 256px;
   max-width: 666px;
   */
+  
   min-width: 400px;
   max-width: 800px;
+  
   width: 100%;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
   filter: alpha(opacity=0);

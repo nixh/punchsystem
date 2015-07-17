@@ -115,6 +115,7 @@ function postLogin(req, res, next) {
                     pageUrl: pageUrl
                 })(req, res, next);
             });
+
     });
     if (ret)
         res.render('message', ret);
@@ -168,7 +169,7 @@ function punchData(record, msg, userInfo) {
     msg.body = util.format(msg.body,
         punchout ? "OUT" : "IN",
         datetime.format("YYYY-MM-DD"),
-        datetime.format("HH:mm A"));
+        datetime.format("hh:mm A"));
     return {
         success: true,
         msg: msg,
@@ -210,44 +211,25 @@ router.get('/punch/:key', function(req, res, next) {
 
 });
 
-
-/*var qrModule = require('../qrcodeModule');
-
+/*
+var qrModule = require('../qrcodeModule');
 router.get('/supervisor/showdynacode', function(req, res, next) {
     var qrm = new qrModule();
-
     qrm.getDynacode(req.cookies.sessionid, function(err, mixinData) {
         qrm.db.close();
-        utils.render('testqrcode', {
+        utils.render('qr', {
             data: mixinData
         })(req, res, next);
     });
 });
 */
-
 router.get('/recentRecords', function(req, res, next) {
-
     var rm = new recordsModule();
     rm.rencentRecords({
         sessionid: req.cookies.sessionid
     }, function(err, recordDocs) {
         rm.db.close();
         utils.render('staff/staff_punch_report', {
-            moment: moment,
-            records: recordDocs
-        })(req, res, next);
-
-    });
-});
-
-router.get('/supervisor/recentRecords', function(req, res, next) {
-
-    var rm = new recordsModule();
-    rm.rencentRecords({
-        sessionid: req.cookies.sessionid
-    }, function(err, recordDocs) {
-        rm.db.close();
-        utils.render('supervisor/supervisor_punch_report', {
             moment: moment,
             records: recordDocs
         })(req, res, next);
@@ -304,7 +286,7 @@ router.get('/supervisor/rencentRecords/:uid', function(req, res, next) {
     var uid = req.params.uid;
     rm.rencentRecords(uid, function(err, recordDocs) {
         rm.db.close();
-        utils.render('staff/staff_punch_report', {
+        utils.render('supervisor/supervisor_punch_report', {
             moment: moment,
             records: recordDocs,
             userid: uid,
@@ -404,7 +386,7 @@ router.get('/supervisor/employees/:id', function(req, res){
 //    var qrid = signer.unsign(parts[0]+'.'+key);
 //    rm.checkDynaQrcode(qrid, req.cookies.sessionid, function(valid, userInfo){
 //        if(valid) {
-//            rm.punch(userInfo.userid, function(err, record){
+//            rm.punch(userInfo.userid, function(err, record){ 
 //                var msg = res.__('punch_success');
 //                utils.render('message', punchData(record, msg, userInfo))(req, res, next);
 //            });
@@ -412,6 +394,23 @@ router.get('/supervisor/employees/:id', function(req, res){
 //    });
 //
 //});
+
+router.get('/testoverview', function(req, res, next){ 
+    utils.render('overviewreport', {})(req, res, next);
+});
+
+router.get('/teststaffview', function(req, res, next){ 
+    utils.render('staffreport', {})(req, res, next);
+});
+
+router.get('/testusermodify/:id', function(req, res, next){
+
+    var um = new userMoudle();
+    um.getUserInfo(req.params.id, function(err, doc){
+        utils.render('modifyUser', { user: doc })(req, res, next);
+    });
+    
+});
 
 router.get('/message', utils.render('message', {
     msg: {

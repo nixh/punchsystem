@@ -4,12 +4,16 @@ body.bgbody{
 
 .staffPunchPage{
     width: 100%;
-    /*border: 1px solid red;*/
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.staffPunchPage .startEndTime{
-	/*border: 2px solid yellow;*/
+.staffPunchPage #searchform{
+	width: 90%;
+	margin-left: 5%;
+	
+}
+
+.staffPunchPage #searchform .startEndTime{
 	width: 100%;
 }
 
@@ -33,72 +37,71 @@ body.bgbody{
 }
 */
 
-.staffPunchPage .startEndTime input{
+.staffPunchPage #searchform .startEndTime input{
 	display: block;
-	width: 90%;
+	width: 100%;
 	height: 110px;
 	margin-top: 30px;
-	margin-left: 5%;
 	margin-bottom: 30px;
 	border-radius: 10px;
-        text-align:center;
+    text-align:center;
 	font-size: 60px;
 	color: rgb(103, 116, 153);
 	background-color: white;
 }
 
-.staffPunchPage .startEndTime input:nth-of-type(1){
+.staffPunchPage #searchform .startEndTime input:nth-of-type(1){
 	margin-top: 50px;
 }
-.staffPunchPage .controlButtons{
-	/*border: 2px solid orange;*/
+.staffPunchPage #searchform .controlButtons{
 	width: 100%;
 }
-.staffPunchPage .controlButtons:after {
+.staffPunchPage #searchform .controlButtons:after {
 	content: "";
 	visibility: hidden;
 	clear: both;
 	display: block;
 }
 
-.staffPunchPage .controlButtons .buttonItem{
+.staffPunchPage #searchform .controlButtons .buttonItem{
 	background-color: rgb(138, 209, 215);
 	color: white;
 	border-radius: 10px;
 	cursor: pointer;
 	float: left;
-	width: 29%;
+	width: 30%;
 	height: 150px;
-	border: 2px solid gray;
 	line-height: 150px;
 	text-align: center;
 	font-size: 50px;
-	margin-left: 12px;
 	margin-bottom: 30px;
 }
 
-.staffPunchPage .controlButtons .buttonItem:active{
+.staffPunchPage #searchform .controlButtons .buttonItem:active{
 	background-color: rgb(247, 130, 131);
 }
 
-.staffPunchPage .controlButtons :first-child{
-	margin-left: 5%;
+.staffPunchPage #searchform .controlButtons :first-child{
 }
 
-.staffPunchPage .controlButtons :last-child{
+.staffPunchPage #searchform .controlButtons :nth-child(2){
+	margin-left: 5%;
 	margin-right: 5%;
 }
 
+.staffPunchPage #searchform .controlButtons :last-child{
+	float: right;
+}
+
 .staffPunchPage .reportTable{
-	/*border: 2px solid green;*/
-	width: 100%;
+	margin-left: 5%;
+	width: 90%;
 }
 
 .staffPunchPage .reportTable table{
-	width: 90%;
+	width: 100%;
 	border-collapse: separate;
 	border-spacing: 5px;
-	margin-left: 5%;
 	color: rgb(103, 116, 153);
 }
 
