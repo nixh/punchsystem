@@ -51,7 +51,8 @@
 			up: 38,
 			right: 39,
 			down: 40,
-			comma: 188
+			comma: 188,
+			space: 32
 		};
 		plugin.settings = {};
 
@@ -194,6 +195,15 @@
 						break;
 					case key.escape:
 						e.preventDefault();
+						break;
+					case key.space:
+						e.preventDefault();
+						if (selected_index === -1) {
+							if ($(input_element).val() !== '') {
+								addTag($(input_element).val());
+							}
+						}
+						resizeInput();
 						break;
 					case key.comma:
 						e.preventDefault();
