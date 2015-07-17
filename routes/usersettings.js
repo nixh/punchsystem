@@ -23,7 +23,7 @@ router.get('/settings', function (req, res, next){
 									if(err){
 										res.send('err')
 									}else{
-										res.render('./staff/staff_setting',
+										res.render('staff/staff_setting',
 											{"userid":userid,"receiveEmails":doc.email});
 									}
 					})

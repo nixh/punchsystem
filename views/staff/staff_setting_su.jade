@@ -84,7 +84,7 @@ block content
 	.staffSettingPage
 		.passwordChange
 			.passwordLabel PASSWORD
-			form(method="POST",action="/staff_setting/supervisor/settings" onsubmit= "return checkpwd()") 
+			form(method="POST",action="/supervisor/settings" onsubmit= "return checkpwd()") 
 				input.textBox.inputBar(type ='password' name= 'oldpass'  placeholder= "OLD PASSWORD" id="oldpass")
 				input.textBox.inputBar(type ='password' name= 'newpass' placeholder= "NEW PASSWORD" id ="newpass")
 				input.textBox.inputBar(type ='password' name= 'confirmpass' placeholder= "CONFIRM PASSWORD" id = "confirmpass")
@@ -95,7 +95,7 @@ block content
 			.onOff.toggle.emailToggle.toggle-on 
 			
 		.EmailReportSetting.toggleTarget
-			form(method="POST",action='/staff_setting/supervisor/sendemail' onsubmit= "return checkemail()")
+			form(method="POST",action='/supervisor/sendemail' onsubmit= "return checkemail()")
 				-var email = (receiveEmails)? receiveEmails : "EMAIL ADDRESS"
 				input.textBox.inputBar(type= "text" autocapitalize ="off" id = "receiveEmails" name = 'receiveEmails' placeholder= "EMAIL ADDRESS" value="#{email}" )
 				-var enable= (enableEmail)? enableEmail : 1
@@ -122,7 +122,7 @@ block content
 		
 		.overTimeSetting.toggleTarget1
 
-			form(method="POST" action="/staff_setting/supervisor/setrate" onsubmit= "return checkrate()")
+			form(method="POST" action="/supervisor/setrate" onsubmit= "return checkrate()")
 				.thresholdDiv
 					.thresholdLabel 
 						span OVERTIME THRESHOLD

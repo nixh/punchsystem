@@ -14,7 +14,7 @@ block content
 	.staffSettingPage
 		.passwordChange
 			.passwordLabel PASSWORD
-			form(method="POST",action="/staff_setting/settings" onsubmit = "return checkpwd()") 
+			form(method="POST",action="/settings" onsubmit = "return checkpwd()") 
 				input.textBox.inputBar(type ='password' name= 'oldpass'  placeholder= "OLD PASSWORD")
 				input.textBox.inputBar(type ='password' name= 'newpass' placeholder= "NEW PASSWORD")
 				input.textBox.inputBar(type ='password' name= 'confirmpass' placeholder= "CONFIRM PASSWORD")

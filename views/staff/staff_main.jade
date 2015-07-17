@@ -4,9 +4,34 @@ append links
     link(rel='stylesheet', href='/stylesheets/staffMain.css')
 
 append scripts
-    script(src= "/javascripts/showHideRate.js")
+    //script(src= "/javascripts/showHideRate.js")
     script.
         $(function initEvent(){
+             var rateSH = $(".showHideRate");
+              var cover = $(".imageCover");
+              var hrRate = $(".hourRate");
+
+              var showCover = true;
+              rateSH.on("click", function(e){
+
+                  var cover = $(".imageCover");
+                  if(showCover) {
+                    showCover = false;
+                    cover.css("visibility", "hidden");
+                  } else {
+                    showCover = true;
+                    cover.css("visibility", "");
+                  }
+                 changeWord();
+              });
+
+              function changeWord(){
+                  if(showCover){
+                      rateSH.find("span").html("#{tr('showrate')}");
+                  }else{
+                      rateSH.find("span").html("#{tr('hiderate')}");
+                  }
+              }
             $('.punchReport').on('click', function(){
                 location.href = "/recentRecords";
             });
@@ -40,13 +65,11 @@ block content
             .paidRateBox
                 span.text= tr('paidrate')
             .paidRateBox
-                .hourRate.hidden
-                    span.number
-                        $#{user.curRate} #{tr('per_hour')}
+                .hourRate $#{user.curRate} #{tr('per_hour')}
                 .imageCover
 
             .paidRateBox.showHideRate.noselect
-                span= tr('hiderate')
+                span= tr('showrate')
                     
                
         .otherInfoLinks.noselect

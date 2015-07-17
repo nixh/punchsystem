@@ -1,0 +1,26 @@
+.hollowcircle(@raius, @thick, @color:red) {
+    border-radius: 50%;
+    border: @thick solid @color; 
+    width: @raius;
+    height: @raius;
+}
+
+.circle(@radius, @color:red) {
+    border-radius: 50%;
+    border: none;
+    width: @radius;
+    height: @radius;
+    background-color: @color;
+}
+
+.roundBorder(@border-raius) {
+    border-radius: @border-raius;
+    border: none;
+}
+
+.roundSquare(@width, @height, @border-raius) {
+    border-radius: @border-raius;
+    border: none;
+    width: @width;
+    height: @height;
+}
