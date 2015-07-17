@@ -19,6 +19,9 @@ append scripts
             $('.logout').on('click', function(){
                 location.href = "/logout";
             })
+            $('settings').click(function(){
+                location.href = "/supervisor/settings";
+            });
         });
 
 block content
@@ -32,8 +35,7 @@ block content
                 Company: #{user.compid}
                 User Account: #{user.email}
                 User ID: #{user.userid}
-                User Name: #{user.name}
-                Gender: #{user.sex}
+                User Name: #{user.name} Gender: #{user.sex}
                 Date Enrolled: #{user.createDate}
                 Address: #{user.address}
 
@@ -55,6 +57,7 @@ block content
 
         .otherInfoLinks.noselect
             .viewstaff.otherInfo= tr('view staff')
+            .settings.otherInfo= tr('supervisor_settings')
             .dynacode.otherInfo= tr('dynamic_qrcode')
             .adminpunch.otherInfo= tr('adminpunch')
             .logout.otherInfo= tr('logout')
