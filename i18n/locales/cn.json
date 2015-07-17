@@ -77,12 +77,7 @@
 	"avatar_preview": "展示",
 	"Preview Avatar": "展示代理",
 	"empty records": "未找到纪录",
-	"clearsearch": "清空",
 	"clearsearch": "清空搜索",
-	"empty records": "未找到纪录",
-	"viewrecords": "浏览记录",
-	"avatar_preview": "展示",
-	"Preview Avatar": "展示代理",
 	"basic_info": "basic_info",
 	"next": "next",
 	"previous": "previous",
@@ -98,10 +93,12 @@
 	"choose pictures": "choose pictures",
 	"upload": "upload",
 	"...": "...",
-
 	"start_end_date": "start_end_date",
 	"hours": "hours",
 	"totalpay": "totalpay",
-	"back": "back"
-
+	"back": "back",
+	"UserName_77": "UserName_77",
+	"UserName_50": "UserName_50",
+	"UserName_73": "UserName_73",
+	"UserName_76": "UserName_76"
 }
