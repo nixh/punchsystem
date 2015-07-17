@@ -1,12 +1,11 @@
 var express = require('express');
 var router = express.Router();
 var dbfunction = require('../db/db');
-var mo = require('moment');
+var moment = require('moment');
 var monk = require('monk');
 var db = monk('mongodb://localhost:27017/punchsystem');
 var recModule = require('../recModule');
 var rm = new recModule();
-var moment = require('moment');
 
 router.get('/punch_records', function(req, res, next){
     var sid = req.cookies.sessionid;
@@ -74,29 +73,53 @@ router.get('/supervisor/records_delete/:rid', function(req, res, next) {
     });
 });
 router.post('/supervisor/records_update/:rid', function(req, res, next) {
-    //var reportid = parseInt(req.body.rid);
-    var rid = req.body.rid;
-    var starttime = Date.parse(req.body.startdate);
-    var endtime = Date.parse(req.body.enddate);
     var query = {
-        _id: reportid
+        userid : req.body.userid,
+        inDate : moment(req.body.oriIndate).valueOf()
     };
-    var newrec = {
-        startDate: starttime,
-        endDate: endtime
-    };
-    rm.updateRecords(query, newrec, function(msg) {
-        res.send(msg);
+    var newrec = {};
+    if (req.body.inDate) {
+        newrec['startDate'] = moment(req.body.inDate).valueOf();
+    }
+    if (req.body.outDate) {
+        newrec['endDate'] = moment(req.body.outDate).valueOf();
+    }
+    rm.updateRecords(query, newrec, function(err, docs) {
+        if (err) {
+            res.render('', err);
+        } else {
+            res.render('', docs);
+        }
     });
 });
 
-router.post('/records_getWages', function(req, res, next) {
+router.post('/records_getWagesByUsers', function(req, res, next) {
     var userid = req.body.userid;
     var startDate = Date.parse(req.body.startdate);
     var endDate = Date.parse(req.body.enddate);
     var query = {userid: userid, startDate: startDate, endDate: endDate};
     rm.getWagesByWeek(query, function(jsonData) {
         res.render('', jsonData); // Need the page to be render
+    });
+});
+
+router.post('/records_getWagesByWeek', function(req, res, next) {
+    var compid = req.body.compid;
+    var startDate = Date.parse(req.body.startdate);
+    var endDate = Date.parse(req.body.enddate);
+    var query = {compid : compid, startDate : startDate, endDate : endDate};
+    rm.getWageReport(query, function(jsonData) {
+        res.render('', jsonData); // Need the page to be render
+    });
+});
+
+router.post('/records_getWagesByMonth', function(req, res, next) {
+    var compid = req.body.compid;
+    var startDate = Date.parse(req.body.startdate);
+    var endDate = Date.parse(req.body.enddate);
+    var query = {compid : compid, startDate : startDate, endDate : endDate};
+    rm.getWageReport(query, function(jsonDataArray) {
+        res.render('', jsonDataArray); // Need the page to be render
     });
 });
 

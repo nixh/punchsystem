@@ -49,28 +49,88 @@ describe('ReModule', function(){
     //     });
     // });
     //
-    // describe('#updateRecords(reportid, newRec, callback)', function() {
-    //     it('should update a record of specific user', function(done){
-    //         var query = {_id: "55a3d4a2e18d51d8e25aefb8"};
-    //         var startDate = new Date().getTime();
-    //         var endDate = new Date().getTime();
-    //         var newRec = {startDate: startDate, endDate: endDate};
-    //         rm.updateRecords(query, newRec, function(msg) {
-    //             assert.equal(msg, true);
+    describe('#updateRecords(reportid, newRec, callback)', function() {
+
+        it('should update both the indate and the outdate of a record of a specific user', function(done){
+            var userid = 'LoginName_1';
+            var oriIndate = 1436443200002;
+            var startDate = 1436443200009;
+            var endDate = 1436443200011;
+            var query = {userid: userid, inDate: oriIndate};
+            var newRec = {inDate: startDate, outDate: endDate};
+            rm.updateRecords(query, newRec, function(err, docs) {
+                console.log(docs);
+                assert.equal(docs.inDate, startDate);
+            });
+            done();
+        });
+
+        it('should update just the indate of a record of a specific user', function(done) {
+            var userid = 'LoginName_1';
+            var oriIndate = 1436450400000;
+            var startDate = 1436450400001;
+            var query = {userid: userid, inDate: oriIndate};
+            var newRec = {inDate: startDate};
+            rm.updateRecords(query, newRec, function(err, docs) {
+                console.log(docs);
+                assert.equal(docs.inDate, startDate);
+            });
+            done();
+        });
+
+        it('should update just the outdate of a record of a specific user', function(done) {
+            var userid = 'LoginName_1';
+            var oriIndate = 1436450400000;
+            var endDate = 1436450400221;
+            var query = {userid: userid, inDate: oriIndate};
+            var newRec = {outDate: endDate};
+            rm.updateRecords(query, newRec, function(err, docs) {
+                console.log(docs);
+                assert.equal(docs.outDate, endDate);
+            });
+            done();
+        });
+    });
+
+    // describe('#getWageOfUser(query, callback)', function() {
+    //     it('should calculate the wages of users by week or more', function(done) {
+    //         var userid = 49;
+    //         var startDate = new Date(2015, 5, 9).getTime();
+    //         var endDate = new Date(2015, 6, 21).getTime();
+    //         var query = { userid : userid, startDate : startDate, endDate : endDate };
+    //         //console.log(query);
+    //         rm.getWageOfUser(query, function(jsonData) {
+    //             console.log(jsonData);
+    //             done();
     //         });
-    //         done();
+    //         //done();
     //     });
     // });
 
-    describe('#getWagesByWeek(query, callback)', function() {
-        it('should calculate the wages of users by week or more', function(done) {
-            var compid = 49;
-            var startDate = new Date(2015, 5, 9).getTime();
-            var endDate = new Date(2015, 6, 21).getTime();
-            var query = { userid : userid, startDate : startDate, endDate : endDate };
+    describe('#getWageByWeek(query, callback)', function() {
+        it('should calculate the wages of users of a specific company by weeks or more', function(done) {
+            var compid = 1;
+            var startDate = new Date(2015, 6, 1).getTime();
+            var endDate = new Date(2015, 6, 11).getTime();
+            var query = { compid : compid, startDate : startDate, endDate : endDate };
             //console.log(query);
-            rm.getWagesByWeek(query, function(jsonData) {
-                console.log(jsonData);
+            rm.getWageByWeek(query, function(jsonData) {
+                //console.log(jsonData);
+                done();
+            });
+            //done();
+        });
+    });
+
+    describe('#getWageByMonth(query, callback)', function() {
+        it('should calculate the wages of users of a specific company by Month', function(done) {
+            var compid = 1;
+            var startDate = new Date(2015, 6, 1).getTime();
+            var endDate = new Date(2015, 6, 31).getTime();
+            var query = { compid : compid, startDate : startDate, endDate : endDate };
+            //console.log(query);
+            rm.getWageByMonth(query, function(jsonData) {
+                //console.log(jsonData);
                 done();
             });
             //done();

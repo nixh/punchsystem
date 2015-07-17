@@ -75,12 +75,14 @@ users_cursor.forEach(function(doc){
     var possibleEndHours = [17, 18, 19];
     var date = startDate;
 
+    (function(d) {
     for(var i=0; i<20; i++) {
         report_id_counter += 1;
         var index = getRandomNumber(3)
-        var inTime = date + hourToMillis(possibleStartHours[index]);
+        var inTime = d + hourToMillis(possibleStartHours[index]);
         index = getRandomNumber(3);
-        var outTime = date + hourToMillis(possibleEndHours[index]);
+        var outTime = d + hourToMillis(possibleEndHours[index]);
+
         db.records.insert({
             reportid : report_id_counter,
             compid : compid,
@@ -89,8 +91,9 @@ users_cursor.forEach(function(doc){
             outDate : outTime,
             hourlyRate : 8.75,
             remark : 'test'
-        });
+        }, function(){ d += 24 * 3600 * 1000; });
     }
+    })(date);
 });
 
 // initialize session

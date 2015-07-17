@@ -1,6 +1,6 @@
 var utils = require('./utils');
-//var db = require('./db/db');
 var sessionModule = require('./sessionModule');
+var moment  = require('moment');
 var _ = require('underscore');
 var monk = require('monk');
 
@@ -223,12 +223,8 @@ function searchRecords(query, su, callback) {
 function updateRecords(query, newrec, callback) {
     var db = this.db;
     var records = db.get('records');
-    records.update(query, {"$set": newrec}, function(err, docs) {
-        var msg = true;
-        if (err) {
-            msg = false;
-        }
-        callback(msg);
+    records.findAndModify(query, {"$set": newrec}, {new: true}, function(err, docs) {
+        callback(err, docs);
     });
 }
 //*********************************************//
@@ -245,7 +241,7 @@ function getTotalHoursByRate(records, query, callback) {
         },
         {
             $match: {
-                userid: 'LoginName_1', inDate: {$gte: 1433822400000}, outDate: {$lte: 1437451200000}
+                userid: 'LoginName_1', inDate: {$gte: startDate}, outDate: {$lte: endDate}
             }
         },
         {
@@ -263,7 +259,7 @@ function getTotalHoursByRate(records, query, callback) {
     });
 }
 
-function getWagesByWeek(query, callback) {
+function getWageOfUser(query, callback) {
     //console.log(query);
     var db = this.db;
     var records = db.get('records');
@@ -273,25 +269,25 @@ function getWagesByWeek(query, callback) {
         if (err) {
             console.log(err);
         } else {
-            var totalwages = 0;
+            var totalWage = 0;
             var totalHours = 0;
             var sumRate = 0;
             recs.forEach(function(rec, index) {
                 sumRate += rec._id;
                 totalHours += (rec.totalOut - rec.totalIn) / (1000 * 3600);
-                totalwages += totalHours * rec._id;
+                totalWage += totalHours * rec._id;
             });
-            console.log(totalwages);
+            //console.log(totalWage);
             var avgRate = sumRate / recs.length;
             var overTime = 0;
             if (totalHours > 40) {
                 overTime = totalHours - 40;
             }
-            totalwages += overTime * avgRate * 0.5;
+            totalWage += overTime * avgRate * 0.5;
             jsonData = {};
             jsonData.totalHours = totalHours;
             jsonData.overTime = overTime;
-            jsonData.totalwages = totalwages;
+            jsonData.totalWage = totalWage;
             users.find({userid : userid}, function(err, user) {
                 if (err) {
                     console.log(err);
@@ -304,12 +300,121 @@ function getWagesByWeek(query, callback) {
         }
     });
 }
-
-function getWageReport(query, callback) {
+//Assume that function get a week time as argument
+function getWageByWeek(query, callback) {
     var db = this.db;
     var records = db.get('records');
     var users = db.get('users');
+    var compid = query.compid;
+    var startDate = query.startDate;
+    var endDate = query.endDate;
+    //console.log(query);
+    users.find({ compid : compid }, function(err, userList) {
+        if (err) {
+            console.log(err);
+        } else {
+            //console.log(userList);
+            var userIdList = userList.map(function(u) {return u.userid});
+            //console.log(userIdList);
+            records.col.aggregate([
+                { $match : {  userid: {$in : userIdList} , inDate: {$gte: startDate}, outDate: {$lte: endDate} } },
+                { $sort : { inDate : 1} },
+                { $group : {
+                        _id : { rate : '$hourlyRate', userid : '$userid' },
+                        totalIn : { $sum : '$inDate' },
+                        totalOut : { $sum : '$outDate' },
+                        from : { $first : '$inDate' },
+                        to : {$last : '$outDate'}
+                    }
+                },
+                { $group : {
+                        _id : {userid : '$_id.userid' },
+                        from : { $first : '$from' },
+                        to : { $last : '$to' },
+                        totalHours : { $sum : { $subtract : ['$totalOut', '$totalIn'] } },
+                        avgRate : { $avg : '$_id.rate' },
+                        rates : {
+                            $push : {
+                                rate : '$_id.rate',
+                                workhours : { $subtract : ['$totalOut', '$totalIn'] }
+                            }
+                        }
+                    }
+                },
+                { $project : {
+                        userid : '$_id.userid',
+                        from : '$from',
+                        to : '$to',
+                        totalhours : '$totalHours',
+                        rates : '$rates',
+                        avgRate : '$avgRate',
+                        _id : 0
+                    }
+                }
+            ], function(err, reports) {
+                if (err) {
+                    console.log(err);
+                    return callback(err);
+                } else {
+                    jsonData = {};
+                    jsonData.userReports = [];
 
+                    reports.forEach(function(report, index) {
+                        var totalhours = report.totalhours / (1000 * 3600);
+                        userReport = {};
+                        userReport.userid = report.userid;
+                        userReport.from = moment(report.from).format("LLLL");
+                        userReport.to = moment(report.to).format("LLLL");
+                        userReport.totalhours = totalhours;
+                        userReport.avgRate = report.avgRate;
+                        var totalWage = 0;
+                        var rates = report.rates;
+                        rates.forEach(function(userRate, i) {
+                            totalWage += userRate.rate * userRate.workhours / (3600 * 1000);
+                        });
+                        var overTime = totalhours - 40;
+                        if (overTime > 0) {
+                            totalWage += overTime * report.avgRate * 0.5;
+                        }
+                        userReport.totalWage = totalWage;
+                        jsonData.userReports.push(userReport);
+                    });
+                    callback(jsonData);
+                }
+            });
+        }
+    });
+}
+
+function getWageByMonth(query, callback) {
+    var startDate = moment(query.startDate);
+    //var endDate = moment(query.endDate);
+    // console.log(startDate.format("LLLL"));
+    // console.log(startDate.startOf("week").format("LLLL"));
+    // console.log(startDate.add(1, 'w').format("LLLL"));
+    jsonDataArray = [];
+    if(startDate.day() != 1) {
+        startDate.add(1, 'w');
+    }
+    var counter = 0;
+    var calltimes = 4;
+    for (var i = 0; i < calltimes; i++) {
+        startDate = startDate.startOf('week');
+        var start = startDate.valueOf();
+        //console.log(startDate.format('LLLL'));
+        startDate.add(1, 'w');
+        //console.log(startDate.format('LLLL'));
+        var end = startDate.valueOf();
+
+        newQuery = {compid : query.compid, startDate : start, endDate : end};
+
+        //console.log(newQuery);
+        this.getWageByWeek(newQuery, function(jsonData) {
+            jsonDataArray.push(jsonData);
+            if(++counter === calltimes)
+                callback(jsonDataArray);
+        });
+    }
 }
 //*********************************************//
 var db_module = require('./db_module');
@@ -322,7 +427,9 @@ function Module(settings) {
 }
 
 Module.prototype = {
-    getWagesByWeek : getWagesByWeek,
+    getWageByMonth : getWageByMonth,
+    getWageByWeek : getWageByWeek,
+    getWageOfUser : getWageOfUser,
     updateRecords : updateRecords,
     getOneRecord : getOneRecord,
     findLastRecordsByCompid : findLastRecordsByCompid,
