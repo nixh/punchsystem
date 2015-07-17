@@ -83,7 +83,7 @@
 	"previous": "previous",
 	"address": "address",
 	"other": "other",
-	"paid_rate": "paid_rate",
+	"paid_rate": "时薪",
 	"rate_change_date": "rate_change_date",
 	"rate_date": "rate_date",
 	"tel": "tel",
@@ -93,8 +93,13 @@
 	"choose pictures": "choose pictures",
 	"upload": "upload",
 	"...": "...",
-	"start_end_date": "start_end_date",
-	"hours": "hours",
-	"totalpay": "totalpay",
-	"back": "back"
+	"start_end_date": "开始<br/>结束",
+	"hours": "工时",
+	"totalpay": "应付",
+	"back": "返回",
+	"change_qrcode": "change_qrcode",
+	"UserName_4": "UserName_4",
+	"UserName_61": "UserName_61",
+	"UserName_80": "UserName_80",
+	"UserName_113": "UserName_113"
 }

@@ -1,0 +1,45 @@
+extends layout
+
+append links
+	link(rel='stylesheet' href='/stylesheets/reportselect.css')
+					
+block content						
+	.total(ontouchstart="")
+		.title1
+			h1 SELECT REPORT
+		.button1.noselect
+			h1 ACTIVITY
+		
+
+		.summary.noselect
+			h1 SUMMARY
+
+			script.
+
+				$(document).ready(function() {
+					$('.summary').click(function(){
+
+						$('.calendar').slideToggle("fast");
+					});
+				});
+
+				
+					
+		
+		
+
+		.calendar.noselect.hidden
+			- var months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUNE', 'JULY', 'AUG', 'SEPT', 'OCT', 'NOV', 'DEV'];
+			.title
+				h1 SELECT MONTH
+
+			table
+				- var threshold = 3;
+				each m, index in months
+					if index ==0 || index % 3 == 0 
+						tr
+					td(data-url="report/summary/#{m}")= m
+
+
+
+

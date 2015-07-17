@@ -10,17 +10,28 @@ var sModule   = require('./sessionModule');
 
 function getDynacode(sessionid, cb) {
     var qrCol = this.db.get('qrcodes');
-    var csCol = this.db.get('comp_settings')
+    var csCol = this.db.get('comp_settings');
+    var compCol = this.db.get('companies');
     var sm = new sModule({db:this.db});
     var module = this;
     sm.getSessionInfo(sessionid, function(err, sObj){
-        csCol.findOne({compid:sObj.compid},{}, function(err, settings){
-            module.createDynaQrcode(sObj.compid, 3*3600*1000, function(err, qrdata){
-                var mixinData = {};
-                _.extend(mixinData, qrdata);
-                _.extend(mixinData, settings);
-                cb(err, mixinData)
+        compCol.findOne({compid: sObj.compid}, {}, function(err, comp){
+            if(err)
+                return cb(err);
+            csCol.findOne({compid:sObj.compid},{}, function(err, settings){
+                if(err)
+                    return cb(err);
+                module.createDynaQrcode(sObj.compid, 3*3600*1000, function(err, qrdata){
+                    if(err)
+                        return cb(err);
+                    var mixinData = {};
+                    _.extend(mixinData, qrdata);
+                    _.extend(mixinData, settings);
+                    _.extend(mixinData, comp);
+                    cb(err, mixinData)
+                });
             });
+
         });
     });
 
