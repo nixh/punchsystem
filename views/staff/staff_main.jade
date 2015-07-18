@@ -75,10 +75,8 @@ block content
                
         .otherInfoLinks.noselect
             .punchReport.otherInfo= tr('punchReport')
+            .delegate.otherInfo= tr('delegate')
             .setting.otherInfo= tr('setting')
             .logout.otherInfo= tr('logout')
             if false
                 .wageReport.otherInfo= tr('wageReport')
-                .delegate.otherInfo
-                    if delegate
-                        a(href= "/user/delegate") Delegate
