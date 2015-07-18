@@ -121,7 +121,6 @@ append scripts
                 reader.onload = function(e) {
                     $('#img_prev')
                         .attr('src', e.target.result);
-                        
                 };
 
                 reader.readAsDataURL(input.files[0]);
@@ -134,7 +133,7 @@ block content
             .infosection.page(data-value="1")
                 .avatarsection
                     .avatarimg
-                        img(id="img_prev" src="#{user.avatar}" alt="your image")
+                        img(id="img_prev" src="#{!user ? '/images/boydefaultpicture.png' :user.avatar}" alt="your image")
                     .avatarupload
                         .uploadfield 
                             input.textinput(type="text" name="avatar_url")
@@ -143,7 +142,7 @@ block content
                             input.uploadfield.hidden(type="file" name="avatar" multiple="multiple" onchange="readURL(this);")
                         .submitupload
     
-                -var _id = (user == undefined ? undefined: user._id);
+                - var _id = (user == undefined ? undefined: user._id);
                 
                 input(id="dbid" name="_id" type="text" value = "#{_id}" style="display: none")
                 

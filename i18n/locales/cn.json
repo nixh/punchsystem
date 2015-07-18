@@ -153,5 +153,13 @@
 	"LoginName_60": "LoginName_60",
 	"LoginName_150": "LoginName_150",
 	"empty": "空记录..",
-	"edit": "修改"
+	"edit": "修改",
+	"UserName_1": "UserName_1",
+	"LoginName_1": "LoginName_1",
+	"UserName_6": "UserName_6",
+	"LoginName_6": "LoginName_6",
+	"UserName_26": "UserName_26",
+	"LoginName_26": "LoginName_26",
+	"UserName_114": "UserName_114",
+	"LoginName_114": "LoginName_114"
 }

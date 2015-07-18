@@ -11,7 +11,7 @@ var util = require('util');
 var um = new usermodule();
 
 // Add a new user
-router.get('/add', utils.render('modifyUser', {title: 'UserAdd'}));
+router.get('/add', utils.render('modifyUser', {}));
 router.post('/add', function(req, res){
 	var col = req.db.get('users');
 	var userObj = req.body;
