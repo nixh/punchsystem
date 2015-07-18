@@ -47,7 +47,10 @@ router.get('/supervisor/settings', function (req, res, next){
 										res.send('err')
 									}else{
 										res.render('./staff/staff_setting_su',
-											{"userid":userid,"receiveEmails":doc.email,"su":true});
+											{	"userid":userid,
+												"receiveEmails":doc.email,
+												"su":true,"overtime":doc.overtime,
+												"newrate":doc.curRate});
 									}
 					})
 				}
@@ -134,7 +137,12 @@ router.post('/supervisor/setrate',function (req,res){
 			res.send('err');
 		}else{
 			//console.log(doc)
-			res.render("./staff/staff_setting_su",{"userid":userobj.userid,"receiveEmails":doc.email,"su":true});
+			res.render("./staff/staff_setting_su",
+						{	"userid":userobj.userid,
+							"receiveEmails":doc.email,
+							"su":true,
+							"overtime":userobj.overtime,
+							"newrate":userobj.newrate});
 		}
 	})
 });
