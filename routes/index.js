@@ -209,7 +209,7 @@ router.get('/punch/:key', function(req, res, next) {
     });
 
 });
-// 
+//
 // var qrModule = require('../qrcodeModule');
 // router.get('/supervisor/showdynacode', function(req, res, next) {
 //     var qrm = new qrModule();
@@ -535,12 +535,6 @@ router.get('/cookies', function(req, res, next) {
     for (var key in cookies) {
         cookie_str += key + "=" + cookies[key] + ";<br/>";
     }
-});
-
-
-// for user._id
-router.get('/test', function(req, res, next){
-    utils.render('modifyUser', {user: {}})(req, res, next);
 });
 
 router.getLoginPage = loginpage;
