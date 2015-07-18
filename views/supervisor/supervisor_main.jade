@@ -1,24 +1,53 @@
 extends ../layout.jade
 
+
 append links
     link(rel='stylesheet', href='/stylesheets/supervisorMain.css')
 
 append scripts
+    - var currentMonth = moment().startOf('month').format('MMM');
     script(src= "/javascripts/showHideRate.js")
     script.
         $(function initEvents(){
+
+            $('.viewstaff').on('click', function(){
+                location.href = "/supervisor/employees";
+            });
+
+            $('.overview').on('click', function(){
+                location.href = "/supervisor/reportselect";
+            });
+
+            $('.addStaff').on('click', function(){
+                location.href = "/users/add"
+            });
+
+            $('.manageRecords').on('click', function(){
+                location.href = "/supervisor/employees_records"
+            });
+
             $('.dynacode').on('click', function(){
                 location.href = "/supervisor/showdynacode"
             });
+
+            $('.delegate').on('click', function(){
+                location.href = "/supervisor_delegate"
+            });
+
             $('.adminpunch').on('click', function(){
                 location.href = '/supervisor/adminpunch';
             });
-            $('.viewstaff').on('click', function(){
-                location.href = "/supervisor/employees"
-            })
+
+            $('.setting').on('click', function(){
+                location.href = "/supervisor/settings";
+            });
+
             $('.logout').on('click', function(){
                 location.href = "/logout";
             })
+            $('settings').click(function(){
+                location.href = "/supervisor/settings";
+            });
         });
 
 block content
@@ -32,8 +61,7 @@ block content
                 Company: #{user.compid}
                 User Account: #{user.email}
                 User ID: #{user.userid}
-                User Name: #{user.name}
-                Gender: #{user.sex}
+                User Name: #{user.name} Gender: #{user.sex}
                 Date Enrolled: #{user.createDate}
                 Address: #{user.address}
 
@@ -55,15 +83,17 @@ block content
 
         .otherInfoLinks.noselect
             .viewstaff.otherInfo= tr('view staff')
+            .addStaff.otherInfo= tr('add staff')
+            .manageRecords.otherInfo= tr('manage records')
             .dynacode.otherInfo= tr('dynamic_qrcode')
+            .delegate.otherInfo= tr('delegate')
             .adminpunch.otherInfo= tr('adminpunch')
+            .overview.otherInfo= tr('overview')
+            .setting.otherInfo= tr('setting')
             .logout.otherInfo= tr('logout')
 
             if false
-                .management.otherInfo= tr('staffmanagement')
-                .delegate.otherInfo= tr('delegate')
-                .otherInfo SETTING
-                .otherInfo SUPERVISOR MANAGEMENT
-                .otherInfo ADD STAFF
+
+                
 
 

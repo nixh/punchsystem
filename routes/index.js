@@ -1,11 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var monk = require('monk');
-var utils = require('../utils');
-var db = monk(utils.getConfig('mongodbPath'));
-var btoa = require('btoa');
-var nobi = require('nobi');
-var crypto = require('crypto');
+var utils = require('../utils'); var db = monk(utils.getConfig('mongodbPath'));
+var btoa = require('btoa'); var nobi = require('nobi'); var crypto = require('crypto');
 var signer = nobi(utils.getConfig('appKey'));
 var uuid = require('node-uuid');
 var util = require('util');
@@ -61,13 +58,13 @@ function loginpage(req, res, next) {
 function postLogin(req, res, next) {
     var ret = login(req.body, function(err, doc) {
         if (err)
-            return res.render('message', {
+            return utils.render('message', {
                 msg: {
                     head: 'LOGIN FAILED',
                     body: err.message
                 },
                 success: false
-            });
+            })(req, res, next);
         if (!doc)
             return utils.render('message', {
                 msg: {
@@ -125,11 +122,15 @@ function postLogin(req, res, next) {
 
 
 router.get('/', function(req, res, next) {
-    var test = db.get('test');
-    var results = test.find({}, {});
-    res.render('index', {
-        title: 'Express',
-        ret: results
+    var sm = new sModule();
+    sm.getSessionInfo(req.cookies.sessionid, function(err, session){
+
+        if(session.compowner) {
+            res.redirect(302, "/supervisor/supervisor_main");
+        } else {
+            res.redirect(302, "/staff_main");
+        }
+
     });
 });
 
@@ -211,18 +212,18 @@ router.get('/punch/:key', function(req, res, next) {
 
 });
 
-/*
 var qrModule = require('../qrcodeModule');
 router.get('/supervisor/showdynacode', function(req, res, next) {
     var qrm = new qrModule();
     qrm.getDynacode(req.cookies.sessionid, function(err, mixinData) {
+        console.log(mixinData);
         qrm.db.close();
         utils.render('qr', {
             data: mixinData
         })(req, res, next);
     });
 });
-*/
+
 router.get('/recentRecords', function(req, res, next) {
     var rm = new recordsModule();
     rm.rencentRecords({
@@ -308,7 +309,7 @@ router.get('/supervisor/employees', function(req, res, next) {
             compid: sObj.compid
         }, function(err, users) {
             console.log(JSON.stringify(users));
-            utils.render('users/search', {
+            utils.render('users/userListSearch', {
                 msg: 'hello',
                 userlist: users
             })(req, res, next);
@@ -325,7 +326,91 @@ router.post('/supervisor/employees', function(req, res) {
         um.searchUser(userid, sObj.compid, function(err, doc) {
             var title;
             if (err) {
-                utils.render('users/search', {
+                utils.render('users/userListSearch', {
+                    'title': 'Search Error!'
+                });
+            } else {
+                if (doc.length === 0) {
+                    title = "No such userid";
+                } else {
+                    title = "Searching Results for " + userid;
+                }
+                utils.render('users/userListSearch', {
+                    'search_term': userid,
+                    'title': title,
+                    'userlist': doc
+                })(req, res);
+            }
+            sm.db.close();
+        });
+    });
+});
+
+router.get('/supervisor/employees/:id', function(req, res, next){
+    var sm = new sModule();
+    var um = new userMoudle({db: sm.db});
+
+    sm.getSessionInfo(req.cookies.sessionid, function(err, sObj) {
+
+        // console.log(sObj.compid);
+        // console.log(req.params.id);
+
+        um.getUserInfo(req.params.id, function(err, user) {
+            if(err){
+
+                utils.render('users/userListSearch')(req, res, next);
+            }else{
+                // console.log('This is the user being searched...');
+                if(!user)
+                    user = {};
+
+                if(user && user.address){
+    				var addr = user.address.split('|');
+
+    				user['address_street'] = addr[0];
+    				user['address_city'] = addr[1];
+    				user['address_state'] = addr[2];
+    				user['address_zip'] = addr[3];
+    			}
+                if(user && !user.avatar) {
+                    user.avatar = user.sex ? "/images/boydefaultpicture.png" : 
+                                             "/images/girl default picture.png";
+                }
+                utils.render('modifyUser', {
+                    user: user
+                })(req, res);
+            }
+        });
+    });
+});
+
+router.get('/supervisor/employees_records', function(req, res, next) {
+    var um = new userMoudle();
+    var sm = new sModule(um.db);
+    sm.getSessionInfo(req.cookies.sessionid, function(err, sObj) {
+
+        um.getAllUsers({
+            compid: sObj.compid
+        }, function(err, users) {
+            console.log(JSON.stringify(users));
+            utils.render('users/search', {
+                msg: 'hello',
+                userlist: users
+            })(req, res, next);
+        });
+    });
+});
+
+
+router.post('/supervisor/employees_records', function(req, res) {
+    var sm = new sModule();
+    var um = new userMoudle({db:sm.db});
+    var userid = req.body.userid;
+    sm.getSessionInfo(req.cookies.sessionid, function(err, sObj) {
+        um.searchUser(userid, sObj.compid, function(err, doc) {
+            var title;
+            if (err) {
+                utils.render('users/userListSearch', {
                     'title': 'Search Error!'
                 });
             } else {
@@ -345,7 +430,7 @@ router.post('/supervisor/employees', function(req, res) {
     });
 });
 
-router.get('/supervisor/employees/:id', function(req, res){
+router.get('/supervisor/employees_records/:id', function(req, res){
     var sm = new sModule();
     var um = new userMoudle({db: sm.db});
 
@@ -362,18 +447,113 @@ router.get('/supervisor/employees/:id', function(req, res){
                 // console.log(user);
 
                 if(user && user.address){
-    				var addr = user.address.split('|');
+                    var addr = user.address.split('|');
 
-    				user['address_street'] = addr[0];
-    				user['address_city'] = addr[1];
-    				user['address_state'] = addr[2];
-    				user['address_zip'] = addr[3];
-    			}
+                    user['address_street'] = addr[0];
+                    user['address_city'] = addr[1];
+                    user['address_state'] = addr[2];
+                    user['address_zip'] = addr[3];
+                }
 
-                utils.render('users/detail', {
+                utils.render('modifyUser', {
                     userinfo: user
-                })(req, res);
+                })(req, res, next);
             }
+        });
+    });
+});
+
+var recModule = require('../recModule');
+router.get('/supervisor/overviewreport/:start/:end', function(req, res, next){
+    var sm = new sModule();
+    var rm = new recModule({db: sm.db});
+    sm.getSessionInfo(req.cookies.sessionid, function(err, sObj){
+        var start = moment(req.params.start, "MM-DD").valueOf();
+        var end = moment(req.params.end, "MM-DD").valueOf();
+        var compid = sObj.compid;
+        rm.getWageByWeek({compid: compid, startDate: start, endDate: end},
+            function(err, jsonData){
+            sm.db.close();
+            var m = moment(req.params.start, "MM-DD");
+            jsonData.m = m;
+            utils.render('overviewreport', jsonData)(req, res, next);            
+        });
+    });
+});
+
+function parseMonthData(weekData) {
+    var ret = [];
+    weekData.forEach(function(v){
+        if(!v)
+            return;
+        var userData = {};
+        userData.userid = v.userid;
+        userData.from = moment(v.from, "LLLL").valueOf();
+        userData.to = moment(v.to, "LLLL").valueOf();
+        userData.avgRate = v.avgRate;
+        userData.totalhours = v.totalhours;
+        userData.totalWage = v.totalWage;
+        ret.push(userData);
+    });
+    return ret;
+}
+
+function formatMonthDataToReport(monthData) {
+    var userReports = {};
+
+    for(var i=0; i<monthData.length; i++) {
+        var weekData = monthData[i];
+        for(var j=0; j<weekData.length; j++) {
+            var data = weekData[j];
+            var user = userReports[data.userid];
+            if(!user) {
+                user = data;
+            } else {
+                if(user.from > data.from)
+                    user.from = data.from;
+                if(user.to < data.to)
+                    user.to = data.to;
+                user.totalHour += data.totalHour;
+                user.totalWage += data.totalWage;
+                user.avgRate = data.avgRate;
+                user.userid = data.userid;
+            }
+            userReports[data.userid] = user;
+        }
+    }
+    return userReports;
+
+}
+
+router.get('/supervisor/overviewreport/:month', function(req, res, next){
+    var sm = new sModule();
+    var rm = new recModule({db: sm.db});
+    sm.getSessionInfo(req.cookies.sessionid, function(err, sObj){
+        var month = moment(req.params.month, "MMM");
+        month = month.startOf('month').valueOf();
+        var compid = sObj.compid;
+        rm.getWageByMonth({compid: compid, startDate: month},
+            function(err, jsonData){
+            sm.db.close();
+            var monthData = [];
+            var userList = [];
+            var monthData = [];
+            jsonData.forEach(function(weekData){
+                userList = weekData.userList;
+                if(weekData.userReports.length !== 0) {
+                    monthData.push(parseMonthData(weekData.userReports));
+                }
+            });
+            var userReports = formatMonthDataToReport(monthData);
+            var reports = [];
+            for(var key in userReports) {
+                reports.push(userReports[key]);
+            }
+            var ret = {};
+            ret.userReports = reports;
+            ret.userList = userList;
+            ret.m = moment(month).format('MM-DD');
+            utils.render('overviewreport', ret)(req, res, next);            
         });
     });
 });
@@ -386,7 +566,7 @@ router.get('/supervisor/employees/:id', function(req, res){
 //    var qrid = signer.unsign(parts[0]+'.'+key);
 //    rm.checkDynaQrcode(qrid, req.cookies.sessionid, function(valid, userInfo){
 //        if(valid) {
-//            rm.punch(userInfo.userid, function(err, record){ 
+//            rm.punch(userInfo.userid, function(err, record){
 //                var msg = res.__('punch_success');
 //                utils.render('message', punchData(record, msg, userInfo))(req, res, next);
 //            });
@@ -395,11 +575,23 @@ router.get('/supervisor/employees/:id', function(req, res){
 //
 //});
 
-router.get('/testoverview', function(req, res, next){ 
+router.get('/userdetails', function(req, res, next){
+    utils.render('userdetails', {})(req, res, next);
+});
+
+router.get('/supervisor/reportselect', function(req, res, next){
+    var sm = new sModule();
+    sm.getSessionInfo(req.cookies.sessionid, function(err, sObj){
+
+        utils.render('reportselect', { owner: sObj.compowner })(req, res, next);
+    });
+});
+
+router.get('/testoverview', function(req, res, next){
     utils.render('overviewreport', {})(req, res, next);
 });
 
-router.get('/teststaffview', function(req, res, next){ 
+router.get('/teststaffview', function(req, res, next){
     utils.render('staffreport', {})(req, res, next);
 });
 
@@ -407,9 +599,19 @@ router.get('/testusermodify/:id', function(req, res, next){
 
     var um = new userMoudle();
     um.getUserInfo(req.params.id, function(err, doc){
+
+        if(doc && doc.address){
+            var addr = doc.address.split('|');
+
+            doc['address_street'] = addr[0];
+            doc['address_city'] = addr[1];
+            doc['address_state'] = addr[2];
+            doc['address_zip'] = addr[3];
+        }
+
         utils.render('modifyUser', { user: doc })(req, res, next);
     });
-    
+
 });
 
 router.get('/message', utils.render('message', {
@@ -440,6 +642,12 @@ router.get('/cookies', function(req, res, next) {
     for (var key in cookies) {
         cookie_str += key + "=" + cookies[key] + ";<br/>";
     }
+});
+
+
+// for user._id
+router.get('/test', function(req, res, next){
+    utils.render('modifyUser', {user: {}})(req, res, next);
 });
 
 router.getLoginPage = loginpage;

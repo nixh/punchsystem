@@ -25,15 +25,15 @@ body.bgbody{
 }
 
 .supervisorDelegatePage .searchDiv{
-	width: 100%;
+	width: 90%;
+	margin-left: 5%;
 }
 
 .supervisorDelegatePage .searchDiv input{
 	display: block;
-	width: 90%;
+	width: 100%;
 	height: 110px;
 	margin-top: 30px;
-	margin-left: 5%;
 	margin-bottom: 30px;
 	border-radius: 10px;
 	text-align: left;
@@ -68,14 +68,15 @@ body.bgbody{
 }
 
 .supervisorDelegatePage .delegationTable{
+	width: 90%;
+	margin-left: 5%;
 }
 
 .supervisorDelegatePage .delegationTable table{
 	margin-top: 20px;
-	width: 90%;
+	width: 100%;
 	border-collapse: separate;
 	border-spacing: 5px;
-	margin-left: 5%;
 	color: rgb(103, 116, 153);
 }
 

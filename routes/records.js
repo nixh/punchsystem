@@ -24,8 +24,8 @@ router.get('/supervisor/delegate', function(req, res, next) {
 router.get('/punch_records', function(req, res, next){
     var rm = new recModule();
     var sid = req.cookies.sessionid;
-    var query = {userid: sid}
-    rm.punch(query, function());
+    var query = {userid: sid};
+    rm.punch(query, function(){});
 });
 
 router.post('/records_search', function(req, res, next) {
@@ -94,23 +94,33 @@ router.get('/supervisor/records_delete/:rid', function(req, res, next) {
     });
 });
 router.post('/supervisor/records_update', function(req, res, next) {
-    var rm = new recModule();
+    var rm = new recModule();    
+    var type = req.body.type;
+    var _id = req.body.value;
+    var userid = req.body.userid;
+    var date = req.body.date;
+
+    var format = "YYYY-MM-DD hh:mm A";
     var query = {
-        userid : req.body.userid,
-        inDate : moment(req.body.oriIndate).valueOf()
+        userid : userid,
+        _id : _id
     };
     var newrec = {};
-    if (req.body.inDate) {
-        newrec['startDate'] = moment(req.body.inDate).valueOf();
+    var destDate = 0;
+    if(type === 'in') {
+        newrec['inDate'] = moment(date, format).valueOf(); 
     }
-    if (req.body.outDate) {
-        newrec['endDate'] = moment(req.body.outDate).valueOf();
+    else {
+        newrec['outDate'] = moment(date, format).valueOf();
     }
     rm.updateRecords(query, newrec, function(err, docs) {
+        rm.db.close();
         if (err) {
-            res.render('', err);
+            res.send("{success: false}");
+            res.end();
         } else {
-            res.render('', docs);
+            res.send("{success:true}");
+            res.end();
         }
     });
 });

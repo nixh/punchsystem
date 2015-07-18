@@ -15,8 +15,36 @@ append scripts
     script(src= "/javascripts/pickadateControl.js")
     script(src="/javascripts/editPunchTime.js")
 
+    script.
+        $(document).ready(function(){
+            $('.returnSupervisor').on('click', function(){
+            //location.href = "/supervisor/supervisor_main";
+                history.go(-1);
+            });
+            $('.confirmButton').on('click', function(){
+                var $btn = $(this);
+                var value = $btn.attr('data-value');
+                var type = $btn.attr('data-type');
+                var userid = "#{userid}";
+                var data = {userid: userid, type:type, value:value};
+                var tr = $btn.parent().parent().parent().parent().parent();
+                if(type === 'in') {
+                    var inDate = tr.find('.inDateInput').val();
+                    var inTime = tr.find('.inTimeInput').val();
+                    data.date = inDate+" "+inTime;
+                } else {
+                    var outDate = tr.find('.outDateInput').val();
+                    var outTime = tr.find('.outTimeInput').val();
+                    data.date = outDate+" "+outTime;
+                }
+                $.post("/supervisor/records_update", data, function(data){ 
+                    alert(123);
+                }, "json");
+            });
+        });
+
     - function getTime(tstamp) {
-    -   return moment(tstamp).format("HH:mm A");
+    -   return moment(tstamp).format("hh:mm A");
     - }
     - function getDate(tstamp) {
     -   return moment(tstamp).format("YYYY-MM-DD");
@@ -33,7 +61,7 @@ block content
             .controlButtons
                 .preview.buttonItem= tr('preview')
                 .buttonItem= tr('export')
-                .return.buttonItem= tr('return')
+                .returnSupervisor.buttonItem= tr('return')
 
         .reportTable
             table 
@@ -77,10 +105,10 @@ block content
                                     li.listItem 
                                         button.editOutButton.editButton EDIT
                                         .confirmReturn.outConfirmReturn.hidden
-                                            button.confirmButton O 
+                                            button.confirmButton(data-value="#{record._id}" data-type="out") O 
                                             button.returnButton X
                                     li.listItem 
                                         button.editInButton.editButton EDIT
                                         .confirmReturn.inConfirmReturn.hidden
-                                            button.confirmButton O 
+                                            button.confirmButton(data-value="#{record._id}" data-type="in") O 
                                             button.returnButton X

@@ -264,6 +264,7 @@ function updateRecords(query, newrec, callback) {
     var db = this.db;
     var records = db.get('records');
     records.findAndModify(query, {"$set": newrec}, {new: true}, function(err, docs) {
+        console.log(docs);
         callback(err, docs);
     });
 }
@@ -334,7 +335,7 @@ function getWageOfUser(query, callback) {
                     callback(err);
                 } else {
                     jsonData.user = user;
-                    callback(jsonData);
+                    callback(err, jsonData);
                 }
             });
         }
@@ -348,14 +349,11 @@ function getWageByWeek(query, callback) {
     var compid = query.compid;
     var startDate = query.startDate;
     var endDate = query.endDate;
-    //console.log(query);
     users.find({ compid : compid }, function(err, userList) {
         if (err) {
             console.log(err);
         } else {
-            //console.log(userList);
             var userIdList = userList.map(function(u) {return u.userid});
-            //console.log(userIdList);
             records.col.aggregate([
                 { $match : {  userid: {$in : userIdList} , inDate: {$gte: startDate}, outDate: {$lte: endDate} } },
                 { $sort : { inDate : 1} },
@@ -398,7 +396,6 @@ function getWageByWeek(query, callback) {
                 } else {
                     jsonData = {};
                     jsonData.userReports = [];
-
                     reports.forEach(function(report, index) {
                         var totalhours = report.totalhours / (1000 * 3600);
                         userReport = {};
@@ -419,7 +416,8 @@ function getWageByWeek(query, callback) {
                         userReport.totalWage = totalWage;
                         jsonData.userReports.push(userReport);
                     });
-                    callback(jsonData);
+                    jsonData.userList = userList;
+                    callback(err, jsonData);
                 }
             });
         }
@@ -428,10 +426,6 @@ function getWageByWeek(query, callback) {
 
 function getWageByMonth(query, callback) {
     var startDate = moment(query.startDate);
-    //var endDate = moment(query.endDate);
-    // console.log(startDate.format("LLLL"));
-    // console.log(startDate.startOf("week").format("LLLL"));
-    // console.log(startDate.add(1, 'w').format("LLLL"));
     jsonDataArray = [];
     if(startDate.day() != 1) {
         startDate.add(1, 'w');
@@ -441,18 +435,16 @@ function getWageByMonth(query, callback) {
     for (var i = 0; i < calltimes; i++) {
         startDate = startDate.startOf('week');
         var start = startDate.valueOf();
-        //console.log(startDate.format('LLLL'));
         startDate.add(1, 'w');
-        //console.log(startDate.format('LLLL'));
         var end = startDate.valueOf();
-
         newQuery = {compid : query.compid, startDate : start, endDate : end};
 
         //console.log(newQuery);
-        this.getWageByWeek(newQuery, function(jsonData) {
+        this.getWageByWeek(newQuery, function(err, jsonData) {
             jsonDataArray.push(jsonData);
-            if(++counter === calltimes)
-                callback(jsonDataArray);
+            if(++counter === calltimes) {
+                callback(err, jsonDataArray);
+            }
         });
     }
 }
