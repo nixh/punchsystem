@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var usersetting = require('../usersettingModule');
 var settings = new usersetting();
+var utils = require('../utils');
 var session = require('../sessionModule');
 var sid = new session();
 router.get('/', function(req, res, next){
@@ -23,8 +24,8 @@ router.get('/settings', function (req, res, next){
 									if(err){
 										res.send('err')
 									}else{
-										res.render('./staff/staff_setting_su',
-											{"userid":userid,"receiveEmails":doc.email,"su":false});
+										utils.render('./staff/staff_setting_su',
+											{"userid":userid,"receiveEmails":doc.email,"su":false})(req, res, next);
 									}
 					})
 				}

@@ -1,8 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var monk = require('monk');
-var utils = require('../utils');
-var db = monk(utils.getConfig('mongodbPath'));
+var utils = require('../utils'); var db = monk(utils.getConfig('mongodbPath'));
 var btoa = require('btoa');
 var nobi = require('nobi');
 var crypto = require('crypto');
@@ -61,13 +60,13 @@ function loginpage(req, res, next) {
 function postLogin(req, res, next) {
     var ret = login(req.body, function(err, doc) {
         if (err)
-            return res.render('message', {
+            return utils.render('message', {
                 msg: {
                     head: 'LOGIN FAILED',
                     body: err.message
                 },
                 success: false
-            });
+            })(req, res, next);
         if (!doc)
             return utils.render('message', {
                 msg: {
@@ -211,18 +210,18 @@ router.get('/punch/:key', function(req, res, next) {
 
 });
 
-/*
 var qrModule = require('../qrcodeModule');
 router.get('/supervisor/showdynacode', function(req, res, next) {
     var qrm = new qrModule();
     qrm.getDynacode(req.cookies.sessionid, function(err, mixinData) {
+        console.log(mixinData);
         qrm.db.close();
         utils.render('qr', {
             data: mixinData
         })(req, res, next);
     });
 });
-*/
+
 router.get('/recentRecords', function(req, res, next) {
     var rm = new recordsModule();
     rm.rencentRecords({
@@ -345,7 +344,7 @@ router.post('/supervisor/employees', function(req, res) {
     });
 });
 
-router.get('/supervisor/employees/:id', function(req, res){
+router.get('/supervisor/employees/:id', function(req, res, next){
     var sm = new sModule();
     var um = new userMoudle({db: sm.db});
 
@@ -372,7 +371,7 @@ router.get('/supervisor/employees/:id', function(req, res){
 
                 utils.render('users/detail', {
                     userinfo: user
-                })(req, res);
+                })(req, res, next);
             }
         });
     });
@@ -394,6 +393,10 @@ router.get('/supervisor/employees/:id', function(req, res){
 //    });
 //
 //});
+
+router.get('/reportselect', function(req, res, next){
+    utils.render('reportselect', {})(req, res, next);
+});
 
 router.get('/testoverview', function(req, res, next){ 
     utils.render('overviewreport', {})(req, res, next);

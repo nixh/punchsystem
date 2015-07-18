@@ -6,6 +6,12 @@
     font-family: "dinbek";
     src: url('/fonts/DINBek.ttf');
 }
+
+@font-face {
+    font-family: "open sans";
+    src: url('/fonts/OpenSans-Regular.ttf');
+}
+
 @font-face {
     font-family: "simhei";
     src: url('/fonts/SimHei.ttf');
@@ -22,6 +28,8 @@ body {
     height: 100%;
     min-height: 100%;
     font-family: 'anivers reg';
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: transparent;
 }
 body.bgbody {
     background: rgb(245, 237, 228);

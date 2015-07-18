@@ -39,6 +39,9 @@ append scripts
             $('.logout').on('click', function(){
                 location.href = "/logout";
             });
+            $('.settings').click(function(){
+                location.href = '/settings';
+            });
         });
 
 
@@ -72,11 +75,10 @@ block content
         .otherInfoLinks.noselect
             .punchReport.otherInfo= tr('punchReport')
             .logout.otherInfo= tr('logout')
+            .settings.otherInfo= tr('staff_settings')
             if false
                 .wageReport.otherInfo= tr('wageReport')
 
-                .setting.otherInfo
-                    a(href= "/user/setting") Setting
                 .delegate.otherInfo
                     if delegate
                         a(href= "/user/delegate") Delegate
