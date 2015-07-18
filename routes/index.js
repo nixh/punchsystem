@@ -122,11 +122,15 @@ function postLogin(req, res, next) {
 
 
 router.get('/', function(req, res, next) {
-    var test = db.get('test');
-    var results = test.find({}, {});
-    res.render('index', {
-        title: 'Express',
-        ret: results
+    var sm = new sModule();
+    sm.getSessionInfo(req.cookies.sessionid, function(err, session){
+
+        if(session.compowner) {
+            res.redirect(302, "/supervisor/supervisor_main");
+        } else {
+            res.redirect(302, "/staff_main");
+        }
+
     });
 });
 

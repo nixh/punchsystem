@@ -12,7 +12,20 @@ append scripts
     script(src="/pickadate/lib/picker.date.js")
     script(src="/pickadate/lib/picker.time.js")
     script.
+        function setAllFieldsToTable() {
+            $('.previewtable td>span').each(function(){
+                var $span = $(this);
+                var name = $span[0].id;
+                var idName = name.substring(0, name.length-4);
+                var value = $('form input[name="'+idName+'"]').val();
+                if(idName === 'sex') {
+                    value = value ? "#{tr('sex_male')}" : "#{tr('sex_female')}";
+                }
+                $span.html(value);
+            });
+        }
         $(function initEvents(){
+            setAllFieldsToTable();
             $('.radioinput').on('click', function(){
                 var $this = $(this);
                 $('.radioinput').each(function(i, radio){
@@ -40,6 +53,9 @@ append scripts
                     $(this).hide();    
                 }
             });
+            $('form input').change(function(){
+                setAllFieldsToTable();
+            });
             var curPage = 1;
             function changePage(nextOrPrev) {
                 if(nextOrPrev)
@@ -61,7 +77,6 @@ append scripts
                 else {
                     $visible.eq(0).hide('slide', { direction: 'right' }, 400);
                     selected.show('slide', { direction: 'left' }, 600);
-
                 }
             }
             $('.nextBtn').on('click', function(){
@@ -231,7 +246,7 @@ block content
                 tr
                     th= tr('userform_email')
                     td
-                        span
+                        span#email
                 tr
                     td(colspan=2)
                         span.label= tr('remark')
