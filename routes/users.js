@@ -4,8 +4,6 @@ var router = express.Router();
 var usermodule = require('../usermodule');
 var utils = require("../utils");
 
-//var Imagemin = require('imagemin');
-
 var multiparty = require('multiparty');
 
 var util = require('util');
@@ -13,7 +11,7 @@ var util = require('util');
 var um = new usermodule();
 
 // Add a new user
-router.get('/add', utils.render('users/adduser', {title: 'UserAdd'}));
+router.get('/add', utils.render('modifyUser', {title: 'UserAdd'}));
 router.post('/add', function(req, res){
 	var col = req.db.get('users');
 	var userObj = req.body;
@@ -59,6 +57,10 @@ router.get('/search', function(req, res){
 var sModule = require('../sessionModule');
 
 router.post('/search', function(req, res){
+
+	console.log('Now in the users router, receiving post request from others...');
+	console.log(JSON.stringify(req.body));
+
     var sm = new sModule();
 	var col = sm.db.get('users');
 	var userid = req.body.userid;
@@ -110,44 +112,60 @@ var fs = require('fs');
 
 router.post('/change', function(req, res, next){
 
+
 	var form = new multiparty.Form();
+
+	console.log('Now changing user info');
 
 	form.parse(req, function(err, fields, files){
 		if(err)
 			return next(err);
 
 		console.log(files);
+		console.log(fields);
 
 		var userObj = {};
 		for(var key in fields){
 			userObj[key] = fields[key][0];
 		}
 
+		console.log('This is the copied object...');
+		console.log(JSON.stringify(userObj));
+
 		//Avatar is from url
 		if(files.avatar[0].size == 0){
+			userObj.avatar = userObj.avatar_url;
+			delete userObj.avatar_url;
+
+			if(userObj.avatar.length == 0){
+				delete userObj.avatar;
+			}
 
 			um.changeUser(userObj, function(err, doc){
 			   	if(err){
 			   		utils.render('users/search')(req, res);
 			   	}else{
 			   		// console.log(doc);
-			   		res.redirect('/supervisor/employees');
+					var loc = '/testusermodify/' + userObj.userid;
+			   		res.redirect(loc);
 			   	}
 			});
 
-		//Avatar from upload
+	// 	//Avatar from upload
 		}else{
 			var image = files.avatar[0];
 			var imgPath = image.path;
 
 			fs.readFile(imgPath, function(err, data){
 				if(err){
-					utils.render('users/search')(req, res);
+					utils.render('supervisor/employees')(req, res);
 				}else{
 					var base64Image = new Buffer(data, 'binary').toString('base64');
 					var finalData = "data:" + image.headers['content-type']  + "; base64," + base64Image;
 
 					userObj['avatar'] = finalData;
+
+					delete userObj.avatar_url;
 
 					um.changeUser(userObj, function(err, doc){
 					   	if(err){
@@ -160,20 +178,36 @@ router.post('/change', function(req, res, next){
 
 				}
 			});
-
-			// 并没有卵用
-			// var image = files.avatar[0];
-			// var imgPath = image.path;
-			//
-			// var path = __dirname + "/../resize/";
-			//
-			// new Imagemin().src(imgPath).dest(path).use(Imagemin.jpegtran({progressive: true})).run(function(err, file){
-			// 	console.log(file[0]);
-			// 	var base64Image = file[0]
-			// });
 		}
 	});
 });
+
+// router.post('/preview_avatar', function(req, res){
+//
+// 	var form = new multiparty.Form();
+//
+// 	console.log('Now changing user info');
+//
+// 	form.parse(req, function(err, fields, files){
+// 		if(err)
+// 			return next(err);
+//
+// 		console.log(files);
+// 		console.log(fields);
+//
+// 		var userObj = {};
+// 		for(var key in fields){
+// 			userObj[key] = fields[key][0];
+// 		}
+//
+// 		console.log('This is the copied object...');
+// 		console.log(JSON.stringify(userObj));
+//
+//
+//
+// 	});
+//
+// });
 
 
 router.get('/delete/:_id', function(req, res){

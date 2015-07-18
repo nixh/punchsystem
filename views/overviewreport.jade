@@ -1,13 +1,6 @@
 extends layout
 append links
     link(rel="stylesheet" href="/stylesheets/overviewreport.css")
-append scripts
-    script.
-        $(function initEvents(){
-            $('.weekly > .submitbutton').on('click', function(){
-                $('.weeklist').slideToggle('slow');
-            });
-        });
 
     - function getRecord(userid, records) {
     -   return records.filter(function(r){ return r.userid === userid })[0];
@@ -20,7 +13,6 @@ append scripts
     - now.startOf('month');
     - var weeklist = [];
     - var counter = 5;
-    - console.log(month);
     - while(counter > 0) {
     -   var weekObj = { start: now.startOf('week').format('MM-DD'), end: now.endOf('week').format('MM-DD') };
     -   now.add(1, 'w');
@@ -28,15 +20,37 @@ append scripts
     -   counter--;
     - }
 
+append scripts
+    script.
+        $(function initEvents(){
+            $('.weekly > .submitbutton').on('click', function(){
+                $('.weeklist').slideToggle('slow');
+            });
+            $('.weekly ul li').on('click', function(){
+                var $liBtn = $(this);
+                location.href = "/supervisor/overviewreport/" + $liBtn.html();
+            });
+
+            $('.monthly>.submitbutton').on('click', function(){
+                location.href = "/supervisor/overviewreport#{month? '/'+month : ''}";
+            });
+            $('.back').on('click', function(){
+                history.go(-1);
+            });
+            
+
+        });
+
+
 block content
     .main
         .header
-            span OVERVIEW SUMMARY
+            span= tr('overview_summary')
         .cmdtools
             .monthly
-                .submitbutton MONTH OF #{month} #{year}
+                .submitbutton #{tr('month_of')}  #{month} <br> #{year}
             .weekly
-                .submitbutton WEEKLY REPORT
+                .submitbutton #{tr('weekly')} <br> #{tr('report')}
                 .weeklist.hidden
                     ul
                         each week, index in weeklist
@@ -46,31 +60,22 @@ block content
         table.overviewtable
             tr
                 th= tr('name')
-                th= tr('start_end_date')
+                th!= tr('start_end_date')
                 th= tr('paid_rate')
                 th= tr('hours')
                 th= tr('totalpay')
-                - var test = [1, 2, 3, 4, 5, 6]
-                each n in test
+            if userReports.length == 0
+                td(colspan="5")= tr('empty')
+            else
+                each user, index in userList
+                    - var record = getRecord(user.userid, userReports);
                     tr
-                        td Q
+                        td= user.name
                         td
-                            span 06-01
+                            span= moment(record.from).format("MM-DD hh:mm A")
                             br
-                            span 06-30
-                        td $8.75
-                        td 40
-                        td $350
-        //
-            each user, index in users
-                - var record = getRecord(user.userid, records);
-                tr
-                    td= user.name
-                    td
-                        span= record.inDate
-                        br
-                        span= record.outDate
-                    td= user.curRate[user.curRate.length-1].rate
-                    td= record.workhour
-                    td= record.total
+                            span= moment(record.to).format("MM-DD hh:mm A")
+                        td= "$" + record.avgRate
+                        td= record.totalhours
+                        td= "$" + record.totalWage
         .submitbutton.back= tr('back')

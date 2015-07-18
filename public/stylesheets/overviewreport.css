@@ -16,6 +16,10 @@ Common Settings
   font-family: "simhei";
   src: url('/fonts/SimHei.ttf');
 }
+@font-face {
+  font-family: "open sans";
+  src: url('/fonts/OpenSans-Regular.ttf');
+}
 .text {
   font-family: 'anivers reg', 'simhei';
 }
@@ -222,11 +226,12 @@ functions
 .main .cmdtools .monthly,
 .main .cmdtools .weekly {
   display: inline-block;
-  width: calc(100%/2 - 2%);
+  width: calc(100%/2 - 1%);
   position: relative;
 }
 .main .cmdtools .monthly .weeklist,
 .main .cmdtools .weekly .weeklist {
+  margin-top: -2%;
   position: absolute;
   width: 100%;
 }
@@ -241,17 +246,60 @@ functions
   font-size: 50px;
   font-family: 'dinbeck';
   line-height: 80px;
-  margin-bottom: 2%;
-  border-radius: 25px;
   color: #677499;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: white;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  border-bottom: 2px solid #8ad1d7;
+  border-left: 2px solid #8ad1d7;
+  border-right: 2px solid #8ad1d7;
   cursor: pointer;
 }
+.main .cmdtools .monthly .weeklist ul li:active,
+.main .cmdtools .weekly .weeklist ul li:active {
+  background-color: #8ad1d7;
+}
+.main .cmdtools .monthly .weeklist ul li:first-child,
+.main .cmdtools .weekly .weeklist ul li:first-child {
+  border-top-right-radius: 25px;
+  border-top-left-radius: 25px;
+}
+.main .cmdtools .monthly .weeklist ul li:last-child,
+.main .cmdtools .weekly .weeklist ul li:last-child {
+  border-bottom-right-radius: 25px;
+  border-bottom-left-radius: 25px;
+}
+.main .cmdtools .monthly .submitbutton,
+.main .cmdtools .weekly .submitbutton {
+  height: 240px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  /* align horizontal */
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  /* align vertical */
+  line-height: normal;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
 .main .cmdtools .monthly {
-  margin-right: 2%;
+  margin-right: 1%;
+}
+.main .cmdtools .monthly .submitbutton {
+  border-top-right-radius: 0;
 }
 .main .cmdtools .weekly {
-  margin-left: 2%;
+  margin-left: 1%;
+}
+.main .cmdtools .weekly .submitbutton {
+  border-top-left-radius: 0;
 }
 .main table.overviewtable {
   border-collapse: separate;
@@ -283,4 +331,13 @@ functions
   text-align: center;
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
+}
+.main table.overviewtable th {
+  height: 240px;
+}
+.main table.overviewtable tr:first-child th:first-child {
+  border-top-left-radius: 0;
+}
+.main table.overviewtable tr:first-child th:last-child {
+  border-top-right-radius: 0;
 }
