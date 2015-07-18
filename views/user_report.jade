@@ -1,20 +1,19 @@
 extends layout
 
 append links
-  link(rel= "stylesheet" href= "/datepicker/css/datepicker.css")
+    link(rel= "stylesheet" href= "/datepicker/css/datepicker.css")
 append scripts
-  script(src="/datepicker/js/bootstrap-datepicker.js")
+     script(src="/datepicker/js/bootstrap-datepicker.js")
 
 block content
     #punch
-        form(action='/records_search' method='post')
-          | Start Date: 
-          input.datePick(type='text', name='startdate')
-          br
-          | End Date: 
-          input.datePick(type='text', name='enddate')
-          input(type="hidden" name='userid' value="#{userid}")
-          input(type='submit' value='Search')
+        form(action='/records_search' method='post')= tr('startdate')
+            input.datePick(type='text', name='startdate')
+            br
+            = tr('enddate')
+            input.datePick(type='text', name='enddate')
+            input(type="hidden" name='userid' value="#{userid}")
+            input(type='submit' value='Search')
     script.
         $(function(){
             var showing = false;
