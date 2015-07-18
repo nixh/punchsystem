@@ -10,9 +10,6 @@
         $('#searchform').submit();
 
     });
-    $('.return').on('click', function(){
-        location.href = "/supervisor/employees";
-
-    });
+   
 
 });

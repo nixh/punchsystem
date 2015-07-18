@@ -13,7 +13,14 @@ append scripts
     script(src="/pickadate/lib/picker.js")
     script(src="/pickadate/lib/picker.date.js")
     script(src="/pickadate/lib/picker.time.js")
-    script(src= "/javascripts/pickadateControl.js")  
+    script(src= "/javascripts/pickadateControl.js")
+
+    script.
+        $(document).ready(function(){
+             $('.returnStaff').on('click', function(){
+              location.href = "/staff_main";
+            });
+        });  
    
     - function getTime(tstamp) {
     -   return moment(tstamp).format("HH:mm A");
@@ -33,7 +40,7 @@ block content
             .controlButtons
                 .preview.buttonItem= tr('preview')
                 .buttonItem= tr('export')
-                .return.buttonItem= tr('return')
+                .returnStaff.buttonItem= tr('return')
 
         .reportTable
             table 

@@ -308,7 +308,7 @@ router.get('/supervisor/employees', function(req, res, next) {
             compid: sObj.compid
         }, function(err, users) {
             console.log(JSON.stringify(users));
-            utils.render('users/search', {
+            utils.render('users/userListSearch', {
                 msg: 'hello',
                 userlist: users
             })(req, res, next);
@@ -325,7 +325,7 @@ router.post('/supervisor/employees', function(req, res) {
         um.searchUser(userid, sObj.compid, function(err, doc) {
             var title;
             if (err) {
-                utils.render('users/search', {
+                utils.render('users/userListSearch', {
                     'title': 'Search Error!'
                 });
             } else {
@@ -334,7 +334,7 @@ router.post('/supervisor/employees', function(req, res) {
                 } else {
                     title = "Searching Results for " + userid;
                 }
-                utils.render('users/search', {
+                utils.render('users/userListSearch', {
                     'search_term': userid,
                     'title': title,
                     'userlist': doc
@@ -356,7 +356,7 @@ router.get('/supervisor/employees/:id', function(req, res){
 
         um.getUserInfo(req.params.id, function(err, user) {
             if(err){
-                utils.render('users/search');
+                utils.render('users/userListSearch');
             }else{
                 // console.log('This is the user being searched...');
                 // console.log(user);
@@ -370,7 +370,88 @@ router.get('/supervisor/employees/:id', function(req, res){
     				user['address_zip'] = addr[3];
     			}
 
-                utils.render('users/detail', {
+                utils.render('modifyUser', {
+                    userinfo: user
+                })(req, res);
+            }
+        });
+    });
+});
+
+router.get('/supervisor/employees_records', function(req, res, next) {
+    var um = new userMoudle();
+    var sm = new sModule(um.db);
+    sm.getSessionInfo(req.cookies.sessionid, function(err, sObj) {
+
+        console.log(sObj.compid);
+
+        um.getAllUsers({
+            compid: sObj.compid
+        }, function(err, users) {
+            console.log(JSON.stringify(users));
+            utils.render('users/search', {
+                msg: 'hello',
+                userlist: users
+            })(req, res, next);
+        });
+    });
+});
+
+
+router.post('/supervisor/employees_records', function(req, res) {
+    var sm = new sModule();
+    var um = new userMoudle({db:sm.db});
+    var userid = req.body.userid;
+    sm.getSessionInfo(req.cookies.sessionid, function(err, sObj) {
+        um.searchUser(userid, sObj.compid, function(err, doc) {
+            var title;
+            if (err) {
+                utils.render('users/userListSearch', {
+                    'title': 'Search Error!'
+                });
+            } else {
+                if (doc.length === 0) {
+                    title = "No such userid";
+                } else {
+                    title = "Searching Results for " + userid;
+                }
+                utils.render('users/search', {
+                    'search_term': userid,
+                    'title': title,
+                    'userlist': doc
+                })(req, res);
+            }
+            sm.db.close();
+        });
+    });
+});
+
+router.get('/supervisor/employees_records/:id', function(req, res){
+    var sm = new sModule();
+    var um = new userMoudle({db: sm.db});
+
+    sm.getSessionInfo(req.cookies.sessionid, function(err, sObj) {
+
+        // console.log(sObj.compid);
+        // console.log(req.params.id);
+
+        um.getUserInfo(req.params.id, function(err, user) {
+            if(err){
+                utils.render('users/search');
+            }else{
+                // console.log('This is the user being searched...');
+                // console.log(user);
+
+                if(user && user.address){
+                    var addr = user.address.split('|');
+
+                    user['address_street'] = addr[0];
+                    user['address_city'] = addr[1];
+                    user['address_state'] = addr[2];
+                    user['address_zip'] = addr[3];
+                }
+
+                utils.render('modifyUser', {
                     userinfo: user
                 })(req, res);
             }
