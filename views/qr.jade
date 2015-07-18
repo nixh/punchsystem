@@ -1,10 +1,18 @@
+extends layout
 append links
     link(rel='stylesheet', href='/stylesheets/qr.css')
+append scripts
+    script.
+        $(function initEvents(){
+            $('.button').on('click', function(){
+                location.reload();
+            });
+        });
 
 block content
     .total
         .companyname
-            h1 ADMINSYS INC
+            h1= data.name
         .phone
             .phoneleft
                 h1 347-698-8300
@@ -17,4 +25,4 @@ block content
             img(src="#{data.qrdata}")
 
         .button
-            h1 punch
+            h1= tr('change_qrcode')

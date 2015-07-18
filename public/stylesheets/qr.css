@@ -76,3 +76,6 @@ body {
     line-height: 12%;
     color: #FFFFFF;
 }
+.button:active {
+    background: rgb(247, 130, 131);
+}

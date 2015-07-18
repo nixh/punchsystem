@@ -8,10 +8,8 @@ var moment = require('moment');
 var router = express.Router();
 var db;
 
-function sendemail(userobj){
-		var conf = this.conf;
-		var db = this.db;
-		var info =this.mailinfo;
+function sendemail(userobj,db,info,conf){
+		
 		var collection = db.get('users');
 		console.log(userobj)
 		collection.findOne({'userid':userobj.userid}, {fields: { "email":1,"_id":0}} ,function(err,doc){
@@ -32,29 +30,34 @@ function sendemail(userobj){
 }
 
 function sendreport(userobj,date,freqz){
+	var db = this.db;
+	var conf = this.conf;
+	var db = this.db;
+	var info =this.mailinfo;
 	var day = moment(date).format('DD');
-	console.log(day)
+	//console.log(day)
 	var hour = moment(date).format("HH");
-	console.log(hour)
+	//console.log(hour)
 	var min = moment(date).format('mm');
-	console.log(min)
+	//console.log(min)
 	var sec = moment(date).format("ss");
-	console.log(sec)
+	//console.log(sec)
 	var d = new Date(date);
 	var now = moment().valueOf();
-	console.log(now)
+	//console.log(now)
 	var date=moment(date).valueOf();
-	console.log(date)
+	//console.log(date)
 	if(freqz =="weekly"){
 		//var rule ={second:sec, minute:min,hour:hour,dayOfWeek:7};
-		schedule.scheduleJob(('0 0 0 0 0 7'),function(){
-			sendemail(userobj);
+		//schedule.scheduleJob({hour: hour, minute: min, dayOfWeek: 7},function(){
+		schedule.scheduleJob('*/30 * * * * *',function(){	
+			sendemail(userobj,db,info,conf);
 			console.log('send weekly')
 		})
 	}
 	else{
 		//var rule = {second:sec,hour:hour,minute:min,dayOfMonth:day};
-		schedule.scheduleJob('0 0 0 0 [1,2,3,4,5,6,7,8,9,10,11,12] 0',function(){
+		schedule.scheduleJob({hour: hour, minute: min, dayOfMonth: 1},function(){
 			sendemail(userobj);
 		})			
 	}
@@ -79,7 +82,8 @@ function Module(settings) {
 }
 
 Module.prototype = {
-		sendreport: sendreport
+		sendreport: sendreport,
+		sendemail: sendemail
 	}
 
 

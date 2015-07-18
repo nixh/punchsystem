@@ -43,7 +43,7 @@ function changepass(userobj,callback){
 function receiveemail(userobj,callback) {
 		var db= this.db;
 		var collection=db.get("users");
-		collection.findOne({'userid':userobj.userid}, {fields: { "email":1,"_id":0}} ,callback);
+		collection.findOne({'userid':userobj.userid}, {} ,callback);
 	}
 
 function updateemail(userobj,callback){
