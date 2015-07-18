@@ -5,15 +5,31 @@ var moment = require('moment');
 var monk = require('monk');
 var db = monk('mongodb://localhost:27017/punchsystem');
 var recModule = require('../recModule');
-var rm = new recModule();
+
+router.get('/supervisor/delegate', function(req, res, next) {
+    var rm = new recModule();
+    var userid = req.params.userid;
+    var sessionid = req.cookies.sessionid;
+    var flag = req.params.flag;
+    var query = {userid : userid, sessionid : sessionid, flag : flag};
+    rm.delegate(query, function(err, msg) {
+        if (err) {
+
+        } else {
+            res.render('/supervisor/supervisor_delegate', msg);
+        }
+    });
+});
 
 router.get('/punch_records', function(req, res, next){
+    var rm = new recModule();
     var sid = req.cookies.sessionid;
     var query = {userid: sid}
     rm.punch(query, function());
 });
 
 router.post('/records_search', function(req, res, next) {
+    var rm = new recModule();
     var starttime = Date.parse(req.body.startdate);
     var endtime = Date.parse(req.body.enddate);
     var userid = req.body.userid;
@@ -27,17 +43,19 @@ router.post('/records_search', function(req, res, next) {
 });
 
 router.post('/supervisor/records_search', function(req, res, next) {
+    var rm = new recModule();
     var starttime = Date.parse(req.body.startdate);
     var endtime = Date.parse(req.body.enddate);
     var userid = req.body.userid;
     var su = req.path.search("supervisor");
     var query = {inDate : {"$gte" : starttime} , outDate : {"$lte": endtime}, userid: userid};
     rm.searchRecords(query, su, function(jsonData) {
-        res.render('staff/staff_punch_report', jsonData);
+        res.render('supervisor/supervisor_punch_report', jsonData);
     });
 });
 
 router.get('/records_show/:uid', function(req, res, next) {
+    var rm = new recModule();
     var userid = req.params.uid;
     var su = req.path.search("supervisor");
     var query = {
@@ -51,6 +69,7 @@ router.get('/records_show/:uid', function(req, res, next) {
 });
 
 router.get('/supervisor/records_show/:uid', function(req, res, next) {
+    var rm = new recModule();
     var userid = req.params.uid;
     var su = req.path.search("supervisor");
     var query = {
@@ -59,10 +78,12 @@ router.get('/supervisor/records_show/:uid', function(req, res, next) {
     rm.searchRecords(query, su, function(jsonData) {
         jsonData.tr = res.__;
         jsonData.moment = moment;
-        res.render('staff/staff_punch_report', jsonData);
+        res.render('supervisor/supervisor_punch_report', jsonData);
     });
 });
+
 router.get('/supervisor/records_delete/:rid', function(req, res, next) {
+    var rm = new recModule();
     var rid = req.params.rid;
     rm.deleteRecords(rid, function(msg) {
         if (msg) {
@@ -72,7 +93,8 @@ router.get('/supervisor/records_delete/:rid', function(req, res, next) {
         }
     });
 });
-router.post('/supervisor/records_update/:rid', function(req, res, next) {
+router.post('/supervisor/records_update', function(req, res, next) {
+    var rm = new recModule();
     var query = {
         userid : req.body.userid,
         inDate : moment(req.body.oriIndate).valueOf()
@@ -94,6 +116,7 @@ router.post('/supervisor/records_update/:rid', function(req, res, next) {
 });
 
 router.post('/records_getWagesByUsers', function(req, res, next) {
+    var rm = new recModule();
     var userid = req.body.userid;
     var startDate = Date.parse(req.body.startdate);
     var endDate = Date.parse(req.body.enddate);
@@ -104,6 +127,7 @@ router.post('/records_getWagesByUsers', function(req, res, next) {
 });
 
 router.post('/records_getWagesByWeek', function(req, res, next) {
+    var rm = new recModule();
     var compid = req.body.compid;
     var startDate = Date.parse(req.body.startdate);
     var endDate = Date.parse(req.body.enddate);
@@ -114,6 +138,7 @@ router.post('/records_getWagesByWeek', function(req, res, next) {
 });
 
 router.post('/records_getWagesByMonth', function(req, res, next) {
+    var rm = new recModule();
     var compid = req.body.compid;
     var startDate = Date.parse(req.body.startdate);
     var endDate = Date.parse(req.body.enddate);

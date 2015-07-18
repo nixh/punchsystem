@@ -120,6 +120,46 @@ function getCurrentRate(userid, users) {
         }
     });
 }
+
+//********** Functions for delegate **************//
+function delegate(query, callback) {
+    var delegation = this.db.get('delegation');
+    var users = this.db.get('users');
+    //var sessionid = query.sessionid;
+    var userid = query.userid;
+    var flag = query.flag;
+    var compid = query.compid;
+    if (flag) {
+        //console.log(flag);
+        var newRec = { compid : compid, userid : userid };
+        console.log(newRec);
+        delegation.insert(newRec, function(err, msg) {
+            callback(err, msg);
+        });
+    } else {
+        var newQuery = { userid: userid };
+        delegation.remove(newQuery, function(err, msg) {
+            callback(err, msg);
+        });
+    }
+
+    // this.sm.getSessionInfo(sessonid, function(err, docs) {
+    //     var compid = docs.compid;
+    //     if (true) {
+    //         var newRec = { compid : compid, userid : userid };
+    //         delegation.insert(newRec, function(err, msg) {
+    //             callback(err, msg);
+    //         });
+    //     } else {
+    //         var newQuery = { userid: userid};
+    //         delegation.remove(newQuery, function(err, msg) {
+    //             callback(err, msg);
+    //         });
+    //     }
+    // });
+}
+//*********************************************//
+
 //********** Functions for punch **************//
 function punch(query, callback) {
     var records = this.db.get('records');
@@ -427,6 +467,7 @@ function Module(settings) {
 }
 
 Module.prototype = {
+    delegate : delegate,
     getWageByMonth : getWageByMonth,
     getWageByWeek : getWageByWeek,
     getWageOfUser : getWageOfUser,
