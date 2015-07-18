@@ -305,7 +305,7 @@ router.get('/supervisor/employees', function(req, res, next) {
             compid: sObj.compid
         }, function(err, users) {
             console.log(JSON.stringify(users));
-            utils.render('users/search', {
+            utils.render('users/userListSearch', {
                 msg: 'hello',
                 userlist: users
             })(req, res, next);
@@ -322,7 +322,7 @@ router.post('/supervisor/employees', function(req, res) {
         um.searchUser(userid, sObj.compid, function(err, doc) {
             var title;
             if (err) {
-                utils.render('users/search', {
+                utils.render('users/userListSearch', {
                     'title': 'Search Error!'
                 });
             } else {
@@ -331,7 +331,7 @@ router.post('/supervisor/employees', function(req, res) {
                 } else {
                     title = "Searching Results for " + userid;
                 }
-                utils.render('users/search', {
+                utils.render('users/userListSearch', {
                     'search_term': userid,
                     'title': title,
                     'userlist': doc
@@ -353,7 +353,7 @@ router.get('/supervisor/employees/:id', function(req, res, next){
 
         um.getUserInfo(req.params.id, function(err, user) {
             if(err){
-                utils.render('users/search');
+                utils.render('users/userListSearch');
             }else{
                 // console.log('This is the user being searched...');
                 // console.log(user);
@@ -367,7 +367,86 @@ router.get('/supervisor/employees/:id', function(req, res, next){
     				user['address_zip'] = addr[3];
     			}
 
-                utils.render('users/detail', {
+                utils.render('modifyUser', {
+                    userinfo: user
+                })(req, res);
+            }
+        });
+    });
+});
+
+router.get('/supervisor/employees_records', function(req, res, next) {
+    var um = new userMoudle();
+    var sm = new sModule(um.db);
+    sm.getSessionInfo(req.cookies.sessionid, function(err, sObj) {
+
+        um.getAllUsers({
+            compid: sObj.compid
+        }, function(err, users) {
+            console.log(JSON.stringify(users));
+            utils.render('users/search', {
+                msg: 'hello',
+                userlist: users
+            })(req, res, next);
+        });
+    });
+});
+
+
+router.post('/supervisor/employees_records', function(req, res) {
+    var sm = new sModule();
+    var um = new userMoudle({db:sm.db});
+    var userid = req.body.userid;
+    sm.getSessionInfo(req.cookies.sessionid, function(err, sObj) {
+        um.searchUser(userid, sObj.compid, function(err, doc) {
+            var title;
+            if (err) {
+                utils.render('users/userListSearch', {
+                    'title': 'Search Error!'
+                });
+            } else {
+                if (doc.length === 0) {
+                    title = "No such userid";
+                } else {
+                    title = "Searching Results for " + userid;
+                }
+                utils.render('users/search', {
+                    'search_term': userid,
+                    'title': title,
+                    'userlist': doc
+                })(req, res);
+            }
+            sm.db.close();
+        });
+    });
+});
+
+router.get('/supervisor/employees_records/:id', function(req, res){
+    var sm = new sModule();
+    var um = new userMoudle({db: sm.db});
+
+    sm.getSessionInfo(req.cookies.sessionid, function(err, sObj) {
+
+        // console.log(sObj.compid);
+        // console.log(req.params.id);
+
+        um.getUserInfo(req.params.id, function(err, user) {
+            if(err){
+                utils.render('users/search');
+            }else{
+                // console.log('This is the user being searched...');
+                // console.log(user);
+
+                if(user && user.address){
+                    var addr = user.address.split('|');
+
+                    user['address_street'] = addr[0];
+                    user['address_city'] = addr[1];
+                    user['address_state'] = addr[2];
+                    user['address_zip'] = addr[3];
+                }
+
+                utils.render('modifyUser', {
                     userinfo: user
                 })(req, res, next);
             }
@@ -475,7 +554,7 @@ router.get('/supervisor/overviewreport/:month', function(req, res, next){
 //    var qrid = signer.unsign(parts[0]+'.'+key);
 //    rm.checkDynaQrcode(qrid, req.cookies.sessionid, function(valid, userInfo){
 //        if(valid) {
-//            rm.punch(userInfo.userid, function(err, record){ 
+//            rm.punch(userInfo.userid, function(err, record){
 //                var msg = res.__('punch_success');
 //                utils.render('message', punchData(record, msg, userInfo))(req, res, next);
 //            });
@@ -485,20 +564,22 @@ router.get('/supervisor/overviewreport/:month', function(req, res, next){
 //});
 
 router.get('/userdetails', function(req, res, next){
-
     utils.render('userdetails', {})(req, res, next);
-
 });
 
-router.get('/reportselect', function(req, res, next){
-    utils.render('reportselect', {})(req, res, next);
+router.get('/supervisor/reportselect', function(req, res, next){
+    var sm = new sModule();
+    sm.getSessionInfo(req.cookies.sessionid, function(err, sObj){
+
+        utils.render('reportselect', { owner: sObj.compowner })(req, res, next);
+    });
 });
 
-router.get('/testoverview', function(req, res, next){ 
+router.get('/testoverview', function(req, res, next){
     utils.render('overviewreport', {})(req, res, next);
 });
 
-router.get('/teststaffview', function(req, res, next){ 
+router.get('/teststaffview', function(req, res, next){
     utils.render('staffreport', {})(req, res, next);
 });
 
@@ -506,9 +587,19 @@ router.get('/testusermodify/:id', function(req, res, next){
 
     var um = new userMoudle();
     um.getUserInfo(req.params.id, function(err, doc){
+
+        if(doc && doc.address){
+            var addr = doc.address.split('|');
+
+            doc['address_street'] = addr[0];
+            doc['address_city'] = addr[1];
+            doc['address_state'] = addr[2];
+            doc['address_zip'] = addr[3];
+        }
+
         utils.render('modifyUser', { user: doc })(req, res, next);
     });
-    
+
 });
 
 router.get('/message', utils.render('message', {
@@ -539,6 +630,12 @@ router.get('/cookies', function(req, res, next) {
     for (var key in cookies) {
         cookie_str += key + "=" + cookies[key] + ";<br/>";
     }
+});
+
+
+// for user._id
+router.get('/test', function(req, res, next){
+    utils.render('modifyUser', {user: {}})(req, res, next);
 });
 
 router.getLoginPage = loginpage;

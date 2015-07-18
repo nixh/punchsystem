@@ -15,6 +15,14 @@ append scripts
     script(src= "/javascripts/pickadateControl.js")
     script(src="/javascripts/editPunchTime.js")
 
+    script.
+        $(document).ready(function(){
+            $('.returnSupervisor').on('click', function(){
+            //location.href = "/supervisor/supervisor_main";
+                history.go(-1);
+            });
+        });
+
     - function getTime(tstamp) {
     -   return moment(tstamp).format("HH:mm A");
     - }
@@ -33,7 +41,7 @@ block content
             .controlButtons
                 .preview.buttonItem= tr('preview')
                 .buttonItem= tr('export')
-                .return.buttonItem= tr('return')
+                .returnSupervisor.buttonItem= tr('return')
 
         .reportTable
             table 

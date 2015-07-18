@@ -7,33 +7,37 @@ append scripts
     //script(src= "/javascripts/showHideRate.js")
     script.
         $(function initEvent(){
-             var rateSH = $(".showHideRate");
-              var cover = $(".imageCover");
-              var hrRate = $(".hourRate");
+            var rateSH = $(".showHideRate");
+            var cover = $(".imageCover");
+            var hrRate = $(".hourRate");
 
-              var showCover = true;
-              rateSH.on("click", function(e){
+            var showCover = true;
+            rateSH.on("click", function(e){
 
-                  var cover = $(".imageCover");
-                  if(showCover) {
-                    showCover = false;
-                    cover.css("visibility", "hidden");
-                  } else {
-                    showCover = true;
-                    cover.css("visibility", "");
-                  }
-                 changeWord();
-              });
+                var cover = $(".imageCover");
+                if(showCover) {
+                  showCover = false;
+                  cover.css("visibility", "hidden");
+                } else {
+                  showCover = true;
+                  cover.css("visibility", "");
+                }
+               changeWord();
+            });
 
-              function changeWord(){
-                  if(showCover){
-                      rateSH.find("span").html("#{tr('showrate')}");
-                  }else{
-                      rateSH.find("span").html("#{tr('hiderate')}");
-                  }
-              }
+            function changeWord(){
+                if(showCover){
+                    rateSH.find("span").html("#{tr('showrate')}");
+                }else{
+                    rateSH.find("span").html("#{tr('hiderate')}");
+                }
+            }
             $('.punchReport').on('click', function(){
                 location.href = "/recentRecords";
+            });
+
+            $('.setting').on('click', function(){
+                location.href = "/staff_setting";
             });
 
             $('.logout').on('click', function(){
@@ -74,11 +78,10 @@ block content
                
         .otherInfoLinks.noselect
             .punchReport.otherInfo= tr('punchReport')
+            .setting.otherInfo= tr('setting')
             .logout.otherInfo= tr('logout')
-            .settings.otherInfo= tr('staff_settings')
             if false
                 .wageReport.otherInfo= tr('wageReport')
-
                 .delegate.otherInfo
                     if delegate
                         a(href= "/user/delegate") Delegate

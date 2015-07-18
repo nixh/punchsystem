@@ -34,6 +34,11 @@ append scripts
             $('.monthly>.submitbutton').on('click', function(){
                 location.href = "/supervisor/overviewreport#{month? '/'+month : ''}";
             });
+            $('.back').on('click', function(){
+                history.go(-1);
+            });
+            
+
         });
 
 
