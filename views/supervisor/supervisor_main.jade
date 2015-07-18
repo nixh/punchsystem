@@ -24,6 +24,10 @@ append scripts
                 location.href = "/supervisor/showdynacode"
             });
 
+            $('.delegate').on('click', function(){
+                location.href = "/supervisor_delegate"
+            });
+
             $('.adminpunch').on('click', function(){
                 location.href = '/supervisor/adminpunch';
             });
@@ -76,6 +80,7 @@ block content
             .addStaff.otherInfo= tr('add staff')
             .manageRecords.otherInfo= tr('manage records')
             .dynacode.otherInfo= tr('dynamic_qrcode')
+            .delegate.otherInfo= tr('delegate')
             .adminpunch.otherInfo= tr('adminpunch')
             .overview.otherInfo= tr('overview')
             .setting.otherInfo= tr('setting')
