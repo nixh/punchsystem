@@ -9,8 +9,8 @@ var rm = new recModule();
 
 router.get('/punch_records', function(req, res, next){
     var sid = req.cookies.sessionid;
-    var query = {userid: sid}
-    rm.punch(query, function());
+    var query = {userid: sid};
+    rm.punch(query, function(){});
 });
 
 router.post('/records_search', function(req, res, next) {
