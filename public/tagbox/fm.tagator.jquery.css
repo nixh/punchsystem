@@ -23,12 +23,14 @@
 
 /* Main box */
 .tagator {
-	border: 1px solid #abadb3;
-	border-radius: 3px;
+	border-radius: 10px;
 	box-sizing: border-box;
 	background-color: #fff;
 	display: inline-block;
 	text-decoration: none;
+	height: auto;
+	font-size: 50px;
+	width: 100%;
 }
 .tagator.options-visible {
 	position: relative;
@@ -44,11 +46,10 @@
 .tagator_tag {
 	display: inline-block;
 	background-color: #39f;
-	border-radius: 2px;
+	border-radius: 5px;
 	color: #fff;
 	padding: 2px 20px 2px 4px;
-	font-size: 13px;
-	margin: 2px;
+	margin: 10px;
 	position: relative;
 	vertical-align: top;
 }
@@ -61,7 +62,7 @@
 	margin: 0 0 0 5px;
 	padding: 6px 5px 4px 5px;
 	cursor: pointer;
-	font-size: 11px;
+	font-size: 20px;
 	line-height: 10px;
 	vertical-align: top;
 	border-radius: 0 2px 2px 0;
@@ -80,9 +81,9 @@
 .tagator_textlength {
 	border: 0;
 	display: inline-block;
-	margin: 0;
+	margin: 10px;
 	background-color: transparent;
-	font-size: 13px;
+	font-size: 50px;
 	outline: none;
 	padding: 4px 0 0 5px;
 }

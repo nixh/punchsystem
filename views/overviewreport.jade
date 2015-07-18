@@ -1,13 +1,6 @@
 extends layout
 append links
     link(rel="stylesheet" href="/stylesheets/overviewreport.css")
-append scripts
-    script.
-        $(function initEvents(){
-            $('.weekly > .submitbutton').on('click', function(){
-                $('.weeklist').slideToggle('slow');
-            });
-        });
 
     - function getRecord(userid, records) {
     -   return records.filter(function(r){ return r.userid === userid })[0];
@@ -28,15 +21,34 @@ append scripts
     -   counter--;
     - }
 
+append scripts
+    script.
+        $(function initEvents(){
+            $('.weekly > .submitbutton').on('click', function(){
+                $('.weeklist').slideToggle('slow');
+            });
+            $('.weekly ul li').on('click', function(){
+
+                var $liBtn = $(this);
+                location.href = "/supervisor/overviewreport/" + $liBtn.html();
+            });
+
+            $('.monthly>.submitbutton').on('click', function(){
+
+                location.href = "/supervisor/overviewreport#{month? '/'+month : ''}";
+            });
+        });
+
+
 block content
     .main
         .header
-            span OVERVIEW SUMMARY
+            span= tr('overview_summary')
         .cmdtools
             .monthly
-                .submitbutton MONTH OF #{month} #{year}
+                .submitbutton #{tr('month_of')}  #{month} <br> #{year}
             .weekly
-                .submitbutton WEEKLY REPORT
+                .submitbutton #{tr('weekly')} <br> #{tr('report')}
                 .weeklist.hidden
                     ul
                         each week, index in weeklist
@@ -46,7 +58,7 @@ block content
         table.overviewtable
             tr
                 th= tr('name')
-                th= tr('start_end_date')
+                th!= tr('start_end_date')
                 th= tr('paid_rate')
                 th= tr('hours')
                 th= tr('totalpay')
@@ -74,4 +86,3 @@ block content
                     td= record.workhour
                     td= record.total
         .submitbutton.back= tr('back')
-

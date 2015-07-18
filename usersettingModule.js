@@ -25,23 +25,25 @@ function changepass(userobj,callback){
 		//vaildate(userobj);
 		var	db= this.db;
 		var collection=db.get("users");
-		if(userobj.newpass ===userobj.confirmpass){
+		if(userobj.newpass ===userobj.confirmpass&&userobj.newpass!==''){
 			collection.findAndModify({
 				'password':userobj.oldpass,
 				'userid':userobj.userid
-				},
-					{"$set":{
+			},
+				{"$set":{
 						'password':userobj.newpass
 						}
-					},
-				callback);
-		}else 
-		callback('');
-	}
+				},
+					callback)
+		}
+			else{
+				collection.findOne({'userid':userobj.userid},{},callback)
+			}
+}
 function receiveemail(userobj,callback) {
 		var db= this.db;
 		var collection=db.get("users");
-		collection.findOne({'userid':userobj.userid}, {fields: { "email":1,"_id":0}} ,callback);
+		collection.findOne({'userid':userobj.userid}, {} ,callback);
 	}
 
 function updateemail(userobj,callback){
@@ -54,7 +56,7 @@ function updateemail(userobj,callback){
 							'freqz':userobj.timePeriod,
 							'email':userobj.receiveEmails
 						}},callback)
-}
+		}
 
 function enableEmail(userobj,callback){
 		var db = this.db;

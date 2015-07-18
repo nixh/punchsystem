@@ -1,8 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var monk = require('monk');
-var utils = require('../utils');
-var db = monk(utils.getConfig('mongodbPath'));
+var utils = require('../utils'); var db = monk(utils.getConfig('mongodbPath'));
 var btoa = require('btoa');
 var nobi = require('nobi');
 var crypto = require('crypto');
@@ -61,13 +60,13 @@ function loginpage(req, res, next) {
 function postLogin(req, res, next) {
     var ret = login(req.body, function(err, doc) {
         if (err)
-            return res.render('message', {
+            return utils.render('message', {
                 msg: {
                     head: 'LOGIN FAILED',
                     body: err.message
                 },
                 success: false
-            });
+            })(req, res, next);
         if (!doc)
             return utils.render('message', {
                 msg: {
@@ -210,19 +209,18 @@ router.get('/punch/:key', function(req, res, next) {
     });
 
 });
-
-/*
-var qrModule = require('../qrcodeModule');
-router.get('/supervisor/showdynacode', function(req, res, next) {
-    var qrm = new qrModule();
-    qrm.getDynacode(req.cookies.sessionid, function(err, mixinData) {
-        qrm.db.close();
-        utils.render('qr', {
-            data: mixinData
-        })(req, res, next);
-    });
-});
-*/
+// 
+// var qrModule = require('../qrcodeModule');
+// router.get('/supervisor/showdynacode', function(req, res, next) {
+//     var qrm = new qrModule();
+//     qrm.getDynacode(req.cookies.sessionid, function(err, mixinData) {
+//         console.log(mixinData);
+//         qrm.db.close();
+//         utils.render('qr', {
+//             data: mixinData
+//         })(req, res, next);
+//     });
+// });
 
 router.get('/recentRecords', function(req, res, next) {
     var rm = new recordsModule();
@@ -309,7 +307,7 @@ router.get('/supervisor/employees', function(req, res, next) {
             compid: sObj.compid
         }, function(err, users) {
             console.log(JSON.stringify(users));
-            utils.render('users/search', {
+            utils.render('users/userListSearch', {
                 msg: 'hello',
                 userlist: users
             })(req, res, next);
@@ -326,7 +324,88 @@ router.post('/supervisor/employees', function(req, res) {
         um.searchUser(userid, sObj.compid, function(err, doc) {
             var title;
             if (err) {
-                utils.render('users/search', {
+                utils.render('users/userListSearch', {
+                    'title': 'Search Error!'
+                });
+            } else {
+                if (doc.length === 0) {
+                    title = "No such userid";
+                } else {
+                    title = "Searching Results for " + userid;
+                }
+                utils.render('users/userListSearch', {
+                    'search_term': userid,
+                    'title': title,
+                    'userlist': doc
+                })(req, res);
+            }
+            sm.db.close();
+        });
+    });
+});
+
+router.get('/supervisor/employees/:id', function(req, res, next){
+    var sm = new sModule();
+    var um = new userMoudle({db: sm.db});
+
+    sm.getSessionInfo(req.cookies.sessionid, function(err, sObj) {
+
+        // console.log(sObj.compid);
+        // console.log(req.params.id);
+
+        um.getUserInfo(req.params.id, function(err, user) {
+            if(err){
+                utils.render('users/userListSearch');
+            }else{
+                // console.log('This is the user being searched...');
+                // console.log(user);
+
+                if(user && user.address){
+    				var addr = user.address.split('|');
+
+    				user['address_street'] = addr[0];
+    				user['address_city'] = addr[1];
+    				user['address_state'] = addr[2];
+    				user['address_zip'] = addr[3];
+    			}
+
+                utils.render('modifyUser', {
+                    userinfo: user
+                })(req, res);
+            }
+        });
+    });
+});
+
+router.get('/supervisor/employees_records', function(req, res, next) {
+    var um = new userMoudle();
+    var sm = new sModule(um.db);
+    sm.getSessionInfo(req.cookies.sessionid, function(err, sObj) {
+
+        console.log(sObj.compid);
+
+        um.getAllUsers({
+            compid: sObj.compid
+        }, function(err, users) {
+            console.log(JSON.stringify(users));
+            utils.render('users/search', {
+                msg: 'hello',
+                userlist: users
+            })(req, res, next);
+        });
+    });
+});
+
+
+router.post('/supervisor/employees_records', function(req, res) {
+    var sm = new sModule();
+    var um = new userMoudle({db:sm.db});
+    var userid = req.body.userid;
+    sm.getSessionInfo(req.cookies.sessionid, function(err, sObj) {
+        um.searchUser(userid, sObj.compid, function(err, doc) {
+            var title;
+            if (err) {
+                utils.render('users/userListSearch', {
                     'title': 'Search Error!'
                 });
             } else {
@@ -346,7 +425,7 @@ router.post('/supervisor/employees', function(req, res) {
     });
 });
 
-router.get('/supervisor/employees/:id', function(req, res){
+router.get('/supervisor/employees_records/:id', function(req, res){
     var sm = new sModule();
     var um = new userMoudle({db: sm.db});
 
@@ -363,17 +442,17 @@ router.get('/supervisor/employees/:id', function(req, res){
                 // console.log(user);
 
                 if(user && user.address){
-    				var addr = user.address.split('|');
+                    var addr = user.address.split('|');
 
-    				user['address_street'] = addr[0];
-    				user['address_city'] = addr[1];
-    				user['address_state'] = addr[2];
-    				user['address_zip'] = addr[3];
-    			}
+                    user['address_street'] = addr[0];
+                    user['address_city'] = addr[1];
+                    user['address_state'] = addr[2];
+                    user['address_zip'] = addr[3];
+                }
 
-                utils.render('users/detail', {
+                utils.render('modifyUser', {
                     userinfo: user
-                })(req, res);
+                })(req, res, next);
             }
         });
     });
@@ -395,6 +474,11 @@ router.get('/supervisor/employees/:id', function(req, res){
 //    });
 //
 //});
+
+
+router.get('/reportselect', function(req, res, next){
+    utils.render('reportselect', {})(req, res, next);
+});
 
 router.get('/testoverview', function(req, res, next){
     utils.render('overviewreport', {})(req, res, next);

@@ -9,12 +9,12 @@ describe ("Module",function(){
 
 		it('should update password as newpass',function(done){
 
-				var userobj = {userid:'LoginName_19',
-							   newpass:"1",
-							   oldpass:"123123123",
-							   confirmpass:"1"};
+				var userobj = {userid:'LoginName_4',
+							   newpass:"911",
+							   oldpass:"111",
+							   confirmpass:"911"};
 				settings.changepass(userobj,function(err,doc){
-					assert.notEqual(doc,1);
+					assert.equal(doc.password,userobj.newpass);
 					done();
 				})
 
@@ -27,19 +27,19 @@ describe ("Module",function(){
 							   confirmpass:"12345"
 						   };
 			settings.changepass(userobj,function(err,doc){
-					assert.notEqual(doc,1);
+					assert.notEqual(doc.password,userobj.newpass);
 					done();
 				})
 		})
 
 
 		it('should not change the oldpass word',function(done){
-			var userobj = {    userid:'LoginName_11 ',
+			var userobj = {    userid:'LoginName_4',
 							   newpass:"12345",
-							   oldpass:"123123123",
+							   oldpass:"111",
 							   confirmpass:"12345678"};
 			settings.changepass(userobj,function(err,doc){
-					assert.notEqual(doc,1);
+					assert.notEqual(doc.password,userobj.newpass);
 					done();
 				})
 		})
@@ -52,7 +52,7 @@ describe ("Module",function(){
 							   	confirmpass:""
 						  };
 			settings.changepass(userobj,function(err,doc){
-					assert.notEqual(doc,1);
+					assert.notEqual(doc.password,userobj.newpass);
 					done();
 				})
 		})
@@ -64,7 +64,7 @@ describe ("Module",function(){
 describe ("Module",function(){
 	describe('#receiveemail()',function(){
 			it ('should return user email as expected',function(done){
-				var userobj = {userid: "LoginName_11",email:'useremail11@email.com',onoffswitch:"1"};
+				var userobj = {userid: "LoginName_4",email:'sd2411@nyu.edu'};
 				settings.receiveemail(userobj,function(err,doc){
 					if(!doc|| doc.length === 0)
 						doc= {email: " "};
@@ -74,29 +74,29 @@ describe ("Module",function(){
 
 			})
 			it ('should not return user email as expected',function(done){
-				var userobj = {userid: "LoginName_11",email:'useremail11@email.com',onoffswitch:"0"};
+				var userobj = {userid: "LoginName_7",email:''};
 				settings.receiveemail(userobj,function(err,doc){
 					if(!doc|| doc.length === 0)
 						doc= {email: " "};
-					assert.notEqual(doc.email,userobj.email);
+					assert.equal(doc.email,userobj.email);
 					done();
 				})
 
 			})
 
 			it ('should not return user email as expected',function(done){
-				var userobj = {userid: " ",email:'useremail11@email.com',onoffswitch:"1"};
+				var userobj = {userid: "LoginName_5",email:'sd2411@nyu.edu'};
 				settings.receiveemail(userobj,function(err,doc){
 					if(!doc|| doc.length === 0)
 						doc= {email: " "};
-					assert.notEqual(doc.email,userobj.email);
+					assert.eual(doc.email,userobj.email);
 					done();
 				})
 
 			})
 	})
-})
-//test sendmail()
+});
+
 describe ("Module",function(){
 	describe('#sendemail()',function(){
 		it('should be sent to correct user',function(done){
@@ -106,7 +106,7 @@ describe ("Module",function(){
 						doc= {email: " "};
 					assert.equal(doc.email,userobj.email);
 					done();
-			}); 
+			});
 		})
 
 		it('should not be sent',function(done){
@@ -116,7 +116,7 @@ describe ("Module",function(){
 						doc= {email: " "};
 					assert.notEqual(doc.email,userobj.email);
 					done();
-			}); 
+			});
 		})
 
 		it('should not be sent',function(done){
@@ -126,18 +126,19 @@ describe ("Module",function(){
 						doc= {email: " "};
 					assert.notEqual(doc.email,userobj.email);
 					done();
-			}); 
+			});
 		})
 	})
-})
+});
 
-// test 
+
+// test
 describe ('Module',function(){
 	describe('#switchinformation()',function(){
 		it ('should insert into users collection',function(done){
 			var userobj = {userid:"LoginName_4",frequency:"1",onoffswitch:"1"};
 			settings.switchinformation(userobj,function(err,doc){
-				
+
 				assert.equal(doc,1);
 				done();
 			})
@@ -145,8 +146,8 @@ describe ('Module',function(){
 		it ('should not insert into user collection',function(done){
 		 	var userobj = {userid: " ",frequency:'1',onoffswitch:"0"};
 		 	settings.switchinformation(userobj,function(err,doc){
-		 		
-		 		
+
+
 		 		assert.notEqual(doc,1);
 		 		done();
 		 	});
@@ -170,21 +171,3 @@ describe ('Module',function(){
 		})
 	})
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
