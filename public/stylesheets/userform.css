@@ -377,6 +377,8 @@ body {
 .main .previewall table.previewtable td {
   background: rgba(255, 255, 255, 0.52);
   height: 120px;
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
 }
 .main .previewall table.previewtable td:not([colspan]) {
   width: 68.75%;

@@ -224,6 +224,7 @@ function updateRecords(query, newrec, callback) {
     var db = this.db;
     var records = db.get('records');
     records.findAndModify(query, {"$set": newrec}, {new: true}, function(err, docs) {
+        console.log(docs);
         callback(err, docs);
     });
 }
