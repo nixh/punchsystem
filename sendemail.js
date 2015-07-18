@@ -46,15 +46,15 @@ function sendreport(userobj,date,freqz){
 	var date=moment(date).valueOf();
 	console.log(date)
 	if(freqz =="weekly"){
-		var rule ={second:sec, minute:min,hour:hour,dayOfWeek:7};
-		schedule.scheduleJob(rule,function(){
+		//var rule ={second:sec, minute:min,hour:hour,dayOfWeek:7};
+		schedule.scheduleJob(('0 0 0 0 0 7'),function(){
 			sendemail(userobj);
 			console.log('send weekly')
 		})
 	}
 	else{
-		var rule = {second:sec,hour:hour,minute:min,dayOfMonth:day};
-		schedule.scheduleJob(rule,function(){
+		//var rule = {second:sec,hour:hour,minute:min,dayOfMonth:day};
+		schedule.scheduleJob('0 0 0 0 [1,2,3,4,5,6,7,8,9,10,11,12] 0',function(){
 			sendemail(userobj);
 		})			
 	}
