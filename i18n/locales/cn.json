@@ -2,7 +2,8 @@
 	"login_welcome": "欢迎进入打卡系统",
 	"login_username": "用户名",
 	"login_password": "用户密码",
-	"login_submit": "登陆", "newcomp_name": "公司名",
+	"login_submit": "登陆",
+	"newcomp_name": "公司名",
 	"newcomp_expire": "使用期限：",
 	"newcomp_iplist": "可以使用的IP：",
 	"newcomp_complogo": "公司商标",
@@ -116,5 +117,6 @@
 	"overview_summary": "overview_summary",
 	"month_of": "month_of",
 	"weekly": "weekly",
-	"report": "report"
+	"report": "report",
+	"empty": "empty"
 }
