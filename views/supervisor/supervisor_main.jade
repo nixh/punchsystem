@@ -1,15 +1,21 @@
 extends ../layout.jade
 
+
 append links
     link(rel='stylesheet', href='/stylesheets/supervisorMain.css')
 
 append scripts
+    - var currentMonth = moment().startOf('month').format('MMM');
     script(src= "/javascripts/showHideRate.js")
     script.
         $(function initEvents(){
 
             $('.viewstaff').on('click', function(){
-                location.href = "/supervisor/employees"
+                location.href = "/supervisor/employees";
+            });
+
+            $('.overview').on('click', function(){
+                location.href = "/supervisor/reportselect";
             });
 
             $('.addStaff').on('click', function(){
