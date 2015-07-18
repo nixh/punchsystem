@@ -4,7 +4,7 @@ var monk = require('monk');
 
 var DBModule = require('./db_module');
 
-// Trim leading and trailing spances
+// Trim leading and trailing spaces
 function trim(s) {
     return (s || '').replace(/^\s+|\s+$/g, '');
 };
@@ -15,7 +15,7 @@ function validate(userObj) {
         userObj = {};
     }
 
-    var userProp = ['_id', 'userid', 'password', 'createDate', 'name', 'sex', 'email', 'address', 'address_street', 'address_city', 'address_state', 'address_zip', 'tel', 'compid', 'curRate', 'remark', 'avatar', 'owner'];
+    var userProp = ['_id', 'userid', 'password', 'createDate', 'name', 'sex', 'email', 'address', 'address_street', 'address_city', 'address_state', 'address_zip', 'tel', 'compid', 'curRate', 'remark', 'avatar', 'rate_change_date'];
 
     for (var a in userObj) {
         if (userProp.indexOf(a) < 0) {
@@ -27,17 +27,17 @@ function validate(userObj) {
         userObj['sex'] = !!parseInt(userObj['sex']);
     }
 
-    if (typeof userObj['owner'] !== "boolean") {
-        userObj['owner'] = !!parseInt(userObj['owner']);
-    }
+    // if (typeof userObj['owner'] !== "boolean") {
+    //     userObj['owner'] = !!parseInt(userObj['owner']);
+    // }
 
     if (typeof userObj['curRate'] !== 'number') {
         userObj['curRate'] = Number(userObj['curRate']);
     }
 
-    if (typeof userObj['compid'] !== 'number') {
-        userObj['compid'] = Number(userObj['compid']);
-    }
+    // if (typeof userObj['compid'] !== 'number') {
+    //     userObj['compid'] = Number(userObj['compid']);
+    // }
 };
 
 
@@ -126,35 +126,40 @@ function changeUser(userObj, callback) {
 
     var _id = userObj._id;
 
-    userObj.addr = trim(userObj.address_street) + "|" + trim(userObj.address_city) + "|" + trim(userObj.address_state) + "|" + trim(userObj.address_zip);
+    userObj.address = trim(userObj.address_street) + "|" + trim(userObj.address_city) + "|" + trim(userObj.address_state) + "|" + trim(userObj.address_zip);
 
     var col = this.db.get('users');
+
+    var append = {};
+
+    if(userObj.curRate > 0 && userObj.rate_change_date.length > 0){
+        append.rate = parseInt(userObj.curRate);
+        append.changetime = (userObj.rate_change_date.length == 0? new Date().getTime() : userObj.rate_change_date);
+
+        delete userObj.rate_change_date;
+    }
+
+    if(!userObj.avatar){
+        delete userObj.avatar;
+    }
+
+    if(!userObj.avatar_url){
+        delete userObj.avatar_url;
+    }
+
+    delete userObj._id;
+
     col.findAndModify(
         {
             query: {'_id': _id},
 
             update: {
-                    '$set': {
-                        'userid': userObj.userid,
-                        'name': userObj.name,
-                        'createDate': userObj.createDate,
-                        'password': userObj.password,
-                        'sex': !!parseInt(userObj.sex),
-                        'email': userObj.email,
-                        'address': userObj.addr,
-                        'compid': userObj.compid,
-                        'tel': userObj.tel,
-                        'curRate': userObj.curRate,
-                        'owner': userObj.owner,
-                        'remark': userObj.remark,
-                        'avatar': userObj.avatar
-                    },
+                    '$set': userObj,
 
                     '$push': {
-                        'rates': {changetime: new Date().getTime(), rate: userObj.curRate}
+                        'rates': append
                     }
             }
-
         },
         callback
     );

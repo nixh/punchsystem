@@ -408,6 +408,16 @@ router.get('/testusermodify/:id', function(req, res, next){
 
     var um = new userMoudle();
     um.getUserInfo(req.params.id, function(err, doc){
+
+        if(doc && doc.address){
+            var addr = doc.address.split('|');
+
+            doc['address_street'] = addr[0];
+            doc['address_city'] = addr[1];
+            doc['address_state'] = addr[2];
+            doc['address_zip'] = addr[3];
+        }
+
         utils.render('modifyUser', { user: doc })(req, res, next);
     });
 
