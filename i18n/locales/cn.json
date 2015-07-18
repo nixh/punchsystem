@@ -118,11 +118,9 @@
 	"Dec": "十二月",
 	"select_month": "select_month",
 	"overview_summary": "overview_summary",
-<<<<<<< HEAD
 	"month_of": " ",
 	"weekly": "每周工资",
 	"report": "报表",
-	"empty": "空记录..",
 	"JAN": "JAN",
 	"FEB": "FEB",
 	"MAR": "MAR",
@@ -135,31 +133,6 @@
 	"OCT": "OCT",
 	"NOV": "NOV",
 	"DEC": "DEC",
-	"UserName_48": "UserName_48",
-	"LoginName_48": "LoginName_48",
-	"UserName_58": "UserName_58",
-	"LoginName_58": "LoginName_58",
-	"UserName_59": "UserName_59",
-	"LoginName_59": "LoginName_59",
-	"UserName_69": "UserName_69",
-	"LoginName_69": "LoginName_69",
-	"UserName_71": "UserName_71",
-	"LoginName_71": "LoginName_71",
-	"UserName_72": "UserName_72",
-	"LoginName_72": "LoginName_72",
-	"UserName_96": "UserName_96",
-	"LoginName_96": "LoginName_96",
-	"UserName_137": "UserName_137",
-	"LoginName_137": "LoginName_137",
-	"UserName_146": "UserName_146",
-	"LoginName_146": "LoginName_146",
-	"...": "..."
-}
-=======
-	"month_of": "month_of",
-	"weekly": "weekly",
-	"report": "report",
-<<<<<<< HEAD
 	"...": "...",
 	"UserName_4": "UserName_4",
 	"LoginName_4": "LoginName_4",
@@ -178,9 +151,7 @@
 	"LoginName_5": "LoginName_5",
 	"LoginName_17": "LoginName_17",
 	"LoginName_60": "LoginName_60",
-	"LoginName_150": "LoginName_150"
-=======
+	"LoginName_150": "LoginName_150",
 	"empty": "空记录..",
->>>>>>> edc4790a8b96cab22a608e88a83880c1c3deffbc
+	"edit": "修改"
 }
->>>>>>> bf8bd028e398c33ba63220b6f0792b648a4af17e

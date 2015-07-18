@@ -4,7 +4,7 @@
     });
     $(".useTimePicker").pickatime({
     	interval:10,
-        format: 'hh:i'
+        format: 'hh:i A'
     });
 
     $('.preview').on('click', function(){
