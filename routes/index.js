@@ -353,10 +353,12 @@ router.get('/supervisor/employees/:id', function(req, res, next){
 
         um.getUserInfo(req.params.id, function(err, user) {
             if(err){
-                utils.render('users/userListSearch');
+
+                utils.render('users/userListSearch')(req, res, next);
             }else{
                 // console.log('This is the user being searched...');
-                // console.log(user);
+                if(!user)
+                    user = {};
 
                 if(user && user.address){
     				var addr = user.address.split('|');
@@ -366,9 +368,12 @@ router.get('/supervisor/employees/:id', function(req, res, next){
     				user['address_state'] = addr[2];
     				user['address_zip'] = addr[3];
     			}
-
+                if(user && !user.avatar) {
+                    user.avatar = user.sex ? "/images/boydefaultpicture.png" : 
+                                             "/images/girl default picture.png";
+                }
                 utils.render('modifyUser', {
-                    userinfo: user
+                    user: user
                 })(req, res);
             }
         });
@@ -465,6 +470,8 @@ router.get('/supervisor/overviewreport/:start/:end', function(req, res, next){
         rm.getWageByWeek({compid: compid, startDate: start, endDate: end},
             function(err, jsonData){
             sm.db.close();
+            var m = moment(req.params.start, "MM-DD");
+            jsonData.m = m;
             utils.render('overviewreport', jsonData)(req, res, next);            
         });
     });
@@ -541,6 +548,7 @@ router.get('/supervisor/overviewreport/:month', function(req, res, next){
             var ret = {};
             ret.userReports = reports;
             ret.userList = userList;
+            ret.m = moment(month).format('MM-DD');
             utils.render('overviewreport', ret)(req, res, next);            
         });
     });

@@ -63,8 +63,6 @@ append scripts
                     selected.show('slide', { direction: 'left' }, 600);
 
                 }
-
-                
             }
             $('.nextBtn').on('click', function(){
                 changePage(true);
@@ -85,6 +83,18 @@ append scripts
                 $form.attr('action', '/users/change');
                 $form.attr('method', 'post');
                 $form.submit();
+            });
+            $('.sexinput input').change(function(){
+                var sex = $(this).val();
+                if(sex) {
+                    $('.sexinput .radioinput[data-value="1"]').addClass('radioselected');
+                    $('.sexinput .radioinput[data-value="0"]').removeClass('radioselected');
+                } else {
+                    $('.sexinput .radioinput[data-value="1"]').remvoeClass('radioselected');
+                    $('.sexinput .radioinput[data-value="0"]').addClass('radioselected');
+                }
+                
+
             });
         });
     
