@@ -25,7 +25,6 @@ module.exports = {
                     insertDoc[idName] = seq;
                 else
                     insertDoc['_id'] = seq;
-                console.log(doc);
                 db.get(colName).insert(insertDoc, callback);
             });
     }
