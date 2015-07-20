@@ -224,7 +224,6 @@ router.get('/supervisor/showdynacode', function(req, res, next) {
             data: mixinData
         })(req, res, next);
     });
-<<<<<<< HEAD
 });*/
 
 

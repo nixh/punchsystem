@@ -1,13 +1,13 @@
 $(document).ready(function(){
-	
+
 	if($(".emailToggle").hasClass("toggle-off")){
 		$(".toggleTarget").hide();
-	} 
-
+	}
+	
 	if($(".overTimeToggle").hasClass("toggle-off")){
 		$(".toggleTarget1").hide();
 	}
-	
+
 	$('.emailToggle').click(function(e) {
 		var toggle = this;
 

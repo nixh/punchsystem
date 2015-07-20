@@ -136,11 +136,19 @@
 	"...": "...",
 	"empty": "空记录..",
 	"edit": "修改",
-
 	"February": "February",
 	"March": "March",
 	"November": "November",
-	"January": "January"
+	"January": "January",
+	"add_user": "add_user",
+	"Roman Wang": "Roman Wang",
+	"perdidotodos": "perdidotodos",
+	"X M": "X M",
+	"bigblueocean": "bigblueocean",
+	"compName": "compName",
+	"compLogo": "compLogo",
+	"compIps": "compIps",
+	"September": "September"
 
 }
 
