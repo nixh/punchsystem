@@ -136,11 +136,16 @@
 	"...": "...",
 	"empty": "空记录..",
 	"edit": "修改",
-
 	"February": "February",
 	"March": "March",
 	"November": "November",
-	"January": "January"
-
+	"January": "January",
+	"add_user": "add_user",
+	"UserName_5": "UserName_5",
+	"LoginName_5": "LoginName_5",
+	"": "",
+	"UserName_150": "UserName_150",
+	"LoginName_150": "LoginName_150",
+	"UserName_17": "UserName_17",
+	"LoginName_17": "LoginName_17"
 }
-
