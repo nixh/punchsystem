@@ -212,6 +212,7 @@ router.get('/punch/:key', function(req, res, next) {
 
 });
 
+<<<<<<< HEAD
 /*var qrModule = require('../qrcodeModule');
 router.get('/supervisor/showdynacode', function(req, res, next) {
     var qrm = new qrModule();
@@ -223,6 +224,19 @@ router.get('/supervisor/showdynacode', function(req, res, next) {
         })(req, res, next);
     });
 });*/
+=======
+// var qrModule = require('../qrcodeModule');
+// router.get('/supervisor/showdynacode', function(req, res, next) {
+//     var qrm = new qrModule();
+//     qrm.getDynacode(req.cookies.sessionid, function(err, mixinData) {
+//         console.log(mixinData);
+//         qrm.db.close();
+//         utils.render('qr', {
+//             data: mixinData
+//         })(req, res, next);
+//     });
+// });
+>>>>>>> fcc82352755008d4145d6a27523504d560a42ffc
 
 router.get('/recentRecords', function(req, res, next) {
     var rm = new recordsModule();
@@ -340,7 +354,7 @@ router.post('/supervisor/employees', function(req, res) {
                     'title': title,
                     'userlist': doc
                 })(req, res);
-            }
+            }MODIF
             sm.db.close();
         });
     });
@@ -373,7 +387,7 @@ router.get('/supervisor/employees/:id', function(req, res, next){
     				user['address_zip'] = addr[3];
     			}
                 if(user && !user.avatar) {
-                    user.avatar = user.sex ? "/images/boydefaultpicture.png" : 
+                    user.avatar = user.sex ? "/images/boydefaultpicture.png" :
                                              "/images/girl default picture.png";
                 }
                 utils.render('modifyUser', {
@@ -476,7 +490,7 @@ router.get('/supervisor/overviewreport/:start/:end', function(req, res, next){
             sm.db.close();
             var m = moment(req.params.start, "MM-DD");
             jsonData.m = m;
-            utils.render('overviewreport', jsonData)(req, res, next);            
+            utils.render('overviewreport', jsonData)(req, res, next);
         });
     });
 });
@@ -553,7 +567,7 @@ router.get('/supervisor/overviewreport/:month', function(req, res, next){
             ret.userReports = reports;
             ret.userList = userList;
             ret.m = moment(month).format('MM-DD');
-            utils.render('overviewreport', ret)(req, res, next);            
+            utils.render('overviewreport', ret)(req, res, next);
         });
     });
 });
