@@ -1,0 +1,117 @@
+body.bgbody{
+    background-repeat: repeat-y;
+}
+
+.staffDelegatePage{
+	/*border: 1px solid red;*/
+	width: 100%;
+}
+
+.staffDelegatePage .companyInfo{
+	width: 100%;
+	/*border: 1px solid green;*/
+	margin-top: 50px;
+	color: rgb(103, 116, 153);
+}
+
+.staffDelegatePage .companyInfo .companyTitle{
+	width: 100%;
+	/*border: 1px solid yellow;*/
+	background-color: white;
+	text-align: center;
+	font-size: 120px;
+	padding: 30px;
+}
+
+.staffDelegatePage .companyInfo .companyNumber{
+	width: 100%;
+	/*border: 1px solid orange;*/
+	margin-top: 20px;
+}
+
+.staffDelegatePage .companyInfo .companyNumber:after{
+	content: "";
+	clear: both;
+	display: block;
+	visibility: hidden;
+}
+
+.staffDelegatePage .companyInfo .companyNumber .number{
+	float: left;
+	width: 49.5%;
+	background-color: white;
+	font-size: 50px;
+	text-align: center;
+	/*border: 1px solid purple;*/
+	padding: 30px;
+}
+
+.staffDelegatePage .companyInfo .companyNumber .number:nth-of-type(2){
+	float: right;
+}
+
+.staffDelegatePage .companyInfo .companyAddress{
+	width: 100%;
+	/*border: 1px solid pink;*/
+	margin-top: 20px;
+}
+
+.staffDelegatePage .companyInfo .companyAddress .streetAddress{
+	background-color: white;
+	font-size: 50px;
+	text-align: center;
+	/*border: 1px solid purple;*/
+	padding: 15px;
+
+}
+
+.staffDelegatePage .companyInfo .companyAddress .cityAddress{
+	background-color: white;
+	font-size: 50px;
+	text-align: center;
+	/*border: 1px solid purple;*/
+	padding: 15px;
+}
+
+.staffDelegatePage .qrcode{
+	width: 100%;
+	/*border: 1px solid blue;*/
+	text-align: center;
+	padding-top: 200px;
+	padding-bottom: 200px;
+}
+
+.staffDelegatePage .qrcode img{
+	height: 500px;
+	width: 500px;
+}
+
+.staffDelegatePage .change{
+	width: 100%;
+	/*border: 1px solid yellow;*/
+	padding: 20px;
+}
+
+.staffDelegatePage .change .changeButton{
+	background-color: rgb(138, 209, 215);
+	color: white;
+	font-size: 60px;
+	text-align: center;
+	border-radius: 10px;
+	height: 110px;
+	border: none;
+	width: 100%;
+	cursor: pointer;
+}
+
+.staffDelegatePage .change .changeButton:active{
+	background-color: rgb(247, 130, 131);
+}
+
+/*
+light-blue-green  rgb(138, 209, 215)  
+redish  rgb(247, 130, 131)
+blue  rgb(103, 116, 153)
+gray  rgb(238, 238, 238)
+rgba(255, 255, 255, .52)
+*/

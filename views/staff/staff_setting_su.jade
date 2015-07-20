@@ -1,147 +1,180 @@
 extends ../layout.jade
 
 append links
-	link(rel='stylesheet' href='/stylesheets/staffSetting.css')
-	link(rel='stylesheet' href='/toggleSwitch/normalize.css')
-	link(rel= "stylesheet" href= "/tagbox/fm.tagator.jquery.css")
-	link(rel='stylesheet' href="/stylesheets/toggleSwitchAdjust.css")
+    link(rel='stylesheet' href='/stylesheets/staffSetting.css')
+    link(rel='stylesheet' href='/toggleSwitch/normalize.css')
+    link(rel= "stylesheet" href= "/tagbox/fm.tagator.jquery.css")
+    link(rel='stylesheet' href="/stylesheets/toggleSwitchAdjust.css")
 append scripts
-	script(src= "/toggleSwitch/prefixfree.min.js")
-	script(src="/tagbox/fm.tagator.jquery.js")
-	script(src= "/javascripts/toggleSwitchAdjust.js")
-	script(src= "/javascripts/tagatorAdjust.js")
-	
-	
-	script.
-		$(function initEvent(){
-			$('.emailSwitch > .onOff').on("click",function(){
-		  		$.ajax({type:"post",
-		  			url:"/enableEmail/" + $('#enableEmail').val(),
-		  			data:{id: $("#myid").val()},
-		            success:function(data){
-		            	if(data){
-		            	console.log('success')	
-		            	}
-		            	else{
-		            			console.log('wrong')
-		            	}
-		         }});
-		  	});
+    script(src= "/toggleSwitch/prefixfree.min.js")
+    script(src="/tagbox/fm.tagator.jquery.js")
+    script(src= "/javascripts/toggleSwitchAdjust.js")
+    script(src= "/javascripts/tagatorAdjust.js")
+    
+    
+    script.
+        $(function initEvent(){
+            $('.emailSwitch > .onOff').on("click",function(){
+                $.ajax({type:"post",
+                    url:"/enableEmail/" + $('#enableEmail').val(),
+                    data:{id: $("#myid").val()},
+                    success:function(data){
+                        if(data){
+                        console.log('success')  
+                        }
+                        else{
+                                console.log('wrong')
+                        }
+                 }});
+            });
 
-		});
-	script.
-		$(function initEvent(){
-			$('.overTimeSwitch > .onOff').on("click",function(){
-		  		$.ajax({type:"post",
-		  			url:"/enablerate/" + $('#enablerate').val(),
-		  			data:{id: $("#myid").val()},
-		            success:function(data){
-		            	if(data){
-		            		console.log('success')
-		            	}
-		            	else{
-		            			console.log('wrong')
-		            	}
-		         }});
-		  	});
+        });
+    script.
+        $(function initEvent(){
+            $('.overTimeSwitch > .onOff').on("click",function(){
+                $.ajax({type:"post",
+                    url:"/enablerate/" + $('#enablerate').val(),
+                    data:{id: $("#myid").val()},
+                    success:function(data){
+                        if(data){
+                            console.log('success')
+                        }
+                        else{
+                                console.log('wrong')
+                        }
+                 }});
+            });
 
-		});
-	script(type='text/javascript').
-		  function getObj(id){
-		  		var Obj = document.getElementById(id).value;
-		  		return Obj;
-		  }
-		  function checkpwd(){
-		  		if(getObj("oldpass")==""||getObj("newpass")==""||getObj("comfirmpass")==""){
-		  				//alert("未输入password");
-		  				document.getElementById("oldpass").focus;
-		  				document.getElementById("newpass").focus;
-					  	document.getElementById("confirmpass").focus;
-					  	return false;//false:阻止提交表单
-		  		}	
-		  }
-		  function checkemail(){
-		  		if(getObj("receiveEmails")==""){
-		  				//alert("未输入email");
-		  				document.getElementById("receiveEmails").focus;
-					  	return false;//false:阻止提交表单
-		  		}	
-		  }
-		  function checkrate(){
-		  		if(getObj("overtime")==""||"newrate"==""){
-		  				//alert("未设置 rate");
-		  				document.getElementById("overtime").focus;
-		  				document.getElementById("newrate").focus;
-					  	return false;//false:阻止提交表单
-		  		}	
-		  }
+        });
+
+    script.
+          function getObj(id){
+                var Obj = document.getElementById(id).value;
+                return Obj;
+          }
+          function checkpwd(){
+                var oldPass = $("#oldpass");
+                var newPass = $("#newpass");
+                var confirmPass = $("#confirmpass");
+                var submittable = true;
+
+                if(oldPass.val() === ""){
+                    oldPass.addClass("inputError");
+                    submittable = false;
+                }
+                if(newPass.val() === ""){
+                    newPass.addClass("inputError");
+                    submittable = false;
+                }
+                if(confirmPass.val() === ""){
+                    confirmPass.addClass("inputError");
+                    submittable = false;
+                }
+
+                if(newPass.val() !== confirmPass.val()){
+                    newPass.addClass("inputError");
+                    confirmPass.addClass("inputError");
+                    submittable = false;
+                }
+
+                if(submittable){
+                    oldPass.removeClass("inputError");
+                    newPass.removeClass("inputError");
+                    confirmPass.removeClass("inputError");
+                }
+
+                return submittable;
+          }
+
+          function checkemail(){
+                if(getObj("receiveEmails")==""){
+                        //alert("未输入email");
+                        document.getElementById("receiveEmails").focus;
+                        return false;//false:阻止提交表单
+                }   
+          }
+          function checkrate(){
+                if(getObj("overtime")==""||"newrate"==""){
+                        //alert("未设置 rate");
+                        document.getElementById("overtime").focus;
+                        document.getElementById("newrate").focus;
+                        return false;//false:阻止提交表单
+                }   
+          }
+    
 block content
-	.staffSettingPage
-		if su ===false
-			.passwordChange
-				.passwordLabel PASSWORD
-				form(method="POST",action="/settings" onsubmit= "return checkpwd()") 
-					input.textBox.inputBar(type ='password' name= 'oldpass'  placeholder= "OLD PASSWORD" id="oldpass")
-					input.textBox.inputBar(type ='password' name= 'newpass' placeholder= "NEW PASSWORD" id ="newpass")
-					input.textBox.inputBar(type ='password' name= 'confirmpass' placeholder= "CONFIRM PASSWORD" id = "confirmpass")
-					input.longButton.inputBar(type= 'submit' value= 'SUBMIT' id ="changepwd")
-					input(type = 'hidden' name='userid' value ="#{userid}" )
-		if su === true
-			.passwordChange
-				.passwordLabel PASSWORD
-				form(method="POST",action="/supervisor/settings" onsubmit= "return checkpwd()") 
-					input.textBox.inputBar(type ='password' name= 'oldpass'  placeholder= "OLD PASSWORD" id="oldpass")
-					input.textBox.inputBar(type ='password' name= 'newpass' placeholder= "NEW PASSWORD" id ="newpass")
-					input.textBox.inputBar(type ='password' name= 'confirmpass' placeholder= "CONFIRM PASSWORD" id = "confirmpass")
-					input.longButton.inputBar(type= 'submit' value= 'SUBMIT' id ="changepwd")
-					input(type = 'hidden' name='userid' value ="#{userid}" )
-			.emailSwitch.switchButton
-				.switchLabel EMAIL REPORT
-				.onOff.toggle.emailToggle.toggle-on 
-			
-			.EmailReportSetting.toggleTarget
-				form(method="POST",action='/supervisor/sendemail' onsubmit= "return checkemail()")
-					-var email = (receiveEmails)? receiveEmails : "EMAIL ADDRESS"
-					input.textBox.inputBar.useTagator(type= "text" id = "receiveEmails" name = 'receiveEmails' placeholder= "EMAIL ADDRESS" value="#{email}")
-					-var enable= (enableEmail)? enableEmail : 1
-					input(type = 'hidden' name='enableEmail' value ='#{enable}' id= "enableEmail")
-					input(type = 'hidden' name='userid' value ="#{userid}" id="myid")
-					.radioButton
-						.chooseLabel CHOOSE
+    .staffSettingPage
+        if su ===false
+            .passwordChange
+                .passwordLabel PASSWORD
+                form(method="POST",action="/settings" onsubmit= "return checkpwd()") 
+                    input.textBox.inputBar(type ='password' name= 'oldpass'  placeholder= "OLD PASSWORD" id="oldpass")
+                    input.textBox.inputBar(type ='password' name= 'newpass' placeholder= "NEW PASSWORD" id ="newpass")
+                    input.textBox.inputBar(type ='password' name= 'confirmpass' placeholder= "CONFIRM PASSWORD" id = "confirmpass")
+                    input.longButton.inputBar(type= 'submit' value= 'SUBMIT' id ="changepwd")
+                    input(type = 'hidden' name='userid' value ="#{userid}" )
+        if su === true
+            .passwordChange
+                .passwordLabel PASSWORD
+                form(method="POST",action="/supervisor/settings" onsubmit= "return checkpwd()") 
+                    input.textBox.inputBar(type ='password' name= 'oldpass'  placeholder= "OLD PASSWORD" id="oldpass")
+                    input.textBox.inputBar(type ='password' name= 'newpass' placeholder= "NEW PASSWORD" id ="newpass")
+                    input.textBox.inputBar(type ='password' name= 'confirmpass' placeholder= "CONFIRM PASSWORD" id = "confirmpass")
+                    input.longButton.inputBar(type= 'submit' value= 'SUBMIT' id ="changepwd")
+                    input(type = 'hidden' name='userid' value ="#{userid}" )
+            .emailSwitch.switchButton
+                .switchLabel EMAIL REPORT
+                if enableEmail === "1"
+                    .onOff.toggle.emailToggle.toggle-on
+                else
+                    .onOff.toggle.emailToggle.toggle-off
+            
+            .EmailReportSetting.toggleTarget
+                form(method="POST",action='/supervisor/sendemail' onsubmit= "return checkemail()")
+                    -var email = (receiveEmails)? receiveEmails : "EMAIL ADDRESS"
+                    input.textBox.inputBar.useTagator(type= "text" id = "receiveEmails" name = 'receiveEmails' placeholder= "EMAIL ADDRESS" value="#{email}")
+                    -var enable= (enableEmail)? enableEmail : 1
+                    input(type = 'hidden' name='enableEmail' value ='#{enable}' id= "enableEmail")
+                    input(type = 'hidden' name='userid' value ="#{userid}" id="myid")
+                    .radioButton
+                        .chooseLabel CHOOSE
 
-						.radioMonth
-							input(id="mRadio" type = "radio" name= "timePeriod" value= "monthly" checked = false)
-							label.radioLabel(for="mRadio") MONTHLY
-						
-						.orLabel OR
+                        .radioMonth
+                            input(id="mRadio" type = "radio" name= "timePeriod" value= "monthly" checked = false)
+                            label.radioLabel(for="mRadio") MONTHLY
+                        
+                        .orLabel OR
 
-						.radioWeek
-							input(id="wRadio" type = "radio" name= "timePeriod" value= "weekly" checked= true)
-							label.radioLabel(for="wRadio") WEEKLY
-					
-					input.longButton.inputBar(type= 'submit' value= 'SUBMIT')
+                        .radioWeek
+                            input(id="wRadio" type = "radio" name= "timePeriod" value= "weekly" checked= true)
+                            label.radioLabel(for="wRadio") WEEKLY
+                    
+                    input.longButton.inputBar(type= 'submit' value= 'SUBMIT')
 
-			.overTimeSwitch.switchButton
-				.switchLabel OVERTIME SETTING
-				.onOff.toggle.overTimeToggle.toggle-on
-			
-			.overTimeSetting.toggleTarget1
+            .overTimeSwitch.switchButton
+                .switchLabel OVERTIME SETTING
+                if enablerate === "1"
+                    .onOff.toggle.overTimeToggle.toggle-on
+                else
+                    .onOff.toggle.overTimeToggle.toggle-off
+            
+            .overTimeSetting.toggleTarget1
 
-				form(method="POST" action="/supervisor/setrate" onsubmit= "return checkrate()")
-					.thresholdDiv
-						.thresholdLabel 
-							span OVERTIME THRESHOLD
-						input.hourDisplay(type= "text" placeholder= "40" name="overtime" id ="overtime" value ='#{overtime}')
-						-var rate=(enablerate)? enablerate : 1
-						input(type ="hidden" name ="enablerate" value= '#{rate}' id="enablerate")
-						input(type = 'hidden' name='userid' value ="#{userid}")
+                form(method="POST" action="/supervisor/setrate" onsubmit= "return checkrate()")
+                    .thresholdDiv
+                        .thresholdLabel 
+                            span OVERTIME THRESHOLD
+                        input.hourDisplay(type= "text" placeholder= "40" name="overtime" id ="overtime" value ='#{overtime}')
+                        -var rate=(enablerate)? enablerate : 1
+                        input(type ="hidden" name ="enablerate" value= '#{rate}' id="enablerate")
+                        input(type = 'hidden' name='userid' value ="#{userid}")
 
-						.perWeekLabel
-							span HRS PER WEEK
-					.rateDiv
-						.rateLabel
-							span OVERTIME RATE
+                        .perWeekLabel
+                            span HRS PER WEEK
+                    .rateDiv
+                        .rateLabel
+                            span OVERTIME RATE
 
-						input.rateDisplay(type= "text" placeholder="1.5x" name="newrate" id="newrate" value ="#{newrate}")
+                        input.rateDisplay(type= "text" placeholder="1.5x" name="newrate" id="newrate" value ="#{newrate}")
 
-					input.longButton.inputBar(type= 'submit' value= 'SUBMIT')
+                    input.longButton.inputBar(type= 'submit' value= 'SUBMIT')
