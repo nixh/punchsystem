@@ -194,13 +194,13 @@ router.post('/supervisor/sendemail', function (req, res) {
 	var userobj=req.body;
 	console.log(userobj)
 	settings.updateemail(userobj,function(err,doc){
-		
+
 		if(err) {
 			 res.send("Error!");
 		}
 		else if(!doc || doc.length === 0){
 				res.send('userid or password invaild');
-			} 
+			}
 			else{
 				console.log(doc)
 			res.render('./staff/staff_setting_su',{"userid":userobj.userid,
@@ -212,7 +212,7 @@ router.post('/supervisor/sendemail', function (req, res) {
 		}
 	});
 
-	
+
 	settings.enableEmail(userobj,function(err,doc){
 		if(err) {
 			 res.send("Error!!!");
@@ -220,10 +220,10 @@ router.post('/supervisor/sendemail', function (req, res) {
 	});
 
 	//settings.sendemail(userobj);
-		
-})	
+
+})
 
 //settings.db.close();
-	
+
 
 module.exports = router;
