@@ -7,6 +7,7 @@ var signer = nobi(utils.getConfig('appKey'));
 var uuid = require('node-uuid');
 var util = require('util');
 var moment = require('moment');
+var dbhelper = require('../db/db');
 
 var loginKeys = {};
 
@@ -213,6 +214,7 @@ router.get('/punch/:key', function(req, res, next) {
 
 
 /*var qrModule = require('../qrcodeModule');
+
 router.get('/supervisor/showdynacode', function(req, res, next) {
     var qrm = new qrModule();
     qrm.getDynacode(req.cookies.sessionid, function(err, mixinData) {
@@ -222,7 +224,9 @@ router.get('/supervisor/showdynacode', function(req, res, next) {
             data: mixinData
         })(req, res, next);
     });
+<<<<<<< HEAD
 });*/
+
 
 
 router.get('/recentRecords', function(req, res, next) {
@@ -341,7 +345,7 @@ router.post('/supervisor/employees', function(req, res) {
                     'title': title,
                     'userlist': doc
                 })(req, res);
-            }MODIF
+            }
             sm.db.close();
         });
     });
@@ -366,13 +370,13 @@ router.get('/supervisor/employees/:id', function(req, res, next){
                     user = {};
 
                 if(user && user.address){
-    				var addr = user.address.split('|');
+                                var addr = user.address.split('|');
 
-    				user['address_street'] = addr[0];
-    				user['address_city'] = addr[1];
-    				user['address_state'] = addr[2];
-    				user['address_zip'] = addr[3];
-    			}
+                                user['address_street'] = addr[0];
+                                user['address_city'] = addr[1];
+                                user['address_state'] = addr[2];
+                                user['address_zip'] = addr[3];
+                        }
                 if(user && !user.avatar) {
                     user.avatar = user.sex ? "/images/boydefaultpicture.png" :
                                              "/images/girl default picture.png";
@@ -393,7 +397,6 @@ router.get('/supervisor/employees_records', function(req, res, next) {
         um.getAllUsers({
             compid: sObj.compid
         }, function(err, users) {
-            console.log(JSON.stringify(users));
             utils.render('users/search', {
                 msg: 'hello',
                 userlist: users
@@ -536,7 +539,6 @@ router.get('/supervisor/overviewreport/:month', function(req, res, next){
         rm.getWageByMonth({compid: compid, startDate: month},
             function(err, jsonData){
             sm.db.close();
-            var monthData = [];
             var userList = [];
             var monthData = [];
             jsonData.forEach(function(weekData){
@@ -635,6 +637,36 @@ router.get('/testdb', function(req, res, next) {
             success: true
         });
     });
+});
+
+router.get('/admin/supervisor', function(req, res, next){
+    utils.render('addComp', {})(req, res, next);
+});
+
+router.post('/admin/supervisor/new', function(req, res, next){
+    var formData = req.body;
+    var compName = formData.compName;
+    var logo = formData.logo;
+    var ips = formData.ips;
+    delete formData.compName;
+    delete formData.logo;
+    delete formData.ips;
+    var um = new userMoudle();
+    dbhelper.newDocWithIncId('companies', 'compid', {
+        name : compName,
+        logo : logo
+    }, um.db, function(err, doc){
+        um.addUser(formData, function(err, user){
+            if(err){
+                res.send('Add user failed!');
+            }else{
+                console.log("The returned doc of adduser is...");
+                console.log(user);
+                res.send('Add success!');
+            }
+        });
+    });
+
 });
 
 router.get('/cookies', function(req, res, next) {

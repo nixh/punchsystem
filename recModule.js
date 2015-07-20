@@ -122,41 +122,68 @@ function getCurrentRate(userid, users) {
 }
 
 //********** Functions for delegate **************//
+function showUsersForDelegate(sessionid, callback) {
+    var users = this.db.get('users');
+    var delegation = this.db.get('delegation');
+    this.sm.getSessionInfo(sessionid, function(err, sessionDoc) {
+        //console.log(sessionDoc.compid);
+        users.find({compid : sessionDoc.compid}, function(err, userInfos) {
+            var ret = {msg: null, ok: true};
+            if (!userInfos) {
+                ret.ok = false;
+                ret.msg = "No data found!";
+                callback(err, ret);
+            } else {
+                delegation.find({compid : sessionDoc.compid}, function(err, dels) {
+                    userInfos.forEach(function(userInfo, index) {
+                        userInfo.delegate = false;
+                        //console.log(userInfo);
+                        dels.forEach(function(del, i) {
+                            if (userInfo.userid === del.userid) {
+                                userInfo.delegate = true;
+                            }
+                        });
+                    });
+                    ret.userInfos = userInfos;
+                    callback(err, ret);
+                });
+            }
+        });
+    });
+}
 function delegate(query, callback) {
     var delegation = this.db.get('delegation');
     var users = this.db.get('users');
-    //var sessionid = query.sessionid;
     var userid = query.userid;
     var flag = query.flag;
-    var compid = query.compid;
-    if (flag) {
-        //console.log(flag);
-        var newRec = { compid : compid, userid : userid };
-        console.log(newRec);
-        delegation.insert(newRec, function(err, msg) {
-            callback(err, msg);
-        });
-    } else {
-        var newQuery = { userid: userid };
-        delegation.remove(newQuery, function(err, msg) {
-            callback(err, msg);
-        });
-    }
-
-    // this.sm.getSessionInfo(sessonid, function(err, docs) {
-    //     var compid = docs.compid;
-    //     if (true) {
-    //         var newRec = { compid : compid, userid : userid };
-    //         delegation.insert(newRec, function(err, msg) {
-    //             callback(err, msg);
-    //         });
-    //     } else {
-    //         var newQuery = { userid: userid};
-    //         delegation.remove(newQuery, function(err, msg) {
-    //             callback(err, msg);
-    //         });
-    //     }
-    // });
+    var sessionid = query.sessionid;
+    console.log(typeof flag);
+    // if (flag === 1) {
+    //     var newRec = { compid : compid, userid : userid };
+    //     delegation.insert(newRec, function(err, msg) {
+    //         console.log(msg);
+    //         callback(err, msg);
+    //     });
+    // } else {
+    //     var newQuery = { userid: userid };
+    //     delegation.remove(newQuery, function(err, msg) {
+    //         callback(err, msg);
+    //     });
+    // }
+    this.sm.getSessionInfo(sessionid, function(err, docs) {
+        var compid = docs.compid;
+        if (flag === 1) {
+            var newRec = { compid : compid, userid : userid };
+            delegation.insert(newRec, function(err, msg) {
+                callback(err, msg);
+            });
+        } else {
+            var newQuery = { userid: userid};
+            delegation.remove(newQuery, function(err, msg) {
+                callback(err, msg);
+            });
+        }
+    });
 }
 //*********************************************//
 
@@ -459,6 +486,7 @@ function Module(settings) {
 }
 
 Module.prototype = {
+    showUsersForDelegate : showUsersForDelegate,
     delegate : delegate,
     getWageByMonth : getWageByMonth,
     getWageByWeek : getWageByWeek,
