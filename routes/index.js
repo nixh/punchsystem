@@ -212,7 +212,7 @@ router.get('/punch/:key', function(req, res, next) {
 
 });
 
-<<<<<<< HEAD
+
 /*var qrModule = require('../qrcodeModule');
 router.get('/supervisor/showdynacode', function(req, res, next) {
     var qrm = new qrModule();
@@ -224,19 +224,7 @@ router.get('/supervisor/showdynacode', function(req, res, next) {
         })(req, res, next);
     });
 });*/
-=======
-// var qrModule = require('../qrcodeModule');
-// router.get('/supervisor/showdynacode', function(req, res, next) {
-//     var qrm = new qrModule();
-//     qrm.getDynacode(req.cookies.sessionid, function(err, mixinData) {
-//         console.log(mixinData);
-//         qrm.db.close();
-//         utils.render('qr', {
-//             data: mixinData
-//         })(req, res, next);
-//     });
-// });
->>>>>>> fcc82352755008d4145d6a27523504d560a42ffc
+
 
 router.get('/recentRecords', function(req, res, next) {
     var rm = new recordsModule();
