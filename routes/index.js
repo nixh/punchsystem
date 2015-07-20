@@ -16,7 +16,6 @@ function sha(text) {
     sha256.update(text);
     return sha256.digest('hex');
 }
-
 function login(loginObj, cb) {
     loginkey = unescape(loginObj.loginKey);
     try {
@@ -214,7 +213,8 @@ router.get('/punch/:key', function(req, res, next) {
 });
 
 
-var qrModule = require('../qrcodeModule');
+/*var qrModule = require('../qrcodeModule');
+
 router.get('/supervisor/showdynacode', function(req, res, next) {
     var qrm = new qrModule();
     qrm.getDynacode(req.cookies.sessionid, function(err, mixinData) {
@@ -224,7 +224,8 @@ router.get('/supervisor/showdynacode', function(req, res, next) {
             data: mixinData
         })(req, res, next);
     });
-});
+});*/
+
 
 
 router.get('/recentRecords', function(req, res, next) {

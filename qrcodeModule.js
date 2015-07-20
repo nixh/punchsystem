@@ -1,7 +1,8 @@
 var utils     = require('./utils');
 var _         = require('underscore');
 var monk      = require('monk');
-// var qrcode    = require('qrcode');
+
+//var qrcode    = require('qrcode');
 var punchPath = utils.getConfig('paths->punch');
 var uuid      = require('node-uuid');
 var util      = require('util');
@@ -37,6 +38,7 @@ function getDynacode(sessionid, cb) {
 
 }
 
+/*
 function createDynaQrcode(compid, expirePeriod, cb) {
     var qrCol = this.db.get('qrcodes');
     var currentTime = new Date().getTime();
@@ -60,6 +62,7 @@ function createDynaQrcode(compid, expirePeriod, cb) {
             {new: true, upsert: true}, cb);
     });
 }
+*/
 
 function Module(settings) {
     _.extend(this, settings);
@@ -68,9 +71,11 @@ function Module(settings) {
     }
 }
 
+/*
 Module.prototype = {
     createDynaQrcode : createDynaQrcode,
     getDynacode : getDynacode
 }
+*/
 
 module.exports = Module;
