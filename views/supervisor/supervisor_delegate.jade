@@ -38,22 +38,12 @@ block content
 						.hollowcircle.red.hidden &nbsp;
 						.hollowcircle.green &nbsp;
 					td.delegation.noselect
-<<<<<<< HEAD
-						if true
-							.authorize(href= "#") Authorize
-							.revoke.hidden(href= "#") Revoke
-						else
-							.authorize.hidden(href= "#") Authorize
-							.revoke(href= "#") Revoke
-=======
 						if userInfos[r].delegate
 							.btn.authorize.hidden(data-url="/supervisor/delegate_action/#{userInfos[r].userid}/1") Authorize
 							.btn.revoke(data-url= "/supervisor/delegate_action/#{userInfos[r].userid}/0") Revoke
 						else
 							.btn.authorize(data-url= "/supervisor/delegate_action/#{userInfos[r].userid}/1") Authorize
 							.btn.revoke.hidden(data-url= "/supervisor/delegate_action/#{userInfos[r].userid}/0") Revoke
-							
->>>>>>> 8c14388371d7996bb7fbf5156e63987c7a5c2aca
 					tr
 
 

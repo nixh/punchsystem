@@ -46,20 +46,45 @@ append scripts
 		  	});
 
 		});
-	script(type='text/javascript').
+	script.
 		  function getObj(id){
 		  		var Obj = document.getElementById(id).value;
 		  		return Obj;
 		  }
 		  function checkpwd(){
-		  		if(getObj("oldpass")==""||getObj("newpass")==""||getObj("comfirmpass")==""){
-		  				//alert("未输入password");
-		  				document.getElementById("oldpass").focus;
-		  				document.getElementById("newpass").focus;
-					  	document.getElementById("confirmpass").focus;
-					  	return false;//false:阻止提交表单
-		  		}	
+		  		var oldPass = $("#oldpass");
+		  		var newPass	= $("#newpass");
+		  		var confirmPass = $("#confirmpass");
+		  		var submittable = true;
+
+		  		if(oldPass.val() === ""){
+		  			oldPass.addClass("inputError");
+		  			submittable = false;
+		  		}
+		  		if(newPass.val() === ""){
+		  			newPass.addClass("inputError");
+		  			submittable = false;
+		  		}
+		  		if(confirmPass.val() === ""){
+		  			confirmPass.addClass("inputError");
+		  			submittable = false;
+		  		}
+
+		  		if(newPass.val() !== confirmPass.val()){
+		  			newPass.addClass("inputError");
+		  			confirmPass.addClass("inputError");
+		  			submittable = false;
+		  		}
+
+		  		if(submittable){
+		  			oldPass.removeClass("inputError");
+		  			newPass.removeClass("inputError");
+		  			confirmPass.removeClass("inputError");
+		  		}
+
+		  		return submittable;
 		  }
+
 		  function checkemail(){
 		  		if(getObj("receiveEmails")==""){
 		  				//alert("未输入email");
@@ -97,7 +122,7 @@ block content
 					input(type = 'hidden' name='userid' value ="#{userid}" )
 			.emailSwitch.switchButton
 				.switchLabel EMAIL REPORT
-				.onOff.toggle.emailToggle.toggle-on 
+				.onOff.toggle.emailToggle.toggle-off 
 			
 			.EmailReportSetting.toggleTarget
 				form(method="POST",action='/supervisor/sendemail' onsubmit= "return checkemail()")
@@ -123,7 +148,7 @@ block content
 
 			.overTimeSwitch.switchButton
 				.switchLabel OVERTIME SETTING
-				.onOff.toggle.overTimeToggle.toggle-on
+				.onOff.toggle.overTimeToggle.toggle-off
 			
 			.overTimeSetting.toggleTarget1
 

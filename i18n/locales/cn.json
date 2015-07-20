@@ -141,16 +141,13 @@
 	"November": "November",
 	"January": "January",
 	"add_user": "add_user",
-<<<<<<< HEAD
 	"Roman Wang": "Roman Wang",
 	"perdidotodos": "perdidotodos",
 	"X M": "X M",
 	"bigblueocean": "bigblueocean",
-}
-=======
 	"compName": "compName",
 	"compLogo": "compLogo",
 	"compIps": "compIps",
 	"September": "September"
 }
->>>>>>> master
+
