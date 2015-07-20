@@ -3,6 +3,18 @@ extends ../layout.jade
 append links
 	link(rel='stylesheet', href='/stylesheets/supervisorDelegate.css')
 	link(rel='stylesheet', href='/stylesheets/adminpunch.css')
+append scripts
+	script.
+		$(function initEvents(){
+			$('.btn').on('click', function () {
+				var url = $(this).attr('data-url');
+				$.get(url, null, function (data) {
+					if(!JSON.parse(data).success) {
+						alert('unexpected error!');
+					}
+				})
+			})
+		});
 
 block content
 	.supervisorDelegatePage(ontouchstart= "")
@@ -26,8 +38,13 @@ block content
 						.hollowcircle.red.hidden &nbsp;
 						.hollowcircle.green &nbsp;
 					td.delegation.noselect
-						.authorize(href= "#") Authorize
-						.revoke.hidden(href= "#") Revoke
+						if userInfos[r].delegate
+							.btn.authorize.hidden(data-url="/supervisor/delegate_action/#{userInfos[r].userid}/1") Authorize
+							.btn.revoke(data-url= "/supervisor/delegate_action/#{userInfos[r].userid}/0") Revoke
+						else
+							.btn.authorize(data-url= "/supervisor/delegate_action/#{userInfos[r].userid}/1") Authorize
+							.btn.revoke.hidden(data-url= "/supervisor/delegate_action/#{userInfos[r].userid}/0") Revoke
+							
 					tr
 
 
@@ -57,5 +74,3 @@ block content
 			});
 			statusCheck();
 		});
-
-
