@@ -50,7 +50,7 @@ router.get('/supervisor/settings', function (req, res, next){
 										res.render('./staff/staff_setting_su',
 											{	"userid":userid,
 												"receiveEmails":doc.email,
-												"oldpassword":doc.password
+												"oldpassword":doc.password,
 												"su":true,
 												"enableEmail":doc.enableEmail,
 												"enablerate":doc.enablerate,
@@ -153,6 +153,7 @@ router.post('/supervisor/setrate',function (req,res){
 			res.render("./staff/staff_setting_su",
 						{	"userid":userobj.userid,
 							"receiveEmails":doc.email,
+							"oldpassword":doc.password,
 							"su":true,
 							"enableEmail":userobj.enableEmail,
 							"enablerate":userobj.enablerate,
@@ -168,7 +169,7 @@ router.post('/settings', function (req, res) {
 		if(err) {
 			 res.send("Error!!!");
 		}else{
-				res.render("./staff/staff_setting_su",{"userid":userobj.userid,"su":false});
+				res.render("./staff/staff_setting_su",{"userid":userobj.userid, "oldpassword":doc.password, "su":false});
 				}
 	});
 });
@@ -183,6 +184,7 @@ router.post('/supervisor/settings', function (req, res) {
 				res.render("./staff/staff_setting_su",
 					{"userid":userobj.userid,"receiveEmails":doc.email,"su":true,
 							"enableEmail":doc.enableEmail,
+							"oldpassword":doc.password,
 							"enablerate":doc.enablerate,
 							"overtime":doc.overtime,
 							"newrate":doc.curRate});
@@ -208,6 +210,7 @@ router.post('/supervisor/sendemail', function (req, res) {
 							"enableEmail":userobj.enableEmail,
 							"enablerate":userobj.enablerate,
 							"overtime":doc.overtime,
+							"oldpassword":doc.password,
 							"newrate":doc.curRate});
 		}
 	});
