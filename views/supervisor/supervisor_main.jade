@@ -1,15 +1,21 @@
 extends ../layout.jade
 
+
 append links
     link(rel='stylesheet', href='/stylesheets/supervisorMain.css')
 
 append scripts
+    - var currentMonth = moment().startOf('month').format('MMM');
     script(src= "/javascripts/showHideRate.js")
     script.
         $(function initEvents(){
 
             $('.viewstaff').on('click', function(){
-                location.href = "/supervisor/employees"
+                location.href = "/supervisor/employees";
+            });
+
+            $('.overview').on('click', function(){
+                location.href = "/supervisor/reportselect";
             });
 
             $('.addStaff').on('click', function(){
@@ -22,6 +28,10 @@ append scripts
 
             $('.dynacode').on('click', function(){
                 location.href = "/supervisor/showdynacode"
+            });
+
+            $('.delegate').on('click', function(){
+                location.href = "/supervisor_delegate"
             });
 
             $('.adminpunch').on('click', function(){
@@ -76,6 +86,7 @@ block content
             .addStaff.otherInfo= tr('add staff')
             .manageRecords.otherInfo= tr('manage records')
             .dynacode.otherInfo= tr('dynamic_qrcode')
+            .delegate.otherInfo= tr('delegate')
             .adminpunch.otherInfo= tr('adminpunch')
             .overview.otherInfo= tr('overview')
             .setting.otherInfo= tr('setting')

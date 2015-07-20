@@ -11,9 +11,17 @@ append scripts
             });
             $('.button1').click(function(){
                 var owner = #{owner ? true : false};
-                if(!owner)
+                if(!owner) {
                     location.href = "/recentRecords";
+                } else {
+                    location.href = "/supervisor/employees";
+                }
             });
+            $('table td').on('click', function(){
+                var url = $(this).attr('data-url');
+                location.href = url;
+            });
+
         });
 
 block content                       
@@ -22,7 +30,8 @@ block content
         .button1.noselect= tr('report_activity')
         .summary.noselect= tr('report_summary')
         .calendar.noselect.hidden
-            - var months = [tr('JAN'), tr('FEB'), tr('MAR'), tr('APR'), tr('MAY'), tr('JUNE'), tr('JULY'), tr('AUG'), tr('SEPT'), tr('OCT'), tr('NOV'), tr('DEV')];
+            - var months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUNE', 'JULY', 'AUG', 'SEPT', 'OCT', 'NOV', 'DEC'];
+            - var months_cn = [tr('JAN'), tr('FEB'), tr('MAR'), tr('APR'), tr('MAY'), tr('JUNE'), tr('JULY'), tr('AUG'), tr('SEPT'), tr('OCT'), tr('NOV'), tr('DEC')];
             .title
                = tr('select_month')
 
@@ -31,7 +40,7 @@ block content
                 each m, index in months
                     if index ==0 || index % threshold == 0 
                         tr
-                    td(data-url="report/summary/#{m}")= m
+                    td(data-url="/supervisor/overviewreport/#{m}")= months_cn[index]
 
 
 

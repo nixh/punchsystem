@@ -2,9 +2,7 @@ var express = require('express');
 var router = express.Router();
 var monk = require('monk');
 var utils = require('../utils'); var db = monk(utils.getConfig('mongodbPath'));
-var btoa = require('btoa');
-var nobi = require('nobi');
-var crypto = require('crypto');
+var btoa = require('btoa'); var nobi = require('nobi'); var crypto = require('crypto');
 var signer = nobi(utils.getConfig('appKey'));
 var uuid = require('node-uuid');
 var util = require('util');
@@ -124,11 +122,15 @@ function postLogin(req, res, next) {
 
 
 router.get('/', function(req, res, next) {
-    var test = db.get('test');
-    var results = test.find({}, {});
-    res.render('index', {
-        title: 'Express',
-        ret: results
+    var sm = new sModule();
+    sm.getSessionInfo(req.cookies.sessionid, function(err, session){
+
+        if(session.compowner) {
+            res.redirect(302, "/supervisor/supervisor_main");
+        } else {
+            res.redirect(302, "/staff_main");
+        }
+
     });
 });
 
@@ -209,18 +211,19 @@ router.get('/punch/:key', function(req, res, next) {
     });
 
 });
-//
-// var qrModule = require('../qrcodeModule');
-// router.get('/supervisor/showdynacode', function(req, res, next) {
-//     var qrm = new qrModule();
-//     qrm.getDynacode(req.cookies.sessionid, function(err, mixinData) {
-//         console.log(mixinData);
-//         qrm.db.close();
-//         utils.render('qr', {
-//             data: mixinData
-//         })(req, res, next);
-//     });
-// });
+
+
+var qrModule = require('../qrcodeModule');
+router.get('/supervisor/showdynacode', function(req, res, next) {
+    var qrm = new qrModule();
+    qrm.getDynacode(req.cookies.sessionid, function(err, mixinData) {
+        console.log(mixinData);
+        qrm.db.close();
+        utils.render('qr', {
+            data: mixinData
+        })(req, res, next);
+    });
+});
 
 router.get('/recentRecords', function(req, res, next) {
     var rm = new recordsModule();
@@ -355,10 +358,12 @@ router.get('/supervisor/employees/:id', function(req, res, next){
 
         um.getUserInfo(req.params.id, function(err, user) {
             if(err){
-                utils.render('users/userListSearch');
+
+                utils.render('users/userListSearch')(req, res, next);
             }else{
                 // console.log('This is the user being searched...');
-                // console.log(user);
+                if(!user)
+                    user = {};
 
                 if(user && user.address){
     				var addr = user.address.split('|');
@@ -368,9 +373,12 @@ router.get('/supervisor/employees/:id', function(req, res, next){
     				user['address_state'] = addr[2];
     				user['address_zip'] = addr[3];
     			}
-
+                if(user && !user.avatar) {
+                    user.avatar = user.sex ? "/images/boydefaultpicture.png" :
+                                             "/images/girl default picture.png";
+                }
                 utils.render('modifyUser', {
-                    userinfo: user
+                    user: user
                 })(req, res);
             }
         });
@@ -381,8 +389,6 @@ router.get('/supervisor/employees_records', function(req, res, next) {
     var um = new userMoudle();
     var sm = new sModule(um.db);
     sm.getSessionInfo(req.cookies.sessionid, function(err, sObj) {
-
-        console.log(sObj.compid);
 
         um.getAllUsers({
             compid: sObj.compid
@@ -458,6 +464,101 @@ router.get('/supervisor/employees_records/:id', function(req, res){
     });
 });
 
+var recModule = require('../recModule');
+router.get('/supervisor/overviewreport/:start/:end', function(req, res, next){
+    var sm = new sModule();
+    var rm = new recModule({db: sm.db});
+    sm.getSessionInfo(req.cookies.sessionid, function(err, sObj){
+        var start = moment(req.params.start, "MM-DD").valueOf();
+        var end = moment(req.params.end, "MM-DD").valueOf();
+        var compid = sObj.compid;
+        rm.getWageByWeek({compid: compid, startDate: start, endDate: end},
+            function(err, jsonData){
+            sm.db.close();
+            var m = moment(req.params.start, "MM-DD");
+            jsonData.m = m;
+            utils.render('overviewreport', jsonData)(req, res, next);
+        });
+    });
+});
+
+function parseMonthData(weekData) {
+    var ret = [];
+    weekData.forEach(function(v){
+        if(!v)
+            return;
+        var userData = {};
+        userData.userid = v.userid;
+        userData.from = moment(v.from, "LLLL").valueOf();
+        userData.to = moment(v.to, "LLLL").valueOf();
+        userData.avgRate = v.avgRate;
+        userData.totalhours = v.totalhours;
+        userData.totalWage = v.totalWage;
+        ret.push(userData);
+    });
+    return ret;
+}
+
+function formatMonthDataToReport(monthData) {
+    var userReports = {};
+
+    for(var i=0; i<monthData.length; i++) {
+        var weekData = monthData[i];
+        for(var j=0; j<weekData.length; j++) {
+            var data = weekData[j];
+            var user = userReports[data.userid];
+            if(!user) {
+                user = data;
+            } else {
+                if(user.from > data.from)
+                    user.from = data.from;
+                if(user.to < data.to)
+                    user.to = data.to;
+                user.totalHour += data.totalHour;
+                user.totalWage += data.totalWage;
+                user.avgRate = data.avgRate;
+                user.userid = data.userid;
+            }
+            userReports[data.userid] = user;
+        }
+    }
+    return userReports;
+
+}
+
+router.get('/supervisor/overviewreport/:month', function(req, res, next){
+    var sm = new sModule();
+    var rm = new recModule({db: sm.db});
+    sm.getSessionInfo(req.cookies.sessionid, function(err, sObj){
+        var month = moment(req.params.month, "MMM");
+        month = month.startOf('month').valueOf();
+        var compid = sObj.compid;
+        rm.getWageByMonth({compid: compid, startDate: month},
+            function(err, jsonData){
+            sm.db.close();
+            var monthData = [];
+            var userList = [];
+            var monthData = [];
+            jsonData.forEach(function(weekData){
+                userList = weekData.userList;
+                if(weekData.userReports.length !== 0) {
+                    monthData.push(parseMonthData(weekData.userReports));
+                }
+            });
+            var userReports = formatMonthDataToReport(monthData);
+            var reports = [];
+            for(var key in userReports) {
+                reports.push(userReports[key]);
+            }
+            var ret = {};
+            ret.userReports = reports;
+            ret.userList = userList;
+            ret.m = moment(month).format('MM-DD');
+            utils.render('overviewreport', ret)(req, res, next);
+        });
+    });
+});
+
 //router.get('/dynapunch/:key', function(req, res, next){
 //    var rm = new recordsModule(req.db);
 //    var key = req.params.key;
@@ -475,9 +576,16 @@ router.get('/supervisor/employees_records/:id', function(req, res){
 //
 //});
 
+router.get('/userdetails', function(req, res, next){
+    utils.render('userdetails', {})(req, res, next);
+});
 
-router.get('/reportselect', function(req, res, next){
-    utils.render('reportselect', {})(req, res, next);
+router.get('/supervisor/reportselect', function(req, res, next){
+    var sm = new sModule();
+    sm.getSessionInfo(req.cookies.sessionid, function(err, sObj){
+
+        utils.render('reportselect', { owner: sObj.compowner })(req, res, next);
+    });
 });
 
 router.get('/testoverview', function(req, res, next){
