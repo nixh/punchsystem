@@ -136,13 +136,11 @@
 	"...": "...",
 	"empty": "空记录..",
 	"edit": "修改",
+
 	"February": "February",
 	"March": "March",
 	"November": "November",
-	"January": "January",
-	"add_user": "add_user",
-	"compName": "compName",
-	"compLogo": "compLogo",
-	"compIps": "compIps",
-	"September": "September"
+	"January": "January"
+
 }
+
