@@ -141,9 +141,20 @@
 	"November": "November",
 	"January": "January",
 	"add_user": "add_user",
+<<<<<<< HEAD
+	"UserName_5": "UserName_5",
+	"LoginName_5": "LoginName_5",
+	"": "",
+	"UserName_150": "UserName_150",
+	"LoginName_150": "LoginName_150",
+	"UserName_17": "UserName_17",
+	"LoginName_17": "LoginName_17"
+}
+=======
 
 	"compName": "compName",
 	"compLogo": "compLogo",
 	"compIps": "compIps",
 	"September": "September"
 }
+>>>>>>> bf0a5ad6c228c587a9ef2e01ca8c8781858a0bb7

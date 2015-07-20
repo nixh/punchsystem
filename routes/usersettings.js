@@ -25,7 +25,7 @@ router.get('/settings', function (req, res, next){
 										res.send('err')
 									}else{
 										utils.render('./staff/staff_setting_su',
-											{"userid":userid,"receiveEmails":doc.email,"oldpassword":doc.password,"su":false})(req, res, next);
+											{"userid":userid,"receiveEmails":doc.email,"su":false})(req, res, next);
 									}
 					})
 				}
@@ -50,7 +50,6 @@ router.get('/supervisor/settings', function (req, res, next){
 										res.render('./staff/staff_setting_su',
 											{	"userid":userid,
 												"receiveEmails":doc.email,
-												"oldpassword":doc.password
 												"su":true,
 												"enableEmail":doc.enableEmail,
 												"enablerate":doc.enablerate,
@@ -167,9 +166,11 @@ router.post('/settings', function (req, res) {
 	settings.changepass(userobj,function(err, doc){
 		if(err) {
 			 res.send("Error!!!");
+		}else if (userobj.oldpass!==doc.password){
+			res.render("./staff/staff_setting_su",{"userid":userobj.userid,"su":false,"message":false});
 		}else{
-				res.render("./staff/staff_setting_su",{"userid":userobj.userid,"su":false});
-				}
+				res.render("./staff/staff_setting_su",{"userid":userobj.userid,"su":false,"message":false});
+			}
 	});
 });
 
@@ -179,14 +180,24 @@ router.post('/supervisor/settings', function (req, res) {
 	settings.changepass(userobj,function (err, doc){
 		if(err) {
 			 res.send("Error!!!");
+		}else if(userobj.oldpass!==doc.password){
+			res.render("./staff/staff_setting_su",
+					{"userid":userobj.userid,"receiveEmails":doc.email,"su":true,
+							"enableEmail":doc.enableEmail,
+							"message": false,
+							"enablerate":doc.enablerate,
+							"overtime":doc.overtime,
+							"newrate":doc.curRate});
 		}else{
 				res.render("./staff/staff_setting_su",
 					{"userid":userobj.userid,"receiveEmails":doc.email,"su":true,
 							"enableEmail":doc.enableEmail,
+							"message":false,
 							"enablerate":doc.enablerate,
 							"overtime":doc.overtime,
 							"newrate":doc.curRate});
 				}
+			
 	});
 });
 
