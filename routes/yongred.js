@@ -65,8 +65,13 @@ router.post('/usersettings', function(req, res, next){
 
 	});
 });
+<<<<<<< HEAD
 */
 /*router.get('/settings', function(req, res, next){
+=======
+
+router.get('/settings', function(req, res, next){
+>>>>>>> yongred
 
 	var emailReport = db.get("records");
 	emailReport.findOne({reportid:1}, {}, function(err, doc){
@@ -74,14 +79,16 @@ router.post('/usersettings', function(req, res, next){
 		if(!doc){
 			ret.ok = false;
 			ret.msg= "no data found!";
-			return res.render('staff/staff_setting', ret);
+			return res.render('staff/staff_setting_su', ret);
 		}
 		ret.report= doc;
 		res.render('staff/staff_setting_su', ret);
 	});
 
 	//res.render('staff/staff_setting', {emailReportData:['one', 'two', 'three']});
+<<<<<<< HEAD
 });*/
+
 
 router.get('/staff_delegate', function(req, res, next){
 

@@ -46,20 +46,46 @@ append scripts
             });
 
         });
-    script(type='text/javascript').
+
+    script.
           function getObj(id){
                 var Obj = document.getElementById(id).value;
                 return Obj;
           }
           function checkpwd(){
-                if(getObj("oldpass")==""||getObj("newpass")==""||getObj("comfirmpass")==""){
-                        //alert("未输入password");
-                        document.getElementById("oldpass").focus;
-                        document.getElementById("newpass").focus;
-                        document.getElementById("confirmpass").focus;
-                        return false;//false:阻止提交表单
-                }   
+                var oldPass = $("#oldpass");
+                var newPass = $("#newpass");
+                var confirmPass = $("#confirmpass");
+                var submittable = true;
+
+                if(oldPass.val() === ""){
+                    oldPass.addClass("inputError");
+                    submittable = false;
+                }
+                if(newPass.val() === ""){
+                    newPass.addClass("inputError");
+                    submittable = false;
+                }
+                if(confirmPass.val() === ""){
+                    confirmPass.addClass("inputError");
+                    submittable = false;
+                }
+
+                if(newPass.val() !== confirmPass.val()){
+                    newPass.addClass("inputError");
+                    confirmPass.addClass("inputError");
+                    submittable = false;
+                }
+
+                if(submittable){
+                    oldPass.removeClass("inputError");
+                    newPass.removeClass("inputError");
+                    confirmPass.removeClass("inputError");
+                }
+
+                return submittable;
           }
+
           function checkemail(){
                 if(getObj("receiveEmails")==""){
                         //alert("未输入email");
@@ -75,6 +101,7 @@ append scripts
                         return false;//false:阻止提交表单
                 }   
           }
+    
 block content
     .staffSettingPage
         if su ===false
