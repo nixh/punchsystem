@@ -1,7 +1,7 @@
 var utils     = require('./utils');
 var _         = require('underscore');
 var monk      = require('monk');
-var qrcode    = require('qrcode');
+// var qrcode    = require('qrcode');
 var punchPath = utils.getConfig('paths->punch');
 var uuid      = require('node-uuid');
 var util      = require('util');
@@ -55,8 +55,8 @@ function createDynaQrcode(compid, expirePeriod, cb) {
             expire: expireTime
         };
         qrCol.findAndModify(
-            {compid: compid, type:'dynamic'}, 
-            {$set: qrObj}, 
+            {compid: compid, type:'dynamic'},
+            {$set: qrObj},
             {new: true, upsert: true}, cb);
     });
 }
@@ -74,4 +74,3 @@ Module.prototype = {
 }
 
 module.exports = Module;
-

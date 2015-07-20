@@ -50,6 +50,7 @@ function addUser(userObj, callback) {
                  + "|" + trim(userObj.address_zip);
 
     userObj.address = addr;
+    userObj.owner = false;
 
     var col = this.db.get('users');
 
@@ -100,8 +101,11 @@ function searchUser(searchTerm, compid, callback) {
 
     col.find({
             'name': {
-                $regex: searchTerm
+                $regex: searchTerm,
+                $options: "i"
             },
+            owner: false
+            ,
             'compid': typeof compid !== 'function'
                          ? parseInt(compid) : undefined
         }, {},
@@ -111,7 +115,7 @@ function searchUser(searchTerm, compid, callback) {
 
 function getAllUsers(query, callback) {
     var col = this.db.get('users');
-    col.find(query, {}, callback);
+    col.find(query, {sort: {createDate: 1}}, callback);
 }
 
 function getUserInfo(userid, callback) {

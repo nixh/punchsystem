@@ -309,7 +309,8 @@ router.get('/supervisor/employees', function(req, res, next) {
         console.log(sObj.compid);
 
         um.getAllUsers({
-            compid: sObj.compid
+            compid: sObj.compid,
+            owner: false
         }, function(err, users) {
             console.log(JSON.stringify(users));
             utils.render('users/userListSearch', {
@@ -393,7 +394,8 @@ router.get('/supervisor/employees_records', function(req, res, next) {
     sm.getSessionInfo(req.cookies.sessionid, function(err, sObj) {
 
         um.getAllUsers({
-            compid: sObj.compid
+            compid: sObj.compid,
+            owner: false
         }, function(err, users) {
             utils.render('users/search', {
                 msg: 'hello',
