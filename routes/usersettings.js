@@ -25,7 +25,7 @@ router.get('/settings', function (req, res, next){
 										res.send('err')
 									}else{
 										utils.render('./staff/staff_setting_su',
-											{"userid":userid,"receiveEmails":doc.email,"su":false})(req, res, next);
+											{"userid":userid,"receiveEmails":doc.email,"oldpassword":doc.password,"su":false})(req, res, next);
 									}
 					})
 				}
@@ -50,7 +50,10 @@ router.get('/supervisor/settings', function (req, res, next){
 										res.render('./staff/staff_setting_su',
 											{	"userid":userid,
 												"receiveEmails":doc.email,
+												"oldpassword":doc.password
 												"su":true,
+												"enableEmail":doc.enableEmail,
+												"enablerate":doc.enablerate,
 												"overtime":doc.overtime,
 												"newrate":doc.curRate});
 									}
@@ -68,7 +71,10 @@ router.get('/supervisor/sendemail', function (req, res, next){
 			if (err){
 				res.send('err')
 			}else{
-				res.render('./staff/staff_setting_su',{"userid":doc.userid,"su":true,"overtime":doc.overtime,
+				res.render('./staff/staff_setting_su',{"userid":doc.userid,"su":true,
+							"enableEmail":doc.enableEmail,
+							"enablerate":doc.enablerate,
+							"overtime":doc.overtime,
 							"newrate":doc.newrate});
 			}
 		})
@@ -82,7 +88,10 @@ router.get('/supervisor/setrate',function (req,res){
 			if (err){
 				res.send('err')
 			}else{
-				res.render('./staff/staff_setting_su',{"userid":doc.userid,"su":true,"overtime":doc.overtime,
+				res.render('./staff/staff_setting_su',{"userid":doc.userid,"su":true,
+							"enableEmail":doc.enableEmail,
+							"enablerate":doc.enablerate,
+							"overtime":doc.overtime,
 							"newrate":doc.newrate});
 			}
 		})
@@ -102,7 +111,7 @@ router.post('/enableEmail/:switchs',function (req,res){
 			if(err) {
 			 	res.send("Error!!!");
 		}else{
-			res.render('./staff/staff_setting_su',{"userid":req.body.userid,"enableEmail":switchs,"su":true})
+			res.render('./staff/staff_setting_su',{"userid":req.body.userid,"su":true})
 		}
 	})
 
@@ -123,7 +132,7 @@ router.post('/enablerate/:switchs',function (req,res){
 			if(err) {
 			 	res.send("Error!!!");
 		}else{
-			res.render('./staff/staff_setting_su',{"userid":req.body.userid,"enablerate":switchs,"su":true})
+			res.render('./staff/staff_setting_su',{"userid":req.body.userid,"su":true})
 		}
 	})
 
@@ -145,6 +154,8 @@ router.post('/supervisor/setrate',function (req,res){
 						{	"userid":userobj.userid,
 							"receiveEmails":doc.email,
 							"su":true,
+							"enableEmail":userobj.enableEmail,
+							"enablerate":userobj.enablerate,
 							"overtime":userobj.overtime,
 							"newrate":userobj.newrate});
 		}
@@ -169,9 +180,11 @@ router.post('/supervisor/settings', function (req, res) {
 		if(err) {
 			 res.send("Error!!!");
 		}else{
-			console.log(doc)
 				res.render("./staff/staff_setting_su",
-					{"userid":userobj.userid,"receiveEmails":doc.email,"su":true,"overtime":doc.overtime,
+					{"userid":userobj.userid,"receiveEmails":doc.email,"su":true,
+							"enableEmail":doc.enableEmail,
+							"enablerate":doc.enablerate,
+							"overtime":doc.overtime,
 							"newrate":doc.curRate});
 				}
 	});
@@ -192,6 +205,8 @@ router.post('/supervisor/sendemail', function (req, res) {
 				console.log(doc)
 			res.render('./staff/staff_setting_su',{"userid":userobj.userid,
 						"receiveEmails":userobj.receiveEmails,"su":true,
+							"enableEmail":userobj.enableEmail,
+							"enablerate":userobj.enablerate,
 							"overtime":doc.overtime,
 							"newrate":doc.curRate});
 		}
