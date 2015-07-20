@@ -26,8 +26,12 @@ block content
 						.hollowcircle.red.hidden &nbsp;
 						.hollowcircle.green &nbsp;
 					td.delegation.noselect
-						.authorize(href= "#") Authorize
-						.revoke.hidden(href= "#") Revoke
+						if true
+							.authorize(href= "#") Authorize
+							.revoke.hidden(href= "#") Revoke
+						else
+							.authorize.hidden(href= "#") Authorize
+							.revoke(href= "#") Revoke
 					tr
 
 
