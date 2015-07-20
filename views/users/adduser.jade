@@ -1,126 +1,257 @@
-extends ../layout.jade
+extends ../layout
 append links
-    link(rel="stylesheet" href="/datepicker/css/datepicker.css")
+    link(rel="stylesheet" href="/stylesheets/userform.css")
+    link(rel="stylesheet" href="/pickadate/lib/themes/default.css" id="theme_base")
+    link(rel="stylesheet" href="/pickadate/lib/themes/default.date.css" id="theme_date")
+    link(rel="stylesheet" href="/pickadate/lib/themes/default.time.css" id="theme_time")
+        
 append scripts
-    script(src="/datepicker/js/bootstrap-datepicker.js")
-    script(type="text/javascript").
-        $(function(){
-            var showing = false;
-            $('.datePick').on('click', function(e) {
-                if(showing){
-                    $(this).datepicker('hide');
-                    showing= false;
-                }else{
-                    $(this).datepicker('show');
-                    showing= true;
+    script(src="/javascripts/jquery-ui.min.js")
+    script(src="/javascripts/pickadateControl.js")
+    script(src="/pickadate/lib/picker.js")
+    script(src="/pickadate/lib/picker.date.js")
+    script(src="/pickadate/lib/picker.time.js")
+    script.
+        function setAllFieldsToTable() {
+            $('.previewtable td>span').each(function(){
+                var $span = $(this);
+                var name = $span[0].id;
+                var idName = name.substring(0, name.length-4);
+                var value = $('form input[name="'+idName+'"]').val();
+                if(idName === 'sex') {
+                    value = value ? "#{tr('sex_male')}" : "#{tr('sex_female')}";
+                }
+                $span.html(value);
+            });
+        }
+        $(function initEvents(){
+            setAllFieldsToTable();
+            $('.radioinput').on('click', function(){
+                var $this = $(this);
+                $('.radioinput').each(function(i, radio){
+                    $(radio).removeClass('radioselected');
+                });
+                $this.addClass('radioselected');
+                $('.sexinput>input').val($this.attr('data-value'));
+            });
+            $('#choosepic').on('click', function(e){
+                e.preventDefault();
+                $('.uploadfield').trigger('click');
+            });
+            $('input[type="file"]').change(function(e){
+                var fileInput = $(this)[0];
+                var files = fileInput.files;
+                var fileNames = [];
+                $.each(files, function(i, v){
+                    fileNames.push(v.name);
+
+                });
+                $('.uploadfield>input:first-child').val(fileNames.join(', '));
+            });
+            $('.page').each(function(i, val){
+                if(i != 0) {
+                    $(this).hide();    
                 }
             });
-
-            $('.datePick').on('changeDate', function(e){
-                if(showing){
-                    $(this).datepicker('hide');
-                    showing= false;
+            $('form input').change(function(){
+                setAllFieldsToTable();
+            });
+            var curPage = 1;
+            function changePage(nextOrPrev) {
+                if(nextOrPrev)
+                    curPage+=1;
+                else
+                    curPage-=1;
+                var selected = null;
+                $('.page').each(function(){
+                    var $this = $(this);
+                    if(+$this.attr('data-value') === curPage) {
+                        selected = $this;
+                    }
+                });
+                var $visible = $('.page:visible');
+                if(nextOrPrev) {
+                    $visible.eq(0).hide('slide', { direction: 'left' }, 400);
+                    selected.show('slide', { direction: 'right' }, 600);
                 }
+                else {
+                    $visible.eq(0).hide('slide', { direction: 'right' }, 400);
+                    selected.show('slide', { direction: 'left' }, 600);
+                }
+            }
+            $('.nextBtn').on('click', function(){
+                changePage(true);
+            });
+
+            $('.previousBtn').on('click', function(){
+                changePage(false);
+            });
+            $('#makechange').on('click', function(){
+                $('.previewall').eq(0).hide('slide', { direction: 'right' }, 400);
+                $('.page:eq(0)').show('slide', { direction: 'left' }, 600);
+                curPage = 1;
+            });
+            
+            $('#confirm').on('click', function(){
+                $form = $('form#big');
+                $form.attr('enctype', 'multipart/form-data')
+                $form.attr('action', '/users/add');
+                $form.attr('method', 'post');
+                $form.submit();
+            });
+            $('.sexinput input').change(function(){
+                var sex = $(this).val();
+                if(sex) {
+                    $('.sexinput .radioinput[data-value="1"]').addClass('radioselected');
+                    $('.sexinput .radioinput[data-value="0"]').removeClass('radioselected');
+                } else {
+                    $('.sexinput .radioinput[data-value="1"]').remvoeClass('radioselected');
+                    $('.sexinput .radioinput[data-value="0"]').addClass('radioselected');
+                }
+                
+
             });
         });
-
-        
-block content    
-    h1 User Form
-    if attr
-        h3= attr.msg
-    form#addform
-        table(border=1)
-            tr
-                td= tr('userform_userid')
-                td
-                    input(name="userid" type="text")
-            tr
-                td= tr('userform_pwd')
-                td
-                    input(name="password" type='text')
-            tr
-                td= tr('userform_name')
-                td
-                    input(name="name" type='text')
-                    
-            tr
-                td= tr('create_date')
-                td
-                    input.datePick(data-date-format="yyyy-mm-dd" name="createDate" type='text')        
-            
-            tr
-                td= tr('userform_sex')
-                td
-                    input(type="radio" id="male_rd" name="sex" value="1")
-                    label(for="male_rd")= tr('sex_male')
-                    input(type="radio" id="female_rd" name="sex" value="0")
-                    label(for="female_rd")= tr('sex_female')
-            tr
-                td= tr('userform_email')
-                td
-                    input(name="email" type="text")
-    
-            
-            tr
-                td= tr('userform_compid')
-                td
-                    input(name="compid" tpye="text")
-            tr
-                td(colspan=2)
-                    label(for="address_street")= tr('userform_address_street')
-                    input(id="address_street" name="address_street" type="text")
-                    label(for="address_city")= tr('userform_address_city')
-                    input(id="address_city" name="address_city" type="text")
-                    label(for="address_state")= tr('userform_address_state')
-                    input(id="address_state" name="address_state" type="text")
-                    label(for="address_zip")= tr('userform_address_zip')
-                    input(id="address_zip" name="address_zip" type="text")
-            tr
-                td= tr('userform_tel')
-                td
-                    input(name="tel" type="text")
-            
-            tr
-                td= tr('userform_rate')
-                td
-                    input(name="curRate" type="text")
-                    
-            tr
-                td= tr('isOwner?')
-                td
-                    input(type="radio" id="isowner" name="owner" value="1")
-                    label(for="isowner")= tr('Is Owner')
-                    input(type="radio" id="notowner" name="owner" value="0")
-                    label(for="notowner")= tr('Not Owner')
-            
-            tr
-                td= tr('remark')
-                td
-                    textarea(name="remark")
-            
-            tr
-                td= tr('avatar_url')
-                td
-                    input(name="avatar" type="text")
-                    input(name='avatar' type='file')
-            
-            
-        input#sub(type="button" value="#{tr('submit')}")
-        input#back(type="button" value ="Back")
     
     script.
-        var $form = $('#addform');
-        
-        $('#sub').click(function(){
-            $form.attr('enctype', 'multipart/form-data')
-            $form.attr('action', '/users/add');
-            $form.attr('method', 'post');
-            $form.submit();
-        });
-        
-        $('#back').click(function(){
-            $form.attr('action', "/users/search");
-            $form.attr('method', 'get');
-            $form.submit();
-        });
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#img_prev')
+                        .attr('src', e.target.result);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+block content
+    .main
+        form#big
+            .infosection.page(data-value="1")
+                .avatarsection
+                    .avatarimg
+                        img(id="img_prev" src="#{!user ? '/images/boydefaultpicture.png' :user.avatar}" alt="your image")
+                    .avatarupload
+                        .uploadfield 
+                            input.textinput(type="text" name="avatar_url")
+                            #choosepic.submitbutton= tr('...')
+                            #submitupload.submitbutton= tr('upload')
+                            input.uploadfield.hidden(type="file" name="avatar" multiple="multiple" onchange="readURL(this);")
+                        .submitupload
+    
+                - var _id = (user == undefined ? undefined: user._id);
+                
+                input(id="dbid" name="_id" type="text" value = "#{_id}" style="display: none")
+                
+                .sectiontitle
+                    span= tr('basic_info')
+                .sectionfields
+                    
+                    label.title= tr('userid')
+                    input(id="userid" name="userid" type="text" value="#{!user? '': user.userid}").textinput()
+                    label.title= tr('name')
+                    input(id="name" name="name" type="text" value="#{!user? '' : user.name}").textinput()
+                    label.title= tr('password')
+                    input(id="password" name="password" type="password" value="#{!user? '' : user.password}").passinput()
+                    .sexinput
+                        label.title= tr('sex')
+                        .radioinput.radioselected(data-value="1")
+                            .outer
+                                .inner
+                            .label= tr('sex_male')
+                        .radioinput(data-value="0")
+                            .outer
+                                .inner
+                            .label= tr('sex_female')
+                        input(name="sex" type="hidden" value="#{!user? '' : user.sex}")
+                .nextBtn.submitbutton= tr('next')
+
+            .infosection.page(data-value='2')
+                .previousBtn.submitbutton= tr('previous')
+                .sectiontitle
+                    span= tr('address')
+                .sectionfields
+                    label.title= tr('userform_address_street')
+                    input(type="text" id="address_street" name="address_street" value="#{!user? '' : user.address_street}").textinput
+                    label.title= tr('userform_address_city')
+                    input(type="text" id="address_city" name="address_city" value="#{!user? '' : user.address_city}").textinput
+                    label.title= tr('userform_address_state')
+                    input.textinput.small.inline(id="address_state" name="address_state" value="#{!user? '' : user.address_state}")
+                    label.title= tr('userform_address_zip')
+                    input.textinput.small.inline(id="address_zip" name="address_zip" value="#{!user? '' : user.address_zip}")
+                .nextBtn.submitbutton= tr('next')
+
+            .infosection.page(data-value='3')
+                .previousBtn.submitbutton= tr('previous')
+                .sectiontitle
+                    span= tr('other')
+                .sectionfields
+                    label.title= tr('paid_rate')
+                    input.textinput.small.inline(id="payrate" name="curRate" value="#{!user? '' : user.curRate}")
+                    label.title= tr('rate_change_date')
+                    input.textinput.small.inline.useDatePicker(id="change_from" name="rate_change_date")
+                    label.title= tr('userform_tel')
+                    input.textinput(name="tel" value="#{!user? '' : user.tel}")
+                    label.title= tr('userform_email')
+                    input.textinput(name="email" value="#{!user? '' : user.email}")
+                    .textareainput
+                        label.title= tr('remark')
+                        textarea(name='remark')= user? user.remark: ''
+                .nextBtn.submitbutton= tr('next')
+
+        .previewall.page(data-value='4')
+            table.previewtable()
+                tr
+                    th= tr('userid')
+                    td
+                        span#useridtext
+                tr
+                    th= tr('name')
+                    td
+                        span#nametext
+                tr
+                    th= tr('password')
+                    td
+                        span#passwordtext
+                tr
+                    th= tr('sex')
+                    td
+                        span#sextext
+                tr
+                    th= tr('userform_address')
+                    td
+                        span#streettext
+                tr
+                    td(colspan=2)
+                        span#citytext 
+                        span#statetext
+                        span#ziptext
+
+                tr
+                    th= tr('paid_rate')
+                    td
+                        span#ratetext
+                tr
+                    th= tr('rate_date')
+                    td
+                        span#ratedatetext
+                tr
+                    th= tr('userform_tel')
+                    td
+                        span#teltext
+                tr
+                    th= tr('userform_email')
+                    td
+                        span#email
+                tr
+                    td(colspan=2)
+                        span.label= tr('remark')
+                        span#remarktext 
+            .cmdtools
+                    #makechange.submitbutton
+                        = tr('make_change')
+                    #confirm.submitbutton
+                        = tr('add_user')
