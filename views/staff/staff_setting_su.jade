@@ -16,7 +16,7 @@ append scripts
 		$(function initEvent(){
 			$('.emailSwitch > .onOff').on("click",function(){
 		  		$.ajax({type:"post",
-		  			url:"/staff_setting/enableEmail/" + $('#enableEmail').val(),
+		  			url:"/enableEmail/" + $('#enableEmail').val(),
 		  			data:{id: $("#myid").val()},
 		            success:function(data){
 		            	if(data){
@@ -33,7 +33,7 @@ append scripts
 		$(function initEvent(){
 			$('.overTimeSwitch > .onOff').on("click",function(){
 		  		$.ajax({type:"post",
-		  			url:"/staff_setting/enablerate/" + $('#enablerate').val(),
+		  			url:"/enablerate/" + $('#enablerate').val(),
 		  			data:{id: $("#myid").val()},
 		            success:function(data){
 		            	if(data){

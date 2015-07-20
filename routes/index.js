@@ -212,7 +212,7 @@ router.get('/punch/:key', function(req, res, next) {
 
 });
 
-var qrModule = require('../qrcodeModule');
+/*var qrModule = require('../qrcodeModule');
 router.get('/supervisor/showdynacode', function(req, res, next) {
     var qrm = new qrModule();
     qrm.getDynacode(req.cookies.sessionid, function(err, mixinData) {
@@ -222,7 +222,7 @@ router.get('/supervisor/showdynacode', function(req, res, next) {
             data: mixinData
         })(req, res, next);
     });
-});
+});*/
 
 router.get('/recentRecords', function(req, res, next) {
     var rm = new recordsModule();
