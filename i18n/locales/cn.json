@@ -77,7 +77,7 @@
 	"avatar_preview": "展示",
 	"Preview Avatar": "展示代理",
 	"empty records": "未找到纪录",
-	"clearsearch": "清空搜索",
+	"clearsearch": "清空",
 	"basic_info": "basic_info",
 	"next": "next",
 	"previous": "previous",
@@ -141,8 +141,16 @@
 	"November": "November",
 	"January": "January",
 	"add_user": "add_user",
+<<<<<<< HEAD
 	"Roman Wang": "Roman Wang",
 	"perdidotodos": "perdidotodos",
 	"X M": "X M",
 	"bigblueocean": "bigblueocean",
 }
+=======
+	"compName": "compName",
+	"compLogo": "compLogo",
+	"compIps": "compIps",
+	"September": "September"
+}
+>>>>>>> master
