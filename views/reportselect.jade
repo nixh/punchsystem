@@ -14,7 +14,7 @@ append scripts
                 if(!owner) {
                     location.href = "/recentRecords";
                 } else {
-                    location.href = "/supervisor/employees";
+                    location.href = "/supervisor/employees_records";
                 }
             });
             $('table td').on('click', function(){
@@ -27,7 +27,6 @@ append scripts
 block content                       
     .total(ontouchstart="")
         .title1= tr('select_report_type')
-        .button1.noselect= tr('report_activity')
         .summary.noselect= tr('report_summary')
         .calendar.noselect.hidden
             - var months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUNE', 'JULY', 'AUG', 'SEPT', 'OCT', 'NOV', 'DEC'];
@@ -41,7 +40,3 @@ block content
                     if index ==0 || index % threshold == 0 
                         tr
                     td(data-url="/supervisor/overviewreport/#{m}")= months_cn[index]
-
-
-
-

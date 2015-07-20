@@ -96,10 +96,10 @@
 	"overview": "工资报告",
 	"add staff": "添加员工",
 	"manage records": "管理打卡记录",
-	"start_end_date": "start_end_date",
-	"hours": "hours",
-	"totalpay": "totalpay",
-	"back": "back",
+	"start_end_date": "起始时间",
+	"hours": "累计时长",
+	"totalpay": "总计",
+	"back": "返回",
 	"change_qrcode": "更改二维码",
 	"select_report_type": "选择报告类型",
 	"report_activity": "打卡信息表",
@@ -141,13 +141,8 @@
 	"November": "November",
 	"January": "January",
 	"add_user": "add_user",
-
 	"compName": "compName",
 	"compLogo": "compLogo",
 	"compIps": "compIps",
-	"September": "September",
-	"van a la playa": "van a la playa"
-
 	"September": "September"
-
 }
