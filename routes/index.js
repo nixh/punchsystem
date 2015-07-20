@@ -395,7 +395,6 @@ router.get('/supervisor/employees_records', function(req, res, next) {
         um.getAllUsers({
             compid: sObj.compid
         }, function(err, users) {
-            console.log(JSON.stringify(users));
             utils.render('users/search', {
                 msg: 'hello',
                 userlist: users
