@@ -152,6 +152,7 @@ router.post('/supervisor/setrate',function (req,res){
 			res.render("./staff/staff_setting_su",
 						{	"userid":userobj.userid,
 							"receiveEmails":doc.email,
+							"oldpassword":doc.password,
 							"su":true,
 							"enableEmail":userobj.enableEmail,
 							"enablerate":userobj.enablerate,
@@ -219,6 +220,7 @@ router.post('/supervisor/sendemail', function (req, res) {
 							"enableEmail":userobj.enableEmail,
 							"enablerate":userobj.enablerate,
 							"overtime":doc.overtime,
+							"oldpassword":doc.password,
 							"newrate":doc.curRate});
 		}
 	});
