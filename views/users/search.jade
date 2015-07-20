@@ -13,7 +13,7 @@ block content
             .cmd
                 input.search(type="submit" value="#{tr('Search')}")
                 button.clear(href='/supervisor/employees')= tr('clearsearch') 
-
+   
         if userlist
             table.userTable()
                 tr
@@ -25,7 +25,11 @@ block content
                 each user, i in userlist
                     tr
                         td(style="padding: 10px")
-                            a(href="/supervisor/employees/#{user.userid}")= user.name
+
+                            a(href="/supervisor/employees/#{user.userid}")= tr('user.name')
+
+                            a(href="/supervisor/employees/#{user.userid}")= tr('userform_name')
+
                         td(style="padding: 10px")
                             a(href="/supervisor/rencentRecords/#{user.userid}")= tr('viewrecords')
                         td(style="padding: 10px")

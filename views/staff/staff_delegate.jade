@@ -1,36 +1,29 @@
 extends ../layout.jade
 
 append links
-	link(rel= "stylesheet" href= "/datepicker/css/datepicker.css")
+    link(rel= "stylesheet" href= "/stylesheets/staffDelegate.css")
 
 append scripts
-	script(src="/datepicker/js/bootstrap-datepicker.js")
 
 block content
-	#qrcode
-		img(src= "#{dataURL}" alt= "qrcode for punch card")
-	#punch
-		input.datePick(type= "text" name= "date") 
-		button(id= "punchButton" onclick= "alert(Date())") Punch
+    .staffDelegatePage(ontouchstart="")
 
-	script.
-		$(function(){
-			var showing = false;
-			$('.datePick').on('click', function(e){
-				if(showing){
-					$(this).datepicker('hide');
-					showing= false;
-				}else{
-					$(this).datepicker('show');
-					showing= true;
-				}
-			});
+        .companyInfo 
+            .companyTitle ADMINSYS INC
+            .companyNumber 
+                .number 347-698-8300
+                .number 917-291-7836
+            .companyAddress
+                .streetAddress 140-75 ASH AVE, SUITE 2F
+                .cityAddress FLUSHING, NY 11355
 
-			$('.datePick').on('changeDate', function(e){
-				if(showing){
-					$(this).datepicker('hide');
-					showing= false;
-				}
-			});
-		});
-		
+        .qrcode
+            img(src= dataURL)
+
+        .change.noselect
+            button.changeButton CHANGE
+    
+    script.
+        $(".changeButton").on('click', function(){
+            location.reload();
+        });

@@ -36,15 +36,16 @@ append scripts
                 location.href = "/recentRecords";
             });
 
-            $('.setting').on('click', function(){
-                location.href = "/settings";
+            $('.delegate').on('click', function(){
+                location.href = "/staff_delegate";
+            });
+
+            $('.settings').click(function(){
+                location.href = '/settings';
             });
 
             $('.logout').on('click', function(){
                 location.href = "/logout";
-            });
-            $('.settings').click(function(){
-                location.href = '/settings';
             });
         });
 
@@ -79,7 +80,7 @@ block content
         .otherInfoLinks.noselect
             .punchReport.otherInfo= tr('punchReport')
             .delegate.otherInfo= tr('delegate')
-            .setting.otherInfo= tr('setting')
+            .settings.otherInfo= tr('setting')
             .logout.otherInfo= tr('logout')
             if false
                 .wageReport.otherInfo= tr('wageReport')
