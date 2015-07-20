@@ -42,7 +42,7 @@ function validate(userObj) {
 
 
 function addUser(userObj, callback) {
-    validate(userObj);
+    // validate(userObj);
 
     var addr = trim(userObj.address_street)
                  + "|" + trim(userObj.address_city)
@@ -53,9 +53,14 @@ function addUser(userObj, callback) {
 
     var col = this.db.get('users');
 
+    console.log(JSON.stringify(userObj));
+
     col.find({
         "userid": userObj.userid
     }, function(err, doc) {
+
+        console.log(doc);
+
         if (err) {
             callback(new Error('user error!'));
         }
@@ -132,9 +137,9 @@ function changeUser(userObj, callback) {
 
     var append = {};
 
-    if(userObj.curRate > 0 && userObj.rate_change_date.length > 0){
+    if(userObj.curRate > 0 ){
         append.rate = parseInt(userObj.curRate);
-        append.changetime = (userObj.rate_change_date.length == 0? new Date().getTime() : userObj.rate_change_date);
+        append.changetime = (userObj.rate_change_date ? new Date().getTime() : userObj.rate_change_date);
 
         delete userObj.rate_change_date;
     }
