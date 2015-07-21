@@ -158,20 +158,23 @@ router.post('/supervisor/setrate',function (req,res){
 							"enableEmail":userobj.enableEmail,
 							"enablerate":userobj.enablerate,
 							"overtime":userobj.overtime,
-							"newrate":userobj.newrate});
+							"newrate":userobj.newrate
+						});
 		}
 	})
 });
 
-router.post('/settings', function (req, res) {
+router.post('/settings', function (req, res, next) {
 	var userobj=req.body;
-	settings.changepass(userobj,function (err, doc,next){
+	console.log(userobj);
+	settings.changepass(userobj,function(err, doc){
 		if(err) {
 			 next(err);
 		}else if(!doc){
 			utils.render("message",{success: false,
                 		msg: {head:"changepass successful"},
                 		pageUrl: '/settings'})(req,res,next);
+
 		}else{
 				utils.render("message",{success: true,
                 		msg: {head:"changepass successful"},
