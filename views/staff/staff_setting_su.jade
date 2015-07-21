@@ -152,6 +152,8 @@ block content
                     input.textBox.inputBar.useTagator(type= "text" id = "receiveEmails" name = 'receiveEmails' placeholder= "EMAIL ADDRESS" value="#{email}")
                     -var enable= (enableEmail)? enableEmail : 1
                     input(type = 'hidden' name='enableEmail' value ='#{enable}' id= "enableEmail")
+                    -var rate=(enablerate)? enablerate : 1
+                    input(type ="hidden" name ="enablerate" value= '#{rate}' id="enablerate")
                     input(type = 'hidden' name='userid' value ="#{userid}" id="myid")
                     .radioButton
                         .chooseLabel CHOOSE
@@ -184,6 +186,8 @@ block content
                         input.hourDisplay(type= "text" placeholder= "40" name="overtime" id ="overtime" value ='#{overtime}')
                         -var rate=(enablerate)? enablerate : 1
                         input(type ="hidden" name ="enablerate" value= '#{rate}' id="enablerate")
+                        -var enable= (enableEmail)? enableEmail : 1
+                        input(type = 'hidden' name='enableEmail' value ='#{enable}' id= "enableEmail")
                         input(type = 'hidden' name='userid' value ="#{userid}")
 
                         .perWeekLabel

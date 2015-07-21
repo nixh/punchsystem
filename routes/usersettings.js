@@ -69,8 +69,9 @@ router.get('/supervisor/sendemail', function (req, res, next){
 		sid.getSessionInfo(id,function(err,doc){
 			if (err){
 				res.send('err')
-			}else{
-				res.render('./staff/staff_setting_su',{"userid":doc.userid,"su":true,
+			}else{			
+				res.render('./staff/staff_setting_su',{"userid":doc.userid,
+							"su":true,
 							"enableEmail":doc.enableEmail,
 							"enablerate":doc.enablerate,
 							"overtime":doc.overtime,
@@ -103,15 +104,13 @@ router.post('/enableEmail/:switchs',function (req,res){
 	}else{
 		switchs=1;
 	}
-	console.log(switchs)
-	//res.render('./staff/staff_setting');
 	userobj={'userid': req.body.id,
 			'enableEmail':switchs};
 	settings.enableEmail(userobj,function(err,doc){
 			if(err) {
 			 	res.send("Error!!!");
 		}else{
-			res.render('./staff/staff_setting_su',{"userid":req.body.userid,"su":true,"enablerate":switchs})
+			res.render('./staff/staff_setting_su',{"userid":req.body.userid,"su":true})
 		}
 	})
 
@@ -132,7 +131,7 @@ router.post('/enablerate/:switchs',function (req,res){
 			if(err) {
 			 	res.send("Error!!!");
 		}else{
-			res.render('./staff/staff_setting_su',{"userid":req.body.userid,"su":true,"enablerate":switchs})
+			res.render('./staff/staff_setting_su',{"userid":req.body.userid,"su":true})
 		}
 	})
 
