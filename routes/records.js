@@ -6,6 +6,20 @@ var monk = require('monk');
 var db = monk('mongodb://localhost:27017/punchsystem');
 var recModule = require('../recModule');
 
+router.get('/staff_delegate:uid', function(req, res, next) {
+    var rm = new recModule();
+    var sessionid = req.cookies.seccionid;
+    var userid = req.params.uid;
+    query = {userid : userid};
+    rm.checkDelegate(query, function(err, dels) {
+        var delegate = false;
+        if (dels) {
+            delegate = true;
+        }
+        res.render('', delegate);
+    });
+});
+
 router.get('/supervisor_delegate', function(req, res, next){
     var rm = new recModule();
     var sessionid = req.cookies.sessionid;
