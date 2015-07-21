@@ -157,18 +157,22 @@ router.post('/supervisor/setrate',function (req,res){
 							"enableEmail":userobj.enableEmail,
 							"enablerate":userobj.enablerate,
 							"overtime":userobj.overtime,
-							"newrate":userobj.newrate});
+							"newrate":userobj.newrate
+						});
 		}
 	})
 });
 
-router.post('/settings', function (req, res) {
+router.post('/settings', function (req, res, next) {
 	var userobj=req.body;
+	console.log(userobj);
 	settings.changepass(userobj,function(err, doc){
 		if(err) {
-			 res.send("Error!!!");
-		}else if (userobj.oldpass!==doc.password){
-			res.render("./staff/staff_setting_su",{"userid":userobj.userid,"su":false,"message":false});
+			 return next(err);
+		} else if(!doc) {
+			utils.render("./staff/staff_setting_su",{"userid":userobj.userid,"su":false,"message":res.__('invaild_oldpass')})(req, res, next);
+		} else if (userobj.oldpass!==doc.password){
+			utils.render("./staff/staff_setting_su",{"userid":userobj.userid,"su":false,"message":false})(req, res, next);
 		}else{
 				res.render("./staff/staff_setting_su",{"userid":userobj.userid,"su":false,"message":false});
 			}
