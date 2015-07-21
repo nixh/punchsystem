@@ -172,13 +172,13 @@ router.post('/settings', function (req, res, next) {
 			 next(err);
 		}else if(!doc){
 			utils.render("message",{success: false,
-                		msg: {head:"changepass successful"},
+                		msg: {head:res.__("changepass failed, maybe wrong password")},
                 		pageUrl: '/settings'})(req,res,next);
 
 		}else{
 				utils.render("message",{success: true,
-                		msg: {head:"changepass successful"},
-                		pageUrl: '/supervisor/settings'})(req,res,next);
+                		msg: {head:res.__("changepass successful")},
+                		pageUrl: '/settings'})(req,res,next);
 			}
 	});
 });
@@ -191,7 +191,7 @@ router.post('/supervisor/settings', function (req, res) {
 			 next("Error!!!");
 		}else if(!doc){
 			utils.render("message",{success: false,
-                		msg: {head:"changepass successful"},
+                		msg: {head:res.__("changepass failed, maybe wrong password")},
                 		pageUrl: '/supervisor/settings'})(req,res,next);
 				
 		}else{
@@ -203,7 +203,7 @@ router.post('/supervisor/settings', function (req, res) {
 							"overtime":doc.overtime,
 							"newrate":doc.curRate})(req,res,next);*/
 	utils.render("message",{success: true,
-                		msg: {head:"changepass successful"},
+                		msg: {head:res.__("changepass successful")},
                 		pageUrl: '/supervisor/settings'})(req,res,next);
 				}
 			
