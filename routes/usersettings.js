@@ -204,7 +204,7 @@ router.post('/supervisor/settings', function (req, res) {
 							"overtime":doc.overtime,
 							"newrate":doc.curRate})(req,res,next);*/
 	utils.render("message",{success: true,
-                		msg: "changesuccessful",
+                		msg: {head:"changepass successful"},
                 		pageUrl: '/supervisor/settings'})(req,res,next);
 				}
 			
