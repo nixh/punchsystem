@@ -32,6 +32,8 @@ append scripts
                     rateSH.find("span").html("#{tr('hiderate')}");
                 }
             }
+
+
             $('.punchReport').on('click', function(){
                 location.href = "/recentRecords";
             });
@@ -54,7 +56,7 @@ block content
     .staffMainPage(ontouchstart="")
         //.userInfo
         .avatar
-            img(src="#{user.sex ? '/images/boydefaultpicture.png' : '/images/girl default picture.png'}" alt="User Avatar") 
+            img(src="#{user.avatar ? user.avatar : user.sex ? '/images/boydefaultpicture.png' : '/images/girl default picture.png'}" alt="User Avatar") 
             p= tr('welcome') + " " + user.name
             //.acctInfo
                 pre.
@@ -79,7 +81,8 @@ block content
                
         .otherInfoLinks.noselect
             .punchReport.otherInfo= tr('punchReport')
-            .delegate.otherInfo= tr('delegate')
+            if delegate
+                .delegate.otherInfo= tr('delegate')
             .settings.otherInfo= tr('setting')
             .logout.otherInfo= tr('logout')
             if false
