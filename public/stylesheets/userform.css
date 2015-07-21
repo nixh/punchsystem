@@ -373,6 +373,7 @@ body {
   line-height: 120px;
   text-align: center;
   width: 100%;
+  font-weight: normal;
 }
 .main .previewall table.previewtable td {
   background: rgba(255, 255, 255, 0.52);
