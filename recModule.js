@@ -126,7 +126,7 @@ function showUsersForDelegate(sessionid, callback) {
     var users = this.db.get('users');
     var delegation = this.db.get('delegation');
     this.sm.getSessionInfo(sessionid, function(err, sessionDoc) {
-        //console.log(sessionDoc.compid);
+        console.log(sessionDoc.compid);
         users.find({compid : sessionDoc.compid, owner : false}, function(err, userInfos) {
             var ret = {msg: null, ok: true};
             if (!userInfos) {

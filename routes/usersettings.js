@@ -103,6 +103,7 @@ router.post('/enableEmail/:switchs',function (req,res){
 	}else{
 		switchs=1;
 	}
+	console.log(switchs)
 	//res.render('./staff/staff_setting');
 	userobj={'userid': req.body.id,
 			'enableEmail':switchs};
@@ -110,7 +111,7 @@ router.post('/enableEmail/:switchs',function (req,res){
 			if(err) {
 			 	res.send("Error!!!");
 		}else{
-			res.render('./staff/staff_setting_su',{"userid":req.body.userid,"su":true})
+			res.render('./staff/staff_setting_su',{"userid":req.body.userid,"su":true,"enablerate":switchs})
 		}
 	})
 
@@ -131,7 +132,7 @@ router.post('/enablerate/:switchs',function (req,res){
 			if(err) {
 			 	res.send("Error!!!");
 		}else{
-			res.render('./staff/staff_setting_su',{"userid":req.body.userid,"su":true})
+			res.render('./staff/staff_setting_su',{"userid":req.body.userid,"su":true,"enablerate":switchs})
 		}
 	})
 
@@ -152,24 +153,32 @@ router.post('/supervisor/setrate',function (req,res){
 			res.render("./staff/staff_setting_su",
 						{	"userid":userobj.userid,
 							"receiveEmails":doc.email,
+							"oldpassword":doc.password,
 							"su":true,
 							"enableEmail":userobj.enableEmail,
 							"enablerate":userobj.enablerate,
 							"overtime":userobj.overtime,
-							"newrate":userobj.newrate});
+							"newrate":userobj.newrate
+						});
 		}
 	})
 });
 
-router.post('/settings', function (req, res) {
+router.post('/settings', function (req, res, next) {
 	var userobj=req.body;
+	console.log(userobj);
 	settings.changepass(userobj,function(err, doc){
 		if(err) {
-			 res.send("Error!!!");
-		}else if (userobj.oldpass!==doc.password){
-			res.render("./staff/staff_setting_su",{"userid":userobj.userid,"su":false,"message":false});
+			 next(err);
+		}else if(!doc){
+			utils.render("message",{success: false,
+                		msg: {head:"changepass successful"},
+                		pageUrl: '/settings'})(req,res,next);
+
 		}else{
-				res.render("./staff/staff_setting_su",{"userid":userobj.userid,"su":false,"message":false});
+				utils.render("message",{success: true,
+                		msg: {head:"changepass successful"},
+                		pageUrl: '/supervisor/settings'})(req,res,next);
 			}
 	});
 });
@@ -177,25 +186,25 @@ router.post('/settings', function (req, res) {
 router.post('/supervisor/settings', function (req, res) {
 	var userobj=req.body;
 	console.log(userobj)
-	settings.changepass(userobj,function (err, doc){
+	settings.changepass(userobj,function (err, doc,next){
 		if(err) {
-			 res.send("Error!!!");
-		}else if(userobj.oldpass!==doc.password){
-			res.render("./staff/staff_setting_su",
-					{"userid":userobj.userid,"receiveEmails":doc.email,"su":true,
-							"enableEmail":doc.enableEmail,
-							"message": false,
-							"enablerate":doc.enablerate,
-							"overtime":doc.overtime,
-							"newrate":doc.curRate});
+			 next("Error!!!");
+		}else if(!doc){
+			utils.render("message",{success: false,
+                		msg: {head:"changepass successful"},
+                		pageUrl: '/supervisor/settings'})(req,res,next);
+				
 		}else{
-				res.render("./staff/staff_setting_su",
+				/*utils.render("./staff/staff_setting_su",
 					{"userid":userobj.userid,"receiveEmails":doc.email,"su":true,
 							"enableEmail":doc.enableEmail,
-							"message":false,
+							"message":true,
 							"enablerate":doc.enablerate,
 							"overtime":doc.overtime,
-							"newrate":doc.curRate});
+							"newrate":doc.curRate})(req,res,next);*/
+	utils.render("message",{success: true,
+                		msg: {head:"changepass successful"},
+                		pageUrl: '/supervisor/settings'})(req,res,next);
 				}
 			
 	});
@@ -219,6 +228,7 @@ router.post('/supervisor/sendemail', function (req, res) {
 							"enableEmail":userobj.enableEmail,
 							"enablerate":userobj.enablerate,
 							"overtime":doc.overtime,
+							"oldpassword":doc.password,
 							"newrate":doc.curRate});
 		}
 	});

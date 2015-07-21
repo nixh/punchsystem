@@ -48,41 +48,56 @@ append scripts
         });
 
     script.
+
           function getObj(id){
                 var Obj = document.getElementById(id).value;
                 return Obj;
           }
           function checkpwd(){
                 var oldPass = $("#oldpass");
-                var newPass = $("#newpass");
+                var newPass = $("#newpass"); 
                 var confirmPass = $("#confirmpass");
                 var submittable = true;
+                var oldValid = true;
+                var newValid = true;
+                var conValid = true;
 
                 if(oldPass.val() === ""){
                     oldPass.addClass("inputError");
+                    oldValid = false;
                     submittable = false;
                 }
                 if(newPass.val() === ""){
                     newPass.addClass("inputError");
+                    newValid = false;
                     submittable = false;
                 }
                 if(confirmPass.val() === ""){
                     confirmPass.addClass("inputError");
+                    conValid = false;
                     submittable = false;
                 }
 
                 if(newPass.val() !== confirmPass.val()){
                     newPass.addClass("inputError");
                     confirmPass.addClass("inputError");
+                    newValid = false;
+                    conValid = false;
                     submittable = false;
                 }
 
-                if(submittable){
+                if(oldValid){
                     oldPass.removeClass("inputError");
-                    newPass.removeClass("inputError");
-                    confirmPass.removeClass("inputError");
                 }
 
+                if(newValid){
+                    newPass.removeClass("inputError");
+                }
+
+                if(conValid){
+                    confirmPass.removeClass("inputError");
+                }
+ 
                 return submittable;
           }
 
@@ -94,7 +109,7 @@ append scripts
                 }   
           }
           function checkrate(){
-                if(getObj("overtime")==""||"newrate"==""){
+                if(getObj("overtime")==""||getObj("newrate")==""){
                         //alert("未设置 rate");
                         document.getElementById("overtime").focus;
                         document.getElementById("newrate").focus;
@@ -104,6 +119,8 @@ append scripts
     
 block content
     .staffSettingPage
+        if message
+            p= message
         if su ===false
             .passwordChange
                 .passwordLabel PASSWORD

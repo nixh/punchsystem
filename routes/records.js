@@ -24,6 +24,7 @@ router.get('/supervisor_delegate', function(req, res, next){
     var rm = new recModule();
     var sessionid = req.cookies.sessionid;
     rm.showUsersForDelegate(sessionid, function(err, ret) {
+        console.log(ret);
         res.render('supervisor/supervisor_delegate', ret);
     });
 });
