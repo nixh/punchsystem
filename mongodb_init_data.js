@@ -37,7 +37,7 @@ for(var i=0; i<userNumber; i++) {
 
     var initDate = new Date().getTime();
     db.users.insert({
-        userid: 'LoginName_'+(i+1),
+        userid: 'ln'+(i+1),
         name: 'UserName_' + (i+1),
         createDate: initDate,
         password : '123123123',

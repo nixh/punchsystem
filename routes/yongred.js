@@ -65,13 +65,8 @@ router.post('/usersettings', function(req, res, next){
 
 	});
 });
-<<<<<<< HEAD
-*/
-/*router.get('/settings', function(req, res, next){
-=======
 
 router.get('/settings', function(req, res, next){
->>>>>>> yongred
 
 	var emailReport = db.get("records");
 	emailReport.findOne({reportid:1}, {}, function(err, doc){
@@ -86,7 +81,6 @@ router.get('/settings', function(req, res, next){
 	});
 
 	//res.render('staff/staff_setting', {emailReportData:['one', 'two', 'three']});
-<<<<<<< HEAD
 });*/
 
 

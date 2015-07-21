@@ -68,13 +68,14 @@ block content
             else
                 each user, index in userList
                     - var record = getRecord(user.userid, userReports);
-                    tr
-                        td= user.name
-                        td
-                            span= moment(record.from).format("MM-DD hh:mm A")
-                            br
-                            span= moment(record.to).format("MM-DD hh:mm A")
-                        td= "$" + record.avgRate
-                        td= record.totalhours
-                        td= "$" + record.totalWage
+                    if record
+                        tr
+                            td= user.name
+                            td
+                                span= moment(record.from).format("MM-DD hh:mm A")
+                                br
+                                span= moment(record.to).format("MM-DD hh:mm A")
+                            td= "$" + record.avgRate
+                            td= record.totalhours.toFixed(2) + " " + tr('hour') 
+                            td= "$" + record.totalWage.toFixed(2)
         .submitbutton.back= tr('back')
