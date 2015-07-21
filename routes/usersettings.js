@@ -169,13 +169,16 @@ router.post('/settings', function (req, res, next) {
 	console.log(userobj);
 	settings.changepass(userobj,function(err, doc){
 		if(err) {
-			 return next(err);
-		} else if(!doc) {
-			utils.render("./staff/staff_setting_su",{"userid":userobj.userid,"su":false,"message":res.__('invaild_oldpass')})(req, res, next);
-		} else if (userobj.oldpass!==doc.password){
-			utils.render("./staff/staff_setting_su",{"userid":userobj.userid,"su":false,"message":false})(req, res, next);
+			 next(err);
+		}else if(!doc){
+			utils.render("message",{success: false,
+                		msg: {head:"changepass successful"},
+                		pageUrl: '/settings'})(req,res,next);
+
 		}else{
-				utils.render("./staff/staff_setting_su",{"userid":userobj.userid,"su":false,"message":true})(req,res,next);
+				utils.render("message",{success: true,
+                		msg: {head:"changepass successful"},
+                		pageUrl: '/supervisor/settings'})(req,res,next);
 			}
 	});
 });
@@ -187,16 +190,10 @@ router.post('/supervisor/settings', function (req, res) {
 		if(err) {
 			 next("Error!!!");
 		}else if(!doc){
-			utils.render("./staff/staff_setting_su",
-					{"userid":userobj.userid,"su":true,"message": false})(req,res,next);
-		}else if(userobj.oldpass!==doc.password){
-			utils.render("./staff/staff_setting_su",
-					{"userid":userobj.userid,"receiveEmails":doc.email,"su":true,
-							"enableEmail":doc.enableEmail,
-							"message": false,
-							"enablerate":doc.enablerate,
-							"overtime":doc.overtime,
-							"newrate":doc.curRate})(req,res,next);
+			utils.render("message",{success: false,
+                		msg: {head:"changepass successful"},
+                		pageUrl: '/supervisor/settings'})(req,res,next);
+				
 		}else{
 				/*utils.render("./staff/staff_setting_su",
 					{"userid":userobj.userid,"receiveEmails":doc.email,"su":true,
