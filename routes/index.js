@@ -212,13 +212,11 @@ router.get('/punch/:key', function(req, res, next) {
 
 });
 
-<<<<<<< HEAD
-/*var qrModule = require('../qrcodeModule');
-=======
+
+
 
 /*var qrModule = require('../qrcodeModule');
 
->>>>>>> master
 router.get('/supervisor/showdynacode', function(req, res, next) {
     var qrm = new qrModule();
     qrm.getDynacode(req.cookies.sessionid, function(err, mixinData) {
@@ -229,11 +227,7 @@ router.get('/supervisor/showdynacode', function(req, res, next) {
         })(req, res, next);
     });
 });*/
-<<<<<<< HEAD
-=======
 
-
->>>>>>> master
 
 router.get('/recentRecords', function(req, res, next) {
     var rm = new recordsModule();
