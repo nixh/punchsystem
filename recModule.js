@@ -120,6 +120,73 @@ function getCurrentRate(userid, users) {
         }
     });
 }
+
+//********** Functions for delegate **************//
+function showUsersForDelegate(sessionid, callback) {
+    var users = this.db.get('users');
+    var delegation = this.db.get('delegation');
+    this.sm.getSessionInfo(sessionid, function(err, sessionDoc) {
+        //console.log(sessionDoc.compid);
+        users.find({compid : sessionDoc.compid}, function(err, userInfos) {
+            var ret = {msg: null, ok: true};
+            if (!userInfos) {
+                ret.ok = false;
+                ret.msg = "No data found!";
+                callback(err, ret);
+            } else {
+                delegation.find({compid : sessionDoc.compid}, function(err, dels) {
+                    userInfos.forEach(function(userInfo, index) {
+                        userInfo.delegate = false;
+                        //console.log(userInfo);
+                        dels.forEach(function(del, i) {
+                            if (userInfo.userid === del.userid) {
+                                userInfo.delegate = true;
+                            }
+                        });
+                    });
+                    ret.userInfos = userInfos;
+                    callback(err, ret);
+                });
+            }
+        });
+    });
+}
+function delegate(query, callback) {
+    var delegation = this.db.get('delegation');
+    var users = this.db.get('users');
+    var userid = query.userid;
+    var flag = query.flag;
+    var sessionid = query.sessionid;
+    console.log(typeof flag);
+    // if (flag === 1) {
+    //     var newRec = { compid : compid, userid : userid };
+    //     delegation.insert(newRec, function(err, msg) {
+    //         console.log(msg);
+    //         callback(err, msg);
+    //     });
+    // } else {
+    //     var newQuery = { userid: userid };
+    //     delegation.remove(newQuery, function(err, msg) {
+    //         callback(err, msg);
+    //     });
+    // }
+    this.sm.getSessionInfo(sessionid, function(err, docs) {
+        var compid = docs.compid;
+        if (flag === 1) {
+            var newRec = { compid : compid, userid : userid };
+            delegation.insert(newRec, function(err, msg) {
+                callback(err, msg);
+            });
+        } else {
+            var newQuery = { userid: userid};
+            delegation.remove(newQuery, function(err, msg) {
+                callback(err, msg);
+            });
+        }
+    });
+}
+//*********************************************//
+
 //********** Functions for punch **************//
 function punch(query, callback) {
     var records = this.db.get('records');
@@ -224,6 +291,7 @@ function updateRecords(query, newrec, callback) {
     var db = this.db;
     var records = db.get('records');
     records.findAndModify(query, {"$set": newrec}, {new: true}, function(err, docs) {
+        console.log(docs);
         callback(err, docs);
     });
 }
@@ -418,6 +486,8 @@ function Module(settings) {
 }
 
 Module.prototype = {
+    showUsersForDelegate : showUsersForDelegate,
+    delegate : delegate,
     getWageByMonth : getWageByMonth,
     getWageByWeek : getWageByWeek,
     getWageOfUser : getWageOfUser,

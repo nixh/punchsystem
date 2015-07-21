@@ -7,6 +7,7 @@ var signer = nobi(utils.getConfig('appKey'));
 var uuid = require('node-uuid');
 var util = require('util');
 var moment = require('moment');
+var dbhelper = require('../db/db');
 
 var loginKeys = {};
 
@@ -15,7 +16,6 @@ function sha(text) {
     sha256.update(text);
     return sha256.digest('hex');
 }
-
 function login(loginObj, cb) {
     loginkey = unescape(loginObj.loginKey);
     try {
@@ -122,11 +122,15 @@ function postLogin(req, res, next) {
 
 
 router.get('/', function(req, res, next) {
-    var test = db.get('test');
-    var results = test.find({}, {});
-    res.render('index', {
-        title: 'Express',
-        ret: results
+    var sm = new sModule();
+    sm.getSessionInfo(req.cookies.sessionid, function(err, session){
+
+        if(session.compowner) {
+            res.redirect(302, "/supervisor/supervisor_main");
+        } else {
+            res.redirect(302, "/staff_main");
+        }
+
     });
 });
 
@@ -208,7 +212,13 @@ router.get('/punch/:key', function(req, res, next) {
 
 });
 
+<<<<<<< HEAD
 /*var qrModule = require('../qrcodeModule');
+=======
+
+/*var qrModule = require('../qrcodeModule');
+
+>>>>>>> master
 router.get('/supervisor/showdynacode', function(req, res, next) {
     var qrm = new qrModule();
     qrm.getDynacode(req.cookies.sessionid, function(err, mixinData) {
@@ -219,6 +229,11 @@ router.get('/supervisor/showdynacode', function(req, res, next) {
         })(req, res, next);
     });
 });*/
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> master
 
 router.get('/recentRecords', function(req, res, next) {
     var rm = new recordsModule();
@@ -302,7 +317,8 @@ router.get('/supervisor/employees', function(req, res, next) {
         console.log(sObj.compid);
 
         um.getAllUsers({
-            compid: sObj.compid
+            compid: sObj.compid,
+            owner: false
         }, function(err, users) {
             console.log(JSON.stringify(users));
             utils.render('users/userListSearch', {
@@ -353,22 +369,27 @@ router.get('/supervisor/employees/:id', function(req, res, next){
 
         um.getUserInfo(req.params.id, function(err, user) {
             if(err){
-                utils.render('users/userListSearch');
+
+                utils.render('users/userListSearch')(req, res, next);
             }else{
                 // console.log('This is the user being searched...');
-                // console.log(user);
+                if(!user)
+                    user = {};
 
                 if(user && user.address){
-    				var addr = user.address.split('|');
+                                var addr = user.address.split('|');
 
-    				user['address_street'] = addr[0];
-    				user['address_city'] = addr[1];
-    				user['address_state'] = addr[2];
-    				user['address_zip'] = addr[3];
-    			}
-
+                                user['address_street'] = addr[0];
+                                user['address_city'] = addr[1];
+                                user['address_state'] = addr[2];
+                                user['address_zip'] = addr[3];
+                        }
+                if(user && !user.avatar) {
+                    user.avatar = user.sex ? "/images/boydefaultpicture.png" :
+                                             "/images/girl default picture.png";
+                }
                 utils.render('modifyUser', {
-                    userinfo: user
+                    user: user
                 })(req, res);
             }
         });
@@ -381,9 +402,9 @@ router.get('/supervisor/employees_records', function(req, res, next) {
     sm.getSessionInfo(req.cookies.sessionid, function(err, sObj) {
 
         um.getAllUsers({
-            compid: sObj.compid
+            compid: sObj.compid,
+            owner: false
         }, function(err, users) {
-            console.log(JSON.stringify(users));
             utils.render('users/search', {
                 msg: 'hello',
                 userlist: users
@@ -465,7 +486,9 @@ router.get('/supervisor/overviewreport/:start/:end', function(req, res, next){
         rm.getWageByWeek({compid: compid, startDate: start, endDate: end},
             function(err, jsonData){
             sm.db.close();
-            utils.render('overviewreport', jsonData)(req, res, next);            
+            var m = moment(req.params.start, "MM-DD");
+            jsonData.m = m;
+            utils.render('overviewreport', jsonData)(req, res, next);
         });
     });
 });
@@ -524,7 +547,6 @@ router.get('/supervisor/overviewreport/:month', function(req, res, next){
         rm.getWageByMonth({compid: compid, startDate: month},
             function(err, jsonData){
             sm.db.close();
-            var monthData = [];
             var userList = [];
             var monthData = [];
             jsonData.forEach(function(weekData){
@@ -541,7 +563,8 @@ router.get('/supervisor/overviewreport/:month', function(req, res, next){
             var ret = {};
             ret.userReports = reports;
             ret.userList = userList;
-            utils.render('overviewreport', ret)(req, res, next);            
+            ret.m = moment(month).format('MM-DD');
+            utils.render('overviewreport', ret)(req, res, next);
         });
     });
 });
@@ -622,6 +645,36 @@ router.get('/testdb', function(req, res, next) {
             success: true
         });
     });
+});
+
+router.get('/admin/supervisor', function(req, res, next){
+    utils.render('addComp', {})(req, res, next);
+});
+
+router.post('/admin/supervisor/new', function(req, res, next){
+    var formData = req.body;
+    var compName = formData.compName;
+    var logo = formData.logo;
+    var ips = formData.ips;
+    delete formData.compName;
+    delete formData.logo;
+    delete formData.ips;
+    var um = new userMoudle();
+    dbhelper.newDocWithIncId('companies', 'compid', {
+        name : compName,
+        logo : logo
+    }, um.db, function(err, doc){
+        um.addUser(formData, function(err, user){
+            if(err){
+                res.send('Add user failed!');
+            }else{
+                console.log("The returned doc of adduser is...");
+                console.log(user);
+                res.send('Add success!');
+            }
+        });
+    });
+
 });
 
 router.get('/cookies', function(req, res, next) {

@@ -6,9 +6,8 @@ append links
     -   return records.filter(function(r){ return r.userid === userid })[0];
     - }
 
-    - var jun = moment().month(6);
-    - var now = moment(jun);
-    - var year = "`" + now.format('YY');
+    - var now = moment(m, "MM-DD");
+    - var year = now.format('YYYY');
     - var month = now.format("MMMM");
     - now.startOf('month');
     - var weeklist = [];
@@ -35,7 +34,7 @@ append scripts
                 location.href = "/supervisor/overviewreport#{month? '/'+month : ''}";
             });
             $('.back').on('click', function(){
-                history.go(-1);
+                location.href = "/supervisor/supervisor_main"
             });
             
 
@@ -48,7 +47,7 @@ block content
             span= tr('overview_summary')
         .cmdtools
             .monthly
-                .submitbutton #{tr('month_of')}  #{month} <br> #{year}
+                .submitbutton #{tr('month_of')} #{tr(month)} <br> #{year}
             .weekly
                 .submitbutton #{tr('weekly')} <br> #{tr('report')}
                 .weeklist.hidden

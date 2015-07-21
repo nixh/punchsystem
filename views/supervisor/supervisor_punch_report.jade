@@ -21,10 +21,44 @@ append scripts
             //location.href = "/supervisor/supervisor_main";
                 history.go(-1);
             });
+            $('.editButton').on('click', function(){
+                var $btn = $(this);
+                var date = $btn.attr('data-date');
+                var time = $btn.attr('data-time');
+                var type = $btn.attr('data-type');
+                var tr = $btn.parent().parent().parent().parent().parent();
+                if(type === 'in') {
+                    tr.find('.inDateInput').val(date);
+                    tr.find('.inTimeInput').val(time);
+                } else {
+                    tr.find('.outDateInput').val(date);
+                    tr.find('.outTimeInput').val(time);
+                }
+            });
+            $('.confirmButton').on('click', function(){
+                var $btn = $(this);
+                var value = $btn.attr('data-value');
+                var type = $btn.attr('data-type');
+                var userid = "#{userid}";
+                var data = {userid: userid, type:type, value:value};
+                var tr = $btn.parent().parent().parent().parent().parent();
+                if(type === 'in') {
+                    var inDate = tr.find('.inDateInput').val();
+                    var inTime = tr.find('.inTimeInput').val();
+                    data.date = inDate+" "+inTime;
+                } else {
+                    var outDate = tr.find('.outDateInput').val();
+                    var outTime = tr.find('.outTimeInput').val();
+                    data.date = outDate+" "+outTime;
+                }
+                $.post("/supervisor/records_update", data, function(data){ 
+                    alert(123);
+                }, "json");
+            });
         });
 
     - function getTime(tstamp) {
-    -   return moment(tstamp).format("HH:mm A");
+    -   return moment(tstamp).format("hh:mm A");
     - }
     - function getDate(tstamp) {
     -   return moment(tstamp).format("YYYY-MM-DD");
@@ -83,12 +117,12 @@ block content
                             td.tableData
                                 ul
                                     li.listItem 
-                                        button.editOutButton.editButton EDIT
+                                        button.editOutButton.editButton(data-date="#{getDate(record.outDate)}" data-time="#{getTime(record.outDate)}" data-type="out")= tr('edit')
                                         .confirmReturn.outConfirmReturn.hidden
-                                            button.confirmButton O 
+                                            button.confirmButton(data-value="#{record._id}" data-type="out") O 
                                             button.returnButton X
                                     li.listItem 
-                                        button.editInButton.editButton EDIT
+                                        button.editInButton.editButton(data-date="#{getDate(record.inDate)}" data-time="#{getTime(record.inDate)}" data-type="in")= tr('edit') 
                                         .confirmReturn.inConfirmReturn.hidden
-                                            button.confirmButton O 
+                                            button.confirmButton(data-value="#{record._id}" data-type="in") O 
                                             button.returnButton X

@@ -136,5 +136,7 @@ for(var i=0; i<companyNumber; i++) {
 }
 
 // Initail Sequence data
-var report_seq = db.records.find().sort({reportid:-1}).limit(1).next().reportid;
+var report_seq = db.records.count();
+var comp_req = db.companies.count();
 db.sequence.insert({'id':'records', seq:report_seq});
+db.sequence.insert({'id':'companies', seq:comp_req});
