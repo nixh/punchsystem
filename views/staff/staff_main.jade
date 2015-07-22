@@ -79,7 +79,8 @@ block content
                
         .otherInfoLinks.noselect
             .punchReport.otherInfo= tr('punchReport')
-            .delegate.otherInfo= tr('delegate')
+            if delegate
+                .delegate.otherInfo= tr('delegate')
             .settings.otherInfo= tr('setting')
             .logout.otherInfo= tr('logout')
             if false
