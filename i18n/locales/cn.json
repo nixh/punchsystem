@@ -141,16 +141,10 @@
 	"November": "November",
 	"January": "January",
 	"add_user": "add_user",
-<<<<<<< HEAD
 	"compName": "compName",
 	"compLogo": "compLogo",
 	"compIps": "compIps",
 	"September": "September",
-	"user.name": "user.name"
-}
-=======
-
+	"user.name": "user.name",
 	"September": "September"
 }
-
->>>>>>> f79e0b6133d1d79b969b4944440706fe7df4729d
