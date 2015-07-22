@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var monk = require('monk');
-var utils = require('../utils'); var db = monk(utils.getConfig('mongodbPath'));
+var utils = require('../utils');
+var db = monk(utils.getConfig('mongodbPath'));
 var btoa = require('btoa'); var nobi = require('nobi'); var crypto = require('crypto');
 var signer = nobi(utils.getConfig('appKey'));
 var uuid = require('node-uuid');
