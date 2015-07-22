@@ -186,6 +186,15 @@ functions
 .radioinput.radioselected .inner {
   display: block;
 }
+.float-box {
+  width: 31.25%;
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+  height: 300px;
+  float: left;
+  text-align: center;
+  background-color: white;
+}
 .submitbutton {
   background-color: #8ad1d7;
   color: white;

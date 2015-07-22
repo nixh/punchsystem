@@ -2,6 +2,7 @@ extends ../layout.jade
 
 append links
     link(rel='stylesheet', href='/stylesheets/staffMain.css')
+    //link(rel='stylesheet', href='/stylesheets/staffMainLs.css')
 
 append scripts
     //script(src= "/javascripts/showHideRate.js")
@@ -70,7 +71,7 @@ block content
 
         .paidRate
             .paidRateBox
-                span.text= tr('paidrate')
+                span= tr('paidrate')
             .paidRateBox
                 .hourRate $#{user.curRate} #{tr('per_hour')}
                 .imageCover
@@ -85,5 +86,3 @@ block content
                 .delegate.otherInfo= tr('delegate')
             .settings.otherInfo= tr('setting')
             .logout.otherInfo= tr('logout')
-            if false
-                .wageReport.otherInfo= tr('wageReport')

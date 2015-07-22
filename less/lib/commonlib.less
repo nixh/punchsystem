@@ -9,6 +9,7 @@ Variables
 @basic-ctrol-height: 120px;
 @header-font-size: 75px;
 @normal-font-size: 50px;
+@box-float-height: 300px;
 
 
 /************
@@ -225,6 +226,34 @@ functions
     .inner {
         display: block;
     }
+}
+
+.float-box {
+    .width-5;
+    .normal-font;
+    height: @box-float-height;
+    float: left;
+    text-align: center;
+    background-color: @white;
+
+}
+
+.button-function(@active-background-color: @pink, @active-color: @white){
+     &:active {
+        background-color: @active-background-color;
+        color: @active-color;
+    }
+    .non-selectable;
+    cursor: pointer;
+}
+
+.cover(@cover-color: @pink){
+    height: 100%;
+    background-color: @cover-color;
+    position: absolute;
+    top: 0;
+    left:0;
+    .width-16;
 }
 
 .submitbutton {
