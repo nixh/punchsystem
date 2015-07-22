@@ -46,6 +46,7 @@ lines.forEach(function(line, index){
         address: add_street + "|" + add_city + "|" + add_state + "|" + add_zip
         tel : tel,
         owner: true,
+        curRate: 9,
         rates: [{ createTime: currentDate, rate: 9 }]
     };
     dbhelper.newDocWithIncId('companies', 'compid', compDoc, db, function(err, comp){

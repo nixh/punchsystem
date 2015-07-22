@@ -168,30 +168,31 @@ block content
                     
                     input.longButton.inputBar(type= 'submit' value= 'SUBMIT')
 
-            .overTimeSwitch.switchButton
-                .switchLabel OVERTIME SETTING
-                if enablerate === "1"
-                    .onOff.toggle.overTimeToggle.toggle-on
-                else
-                    .onOff.toggle.overTimeToggle.toggle-off
+            if false
+                .overTimeSwitch.switchButton
+                    .switchLabel OVERTIME SETTING
+                    if enablerate === "1"
+                        .onOff.toggle.overTimeToggle.toggle-on
+                    else
+                        .onOff.toggle.overTimeToggle.toggle-off
             
-            .overTimeSetting.toggleTarget1
+                .overTimeSetting.toggleTarget1
 
-                form(method="POST" action="/supervisor/setrate" onsubmit= "return checkrate()")
-                    .thresholdDiv
-                        .thresholdLabel 
-                            span OVERTIME THRESHOLD
-                        input.hourDisplay(type= "text" placeholder= "40" name="overtime" id ="overtime" value ='#{overtime}')
-                        -var rate=(enablerate)? enablerate : 1
-                        input(type ="hidden" name ="enablerate" value= '#{rate}' id="enablerate")
-                        input(type = 'hidden' name='userid' value ="#{userid}")
+                    form(method="POST" action="/supervisor/setrate" onsubmit= "return checkrate()")
+                        .thresholdDiv
+                            .thresholdLabel 
+                                span OVERTIME THRESHOLD
+                            input.hourDisplay(type= "text" placeholder= "40" name="overtime" id ="overtime" value ='#{overtime}')
+                            -var rate=(enablerate)? enablerate : 1
+                            input(type ="hidden" name ="enablerate" value= '#{rate}' id="enablerate")
+                            input(type = 'hidden' name='userid' value ="#{userid}")
 
-                        .perWeekLabel
-                            span HRS PER WEEK
-                    .rateDiv
-                        .rateLabel
-                            span OVERTIME RATE
+                            .perWeekLabel
+                                span HRS PER WEEK
+                        .rateDiv
+                            .rateLabel
+                                span OVERTIME RATE
 
-                        input.rateDisplay(type= "text" placeholder="1.5x" name="newrate" id="newrate" value ="#{newrate}")
+                            input.rateDisplay(type= "text" placeholder="1.5x" name="newrate" id="newrate" value ="#{newrate}")
 
                     input.longButton.inputBar(type= 'submit' value= 'SUBMIT')

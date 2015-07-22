@@ -311,8 +311,7 @@ router.get('/supervisor/employees', function(req, res, next) {
         console.log(sObj.compid);
 
         um.getAllUsers({
-            compid: sObj.compid,
-            owner: false
+            compid: sObj.compid
         }, function(err, users) {
             console.log(JSON.stringify(users));
             utils.render('users/userListSearch', {
