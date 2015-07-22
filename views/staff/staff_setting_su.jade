@@ -183,6 +183,7 @@ block content
                     .thresholdDiv
                         .thresholdLabel 
                             span OVERTIME THRESHOLD
+                        -var overtime = (overtime)? overtime: 40
                         input.hourDisplay(type= "text" placeholder= "40" name="overtime" id ="overtime" value ='#{overtime}')
                         -var rate=(enablerate)? enablerate : 1
                         input(type ="hidden" name ="enablerate" value= '#{rate}' id="enablerate")
@@ -195,7 +196,7 @@ block content
                     .rateDiv
                         .rateLabel
                             span OVERTIME RATE
-
+                        -var newrate = (newrate)? newrate:1.5
                         input.rateDisplay(type= "text" placeholder="1.5x" name="newrate" id="newrate" value ="#{newrate}")
 
                     input.longButton.inputBar(type= 'submit' value= 'SUBMIT')

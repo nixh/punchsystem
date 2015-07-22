@@ -65,13 +65,9 @@ router.post('/usersettings', function(req, res, next){
 
 	});
 });
-<<<<<<< HEAD
-*/
-/*router.get('/settings', function(req, res, next){
-=======
 
 router.get('/settings', function(req, res, next){
->>>>>>> yongred
+
 
 	var emailReport = db.get("records");
 	emailReport.findOne({reportid:1}, {}, function(err, doc){
@@ -90,6 +86,7 @@ router.get('/settings', function(req, res, next){
 });*/
 
 /*
+
 var qrModule = require('../qrcodeModule');
 router.get('/staff_delegate', function(req, res, next){
     var qrm = new qrModule();
