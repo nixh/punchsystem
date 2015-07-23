@@ -34,6 +34,9 @@ Common Settings
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
 }
+.small-font {
+  font-size: 40px;
+}
 .clear-browsersettings {
   margin: 0;
   padding: 0;
@@ -121,15 +124,39 @@ functions
   zoom: 1;
   height: 0px;
 }
+.basic-table-head {
+  font-family: 'anivers reg', 'simhei';
+  font-size: 75px;
+  background-color: #f78283;
+  color: white;
+}
+.basic-table-head:first-child {
+  border-top-left-radius: 25px;
+}
+.basic-table-head:last-child {
+  border-top-right-radius: 25px;
+}
+.basic-table-data {
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #677499;
+  text-align: center;
+  font-size: 40px;
+}
+.basic-table-row:last-child td:first-child {
+  border-bottom-left-radius: 25px;
+}
+.basic-table-row:last-child td:last-child {
+  border-bottom-right-radius: 25px;
+}
 .textinput,
 .passinput {
-  border-radius: 25px;
+  border-radius: 10px;
   border: none;
   width: 100%;
   height: 120px;
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
-  text-indent: 25px;
+  text-indent: 10px;
   color: #677499;
 }
 .textinput::-webkit-input-placeholder {
@@ -186,14 +213,36 @@ functions
 .radioinput.radioselected .inner {
   display: block;
 }
-.float-box {
-  width: 31.25%;
+.unorder-list {
+  list-style: none;
+  padding-left: 0;
+  width: 100%;
+  height: 100%;
+}
+.inner-input {
+  border-radius: 10px;
+  width: 80%;
+  height: 120px;
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
-  height: 300px;
-  float: left;
-  text-align: center;
-  background-color: white;
+  text-indent: 10px;
+  color: #677499;
+  font-size: 40px;
+  height: auto;
+}
+.inner-input::-webkit-input-placeholder {
+  color: #677499;
+}
+.inner-input:-moz-placeholder {
+  /* Firefox 18- */
+  color: #677499;
+}
+.inner-input::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #677499;
+}
+.inner-input:-ms-input-placeholder {
+  color: #677499;
 }
 .submitbutton {
   background-color: #8ad1d7;
@@ -201,7 +250,7 @@ functions
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
   text-align: center;
-  border-radius: 25px;
+  border-radius: 10px;
   border: none;
   width: 100%;
   height: 120px;
