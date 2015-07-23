@@ -129,5 +129,17 @@
 	"January": "一月",
 	"add_user": "添加用户",
 	"September": "九月",
-	"changepass failed, maybe wrong password": "修改密码失败，输入密码有误"
+	"changepass failed, maybe wrong password": "修改密码失败，输入密码有误",
+	"JAN": "JAN",
+	"FEB": "FEB",
+	"MAR": "MAR",
+	"APR": "APR",
+	"MAY": "MAY",
+	"JUNE": "JUNE",
+	"JULY": "JULY",
+	"AUG": "AUG",
+	"SEPT": "SEPT",
+	"OCT": "OCT",
+	"NOV": "NOV",
+	"DEC": "DEC"
 }
