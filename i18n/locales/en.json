@@ -74,5 +74,10 @@
 	"preview": "preview",
 	"return": "return",
 	"clearsearch": "clearsearch",
-	"empty records": "empty records"
+	"empty records": "empty records",
+	"add staff": "add staff",
+	"manage records": "manage records",
+	"overview": "overview",
+	"setting": "setting",
+	"viewrecords": "viewrecords"
 }
