@@ -123,6 +123,7 @@
 	"...": "...",
 	"empty": "空记录..",
 	"edit": "修改",
+<<<<<<< HEAD
 	"February": "二月",
 	"March": "三月",
 	"November": "十一月",
@@ -130,4 +131,16 @@
 	"add_user": "添加用户",
 	"September": "九月",
 	"changepass failed, maybe wrong password": "修改密码失败，输入密码有误"
+=======
+	"February": "February",
+	"March": "March",
+	"November": "November",
+	"January": "January",
+	"add_user": "add_user",
+	"compName": "compName",
+	"compLogo": "compLogo",
+	"compIps": "compIps",
+	"September": "September",
+	"user.name": "user.name"
+>>>>>>> 5b8a86258cb8d828bb3e5ea20cd559e1e92db94c
 }

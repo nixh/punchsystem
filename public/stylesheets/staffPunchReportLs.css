@@ -265,136 +265,142 @@ functions
   background-color: #f78283;
   color: white;
 }
-.main {
+.bgbody {
+  background-repeat: repeat-y;
+}
+.staffPunchPage {
   width: 87.5%;
   margin: 0 auto;
+  padding-top: 5%;
 }
-.main .header {
-  text-align: center;
-}
-.main .header span {
-  font-family: 'anivers reg', 'simhei';
-  font-size: 75px;
-  color: #f78283;
-}
-.main .cmdtools {
-  text-align: center;
+.staffPunchPage #searchform {
   width: 100%;
 }
-.main .cmdtools .monthly,
-.main .cmdtools .weekly {
-  display: inline-block;
-  width: calc(100%/2 - 1%);
-  position: relative;
-}
-.main .cmdtools .monthly .weeklist,
-.main .cmdtools .weekly .weeklist {
-  margin-top: -2%;
-  position: absolute;
+.staffPunchPage #searchform .startEndTime {
   width: 100%;
 }
-.main .cmdtools .monthly .weeklist ul,
-.main .cmdtools .weekly .weeklist ul {
-  list-style: none;
-  padding-left: 0;
-}
-.main .cmdtools .monthly .weeklist ul li,
-.main .cmdtools .weekly .weeklist ul li {
+.staffPunchPage #searchform .startEndTime input {
+  border-radius: 10px;
+  border: none;
+  width: 100%;
+  height: 120px;
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
-  font-family: 'dinbeck';
-  line-height: 80px;
+  text-indent: 10px;
   color: #677499;
-  background-color: white;
+  margin-bottom: 2%;
+  text-align: center;
+  display: block;
+}
+.staffPunchPage #searchform .startEndTime input::-webkit-input-placeholder {
+  color: #677499;
+}
+.staffPunchPage #searchform .startEndTime input:-moz-placeholder {
+  /* Firefox 18- */
+  color: #677499;
+}
+.staffPunchPage #searchform .startEndTime input::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #677499;
+}
+.staffPunchPage #searchform .startEndTime input:-ms-input-placeholder {
+  color: #677499;
+}
+.staffPunchPage #searchform .controlButtons {
+  width: 100%;
+}
+.staffPunchPage #searchform .controlButtons:after {
+  content: "";
+  display: block;
+  visibility: hidden;
+  clear: both;
+  zoom: 1;
+  height: 0px;
+}
+.staffPunchPage #searchform .controlButtons .buttonItem {
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  border-bottom: 2px solid #8ad1d7;
-  border-left: 2px solid #8ad1d7;
-  border-right: 2px solid #8ad1d7;
   cursor: pointer;
-}
-.main .cmdtools .monthly .weeklist ul li:active,
-.main .cmdtools .weekly .weeklist ul li:active {
+  width: 31.25%;
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+  height: 150px;
+  float: left;
+  text-align: center;
   background-color: #8ad1d7;
+  color: white;
+  line-height: 150px;
+  border-radius: 10px;
 }
-.main .cmdtools .monthly .weeklist ul li:first-child,
-.main .cmdtools .weekly .weeklist ul li:first-child {
-  border-top-right-radius: 25px;
-  border-top-left-radius: 25px;
+.staffPunchPage #searchform .controlButtons .buttonItem:active {
+  background-color: #f78283;
+  color: white;
 }
-.main .cmdtools .monthly .weeklist ul li:last-child,
-.main .cmdtools .weekly .weeklist ul li:last-child {
-  border-bottom-right-radius: 25px;
-  border-bottom-left-radius: 25px;
+.staffPunchPage #searchform .controlButtons .buttonItem:nth-child(2) {
+  margin-left: 3.325%;
 }
-.main .cmdtools .monthly .submitbutton,
-.main .cmdtools .weekly .submitbutton {
-  height: 240px;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-justify-content: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  /* align horizontal */
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  /* align vertical */
-  line-height: normal;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+.staffPunchPage #searchform .controlButtons .buttonItem:last-child {
+  float: right;
 }
-.main .cmdtools .monthly {
-  margin-right: 1%;
+.staffPunchPage .reportTableDiv {
+  width: 100%;
 }
-.main .cmdtools .monthly .submitbutton {
-  border-top-right-radius: 0;
-}
-.main .cmdtools .weekly {
-  margin-left: 1%;
-}
-.main .cmdtools .weekly .submitbutton {
-  border-top-left-radius: 0;
-}
-.main table.overviewtable {
+.staffPunchPage .reportTableDiv table.reportTable {
   border-collapse: separate;
   border-spacing: 20px;
   margin-left: -20px;
   width: calc(100% + 2*20px);
 }
-.main table.overviewtable th.tableHead {
+.staffPunchPage .reportTableDiv table.reportTable th.tableHead {
   font-family: 'anivers reg', 'simhei';
   font-size: 75px;
   background-color: #f78283;
   color: white;
 }
-.main table.overviewtable th.tableHead:first-child {
+.staffPunchPage .reportTableDiv table.reportTable th.tableHead:first-child {
   border-top-left-radius: 25px;
 }
-.main table.overviewtable th.tableHead:last-child {
+.staffPunchPage .reportTableDiv table.reportTable th.tableHead:last-child {
   border-top-right-radius: 25px;
 }
-.main table.overviewtable tr.tableRow:last-child td:first-child {
+.staffPunchPage .reportTableDiv table.reportTable tr.tableRow:last-child td:first-child {
   border-bottom-left-radius: 25px;
 }
-.main table.overviewtable tr.tableRow:last-child td:last-child {
+.staffPunchPage .reportTableDiv table.reportTable tr.tableRow:last-child td:last-child {
   border-bottom-right-radius: 25px;
 }
-.main table.overviewtable tr.tableRow td.tableData {
+.staffPunchPage .reportTableDiv table.reportTable tr.tableRow td.tableData {
   background-color: rgba(255, 255, 255, 0.8);
   color: #677499;
   text-align: center;
   font-size: 40px;
 }
-.main table.overviewtable th {
-  height: 240px;
+.staffPunchPage .reportTableDiv table.reportTable tr:last-child td:first-child {
+  border-bottom-left-radius: 0;
 }
-.main table.overviewtable tr:first-child th:first-child {
-  border-top-left-radius: 0;
+.staffPunchPage .reportTableDiv table.reportTable tr:last-child td:last-child {
+  border-bottom-right-radius: 0;
 }
-.main table.overviewtable tr:first-child th:last-child {
-  border-top-right-radius: 0;
+.staffPunchPage .reportTableDiv table.reportTable th,
+.staffPunchPage .reportTableDiv table.reportTable td {
+  text-align: center;
+  height: 200px;
+}
+.staffPunchPage .reportTableDiv table.reportTable th {
+  background-color: white;
+  color: #677499;
+}
+.staffPunchPage .reportTableDiv table.reportTable td > ul {
+  list-style: none;
+  padding-left: 0;
+  width: 100%;
+  height: 100%;
+}
+.staffPunchPage .reportTableDiv table.reportTable td > ul > li {
+  margin-top: 28px;
+  width: 100%;
+  text-align: center;
+  height: 30%;
 }
