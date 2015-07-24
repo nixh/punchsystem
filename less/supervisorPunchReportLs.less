@@ -1,0 +1,124 @@
+@import './lib/commonlib.less';
+
+.bgbody{
+	background-repeat: repeat-y;
+}
+
+.supervisorPunchPage{
+	//.test-border(red);
+	.width-14;
+	.mcenter;
+	padding-top: 5%;
+
+	#searchform{
+		//.test-border(yellow);
+		.width-16;
+		padding-bottom: 2%;
+		.startEndTime{
+			.width-16;
+
+			input{
+				.textinput;
+				.mb;
+				text-align: center;
+				display: block;
+			}
+		}
+
+		.controlButtons{
+			//.test-border(green);
+			.width-16;
+			&:after{
+				.after-float;
+			}
+
+			.buttonItem{
+				.inline-button(@green, @half-box-height);
+				border-radius: @small-radius;
+				&:nth-child(2){
+					margin-left: 3.325%;
+				}
+				&:last-child{
+					float: right;
+				}
+			}	
+		}
+	}//#searchform
+
+	.reportTableDiv{
+		//.test-border;
+		.width-16;
+		table.reportTable{
+			.basic-table(5px);
+
+			tr.tableRow:last-child .tableData:first-child {
+			    border-bottom-left-radius: 0;
+			}
+
+			tr.tableRow:last-child .tableData:last-child {
+			    border-bottom-right-radius: 0;
+			}
+			
+			.tableHead, .tableData{
+				text-align: center;
+				height: @table-element-height;
+			}
+
+			th.tableHead{
+				background-color: @white;
+				color: @text-color;
+			}
+
+			.tableData{
+				& > ul{
+					.unorder-list;
+
+					& > .listItem{
+						margin-top: 28px;
+						.list-item;
+					}
+
+					& > li{
+						& > input{
+							.inner-input;
+
+						}
+
+						.editButton{
+							.roundBorder(@small-radius);
+							color:@button-color;
+						}
+						.editInButton{
+							background-color: @pink; 
+						}
+						.editOutButton{
+							background-color: @green;
+						}
+
+						.confirmReturn{
+							.width-16;
+							&:after{
+								.after-float;
+							}
+							& > button{
+								.roundBorder(@small-radius);
+								color:@button-color;
+								text-align: center;
+								width: 48%;
+								padding: 0px;
+							}
+							.confirmButton{
+								float: left;
+								background-color: @green;
+							}
+							.returnButton{
+								float: right;
+								background-color: @pink;
+							}
+						}
+					}
+				}
+			}//tableData
+		}//reportTable	
+	}//reportTableDiv
+} //supervisorPunchPage

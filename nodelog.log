@@ -1042,3 +1042,90 @@ authentication: session missing -> undefined
 [0mGET /datepicker/js/jquery-1.11.3.min.js [32m200 [0m0.498 ms - 95957[0m
 [0mGET /tagbox/fm.tagator.jquery.js [32m200 [0m0.310 ms - 14946[0m
 [0mGET /datepicker/js/jquery-1.11.3.min.js [32m200 [0m0.737 ms - 95957[0m
+undefined
+[0mGET / [36m302 [0m4.927 ms - 110[0m
+undefined
+[0mGET /supervisor/supervisor_main [36m304 [0m16.679 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.375 ms - -[0m
+[0mGET /bootstrap-3.3.5-dist/js/bootstrap.min.js [36m304 [0m0.465 ms - -[0m
+[0mGET /javascripts/showHideRate.js [36m304 [0m0.261 ms - -[0m
+[0mGET /images/boydefaultpicture.png [36m304 [0m0.207 ms - -[0m
+[0mGET /stylesheets/supervisorMain.css [36m304 [0m0.438 ms - -[0m
+[0mGET /datepicker/css/datepicker.css [36m304 [0m0.285 ms - -[0m
+[0mGET /datepicker/js/jquery-1.11.3.min.js [36m304 [0m0.283 ms - -[0m
+undefined
+authentication: session missing -> undefined
+[0mGET /supervisor/supervisor_main [32m200 [0m13.900 ms - 2937[0m
+undefined
+51
+[{"_id":"55aff4e7cc68aae8543519c5","userid":"user","name":"user","password":"123","sex":"","address_street":"","address_city":"","address_state":"","address_zip":"","curRate":8.75,"rate_change_date":"","tel":"","email":"","remark":"","compid":51,"address":"|||","owner":false},{"_id":"55b1478e91a64eb1224948bd","userid":"tonylee","name":"tony","password":"0000","sex":"","address_street":"","address_city":"","address_state":"","address_zip":"","curRate":"9","rate_change_date":"","tel":"","email":"","remark":"","compid":51,"address":"|||","owner":false},{"_id":"55afb580b46da8f01c8f4f4f","name":"Demo_1","userid":"demo1","password":"0000","avatar":"","createDate":1437578624546,"compid":51,"owner":true,"enableEmail":0,"curRate":8.75,"sex":true,"address_street":"","address_city":"","address_state":"undefined","address_zip":"undefined","tel":"undefined","email":"undefined","remark":"","address":"||undefined|undefined","rates":[{"rate":8,"changetime":""}]}]
+[0mGET /supervisor/employees [36m304 [0m21.980 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.386 ms - -[0m
+[0mGET /datepicker/css/datepicker.css [36m304 [0m0.610 ms - -[0m
+[0mGET /datepicker/js/jquery-1.11.3.min.js [36m304 [0m0.553 ms - -[0m
+[0mGET /stylesheets/usersearch.css [36m304 [0m1.418 ms - -[0m
+[0mGET /bootstrap-3.3.5-dist/js/bootstrap.min.js [36m304 [0m0.380 ms - -[0m
+[0mGET /images/searchicon.png [36m304 [0m0.347 ms - -[0m
+[0mGET /images/X%20transparent.png [36m304 [0m0.347 ms - -[0m
+[0mGET /images/X%20Pink.png [36m304 [0m0.206 ms - -[0m
+undefined
+authentication: session missing -> undefined
+[0mGET /supervisor/employees [32m200 [0m13.667 ms - 2935[0m
+undefined
+[0mGET /supervisor/employees_records [36m304 [0m18.440 ms - -[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.397 ms - -[0m
+[0mGET /bootstrap-3.3.5-dist/js/bootstrap.min.js [36m304 [0m0.413 ms - -[0m
+[0mGET /images/searchicon.png [36m304 [0m0.263 ms - -[0m
+[0mGET /images/X%20Pink.png [36m304 [0m0.276 ms - -[0m
+[0mGET /images/X%20transparent.png [36m304 [0m0.263 ms - -[0m
+[0mGET /stylesheets/usersearch.css [36m304 [0m0.280 ms - -[0m
+[0mGET /datepicker/css/datepicker.css [36m304 [0m0.248 ms - -[0m
+[0mGET /datepicker/js/jquery-1.11.3.min.js [36m304 [0m0.237 ms - -[0m
+undefined
+/home/adminsys/public_html/attendancecn/punchsystem/views/users/adduser.jade, line 39:
+You should not have jade tags with multiple attributes.
+/home/adminsys/public_html/attendancecn/punchsystem/views/users/adduser.jade, line 41:
+You should not have jade tags with multiple attributes.
+/home/adminsys/public_html/attendancecn/punchsystem/views/users/adduser.jade, line 43:
+You should not have jade tags with multiple attributes.
+[0mGET /users/add [32m200 [0m57.475 ms - 8646[0m
+[0mGET /stylesheets/style.css [36m304 [0m0.407 ms - -[0m
+[0mGET /stylesheets/userform.css [36m304 [0m0.512 ms - -[0m
+[0mGET /datepicker/css/datepicker.css [36m304 [0m0.458 ms - -[0m
+[0mGET /pickadate/lib/themes/default.css [36m304 [0m0.614 ms - -[0m
+[0mGET /pickadate/lib/themes/default.date.css [36m304 [0m0.613 ms - -[0m
+[0mGET /pickadate/lib/themes/default.time.css [36m304 [0m0.619 ms - -[0m
+[0mGET /datepicker/js/jquery-1.11.3.min.js [36m304 [0m0.626 ms - -[0m
+[0mGET /bootstrap-3.3.5-dist/js/bootstrap.min.js [36m304 [0m0.473 ms - -[0m
+[0mGET /javascripts/pickadateControl.js [36m304 [0m0.435 ms - -[0m
+[0mGET /javascripts/jquery-ui.min.js [32m200 [0m1.050 ms - 240022[0m
+[0mGET /pickadate/lib/picker.js [36m304 [0m0.333 ms - -[0m
+[0mGET /images/boydefaultpicture.png [36m304 [0m0.374 ms - -[0m
+[0mGET /pickadate/lib/picker.date.js [36m304 [0m0.273 ms - -[0m
+[0mGET /pickadate/lib/picker.time.js [36m304 [0m0.400 ms - -[0m
+[0mGET /fonts/Anivers_Regular.otf [36m304 [0m0.360 ms - -[0m
+[0mGET /fonts/SimHei.ttf [36m304 [0m0.371 ms - -[0m
+undefined
+authentication: session missing -> undefined
+[0mGET /supervisor/supervisor_main [32m200 [0m13.724 ms - 2937[0m
+undefined
+authentication: session missing -> undefined
+[0mGET /supervisor/employees_records [32m200 [0m23.885 ms - 2939[0m
+undefined
+authentication: session missing -> undefined
+[0mGET /supervisor/employees [32m200 [0m22.480 ms - 2935[0m
+[0mGET /datepicker/js/jquery-1.11.3.min.js [32m200 [0m0.943 ms - 95957[0m
+[0mGET /bootstrap-3.3.5-dist/js/bootstrap.min.js [32m200 [0m0.806 ms - 36816[0m
+undefined
+authentication: session missing -> undefined
+[0mGET /supervisor/employees [32m200 [0m22.487 ms - 2935[0m
+[0mGET /datepicker/js/jquery-1.11.3.min.js [32m200 [0m0.961 ms - 95957[0m
+[0mGET /bootstrap-3.3.5-dist/js/bootstrap.min.js [32m200 [0m0.477 ms - 36816[0m
+[0mGET /tagbox/fm.tagator.jquery.js [32m200 [0m0.570 ms - 14946[0m
+[0mGET /datepicker/js/jquery-1.11.3.min.js [32m200 [0m0.755 ms - 95957[0m
+[0mGET /bootstrap-3.3.5-dist/js/bootstrap.min.js [32m200 [0m0.654 ms - 36816[0m
+[0mGET /tagbox/fm.tagator.jquery.js [32m200 [0m0.467 ms - 14946[0m
+[0mGET /datepicker/js/jquery-1.11.3.min.js [32m200 [0m0.648 ms - 95957[0m
+[0mGET /tagbox/fm.tagator.jquery.js [32m200 [0m0.791 ms - 14946[0m
+[0mGET /bootstrap-3.3.5-dist/js/bootstrap.min.js [32m200 [0m1.148 ms - 36816[0m
+[0mGET /tagbox/fm.tagator.jquery.js [32m200 [0m0.582 ms - 14946[0m

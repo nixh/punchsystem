@@ -1,0 +1,83 @@
+@import './lib/commonlib.less';
+
+.bgbody{
+	background-repeat: repeat-y;
+}
+
+.staffPunchPage{
+	//.test-border(red);
+	.width-14;
+	.mcenter;
+	padding-top: 5%;
+
+	#searchform{
+		//.test-border(yellow);
+		.width-16;
+		.startEndTime{
+			.width-16;
+
+			input{
+				.textinput;
+				.mb;
+				text-align: center;
+				display: block;
+			}
+		}
+
+		.controlButtons{
+			//.test-border(green);
+			.width-16;
+			&:after{
+				.after-float;
+			}
+
+			.buttonItem{
+				.inline-button(@green, @half-box-height);
+				border-radius: @small-radius;
+				&:nth-child(2){
+					margin-left: 3.325%;
+				}
+				&:last-child{
+					float: right;
+				}
+			}	
+		}
+	}
+
+	.reportTableDiv{
+		//.test-border;
+		.width-16;
+		table.reportTable{
+			.basic-table;
+
+			tr:last-child td:first-child {
+			    border-bottom-left-radius: 0;
+			}
+
+			tr:last-child td:last-child {
+			    border-bottom-right-radius: 0;
+			}
+			th, td{
+				text-align: center;
+				height: @table-element-height;
+			}
+
+			th{
+				background-color: @white;
+				color: @text-color;
+			}
+
+			td{
+
+				& > ul{
+					.unorder-list;
+
+					& > li{
+						margin-top: 28px;
+						.list-item;
+					}
+				}
+			}
+		}	
+	}
+}
