@@ -13,14 +13,27 @@
     background-color: @color;
 }
 
-.roundBorder(@border-raius) {
+.roundBorder(@border-raius, @show-border:0) when (@show-border = 0) {
     border-radius: @border-raius;
     border: none;
 }
 
-.roundSquare(@width, @height, @border-raius) {
+
+.roundBorder(@border-raius, @show-border:0) when (@show-border = 1) {
+    border-radius: @border-raius;
+}
+
+.roundSquare(@width, @height, @border-raius, @show-border:0) when (@show-border = 0) {
     border-radius: @border-raius;
     border: none;
     width: @width;
     height: @height;
 }
+
+.roundSquare(@width, @height, @border-raius, @show-border:0) when (@show-border = 1) {
+    border-radius: @border-raius;
+    width: @width;
+    height: @height;
+}
+
+

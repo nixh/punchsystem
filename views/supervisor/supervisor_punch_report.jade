@@ -2,7 +2,8 @@ extends ../layout.jade
 
 append links
     link(rel="stylesheet" href="/stylesheets/adminpunch.css") 
-    link(rel='stylesheet' href='/stylesheets/supervisorPunchReport.css')
+    //link(rel='stylesheet' href='/stylesheets/supervisorPunchReport.css')
+    link(rel='stylesheet' href='/stylesheets/supervisorPunchReportLs.css')
     link(rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css")
     link(rel="stylesheet" href="/pickadate/lib/themes/default.css" id="theme_base")
     link(rel="stylesheet" href="/pickadate/lib/themes/default.date.css" id="theme_date")
@@ -77,21 +78,21 @@ block content
                 .buttonItem= tr('export')
                 .returnSupervisor.buttonItem= tr('return')
 
-        .reportTable
-            table 
-                tr
+        .reportTableDiv
+            table.reportTable
+                tr.tableRow
                     th.tableHead(colspan='4')
                         = tr('time') + " "
                         = tr('in') + "/"
                         = tr('out')
 
                 if records.length === 0
-                    tr
-                        td(colspan=3 align="center")
+                    tr.tableRow
+                        td.tableData(colspan=3 align="center")
                             span.text= tr('empty records')
                 else
                     each record in records
-                        tr
+                        tr.tableRow
                             td.tableData 
                                 ul
                                     li.listItem 

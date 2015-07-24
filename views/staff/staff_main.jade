@@ -1,7 +1,8 @@
 extends ../layout.jade
 
 append links
-    link(rel='stylesheet', href='/stylesheets/staffMain.css')
+    //link(rel='stylesheet', href='/stylesheets/staffMain.css')
+    link(rel='stylesheet', href='/stylesheets/staffMainLs.css')
 
 append scripts
     //script(src= "/javascripts/showHideRate.js")
@@ -32,6 +33,8 @@ append scripts
                     rateSH.find("span").html("#{tr('hiderate')}");
                 }
             }
+
+
             $('.punchReport').on('click', function(){
                 location.href = "/recentRecords";
             });
@@ -54,7 +57,7 @@ block content
     .staffMainPage(ontouchstart="")
         //.userInfo
         .avatar
-            img(src="#{user.sex ? '/images/boydefaultpicture.png' : '/images/girl default picture.png'}" alt="User Avatar") 
+            img(src="#{user.avatar ? user.avatar : user.sex ? '/images/boydefaultpicture.png' : '/images/girl default picture.png'}" alt="User Avatar") 
             p= tr('welcome') + " " + user.name
             //.acctInfo
                 pre.
@@ -68,7 +71,7 @@ block content
 
         .paidRate
             .paidRateBox
-                span.text= tr('paidrate')
+                span= tr('paidrate')
             .paidRateBox
                 .hourRate $#{user.curRate} #{tr('per_hour')}
                 .imageCover
@@ -79,8 +82,7 @@ block content
                
         .otherInfoLinks.noselect
             .punchReport.otherInfo= tr('punchReport')
-            .delegate.otherInfo= tr('delegate')
+            if delegate
+                .delegate.otherInfo= tr('delegate')
             .settings.otherInfo= tr('setting')
             .logout.otherInfo= tr('logout')
-            if false
-                .wageReport.otherInfo= tr('wageReport')
