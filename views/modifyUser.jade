@@ -18,8 +18,15 @@ append scripts
                 var name = $span[0].id;
                 var idName = name.substring(0, name.length-4);
                 var value = $('form input[name="'+idName+'"]').val();
+
                 if(idName === 'sex') {
+                    if (value ===false){
+                            value = "0";
+                        }else{
+                            value= "1";
+                        }
                     value = value ? "#{tr('sex_male')}" : "#{tr('sex_female')}";
+
                 }
                 $span.html(value);
             });
@@ -152,7 +159,6 @@ append scripts
                 reader.onload = function(e) {
                     $('#img_prev')
                         .attr('src', e.target.result);
-                        
                 };
 
                 reader.readAsDataURL(input.files[0]);
@@ -167,16 +173,15 @@ block content
             .infosection.page(data-value="1")
                 .avatarsection
                     .avatarimg
-                        img(id="img_prev" src="#{user.avatar}" alt="your image")
+                        img(id="img_prev" src="#{!user ? '/images/boydefaultpicture.png' :user.avatar}" alt="your image")
                     .avatarupload
                         .uploadfield 
                             input.textinput(type="text" name="avatar_url")
                             #choosepic.submitbutton= tr('...')
-                            #submitupload.submitbutton= tr('upload')
                             input.uploadfield.hidden(type="file" name="avatar" multiple="multiple" onchange="readURL(this);")
                         .submitupload
     
-                -var _id = (user == undefined ? undefined: user._id);
+                - var _id = (user == undefined ? undefined: user._id);
                 
                 input(id="dbid" name="_id" type="text" value = "#{_id}" style="display: none")
                 
@@ -226,7 +231,10 @@ block content
                     label.title= tr('paid_rate')
                     input.textinput.small.inline(id="payrate" name="curRate" value="#{!user? '' : user.curRate}")
                     label.title= tr('rate_change_date')
-                    input.textinput.small.inline.useDatePicker(id="change_from" name="rate_change_date" value="#{!user?'': user.rates[user.rates.length-1].changetime}")
+
+                    //input.textinput.small.inline.useDatePicker(id="change_from" name="rate_change_date" value="#{!user?'': user.rates[user.rates.length-1].changetime}")
+
+                    input.textinput.small.inline.useDatePicker(id="change_from" name="rate_change_date")
                     label.title= tr('userform_tel')
                     input.textinput(name="tel" value="#{!user? '' : user.tel}")
                     label.title= tr('userform_email')

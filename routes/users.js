@@ -11,18 +11,84 @@ var util = require('util');
 var um = new usermodule();
 
 // Add a new user
-router.get('/add', utils.render('modifyUser', {title: 'UserAdd'}));
+router.get('/add', utils.render('users/adduser', {}));
 router.post('/add', function(req, res){
-	var col = req.db.get('users');
-	var userObj = req.body;
 
-	um.addUser(userObj, function(err, doc){
+	var form = new multiparty.Form();
+
+	form.parse(req, function(err, fields, files){
 		if(err){
-			res.send('Add user failed!');
+			// Do something
 		}else{
-			console.log("The returned doc of adduser is...");
-			console.log(doc);
-			res.redirect('search');
+			var userObj = {};
+			for(var key in fields){
+				userObj[key] = fields[key][0];
+			}
+
+			delete userObj._id;
+
+			var sm = new sModule();
+			var col = sm.db.get('users');
+
+
+			sm.getSessionInfo(req.cookies.sessionid, function(err, sObj){
+
+				userObj.compid = sObj.compid;
+
+				console.log('******************* The User is ');
+				console.log(userObj);
+
+				if(files.avatar[0].size == 0){
+					userObj.avatar = userObj.avatar_url;
+					delete userObj.avatar_url;
+
+					if(userObj.avatar.length == 0){
+						delete userObj.avatar;
+					}
+
+					um.addUser(userObj, function(err, doc){
+						if(err){
+							utils.render('users/search')(req, res);
+						}else{
+							// console.log(doc);
+							var loc = '/supervisor/employees/' + userObj.userid;
+							res.redirect(loc);
+						}
+					});
+
+				// 	//Avatar from upload
+				}
+				else{
+					var image = files.avatar[0];
+					var imgPath = image.path;
+
+					fs.readFile(imgPath, function(err, data){
+						if(err){
+							utils.render('supervisor/employees')(req, res);
+						}else{
+							var base64Image = new Buffer(data, 'binary').toString('base64');
+							var finalData = "data:" + image.headers['content-type']  + "; base64," + base64Image;
+
+							userObj['avatar'] = finalData;
+
+							delete userObj.avatar_url;
+
+							console.log(userObj);
+
+							um.addUser(userObj, function(err, doc){
+								if(err){
+									utils.render('users/search')(req, res);
+								}else{
+									// console.log(doc);
+									res.redirect('/supervisor/employees');
+								}
+							});
+
+						}
+					});
+				}
+		// 			// col.insert(
+			});
 		}
 	});
 });

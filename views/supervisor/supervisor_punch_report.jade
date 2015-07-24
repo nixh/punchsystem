@@ -2,7 +2,8 @@ extends ../layout.jade
 
 append links
     link(rel="stylesheet" href="/stylesheets/adminpunch.css") 
-    link(rel='stylesheet' href='/stylesheets/supervisorPunchReport.css')
+    //link(rel='stylesheet' href='/stylesheets/supervisorPunchReport.css')
+    link(rel='stylesheet' href='/stylesheets/supervisorPunchReportLs.css')
     link(rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css")
     link(rel="stylesheet" href="/pickadate/lib/themes/default.css" id="theme_base")
     link(rel="stylesheet" href="/pickadate/lib/themes/default.date.css" id="theme_date")
@@ -20,6 +21,20 @@ append scripts
             $('.returnSupervisor').on('click', function(){
             //location.href = "/supervisor/supervisor_main";
                 history.go(-1);
+            });
+            $('.editButton').on('click', function(){
+                var $btn = $(this);
+                var date = $btn.attr('data-date');
+                var time = $btn.attr('data-time');
+                var type = $btn.attr('data-type');
+                var tr = $btn.parent().parent().parent().parent().parent();
+                if(type === 'in') {
+                    tr.find('.inDateInput').val(date);
+                    tr.find('.inTimeInput').val(time);
+                } else {
+                    tr.find('.outDateInput').val(date);
+                    tr.find('.outTimeInput').val(time);
+                }
             });
             $('.confirmButton').on('click', function(){
                 var $btn = $(this);
@@ -63,21 +78,21 @@ block content
                 .buttonItem= tr('export')
                 .returnSupervisor.buttonItem= tr('return')
 
-        .reportTable
-            table 
-                tr
+        .reportTableDiv
+            table.reportTable
+                tr.tableRow
                     th.tableHead(colspan='4')
                         = tr('time') + " "
                         = tr('in') + "/"
                         = tr('out')
 
                 if records.length === 0
-                    tr
-                        td(colspan=3 align="center")
+                    tr.tableRow
+                        td.tableData(colspan=3 align="center")
                             span.text= tr('empty records')
                 else
                     each record in records
-                        tr
+                        tr.tableRow
                             td.tableData 
                                 ul
                                     li.listItem 
@@ -103,12 +118,12 @@ block content
                             td.tableData
                                 ul
                                     li.listItem 
-                                        button.editOutButton.editButton EDIT
+                                        button.editOutButton.editButton(data-date="#{getDate(record.outDate)}" data-time="#{getTime(record.outDate)}" data-type="out")= tr('edit')
                                         .confirmReturn.outConfirmReturn.hidden
                                             button.confirmButton(data-value="#{record._id}" data-type="out") O 
                                             button.returnButton X
                                     li.listItem 
-                                        button.editInButton.editButton EDIT
+                                        button.editInButton.editButton(data-date="#{getDate(record.inDate)}" data-time="#{getTime(record.inDate)}" data-type="in")= tr('edit') 
                                         .confirmReturn.inConfirmReturn.hidden
                                             button.confirmButton(data-value="#{record._id}" data-type="in") O 
                                             button.returnButton X

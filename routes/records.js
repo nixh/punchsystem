@@ -6,17 +6,40 @@ var monk = require('monk');
 var db = monk('mongodb://localhost:27017/punchsystem');
 var recModule = require('../recModule');
 
-router.get('/supervisor/delegate', function(req, res, next) {
+router.get('/staff_delegate:uid', function(req, res, next) {
+    var rm = new recModule();
+    var sessionid = req.cookies.seccionid;
+    var userid = req.params.uid;
+    query = {userid : userid};
+    rm.checkDelegate(query, function(err, dels) {
+        var delegate = false;
+        if (dels) {
+            delegate = true;
+        }
+        res.render('', delegate);
+    });
+});
+
+router.get('/supervisor_delegate', function(req, res, next){
+    var rm = new recModule();
+    var sessionid = req.cookies.sessionid;
+    rm.showUsersForDelegate(sessionid, function(err, ret) {
+        console.log(ret);
+        res.render('supervisor/supervisor_delegate', ret);
+    });
+});
+
+router.get('/supervisor/delegate_action/:userid/:flag', function(req, res, next) {
     var rm = new recModule();
     var userid = req.params.userid;
     var sessionid = req.cookies.sessionid;
-    var flag = req.params.flag;
+    var flag = parseInt(req.params.flag);
     var query = {userid : userid, sessionid : sessionid, flag : flag};
     rm.delegate(query, function(err, msg) {
         if (err) {
 
         } else {
-            res.render('/supervisor/supervisor_delegate', msg);
+            res.end('{success: true}');
         }
     });
 });
@@ -94,7 +117,7 @@ router.get('/supervisor/records_delete/:rid', function(req, res, next) {
     });
 });
 router.post('/supervisor/records_update', function(req, res, next) {
-    var rm = new recModule();    
+    var rm = new recModule();
     var type = req.body.type;
     var _id = req.body.value;
     var userid = req.body.userid;
@@ -108,7 +131,7 @@ router.post('/supervisor/records_update', function(req, res, next) {
     var newrec = {};
     var destDate = 0;
     if(type === 'in') {
-        newrec['inDate'] = moment(date, format).valueOf(); 
+        newrec['inDate'] = moment(date, format).valueOf();
     }
     else {
         newrec['outDate'] = moment(date, format).valueOf();

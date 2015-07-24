@@ -42,7 +42,10 @@ block content
                 th= tr('name')
                 th= tr('select')
             each user, index in users
-                - var punchOut = getRecord(user.userid, lastRecords).outDate
+                - var record = getRecord(user.userid, lastRecords);
+                - var punchOut = false;
+                - if(record)
+                -   punchOut = getRecord(user.userid, lastRecords).outDate
                 tr
                     td
                         .statusbox
