@@ -27,8 +27,8 @@ router.get('/login', function(req, res, next){
 router.get('/staff_main', function(req, res, next){
 
         var sessionid = req.cookies.sessionid;
-	var userCol = db.get('users');
-	var dlgCol = db.get('delegation');
+    	var userCol = db.get('users');
+    	var dlgCol = db.get('delegation');
         var sessionCol = db.get('session');
         sessionCol.findOne({sessionid:sessionid}, {}, function(err, sObj){
 

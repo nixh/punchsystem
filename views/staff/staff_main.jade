@@ -27,9 +27,9 @@ append scripts
 
             function changeWord(){
                 if(showCover){
-                    rateSH.find("span").html("#{tr('showrate')}");
+                    rateSH.find("span").html("!{tr('showrate')}");
                 }else{
-                    rateSH.find("span").html("#{tr('hiderate')}");
+                    rateSH.find("span").html("!{tr('hiderate')}");
                 }
             }
             $('.punchReport').on('click', function(){
@@ -68,13 +68,13 @@ block content
 
         .paidRate
             .paidRateBox
-                span.text= tr('paidrate')
+                span.text!= tr('paidrate')
             .paidRateBox
                 .hourRate $#{user.curRate} #{tr('per_hour')}
                 .imageCover
 
             .paidRateBox.showHideRate.noselect
-                span= tr('showrate')
+                span!= tr('showrate')
                     
                
         .otherInfoLinks.noselect

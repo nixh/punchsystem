@@ -76,6 +76,6 @@ block content
                                 br
                                 span= moment(record.to).format("MM-DD hh:mm A")
                             td= "$" + record.avgRate
-                            td= record.totalhours.toFixed(2) + " " + tr('hour') 
-                            td= "$" + record.totalWage.toFixed(2)
+                            td= new Number(record.totalhours).toFixed(2) + " " + tr('hour')
+                            td= "$" + new Number(record.totalWage).toFixed(2)
         .submitbutton.back= tr('back')

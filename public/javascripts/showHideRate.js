@@ -32,8 +32,10 @@ function initConfig(config) {
   function changeWord(){
       if(showCover){
           rateSH.find("span").html(config.tr("hiderate"));
+          console.log(config.tr('hiderate'));
       }else{
           rateSH.find("span").html(config.tr("showrate"));
+          console.log(config.tr('showrate'));
       }
   }
 }

@@ -44,7 +44,9 @@ append scripts
                         }
                  }});
             });
-
+            $('.langsel').on("change",function(){
+                $.get('/chlang/'+$(this).val(), null, function(data){ location.reload(); });
+            });
         });
 
     script.
@@ -123,24 +125,24 @@ block content
             p= message
         if su ===false
             .passwordChange
-                .passwordLabel PASSWORD
+                .passwordLabel= tr('password')
                 form(method="POST",action="/settings" onsubmit= "return checkpwd()") 
-                    input.textBox.inputBar(type ='password' name= 'oldpass'  placeholder= "OLD PASSWORD" id="oldpass")
-                    input.textBox.inputBar(type ='password' name= 'newpass' placeholder= "NEW PASSWORD" id ="newpass")
-                    input.textBox.inputBar(type ='password' name= 'confirmpass' placeholder= "CONFIRM PASSWORD" id = "confirmpass")
+                    input.textBox.inputBar(type ='password' name= 'oldpass'  placeholder=tr('oldpassword') id="oldpass")
+                    input.textBox.inputBar(type ='password' name= 'newpass' placeholder=tr('newpassword')  id ="newpass")
+                    input.textBox.inputBar(type ='password' name= 'confirmpass' placeholder=tr('confirmpassword') id = "confirmpass")
                     input.longButton.inputBar(type= 'submit' value= 'SUBMIT' id ="changepwd")
                     input(type = 'hidden' name='userid' value ="#{userid}" )
         if su === true
             .passwordChange
-                .passwordLabel PASSWORD
+                .passwordLabel= tr('password')
                 form(method="POST",action="/supervisor/settings" onsubmit= "return checkpwd()") 
-                    input.textBox.inputBar(type ='password' name= 'oldpass'  placeholder= "OLD PASSWORD" id="oldpass")
-                    input.textBox.inputBar(type ='password' name= 'newpass' placeholder= "NEW PASSWORD" id ="newpass")
-                    input.textBox.inputBar(type ='password' name= 'confirmpass' placeholder= "CONFIRM PASSWORD" id = "confirmpass")
-                    input.longButton.inputBar(type= 'submit' value= 'SUBMIT' id ="changepwd")
+                    input.textBox.inputBar(type ='password' name= 'oldpass'  placeholder=tr('oldpassword') id="oldpass")
+                    input.textBox.inputBar(type ='password' name= 'newpass' placeholder=tr('newpassword')  id ="newpass")
+                    input.textBox.inputBar(type ='password' name= 'confirmpass' placeholder=tr('confirmpassword') id = "confirmpass")
+                    input.longButton.inputBar(type= 'submit' value=tr('submit')  id ="changepwd")
                     input(type = 'hidden' name='userid' value ="#{userid}" )
             .emailSwitch.switchButton
-                .switchLabel EMAIL REPORT
+                .switchLabel= tr('email_report')
                 if enableEmail === "1"
                     .onOff.toggle.emailToggle.toggle-on
                 else
@@ -154,19 +156,26 @@ block content
                     input(type = 'hidden' name='enableEmail' value ='#{enable}' id= "enableEmail")
                     input(type = 'hidden' name='userid' value ="#{userid}" id="myid")
                     .radioButton
-                        .chooseLabel CHOOSE
+                        .chooseLabel= tr('choose')
 
                         .radioMonth
                             input(id="mRadio" type = "radio" name= "timePeriod" value= "monthly" checked = false)
-                            label.radioLabel(for="mRadio") MONTHLY
+                            label.radioLabel(for="mRadio")= tr('monthly')
                         
-                        .orLabel OR
+                        .orLabel= tr('or')
 
                         .radioWeek
                             input(id="wRadio" type = "radio" name= "timePeriod" value= "weekly" checked= true)
-                            label.radioLabel(for="wRadio") WEEKLY
+                            label.radioLabel(for="wRadio")= tr('weekly')
                     
-                    input.longButton.inputBar(type= 'submit' value= 'SUBMIT')
+                    input.longButton.inputBar(type= 'submit' value=tr('submit') )
+
+        .emailSwitch.switchButton
+            .switchLabel= tr('change_language')
+            select.langsel.onOff
+                        option(value="")= tr('choose')
+                        option(value="en") English
+                        option(value="cn") 中文
 
             if false
                 .overTimeSwitch.switchButton

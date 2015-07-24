@@ -22,7 +22,7 @@ function newRecordFromUserDoc(userDoc) {
         userid: userDoc.userid,
         //hourlyrate: userDoc.curRate,
         remark: 'defaut remark'
-    }
+    };
 }
 
 function findLastUserRecord(query, callback) {
@@ -34,7 +34,7 @@ function findLastRecordsByCompid(compid, callback) {
     var records = this.db.get('records');
     var users = this.db.get('users');
     users.find({compid: compid}, {}, function(err, users) {
-        var userid = users.map(function(u) { return u.userid });
+        var userid = users.map(function(u) { return u.userid; });
         records.col.aggregate([
             { $match : { userid : { $in : userId } } },
             { $sort : { inDate : -1 } },
@@ -126,7 +126,7 @@ function showUsersForDelegate(sessionid, callback) {
     var users = this.db.get('users');
     var delegation = this.db.get('delegation');
     this.sm.getSessionInfo(sessionid, function(err, sessionDoc) {
-        //console.log(sessionDoc.compid);
+        console.log(sessionDoc.compid);
         users.find({compid : sessionDoc.compid, owner : false}, function(err, userInfos) {
             var ret = {msg: null, ok: true};
             if (!userInfos) {
@@ -157,19 +157,6 @@ function delegate(query, callback) {
     var userid = query.userid;
     var flag = query.flag;
     var sessionid = query.sessionid;
-    console.log(typeof flag);
-    // if (flag === 1) {
-    //     var newRec = { compid : compid, userid : userid };
-    //     delegation.insert(newRec, function(err, msg) {
-    //         console.log(msg);
-    //         callback(err, msg);
-    //     });
-    // } else {
-    //     var newQuery = { userid: userid };
-    //     delegation.remove(newQuery, function(err, msg) {
-    //         callback(err, msg);
-    //     });
-    // }
     this.sm.getSessionInfo(sessionid, function(err, docs) {
         var compid = docs.compid;
         if (flag === 1) {
@@ -183,6 +170,13 @@ function delegate(query, callback) {
                 callback(err, msg);
             });
         }
+    });
+}
+function checkDelegate(query, callback) {
+    var userid = query.userid;
+    var delegationg = this.db.get('delegation');
+    delegation.find({userid : userid}, function(err, dels) {
+        callback(err, dels);
     });
 }
 //*********************************************//
@@ -219,9 +213,9 @@ function punchMany(userIdList, callback) {
     var records = [];
     var module = this;
     _.each(userIdList, function(userid) {
-        module.punch(userid, function(err, record) {
+        module.punch(userid, function(error, record) {
             counter++;
-            if (!err) {
+            if (!error) {
                 success++;
                 records.push(record);
             }
@@ -253,7 +247,7 @@ function deleteRecords(rid, callback) {
 }
 //*********************************************//
 //********** Functions for search&show **************//
-function searchRecords(query, su, callback) {
+function searchRecords(query, callback) {
     var db = this.db;
     var records = db.get('records');
     records.find(query, function(err, recs) {
@@ -261,7 +255,6 @@ function searchRecords(query, su, callback) {
             res.send('Can not get records, try again!');
         } else {
             jsonData = {};
-            jsonData.su = su;
             jsonData.records=[];
             recs.forEach(function(rec, index) {
                 var record = {};
@@ -369,6 +362,11 @@ function getWageOfUser(query, callback) {
     });
 }
 //Assume that function get a week time as argument
+// function decimalByTwo(number, precision) {
+//     var dec = number - Math.floor(number);
+//     var pre = Math.round(dec * Math.pow(10, precision));
+//     return number + "." + pre;
+// }
 function getWageByWeek(query, callback) {
     var db = this.db;
     var records = db.get('records');
@@ -376,11 +374,12 @@ function getWageByWeek(query, callback) {
     var compid = query.compid;
     var startDate = query.startDate;
     var endDate = query.endDate;
-    users.find({ compid : compid }, function(err, userList) {
+    console.log(compid);
+    users.find({ compid : compid,  owner : false}, function(err, userList) {
         if (err) {
             console.log(err);
         } else {
-            var userIdList = userList.map(function(u) {return u.userid});
+            var userIdList = userList.map(function(u) {return u.userid;});
             records.col.aggregate([
                 { $match : {  userid: {$in : userIdList} , inDate: {$gte: startDate}, outDate: {$lte: endDate} } },
                 { $sort : { inDate : 1} },
@@ -434,7 +433,8 @@ function getWageByWeek(query, callback) {
                         var totalWage = 0;
                         var rates = report.rates;
                         rates.forEach(function(userRate, i) {
-                            totalWage += userRate.rate * userRate.workhours / (3600 * 1000);
+                            var hours = (userRate.workhours / (3600 * 1000));
+                            totalWage += userRate.rate * hours;
                         });
                         var overTime = totalhours - 40;
                         if (overTime > 0) {
@@ -465,8 +465,6 @@ function getWageByMonth(query, callback) {
         startDate.add(1, 'w');
         var end = startDate.valueOf();
         newQuery = {compid : query.compid, startDate : start, endDate : end};
-
-        //console.log(newQuery);
         this.getWageByWeek(newQuery, function(err, jsonData) {
             jsonDataArray.push(jsonData);
             if(++counter === calltimes) {
@@ -486,6 +484,7 @@ function Module(settings) {
 }
 
 Module.prototype = {
+    checkDelegate : checkDelegate,
     showUsersForDelegate : showUsersForDelegate,
     delegate : delegate,
     getWageByMonth : getWageByMonth,
@@ -500,6 +499,6 @@ Module.prototype = {
     deleteRecords : deleteRecords,
     searchRecords : searchRecords,
     modify : updateRecords
-}
+};
 
-module.exports = Module
+module.exports = Module;

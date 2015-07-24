@@ -326,6 +326,14 @@ body.bgbody{
     vertical-align:middle;
 }
 
+.langsel {
+    width: 180px;
+    height: 80px;
+    font-size: 40px;
+    color: rgb(103, 116, 153);
+    text-align: center;
+}
+
 /*
 light-blue-green  rgb(138, 209, 215)  
 redish  rgb(247, 130, 131)

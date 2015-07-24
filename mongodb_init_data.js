@@ -46,7 +46,7 @@ for(var i=0; i<userNumber; i++) {
         address : '',
         tel : '',
         compid : getRandomNumber(10),
-        //curRate: 8.75,
+        curRate: 8.75,
         hourlyRate :
         [
             {changetime: changetime1, rate: 8.75},

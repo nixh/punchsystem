@@ -65,7 +65,7 @@ append scripts
     - }
 block content
     .supervisorPunchPage(ontouchstart="")
-        form#searchform(action="/records_search" method="POST")
+        form#searchform(action="/supervisor/records_search" method="POST")
             .startEndTime
                 input.useDatePicker(type= "text" name="startdate" placeholder="#{tr('starttime')}") 
                 //.endTime 
