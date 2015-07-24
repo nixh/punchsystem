@@ -235,9 +235,10 @@ router.get('/recentRecords', function(req, res, next) {
         sessionid: req.cookies.sessionid
     }, function(err, recordDocs) {
         rm.db.close();
-        utils.render('staff/staff_punch_report', {
+        utils.render('yongred/punch_report', {
             moment: moment,
-            records: recordDocs
+            records: recordDocs,
+            su: false
         })(req, res, next);
 
     });
@@ -292,10 +293,11 @@ router.get('/supervisor/rencentRecords/:uid', function(req, res, next) {
     var uid = req.params.uid;
     rm.rencentRecords(uid, function(err, recordDocs) {
         rm.db.close();
-        utils.render('supervisor/supervisor_punch_report', {
+        utils.render('yongred/punch_report', {
             moment: moment,
             records: recordDocs,
             userid: uid,
+            su: true
         })(req, res, next);
     });
 });
