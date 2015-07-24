@@ -141,5 +141,6 @@
 	"SEPT": "SEPT",
 	"OCT": "OCT",
 	"NOV": "NOV",
-	"DEC": "DEC"
+	"DEC": "DEC",
+	"changepass successful": "修改密码成功"
 }
