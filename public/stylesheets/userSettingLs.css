@@ -211,7 +211,7 @@ functions
   margin-left: 5%;
 }
 .radioinput.radioselected .inner {
-  display: block;
+  display: block !important;
 }
 .unorder-list {
   list-style: none;
@@ -244,7 +244,7 @@ functions
 .inner-input:-ms-input-placeholder {
   color: #677499;
 }
-.submitbutton {
+.submit-button {
   background-color: #8ad1d7;
   color: white;
   font-family: 'anivers reg', 'simhei';
@@ -261,26 +261,19 @@ functions
           user-select: none;
   cursor: pointer;
 }
-.submitbutton:active {
+.submit-button:active {
   background-color: #f78283;
   color: white;
 }
 .bgbody {
   background-repeat: repeat-y;
 }
-.supervisorPunchPage {
+.settingPage {
+  border: 1px solid red;
   width: 87.5%;
   margin: 0 auto;
-  padding-top: 5%;
 }
-.supervisorPunchPage #searchform {
-  width: 100%;
-  padding-bottom: 2%;
-}
-.supervisorPunchPage #searchform .startEndTime {
-  width: 100%;
-}
-.supervisorPunchPage #searchform .startEndTime input {
+.settingPage .inputBar {
   border-radius: 10px;
   border: none;
   width: 100%;
@@ -289,162 +282,54 @@ functions
   font-size: 50px;
   text-indent: 10px;
   color: #677499;
+  line-height: normal;
   margin-bottom: 2%;
-  text-align: center;
-  display: block;
 }
-.supervisorPunchPage #searchform .startEndTime input::-webkit-input-placeholder {
+.settingPage .inputBar::-webkit-input-placeholder {
   color: #677499;
 }
-.supervisorPunchPage #searchform .startEndTime input:-moz-placeholder {
+.settingPage .inputBar:-moz-placeholder {
   /* Firefox 18- */
   color: #677499;
 }
-.supervisorPunchPage #searchform .startEndTime input::-moz-placeholder {
+.settingPage .inputBar::-moz-placeholder {
   /* Firefox 19+ */
   color: #677499;
 }
-.supervisorPunchPage #searchform .startEndTime input:-ms-input-placeholder {
+.settingPage .inputBar:-ms-input-placeholder {
   color: #677499;
 }
-.supervisorPunchPage #searchform .controlButtons {
+.settingPage .longButton {
+  background-color: #8ad1d7;
+  color: white;
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+  text-align: center;
+  border-radius: 10px;
+  border: none;
   width: 100%;
-}
-.supervisorPunchPage #searchform .controlButtons:after {
-  content: "";
-  display: block;
-  visibility: hidden;
-  clear: both;
-  zoom: 1;
-  height: 0px;
-}
-.supervisorPunchPage #searchform .controlButtons .buttonItem {
+  height: 120px;
+  line-height: 120px;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
   cursor: pointer;
-  width: 31.25%;
-  font-family: 'anivers reg', 'simhei';
-  font-size: 50px;
-  height: 150px;
+}
+.settingPage .longButton:active {
+  background-color: #f78283;
+  color: white;
+}
+.settingPage .bigLabel {
   float: left;
-  text-align: center;
-  background-color: #8ad1d7;
-  color: white;
-  line-height: 150px;
-  border-radius: 10px;
+  font-size: 60px;
 }
-.supervisorPunchPage #searchform .controlButtons .buttonItem:active {
-  background-color: #f78283;
-  color: white;
-}
-.supervisorPunchPage #searchform .controlButtons .buttonItem:nth-child(2) {
-  margin-left: 3.325%;
-}
-.supervisorPunchPage #searchform .controlButtons .buttonItem:last-child {
-  float: right;
-}
-.supervisorPunchPage .reportTableDiv {
+.settingPage .switchButton {
   width: 100%;
+  padding-top: 100px;
+  padding-bottom: 50px;
 }
-.supervisorPunchPage .reportTableDiv table.reportTable {
-  border-collapse: separate;
-  border-spacing: 5px;
-  margin-left: -5px;
-  width: calc(100% + 2*5px);
-}
-.supervisorPunchPage .reportTableDiv table.reportTable th.tableHead {
-  font-family: 'anivers reg', 'simhei';
-  font-size: 75px;
-  background-color: #f78283;
-  color: white;
-}
-.supervisorPunchPage .reportTableDiv table.reportTable th.tableHead:first-child {
-  border-top-left-radius: 25px;
-}
-.supervisorPunchPage .reportTableDiv table.reportTable th.tableHead:last-child {
-  border-top-right-radius: 25px;
-}
-.supervisorPunchPage .reportTableDiv table.reportTable tr.tableRow:last-child td:first-child {
-  border-bottom-left-radius: 25px;
-}
-.supervisorPunchPage .reportTableDiv table.reportTable tr.tableRow:last-child td:last-child {
-  border-bottom-right-radius: 25px;
-}
-.supervisorPunchPage .reportTableDiv table.reportTable tr.tableRow td.tableData {
-  background-color: rgba(255, 255, 255, 0.8);
-  color: #677499;
-  text-align: center;
-  font-size: 40px;
-}
-.supervisorPunchPage .reportTableDiv table.reportTable tr.tableRow:last-child .tableData:first-child {
-  border-bottom-left-radius: 0;
-}
-.supervisorPunchPage .reportTableDiv table.reportTable tr.tableRow:last-child .tableData:last-child {
-  border-bottom-right-radius: 0;
-}
-.supervisorPunchPage .reportTableDiv table.reportTable .tableHead,
-.supervisorPunchPage .reportTableDiv table.reportTable .tableData {
-  text-align: center;
-  height: 200px;
-}
-.supervisorPunchPage .reportTableDiv table.reportTable th.tableHead {
-  background-color: white;
-  color: #677499;
-}
-.supervisorPunchPage .reportTableDiv table.reportTable .tableData > ul {
-  list-style: none;
-  padding-left: 0;
-  width: 100%;
-  height: 100%;
-}
-.supervisorPunchPage .reportTableDiv table.reportTable .tableData > ul > .listItem {
-  margin-top: 28px;
-  width: 100%;
-  text-align: center;
-  height: 30%;
-}
-.supervisorPunchPage .reportTableDiv table.reportTable .tableData > ul > li > input {
-  border-radius: 10px;
-  width: 80%;
-  height: 120px;
-  font-family: 'anivers reg', 'simhei';
-  font-size: 50px;
-  text-indent: 10px;
-  color: #677499;
-  font-size: 40px;
-  height: auto;
-}
-.supervisorPunchPage .reportTableDiv table.reportTable .tableData > ul > li > input::-webkit-input-placeholder {
-  color: #677499;
-}
-.supervisorPunchPage .reportTableDiv table.reportTable .tableData > ul > li > input:-moz-placeholder {
-  /* Firefox 18- */
-  color: #677499;
-}
-.supervisorPunchPage .reportTableDiv table.reportTable .tableData > ul > li > input::-moz-placeholder {
-  /* Firefox 19+ */
-  color: #677499;
-}
-.supervisorPunchPage .reportTableDiv table.reportTable .tableData > ul > li > input:-ms-input-placeholder {
-  color: #677499;
-}
-.supervisorPunchPage .reportTableDiv table.reportTable .tableData > ul > li .editButton {
-  border-radius: 10px;
-  border: none;
-  color: white;
-}
-.supervisorPunchPage .reportTableDiv table.reportTable .tableData > ul > li .editInButton {
-  background-color: #f78283;
-}
-.supervisorPunchPage .reportTableDiv table.reportTable .tableData > ul > li .editOutButton {
-  background-color: #8ad1d7;
-}
-.supervisorPunchPage .reportTableDiv table.reportTable .tableData > ul > li .confirmReturn {
-  width: 100%;
-}
-.supervisorPunchPage .reportTableDiv table.reportTable .tableData > ul > li .confirmReturn:after {
+.settingPage .switchButton:after {
   content: "";
   display: block;
   visibility: hidden;
@@ -452,19 +337,103 @@ functions
   zoom: 1;
   height: 0px;
 }
-.supervisorPunchPage .reportTableDiv table.reportTable .tableData > ul > li .confirmReturn > button {
-  border-radius: 10px;
-  border: none;
-  color: white;
-  text-align: center;
-  width: 48%;
-  padding: 0px;
-}
-.supervisorPunchPage .reportTableDiv table.reportTable .tableData > ul > li .confirmReturn .confirmButton {
-  float: left;
-  background-color: #8ad1d7;
-}
-.supervisorPunchPage .reportTableDiv table.reportTable .tableData > ul > li .confirmReturn .returnButton {
+.settingPage .switchButton .onOff {
   float: right;
-  background-color: #f78283;
+}
+.settingPage .passwordChange {
+  border: 1px solid blue;
+  width: 100%;
+  padding-top: 100px;
+}
+.settingPage .passwordChange .passwordLabel {
+  margin-bottom: 2%;
+  color: #f78283;
+  display: inline-block;
+}
+.settingPage .emailSwitch {
+  border: 1px solid green;
+  width: 100%;
+}
+.settingPage .emailSwitch .switchLabel {
+  color: #f78283;
+}
+.settingPage .EmailReportSetting {
+  border: 1px solid yellow;
+  width: 100%;
+}
+.settingPage .EmailReportSetting .radioButton {
+  color: #677499;
+  border: 1px solid orange;
+  width: 100%;
+  margin-top: 30px;
+}
+.settingPage .EmailReportSetting .radioButton:after {
+  content: "";
+  display: block;
+  visibility: hidden;
+  clear: both;
+  zoom: 1;
+  height: 0px;
+}
+.settingPage .EmailReportSetting .radioButton .chooseLabel {
+  border: 1px solid black;
+  font-size: 40px;
+  height: 300px;
+  float: left;
+  display: inline-block;
+}
+.settingPage .EmailReportSetting .radioButton .radioinput {
+  float: left;
+  height: 300px;
+  margin-left: 5%;
+  padding-top: 30px;
+  border: 1px solid black;
+  width: 25%;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.settingPage .EmailReportSetting .radioButton .radioinput .outer {
+  border-radius: 50%;
+  border: 15px solid #8ad1d7;
+  width: 120px;
+  height: 120px;
+  float: left;
+  cursor: pointer;
+  position: relative;
+}
+.settingPage .EmailReportSetting .radioButton .radioinput .outer .inner {
+  border-radius: 50%;
+  border: none;
+  width: 50px;
+  height: 50px;
+  background-color: #8ad1d7;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: none;
+}
+.settingPage .EmailReportSetting .radioButton .radioinput .label {
+  float: left;
+  height: 120px;
+  line-height: 120px;
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+  margin-left: 5%;
+}
+.settingPage .EmailReportSetting .radioButton .radioinput .label {
+  display: block;
+  font-size: 40px;
+}
+.settingPage .EmailReportSetting .radioButton .orLabel {
+  border: 1px solid purple;
+  float: left;
+  font-size: 40px;
+  margin-left: 5%;
+  line-height: 240px;
+  height: 300px;
 }

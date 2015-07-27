@@ -211,7 +211,7 @@ functions
   margin-left: 5%;
 }
 .radioinput.radioselected .inner {
-  display: block;
+  display: block !important;
 }
 .unorder-list {
   list-style: none;
@@ -244,7 +244,7 @@ functions
 .inner-input:-ms-input-placeholder {
   color: #677499;
 }
-.submitbutton {
+.submit-button {
   background-color: #8ad1d7;
   color: white;
   font-family: 'anivers reg', 'simhei';
@@ -261,7 +261,7 @@ functions
           user-select: none;
   cursor: pointer;
 }
-.submitbutton:active {
+.submit-button:active {
   background-color: #f78283;
   color: white;
 }
@@ -318,7 +318,7 @@ body {
   border-bottom-left-radius: 0px;
   width: 18.75%;
 }
-.main .avatarsection .avatarupload .submitbutton {
+.main .avatarsection .avatarupload .submit-button {
   width: 100%;
 }
 .main .infosection {
@@ -459,6 +459,6 @@ body {
   vertical-align: top;
   width: 31.25%;
 }
-.main .previewall .cmdtools .submitbutton {
+.main .previewall .cmdtools .submit-button {
   margin-bottom: 5%;
 }

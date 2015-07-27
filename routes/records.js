@@ -5,6 +5,7 @@ var moment = require('moment');
 var monk = require('monk');
 var db = monk('mongodb://localhost:27017/punchsystem');
 var recModule = require('../recModule');
+var sessionModule = require('../sessionModule');
 
 router.get('/staff_delegate:uid', function(req, res, next) {
     var rm = new recModule();
@@ -53,15 +54,19 @@ router.get('/punch_records', function(req, res, next){
 
 router.post('/records_search', function(req, res, next) {
     var rm = new recModule();
+    var sm = new sessionModule({db: rm.db});
     var starttime = Date.parse(req.body.startdate);
     var endtime = Date.parse(req.body.enddate);
-    var userid = req.body.userid;
-    var su = req.path.search("supervisor");
-    var query = {inDate: {"$gte": starttime} , outDate: {"$lte": endtime}, userid: userid};
-    rm.searchRecords(query, su, function(jsonData) {
-        jsonData.tr = res.__;
-        jsonData.moment = moment;
-        res.render('staff/staff_punch_report', jsonData);
+    var sessionid = req.cookies.sessionid;
+    sm.getSessionInfo(sessionid, function(err, sessionDoc){
+        var userid = sessionDoc.userid;
+        var query = {inDate: {"$gte": starttime} , outDate: {"$lte": endtime}, userid: userid};
+        rm.searchRecords(query, function(jsonData) {
+            jsonData.su = false;
+            jsonData.tr = res.__;
+            jsonData.moment = moment;
+            res.render('staff/staff_punch_report', jsonData);
+        });
     });
 });
 
@@ -72,7 +77,10 @@ router.post('/supervisor/records_search', function(req, res, next) {
     var userid = req.body.userid;
     var su = req.path.search("supervisor");
     var query = {inDate : {"$gte" : starttime} , outDate : {"$lte": endtime}, userid: userid};
-    rm.searchRecords(query, su, function(jsonData) {
+    rm.searchRecords(query, function(jsonData) {
+        jsonData.su = true;
+        jsonData.tr = res.__;
+        jsonData.moment = moment;
         res.render('supervisor/supervisor_punch_report', jsonData);
     });
 });
