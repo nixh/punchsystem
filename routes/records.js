@@ -58,7 +58,6 @@ router.post('/records_search', function(req, res, next) {
     var starttime = Date.parse(req.body.startdate);
     var endtime = Date.parse(req.body.enddate);
     var sessionid = req.cookies.sessionid;
-<<<<<<< HEAD
     sm.getSessionInfo(sessionid, function(err, sessionDoc) {
         var query = {inDate: {"$gte": starttime} , outDate: {"$lte": endtime}, userid: sessionDoc.userid};
         rm.searchRecords(query, function(jsonData) {
@@ -67,16 +66,6 @@ router.post('/records_search', function(req, res, next) {
             jsonData.su = false;
             res.render('staff/staff_punch_report', jsonData);
             sm.db.close();
-=======
-    sm.getSessionInfo(sessionid, function(err, sessionDoc){
-        var userid = sessionDoc.userid;
-        var query = {inDate: {"$gte": starttime} , outDate: {"$lte": endtime}, userid: userid};
-        rm.searchRecords(query, function(jsonData) {
-            jsonData.su = false;
-            jsonData.tr = res.__;
-            jsonData.moment = moment;
-            res.render('staff/staff_punch_report', jsonData);
->>>>>>> master
         });
     });
 });
@@ -88,15 +77,9 @@ router.post('/supervisor/records_search', function(req, res, next) {
     var userid = req.body.userid;
     var query = {inDate : {"$gte" : starttime} , outDate : {"$lte": endtime}, userid: userid};
     rm.searchRecords(query, function(jsonData) {
-<<<<<<< HEAD
         jsonData.tr = res.__;
         jsonData.moment = moment;
         jsonDate.su = true;
-=======
-        jsonData.su = true;
-        jsonData.tr = res.__;
-        jsonData.moment = moment;
->>>>>>> master
         res.render('supervisor/supervisor_punch_report', jsonData);
     });
 });
