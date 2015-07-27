@@ -218,6 +218,7 @@ var qrModule = require('../qrcodeModule');
 =======
 
 
+<<<<<<< HEAD
 /*var qrModule = require('../qrcodeModule');
 
 >>>>>>> 5b8a86258cb8d828bb3e5ea20cd559e1e92db94c
@@ -231,6 +232,20 @@ router.get('/supervisor/showdynacode', function(req, res, next) {
         })(req, res, next);
     });
 });*/
+=======
+// var qrModule = require('../qrcodeModule');
+//
+// router.get('/supervisor/showdynacode', function(req, res, next) {
+//     var qrm = new qrModule();
+//     qrm.getDynacode(req.cookies.sessionid, function(err, mixinData) {
+//         console.log(mixinData);
+//         qrm.db.close();
+//         utils.render('qr', {
+//             data: mixinData
+//         })(req, res, next);
+//     });
+// });
+>>>>>>> 8725666960ae9a4da5e58eaa63cd2c8d60477b91
 
 
 router.get('/recentRecords', function(req, res, next) {
@@ -239,9 +254,10 @@ router.get('/recentRecords', function(req, res, next) {
         sessionid: req.cookies.sessionid
     }, function(err, recordDocs) {
         rm.db.close();
-        utils.render('staff/staff_punch_report', {
+        utils.render('yongred/punch_report', {
             moment: moment,
-            records: recordDocs
+            records: recordDocs,
+            su: false
         })(req, res, next);
 
     });
@@ -296,10 +312,11 @@ router.get('/supervisor/rencentRecords/:uid', function(req, res, next) {
     var uid = req.params.uid;
     rm.rencentRecords(uid, function(err, recordDocs) {
         rm.db.close();
-        utils.render('supervisor/supervisor_punch_report', {
+        utils.render('yongred/punch_report', {
             moment: moment,
             records: recordDocs,
             userid: uid,
+            su: true
         })(req, res, next);
     });
 });

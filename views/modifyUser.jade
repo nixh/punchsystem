@@ -142,7 +142,7 @@ append scripts
                     $('.sexinput .radioinput[data-value="1"]').addClass('radioselected');
                     $('.sexinput .radioinput[data-value="0"]').removeClass('radioselected');
                 } else {
-                    $('.sexinput .radioinput[data-value="1"]').remvoeClass('radioselected');
+                    $('.sexinput .radioinput[data-value="1"]').removeClass('radioselected');
                     $('.sexinput .radioinput[data-value="0"]').addClass('radioselected');
                 }
                 
@@ -214,9 +214,9 @@ block content
                     span= tr('address')
                 .sectionfields
                     label.title= tr('userform_address_street')
-                    input(type="text" id="address_street" name="address_street" value="#{!user? '' : user.address_street}").textinput
+                    input(type="text" id="address_street" name="address_street" value="#{!user? '' : user.address_street ? user.address_street : '' }").textinput
                     label.title= tr('userform_address_city')
-                    input(type="text" id="address_city" name="address_city" value="#{!user? '' : user.address_city}").textinput
+                    input(type="text" id="address_city" name="address_city" value="#{!user? '' : user.address_city ? user.address_city : '' }").textinput
                     label.title= tr('userform_address_state')
                     input.textinput.small.inline(id="address_state" name="address_state" value="#{!user? '' : user.address_state}")
                     label.title= tr('userform_address_zip')

@@ -151,7 +151,13 @@
 	"compName": "compName",
 	"compLogo": "compLogo",
 	"compIps": "compIps",
+<<<<<<< HEAD
 	"September": "September",
 	"user.name": "user.name"
 }
 >>>>>>> 5b8a86258cb8d828bb3e5ea20cd559e1e92db94c
+=======
+	"September": "September"
+}
+
+>>>>>>> 8725666960ae9a4da5e58eaa63cd2c8d60477b91
