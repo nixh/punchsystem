@@ -85,7 +85,6 @@ function initializeSequence(colNames) {
     return dbm.use(wrap(sequenceColName), dropIfExists, newSequence);
 }
 
-
 var compColName = 'comps';
 var initCompNum = 50;
 
@@ -117,6 +116,33 @@ function initializeCompanies(number) {
     return dbm.use(wrap(compColName), dropIfExists, newComps);
 }
 
+var roles = [{
+    name: 'root',
+    type: 'allow',
+    perm: "^\/."
+},{
+    name: 'employee',
+    type: 'deny',
+    perm: "^\/(sa|supervisor)\/"
+},{
+    name: 'supervisor',
+    type: 'deny',
+    perm: "^\/sa\/"
+}];
+
+var roleColName = 'roles';
+function initializeRoles(roles) {
+    function newRoles() {
+        return dbm.insert('roles', roles).call(this);
+    }
+    return dbm.use(wrap(roleColName), dropIfExists, newRoles)
+              .then(function(values){
+                  logger.info('successfully inserted roles');
+                  logger.debug('data below:');
+                  debugArray(values);
+              });
+}
+
 //Db User Collection
 var userColName = 'users';
 var initUserNum = 550;
@@ -133,6 +159,7 @@ function initializeUserBasicInfo(number) {
         };
         var threshold = Math.ceil(number / initCompNum);
         var compid = 1;
+        var lastcompId = 0;
         var users = number.times(function(i){
             if(i !== 0 && i % threshold === 0) {
                 compid++;
@@ -141,6 +168,8 @@ function initializeUserBasicInfo(number) {
             userObj.name = "name" + i;
             userObj.compid = compid;
             userObj.userid = "user" + i;
+            userObj.role = compid !== lastcompId ? 'supervisor' : 'employee';
+            lastcompId = compid;
             return userObj;
         });
         return dbm.use(dbm.insert(userColName, users)).then(function(values){
@@ -152,10 +181,44 @@ function initializeUserBasicInfo(number) {
     return dbm.use(wrap(userColName), dropIfExists, newUsers);
 }
 
-function initializeRoles(roles) {
-
+function initializeRecords() {
+    function getUserinfo() {
+        return dbm.query('users', {});
+    }
+    function newRecords(users) {
+        var inDates = [8,9,10];
+        var outDates = [17,18,19];
+        var promises = users.map(function(user){
+            var startDate = moment('2015-07-01');
+            var randomDays = radomInt(20, 40);
+            var records = randomDays.times(function(){
+                var startTime = inDates[radomInt(2)];
+                var endTime = outDates[radomInt(2)];
+                var inDate = startDate.hour(startTime);
+                inDate = inDate.valueOf();
+                var outDate = startDate.hour(endTime);
+                outDate = outDate.valueOf();
+                var recObj = {
+                    compid: user.compid,
+                    userid: user.userid,
+                    inDate: inDate,
+                    outDate: outDate,
+                    hourlyRate: user.rates[user.rates.length-1].rate
+                };
+                startDate = startDate.add(1, 'd');
+                return recObj;
+            });
+            return dbm.insert('records', records);
+        });
+        return dbm.parallel(promises);
+    };
+    return dbm.use(wrap('records'), dropIfExists, getUserinfo(), newRecords).then(function(values){
+        logger.info("user punch records initializing completed");
+    });
 }
 
-Q.when(['users','comps','records','reports','role'], initializeSequence)
+Q.when(['users','comps','records','reports', 'roles', 'log'], initializeSequence)
+ .then(wrap(roles)).then(initializeRoles)
  .then(wrap(initCompNum)).then(initializeCompanies)
- .then(wrap(initUserNum)).then(initializeUserBasicInfo);
+ .then(wrap(initUserNum)).then(initializeUserBasicInfo)
+ .then(initializeRecords);
