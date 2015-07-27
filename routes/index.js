@@ -8,6 +8,7 @@ var uuid = require('node-uuid');
 var util = require('util');
 var moment = require('moment');
 var dbhelper = require('../db/db');
+var Action = require('../lib/common/action');
 
 var loginKeys = {};
 
@@ -672,6 +673,8 @@ router.post('/admin/supervisor/new', function(req, res, next){
     });
 
 });
+
+router.get('/testlogin', Action('login.view'));
 
 router.get('/cookies', function(req, res, next) {
     var cookies = req.cookies;
