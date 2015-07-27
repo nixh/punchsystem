@@ -211,7 +211,7 @@ functions
   margin-left: 5%;
 }
 .radioinput.radioselected .inner {
-  display: block;
+  display: block !important;
 }
 .unorder-list {
   list-style: none;
@@ -244,7 +244,7 @@ functions
 .inner-input:-ms-input-placeholder {
   color: #677499;
 }
-.submitbutton {
+.submit-button {
   background-color: #8ad1d7;
   color: white;
   font-family: 'anivers reg', 'simhei';
@@ -261,39 +261,39 @@ functions
           user-select: none;
   cursor: pointer;
 }
-.submitbutton:active {
+.submit-button:active {
   background-color: #f78283;
   color: white;
 }
 .bgbody {
   background-repeat: repeat-y;
 }
-.staffMainPage {
+.mainPage {
   width: 87.5%;
   margin: 0 auto;
   color: #677499;
   padding-top: 5%;
 }
-.staffMainPage .avatar {
+.mainPage .avatar {
   width: 100%;
   text-align: center;
 }
-.staffMainPage .avatar img {
+.mainPage .avatar img {
   border-radius: 50%;
   border: 20px solid #8ad1d7;
   width: 300px;
   height: 300px;
 }
-.staffMainPage .avatar p {
+.mainPage .avatar p {
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
   color: #f78283;
 }
-.staffMainPage .paidRate {
+.mainPage .paidRate {
   width: 100%;
   padding-bottom: 5%;
 }
-.staffMainPage .paidRate:after {
+.mainPage .paidRate:after {
   content: "";
   display: block;
   visibility: hidden;
@@ -301,7 +301,7 @@ functions
   zoom: 1;
   height: 0px;
 }
-.staffMainPage .paidRate .paidRateBox {
+.mainPage .paidRate .paidRateBox {
   width: 31.25%;
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
@@ -312,10 +312,10 @@ functions
   display: table;
   position: relative;
 }
-.staffMainPage .paidRate .paidRateBox:nth-of-type(2) {
+.mainPage .paidRate .paidRateBox:nth-of-type(2) {
   margin-left: 3.325%;
 }
-.staffMainPage .paidRate .paidRateBox:last-child {
+.mainPage .paidRate .paidRateBox:last-child {
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -323,21 +323,21 @@ functions
   cursor: pointer;
   float: right;
 }
-.staffMainPage .paidRate .paidRateBox:last-child:active {
+.mainPage .paidRate .paidRateBox:last-child:active {
   background-color: #8ad1d7;
   color: white;
 }
-.staffMainPage .paidRate .paidRateBox > span {
+.mainPage .paidRate .paidRateBox > span {
   width: 100%;
   margin: 0 auto;
   display: table-cell;
   vertical-align: middle;
 }
-.staffMainPage .paidRate .paidRateBox .hourRate {
+.mainPage .paidRate .paidRateBox .hourRate {
   display: table-cell;
   vertical-align: middle;
 }
-.staffMainPage .paidRate .paidRateBox .imageCover {
+.mainPage .paidRate .paidRateBox .imageCover {
   height: 100%;
   background-color: #f78283;
   position: absolute;
@@ -345,10 +345,10 @@ functions
   left: 0;
   width: 100%;
 }
-.staffMainPage .otherInfoLinks {
+.mainPage .otherInfoLinks {
   width: 100%;
 }
-.staffMainPage .otherInfoLinks .otherInfo {
+.mainPage .otherInfoLinks .otherInfo {
   background-color: #8ad1d7;
   color: white;
   font-family: 'anivers reg', 'simhei';
@@ -368,13 +368,13 @@ functions
   color: #677499;
   margin-bottom: 2%;
 }
-.staffMainPage .otherInfoLinks .otherInfo:active {
+.mainPage .otherInfoLinks .otherInfo:active {
   background-color: #f78283;
   color: white;
 }
-.staffMainPage .otherInfoLinks .otherInfo:last-of-type {
+.mainPage .otherInfoLinks .otherInfo:last-of-type {
   border-radius: 0px 0px 15px 15px;
 }
-.staffMainPage .otherInfoLinks .otherInfo:first-of-type {
+.mainPage .otherInfoLinks .otherInfo:first-of-type {
   border-radius: 15px 15px 0px 0px;
 }
