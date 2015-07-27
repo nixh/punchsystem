@@ -1,0 +1,139 @@
+extends ../layout.jade
+
+append links
+    //link(rel='stylesheet', href='/stylesheets/staffMain.css')
+    link(rel='stylesheet', href='/stylesheets/mainPageLs.css')
+
+append scripts
+    - var currentMonth = moment().startOf('month').format('MMM');
+    script(src= "/javascripts/showHideRate.js")
+
+    if su
+        script.
+            $(function initEvents(){
+
+                $('.viewstaff').on('click', function(){
+                    location.href = "/supervisor/employees";
+                });
+
+                $('.overview').on('click', function(){
+                    location.href = "/supervisor/reportselect";
+                });
+
+                $('.addStaff').on('click', function(){
+                    location.href = "/users/add"
+                });
+
+                $('.manageRecords').on('click', function(){
+                    location.href = "/supervisor/employees_records"
+                });
+
+                $('.dynacode').on('click', function(){
+                    location.href = "/supervisor/showdynacode"
+                });
+
+                $('.delegate').on('click', function(){
+                    location.href = "/supervisor_delegate"
+                });
+
+                $('.adminpunch').on('click', function(){
+                    location.href = '/supervisor/adminpunch';
+                });
+
+                $('.setting').on('click', function(){
+                    location.href = "/supervisor/settings";
+                });
+
+                $('.logout').on('click', function(){
+                    location.href = "/logout";
+                })
+                $('settings').click(function(){
+                    location.href = "/supervisor/settings";
+                });
+            });
+
+    else
+        script.
+            $(function initEvent(){
+                var rateSH = $(".showHideRate");
+                var cover = $(".imageCover");
+                var hrRate = $(".hourRate");
+
+                var showCover = true;
+                rateSH.on("click", function(e){
+
+                    var cover = $(".imageCover");
+                    if(showCover) {
+                      showCover = false;
+                      cover.css("visibility", "hidden");
+                    } else {
+                      showCover = true;
+                      cover.css("visibility", "");
+                    }
+                   changeWord();
+                });
+
+                function changeWord(){
+                    if(showCover){
+                        rateSH.find("span").html("#{tr('showrate')}");
+                    }else{
+                        rateSH.find("span").html("#{tr('hiderate')}");
+                    }
+                }
+
+
+                $('.punchReport').on('click', function(){
+                    location.href = "/recentRecords";
+                });
+
+                $('.delegate').on('click', function(){
+                    location.href = "/staff_delegate";
+                });
+
+                $('.settings').click(function(){
+                    location.href = '/settings';
+                });
+
+                $('.logout').on('click', function(){
+                    location.href = "/logout";
+                });
+            });
+        
+
+
+block content
+    .mainPage(ontouchstart="")
+        .avatar
+            img(src="#{user.avatar ? user.avatar : user.sex ? '/images/boydefaultpicture.png' : '/images/girl default picture.png'}" alt="User Avatar") 
+            p= tr('welcome') + " " + user.name
+
+        if su === false
+            .paidRate
+                .paidRateBox
+                    span= tr('paidrate')
+                .paidRateBox
+                    .hourRate $#{user.curRate} #{tr('per_hour')}
+                    .imageCover
+
+                .paidRateBox.showHideRate.noselect
+                    span= tr('showrate')
+                    
+        if su
+            .otherInfoLinks.noselect
+                .viewstaff.otherInfo= tr('view staff')
+                .addStaff.otherInfo= tr('add staff')
+                .manageRecords.otherInfo= tr('manage records')
+                .dynacode.otherInfo= tr('dynamic_qrcode')
+                .delegate.otherInfo= tr('delegate')
+                .adminpunch.otherInfo= tr('adminpunch')
+                .overview.otherInfo= tr('overview')
+                .setting.otherInfo= tr('setting')
+                .logout.otherInfo= tr('logout')
+
+        else       
+            .otherInfoLinks.noselect
+                .punchReport.otherInfo= tr('punchReport')
+                if delegate
+                    .delegate.otherInfo= tr('delegate')
+                .settings.otherInfo= tr('setting')
+                .logout.otherInfo= tr('logout')

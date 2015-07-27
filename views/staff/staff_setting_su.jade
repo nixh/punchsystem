@@ -1,7 +1,8 @@
 extends ../layout.jade
 
 append links
-    link(rel='stylesheet' href='/stylesheets/staffSetting.css')
+    //link(rel='stylesheet' href='/stylesheets/staffSetting.css')
+    link(rel='stylesheet' href='/stylesheets/userSettingLs.css')
     link(rel='stylesheet' href='/toggleSwitch/normalize.css')
     link(rel= "stylesheet" href= "/tagbox/fm.tagator.jquery.css")
     link(rel='stylesheet' href="/stylesheets/toggleSwitchAdjust.css")
@@ -48,7 +49,6 @@ append scripts
         });
 
     script.
-
           function getObj(id){
                 var Obj = document.getElementById(id).value;
                 return Obj;
@@ -117,11 +117,31 @@ append scripts
                 }   
           }
     
+    script.
+        $(document).ready(function(){
+            $('.radioButton input').change(function(){
+                var period = $(this).val();
+                if(period) {
+                    $('.radioButton .radioinput[data-value="1"]').addClass('radioselected');
+                    $('.radioButton .radioinput[data-value="0"]').removeClass('radioselected');
+                } else {
+                    $('.radioButton .radioinput[data-value="1"]').removeClass('radioselected');
+                    $('.radioButton .radioinput[data-value="0"]').addClass('radioselected');
+                }
+            });
+
+            $('.radioinput').on('click', function(){
+                var $this = $(this);
+                $('.radioinput').each(function(i, radio){
+                    $(radio).removeClass('radioselected');
+                });
+                $this.addClass('radioselected');
+                $('.sexinput>input').val($this.attr('data-value'));
+            });
+        });
 block content
-    .staffSettingPage
-        if message
-            p= message
-        if su ===false
+    .settingPage
+        if su === false
             .passwordChange
                 .passwordLabel PASSWORD
                 form(method="POST",action="/settings" onsubmit= "return checkpwd()") 
@@ -132,15 +152,15 @@ block content
                     input(type = 'hidden' name='userid' value ="#{userid}" )
         if su === true
             .passwordChange
-                .passwordLabel PASSWORD
+                .passwordLabel.bigLabel PASSWORD
                 form(method="POST",action="/supervisor/settings" onsubmit= "return checkpwd()") 
-                    input.textBox.inputBar(type ='password' name= 'oldpass'  placeholder= "OLD PASSWORD" id="oldpass")
-                    input.textBox.inputBar(type ='password' name= 'newpass' placeholder= "NEW PASSWORD" id ="newpass")
-                    input.textBox.inputBar(type ='password' name= 'confirmpass' placeholder= "CONFIRM PASSWORD" id = "confirmpass")
-                    input.longButton.inputBar(type= 'submit' value= 'SUBMIT' id ="changepwd")
+                    input.inputBar(type ='password' name= 'oldpass'  placeholder= "OLD PASSWORD" id="oldpass")
+                    input.inputBar(type ='password' name= 'newpass' placeholder= "NEW PASSWORD" id ="newpass")
+                    input.inputBar(type ='password' name= 'confirmpass' placeholder= "CONFIRM PASSWORD" id = "confirmpass")
+                    input.longButton(type= 'submit' value= 'SUBMIT' id ="changepwd")
                     input(type = 'hidden' name='userid' value ="#{userid}" )
             .emailSwitch.switchButton
-                .switchLabel EMAIL REPORT
+                .switchLabel.bigLabel EMAIL REPORT
                 if enableEmail === "1"
                     .onOff.toggle.emailToggle.toggle-on
                 else
@@ -149,13 +169,28 @@ block content
             .EmailReportSetting.toggleTarget
                 form(method="POST",action='/supervisor/sendemail' onsubmit= "return checkemail()")
                     -var email = (receiveEmails)? receiveEmails : "EMAIL ADDRESS"
-                    input.textBox.inputBar.useTagator(type= "text" id = "receiveEmails" name = 'receiveEmails' placeholder= "EMAIL ADDRESS" value="#{email}")
+                    input.inputBar.useTagator(type= "text" id = "receiveEmails" name = 'receiveEmails' placeholder= "EMAIL ADDRESS" value="#{email}")
                     -var enable= (enableEmail)? enableEmail : 1
                     input(type = 'hidden' name='enableEmail' value ='#{enable}' id= "enableEmail")
                     -var rate=(enablerate)? enablerate : 1
                     input(type ="hidden" name ="enablerate" value= '#{rate}' id="enablerate")
                     input(type = 'hidden' name='userid' value ="#{userid}" id="myid")
+
                     .radioButton
+                        .chooseLabel CHOOSE
+                        .radioinput.radioselected(data-value="1")
+                            .outer
+                                .inner
+                            .label MONTHLY
+
+                        .orLabel OR
+
+                        .radioinput(data-value="0")
+                            .outer
+                                .inner
+                            .label WEEKLY
+                        input(name="period" type="hidden")
+                    //.radioButton
                         .chooseLabel CHOOSE
 
                         .radioMonth
@@ -168,10 +203,10 @@ block content
                             input(id="wRadio" type = "radio" name= "timePeriod" value= "weekly" checked= true)
                             label.radioLabel(for="wRadio") WEEKLY
                     
-                    input.longButton.inputBar(type= 'submit' value= 'SUBMIT')
+                    input.longButton(type= 'submit' value= 'SUBMIT')
 
             .overTimeSwitch.switchButton
-                .switchLabel OVERTIME SETTING
+                .switchLabel.bigLabel OVERTIME SETTING
                 if enablerate === "1"
                     .onOff.toggle.overTimeToggle.toggle-on
                 else
@@ -199,4 +234,4 @@ block content
                         -var newrate = (newrate)? newrate:1.5
                         input.rateDisplay(type= "text" placeholder="1.5x" name="newrate" id="newrate" value ="#{newrate}")
 
-                    input.longButton.inputBar(type= 'submit' value= 'SUBMIT')
+                    input.longButton(type= 'submit' value= 'SUBMIT')

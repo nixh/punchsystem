@@ -247,7 +247,7 @@ function deleteRecords(rid, callback) {
 }
 //*********************************************//
 //********** Functions for search&show **************//
-function searchRecords(query, su, callback) {
+function searchRecords(query, callback) {
     var db = this.db;
     var records = db.get('records');
     records.find(query, function(err, recs) {
@@ -255,7 +255,6 @@ function searchRecords(query, su, callback) {
             res.send('Can not get records, try again!');
         } else {
             jsonData = {};
-            jsonData.su = su;
             jsonData.records=[];
             recs.forEach(function(rec, index) {
                 var record = {};
