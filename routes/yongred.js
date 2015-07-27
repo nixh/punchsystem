@@ -166,25 +166,7 @@ router.get('/staff_punch_report', function(req, res, next){
 	});
 });
 
-router.get('/supervisor/supervisor_main', function(req, res, next){
 
-    var sessionid = req.cookies.sessionid;
-	var userCol = db.get('users');
-
-    var sessionCol = db.get('session');
-    sessionCol.findOne({sessionid:sessionid}, {}, function(err, sObj){
-=======
-// var qrModule = require('../qrcodeModule');
-// router.get('/staff_delegate', function(req, res, next){
-//     var qrm = new qrModule();
-//     qrm.getDynacode(req.cookies.sessionid, function(err, mixinData) {
-//         qrm.db.close();
-//         utils.render('qr', {
-//             data: mixinData
-//         })(req, res, next);
-//     });
-// });
->>>>>>> 8725666960ae9a4da5e58eaa63cd2c8d60477b91
 
 // router.get('/staff_punch_report', function(req, res, next){
 
