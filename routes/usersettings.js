@@ -24,7 +24,7 @@ router.get('/settings', function (req, res, next){
 									if(err){
 										res.send('err')
 									}else{
-										utils.render('./staff/staff_setting_su',
+										utils.render('./yongred/user_setting',
 											{"userid":userid,"receiveEmails":doc.email,"su":false})(req, res, next);
 									}
 					})
@@ -47,7 +47,7 @@ router.get('/supervisor/settings', function (req, res, next){
 									if(err){
 										res.send('err')
 									}else{
-										res.render('./staff/staff_setting_su',
+										res.render('./yongred/user_setting',
 											{	"userid":userid,
 												"receiveEmails":doc.email,
 												"su":true,
@@ -70,7 +70,7 @@ router.get('/supervisor/sendemail', function (req, res, next){
 			if (err){
 				res.send('err')
 			}else{
-				res.render('./staff/staff_setting_su',{"userid":doc.userid,"su":true,
+				res.render('./yongred/user_setting',{"userid":doc.userid,"su":true,
 							"enableEmail":doc.enableEmail,
 							"enablerate":doc.enablerate,
 							"overtime":doc.overtime,
@@ -87,7 +87,7 @@ router.get('/supervisor/setrate',function (req,res){
 			if (err){
 				res.send('err')
 			}else{
-				res.render('./staff/staff_setting_su',{"userid":doc.userid,"su":true,
+				res.render('./yongred/user_setting',{"userid":doc.userid,"su":true,
 							"enableEmail":doc.enableEmail,
 							"enablerate":doc.enablerate,
 							"overtime":doc.overtime,
@@ -111,7 +111,7 @@ router.post('/enableEmail/:switchs',function (req,res){
 			if(err) {
 			 	res.send("Error!!!");
 		}else{
-			res.render('./staff/staff_setting_su',{"userid":req.body.userid,"su":true,"enablerate":switchs})
+			res.render('./yongred/user_setting',{"userid":req.body.userid,"su":true,"enablerate":switchs})
 		}
 	})
 
@@ -132,7 +132,7 @@ router.post('/enablerate/:switchs',function (req,res){
 			if(err) {
 			 	res.send("Error!!!");
 		}else{
-			res.render('./staff/staff_setting_su',{"userid":req.body.userid,"su":true,"enablerate":switchs})
+			res.render('./yongred/user_setting',{"userid":req.body.userid,"su":true,"enablerate":switchs})
 		}
 	})
 
@@ -150,7 +150,7 @@ router.post('/supervisor/setrate',function (req,res){
 			res.send('err');
 		}else{
 			//console.log(doc)
-			res.render("./staff/staff_setting_su",
+			res.render("./yongred/user_setting",
 						{	"userid":userobj.userid,
 							"receiveEmails":doc.email,
 							"oldpassword":doc.password,
@@ -195,7 +195,7 @@ router.post('/supervisor/settings', function (req, res) {
                 		pageUrl: '/supervisor/settings'})(req,res,next);
 				
 		}else{
-				/*utils.render("./staff/staff_setting_su",
+				/*utils.render("./yongred/user_setting",
 					{"userid":userobj.userid,"receiveEmails":doc.email,"su":true,
 							"enableEmail":doc.enableEmail,
 							"message":true,
@@ -223,7 +223,7 @@ router.post('/supervisor/sendemail', function (req, res) {
 			}
 			else{
 				console.log(doc)
-			res.render('./staff/staff_setting_su',{"userid":userobj.userid,
+			res.render('./yongred/user_setting',{"userid":userobj.userid,
 						"receiveEmails":userobj.receiveEmails,"su":true,
 							"enableEmail":userobj.enableEmail,
 							"enablerate":userobj.enablerate,

@@ -7,15 +7,25 @@ Variables
 @basic-radius: 25px;
 @basic-ctrol-width: 100%;
 @basic-ctrol-height: 120px;
+
 @header-font-size: 75px;
 @big-font-size: 60px;
 @normal-font-size: 50px;
 @small-font-size: 40px;
+
 @box-float-height: 300px;
 @half-box-height: 150px;
 @table-element-height: 200px;
+
+@medium-height: 200px;
+
 @small-radius: 10px;
 
+@xsmall-margin: 10px;
+@small-margin: 20px;
+@medium-margin: 30px;
+
+@margin-gap: 3.325%;
 
 /************
 Common Settings
@@ -58,6 +68,14 @@ Common Settings
     font-size: @small-font-size;
 }
 
+.big-font{
+    font-size: @big-font-size;
+}
+
+.margin-gap-left{
+    margin-left: @margin-gap;
+}
+
 .clear-browsersettings {
     margin: 0;
     padding: 0;
@@ -93,6 +111,9 @@ functions
 }
 .non-selectable {
     user-select: none;
+}
+.avoid-clicks {
+  pointer-events: none;
 }
 .after-float {
     content: "";
@@ -161,6 +182,7 @@ functions
     color: @table-cell-color;
     text-align: center;
     .small-font;
+    .roundBorder(@small-radius);
 }
 
 .basic-table-row{
@@ -224,6 +246,32 @@ functions
     }
 }
 
+.basic-radioinput-center(@outercolor:@green, @outerthick:15px, @innercolor:@green, @innersize:50px){
+    .non-selectable;
+    .outer {
+        .hollowcircle(@basic-ctrol-height, @outerthick, @outercolor);
+        cursor: pointer;
+        position: relative;
+        .mcenter;
+        .inner {
+            .circle(@innersize, @innercolor);
+            position: absolute;
+            margin: auto;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            display: none;
+        }
+    }
+    .label {
+        text-align: center;
+        height: @basic-ctrol-height;
+        line-height: @basic-ctrol-height;
+        .normal-font;
+    }
+}
+
 .mb(@distance: 2%) {
     margin-bottom: @distance;
 }
@@ -239,14 +287,36 @@ functions
     text-align:center;
 }
 
-.radioinput {
+.radioinput{
     .basic-radioinput();
 }
+
+.radioinput-center {
+    .basic-radioinput-center;   
+}
+
 
 .radioinput.radioselected {
     .inner {
         display: block !important;
     }
+}
+
+.radioinput-center.radioselected {
+    .inner {
+        display: block !important;
+    }
+}
+
+.inline-display{
+    height: @medium-height;
+    line-height: normal;
+    text-align: center;
+    background-color: @normal-display-background;
+    color: @text-color;
+    .roundBorder(@small-radius);
+    .non-selectable;
+    .avoid-clicks;
 }
 
 .float-box (@box-height: @box-float-height, @background-color: @white){
