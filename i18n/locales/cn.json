@@ -123,6 +123,20 @@
 	"...": "...",
 	"empty": "空记录..",
 	"edit": "修改",
+<<<<<<< HEAD
 
 	"add_user": "add_user"
 }
+=======
+	"February": "February",
+	"March": "March",
+	"November": "November",
+	"January": "January",
+	"add_user": "add_user",
+	"compName": "compName",
+	"compLogo": "compLogo",
+	"compIps": "compIps",
+	"September": "September",
+	"April": "April"
+}
+>>>>>>> 0e9f3a273dd709655e58db7271011597efe4e585

@@ -172,8 +172,6 @@ block content
                     input.inputBar.useTagator(type= "text" id = "receiveEmails" name = 'receiveEmails' placeholder= "EMAIL ADDRESS" value="#{email}")
                     -var enable= (enableEmail)? enableEmail : 1
                     input(type = 'hidden' name='enableEmail' value ='#{enable}' id= "enableEmail")
-                    -var rate=(enablerate)? enablerate : 1
-                    input(type ="hidden" name ="enablerate" value= '#{rate}' id="enablerate")
                     input(type = 'hidden' name='userid' value ="#{userid}" id="myid")
 
                     .radioButton
@@ -217,27 +215,16 @@ block content
                 form(method="POST" action="/supervisor/setrate" onsubmit= "return checkrate()")
                     .thresholdDiv
                         .thresholdLabel 
-
-                            span OVERTIME THRESHOLD
-                        -var overtime = (overtime)? overtime: 40
-
                             span.labelSpan OVERTIME THRESHOLD
-
                         input.hourDisplay(type= "text" placeholder= "40" name="overtime" id ="overtime" value ='#{overtime}')
                         -var rate=(enablerate)? enablerate : 1
                         input(type ="hidden" name ="enablerate" value= '#{rate}' id="enablerate")
-                        -var enable= (enableEmail)? enableEmail : 1
-                        input(type = 'hidden' name='enableEmail' value ='#{enable}' id= "enableEmail")
                         input(type = 'hidden' name='userid' value ="#{userid}")
 
                         .perWeekLabel
                             span.labelSpan HRS PER WEEK
                     .rateDiv
                         .rateLabel
-
-                            span OVERTIME RATE
-                        -var newrate = (newrate)? newrate:1.5
-
                             span.labelSpan OVERTIME RATE
 
                         input.rateDisplay(type= "text" placeholder="1.5x" name="newrate" id="newrate" value ="#{newrate}")

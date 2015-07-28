@@ -17,7 +17,7 @@ var yongred        = require('./routes/yongred');
 var utils          = require('./utils');
 var mongo          = require('mongodb');
 var monk           = require('monk');
-var moment        = require('moment');
+var moment         = require('moment');
 var app            = express();
 
 var db = monk(utils.getConfig('mongodbPath'));

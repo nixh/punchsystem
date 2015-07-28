@@ -37,6 +37,12 @@ Common Settings
 .small-font {
   font-size: 40px;
 }
+.big-font {
+  font-size: 60px;
+}
+.margin-gap-left {
+  margin-left: 3.325%;
+}
 .clear-browsersettings {
   margin: 0;
   padding: 0;
@@ -116,6 +122,9 @@ functions
       -ms-user-select: none;
           user-select: none;
 }
+.avoid-clicks {
+  pointer-events: none;
+}
 .after-float {
   content: "";
   display: block;
@@ -141,6 +150,8 @@ functions
   color: #677499;
   text-align: center;
   font-size: 40px;
+  border-radius: 10px;
+  border: none;
 }
 .basic-table-row:last-child td:first-child {
   border-bottom-left-radius: 25px;
@@ -210,8 +221,61 @@ functions
   font-size: 50px;
   margin-left: 5%;
 }
+.radioinput-center {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.radioinput-center .outer {
+  border-radius: 50%;
+  border: 15px solid #8ad1d7;
+  width: 120px;
+  height: 120px;
+  cursor: pointer;
+  position: relative;
+  margin: 0 auto;
+}
+.radioinput-center .outer .inner {
+  border-radius: 50%;
+  border: none;
+  width: 50px;
+  height: 50px;
+  background-color: #8ad1d7;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: none;
+}
+.radioinput-center .label {
+  text-align: center;
+  height: 120px;
+  line-height: 120px;
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+}
 .radioinput.radioselected .inner {
   display: block !important;
+}
+.radioinput-center.radioselected .inner {
+  display: block !important;
+}
+.inline-display {
+  height: 200px;
+  line-height: normal;
+  text-align: center;
+  background-color: white;
+  color: #677499;
+  border-radius: 10px;
+  border: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  pointer-events: none;
 }
 .unorder-list {
   list-style: none;
