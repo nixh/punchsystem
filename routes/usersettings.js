@@ -194,14 +194,8 @@ router.post('/supervisor/settings', function (req, res) {
                 		pageUrl: '/supervisor/settings'})(req,res,next);
 				
 		}else{
-				/*utils.render("./staff/staff_setting_su",
-					{"userid":userobj.userid,"receiveEmails":doc.email,"su":true,
-							"enableEmail":doc.enableEmail,
-							"message":true,
-							"enablerate":doc.enablerate,
-							"overtime":doc.overtime,
-							"newrate":doc.curRate})(req,res,next);*/
-	utils.render("message",{success: true,
+				
+			utils.render("message",{success: true,
                 		msg: {head:res.__("changepass successful")},
                 		pageUrl: '/supervisor/settings'})(req,res,next);
 				}

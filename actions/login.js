@@ -10,8 +10,8 @@ login.auth = {
     type: 'redirect',
     execute: function(req, res, next) {
 
-        return ""
+        return "";
     }
-}
+};
 
 module.exports = login;
