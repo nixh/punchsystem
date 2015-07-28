@@ -143,12 +143,12 @@ block content
     .settingPage
         if su === false
             .passwordChange
-                .passwordLabel PASSWORD
+                .passwordLabel.bigLabel PASSWORD
                 form(method="POST",action="/settings" onsubmit= "return checkpwd()") 
-                    input.textBox.inputBar(type ='password' name= 'oldpass'  placeholder= "OLD PASSWORD" id="oldpass")
-                    input.textBox.inputBar(type ='password' name= 'newpass' placeholder= "NEW PASSWORD" id ="newpass")
-                    input.textBox.inputBar(type ='password' name= 'confirmpass' placeholder= "CONFIRM PASSWORD" id = "confirmpass")
-                    input.longButton.inputBar(type= 'submit' value= 'SUBMIT' id ="changepwd")
+                    input.inputBar(type ='password' name= 'oldpass'  placeholder= "OLD PASSWORD" id="oldpass")
+                    input.inputBar(type ='password' name= 'newpass' placeholder= "NEW PASSWORD" id ="newpass")
+                    input.inputBar(type ='password' name= 'confirmpass' placeholder= "CONFIRM PASSWORD" id = "confirmpass")
+                    input.longButton(type= 'submit' value= 'SUBMIT' id ="changepwd")
                     input(type = 'hidden' name='userid' value ="#{userid}" )
         if su === true
             .passwordChange
