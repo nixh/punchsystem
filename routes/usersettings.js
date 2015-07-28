@@ -1,10 +1,26 @@
 var express = require('express');
 var router = express.Router();
-var usersetting = require('../usersettingModule');
-var settings = new usersetting();
-var utils = require('../utils');
-var session = require('../sessionModule');
-var sid = new session();
+var monk = require('monk');
+var utils = require('../utils'); var db = monk(utils.getConfig('mongodbPath'));
+var btoa = require('btoa'); var nobi = require('nobi'); var crypto = require('crypto');
+var signer = nobi(utils.getConfig('appKey'));
+var uuid = require('node-uuid');
+var util = require('util');
+var moment = require('moment');
+var dbhelper = require('../db/db');
+var Action = require('../lib/common/action');
+
+router.get('/settings',Action('Settings.staffSettingView'))
+router.get('/supervisor/settings',Action('Settings.supSettingView'))
+router.get('/supervisor/sendemail',Action('Settings.setEmailView'))
+router.get('/supervisor/setrate',Action('Settings.setRateView'))
+router.post('/settings',Action('Settings.changePass'))
+router.post('/supervisor/settings',Action('Settings.supChangePass'))
+router.post('/supervisor/sendemail',Action('Settings.setEmail'))
+router.post('/supervisor/setrate',Action('Settings.setRate'))
+router.post('/enableEmail/:switchs',Action('Settings.emailSwitch'))
+router.post('/enablerate/:switchs',Action('Settings.rateSwitch'))
+/*
 router.get('/', function(req, res, next){
 
 	res.render('usersettings');
@@ -69,14 +85,10 @@ router.get('/supervisor/sendemail', function (req, res, next){
 		sid.getSessionInfo(id,function(err,doc){
 			if (err){
 				res.send('err')
-<<<<<<< HEAD
-			}else{			
-				res.render('./staff/staff_setting_su',{"userid":doc.userid,
-							"su":true,
-=======
+
 			}else{
 				res.render('./yongred/user_setting',{"userid":doc.userid,"su":true,
->>>>>>> 0e9f3a273dd709655e58db7271011597efe4e585
+
 							"enableEmail":doc.enableEmail,
 							"enablerate":doc.enablerate,
 							"overtime":doc.overtime,
@@ -115,11 +127,9 @@ router.post('/enableEmail/:switchs',function (req,res){
 			if(err) {
 			 	res.send("Error!!!");
 		}else{
-<<<<<<< HEAD
+
 			res.render('./staff/staff_setting_su',{"userid":req.body.userid,"su":true})
-=======
-			res.render('./yongred/user_setting',{"userid":req.body.userid,"su":true,"enablerate":switchs})
->>>>>>> 0e9f3a273dd709655e58db7271011597efe4e585
+
 		}
 	})
 
@@ -140,11 +150,9 @@ router.post('/enablerate/:switchs',function (req,res){
 			if(err) {
 			 	res.send("Error!!!");
 		}else{
-<<<<<<< HEAD
+
 			res.render('./staff/staff_setting_su',{"userid":req.body.userid,"su":true})
-=======
-			res.render('./yongred/user_setting',{"userid":req.body.userid,"su":true,"enablerate":switchs})
->>>>>>> 0e9f3a273dd709655e58db7271011597efe4e585
+
 		}
 	})
 
@@ -207,21 +215,11 @@ router.post('/supervisor/settings', function (req, res) {
                 		pageUrl: '/supervisor/settings'})(req,res,next);
 				
 		}else{
-<<<<<<< HEAD
+
 				
+			
 			utils.render("message",{success: true,
-                		msg: {head:res.__("changepass successful")},
-=======
-				/*utils.render("./yongred/user_setting",
-					{"userid":userobj.userid,"receiveEmails":doc.email,"su":true,
-							"enableEmail":doc.enableEmail,
-							"message":true,
-							"enablerate":doc.enablerate,
-							"overtime":doc.overtime,
-							"newrate":doc.curRate})(req,res,next);*/
-	utils.render("message",{success: true,
                 		msg: {head:"changepass successful"},
->>>>>>> 0e9f3a273dd709655e58db7271011597efe4e585
                 		pageUrl: '/supervisor/settings'})(req,res,next);
 				}
 			
@@ -263,6 +261,6 @@ router.post('/supervisor/sendemail', function (req, res) {
 })
 
 //settings.db.close();
-
+*/
 
 module.exports = router;

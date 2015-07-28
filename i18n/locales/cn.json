@@ -123,11 +123,9 @@
 	"...": "...",
 	"empty": "空记录..",
 	"edit": "修改",
-<<<<<<< HEAD
 
-	"add_user": "add_user"
-}
-=======
+	"add_user": "add_user",
+
 	"February": "February",
 	"March": "March",
 	"November": "November",
@@ -139,4 +137,4 @@
 	"September": "September",
 	"April": "April"
 }
->>>>>>> 0e9f3a273dd709655e58db7271011597efe4e585
+
