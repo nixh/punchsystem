@@ -329,97 +329,35 @@ functions
   background-color: #f78283;
   color: white;
 }
-body {
-  margin: 0;
-  padding: 0;
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-  width: 100%;
-  background-color: #f5ede4;
+.bgbody {
+  background-repeat: repeat-y;
 }
-.main {
+.mainPage {
   width: 87.5%;
   margin: 0 auto;
   color: #677499;
-  outline: 0;
-  padding-top: 15%;
-  position: relative;
+  padding-top: 5%;
 }
-.main .avatarsection {
+.mainPage .avatar {
   width: 100%;
-  display: table;
-  margin-bottom: 8%;
+  text-align: center;
 }
-.main .avatarsection .avatarimg {
-  display: table-cell;
-  vertical-align: middle;
-  width: 300px;
-  font-size: 0;
-}
-.main .avatarsection .avatarimg img {
+.mainPage .avatar img {
   border-radius: 50%;
   border: 20px solid #8ad1d7;
   width: 300px;
   height: 300px;
 }
-.main .avatarsection .avatarupload {
-  font-size: 0;
-  display: table-cell;
-  vertical-align: middle;
-  padding-left: calc(100%/16);
-}
-.main .avatarsection .avatarupload .textinput {
-  display: inline-block;
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
-  width: 81.25%;
-  margin-bottom: 5%;
-}
-.main .avatarsection .avatarupload #choosepic {
-  display: inline-block;
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
-  width: 18.75%;
-}
-.main .avatarsection .avatarupload .submit-button {
-  width: 100%;
-}
-.main .infosection {
-  position: absolute;
-}
-.main .infosection .sectiontitle {
-  margin-bottom: 5%;
-}
-.main .infosection .sectiontitle span {
-  font-family: 'anivers reg', 'simhei';
-  font-size: 75px;
-  color: #8ad1d7;
-}
-.main .infosection .sectionfields {
-  margin-bottom: 20%;
-}
-.main .infosection .sectionfields label.title {
-  background-color: #f78283;
-  color: white;
+.mainPage .avatar p {
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
-  width: 25%;
-  height: 120px;
-  display: inline-block;
-  line-height: 120px;
-  text-align: center;
+  color: #f78283;
 }
-.main .infosection .sectionfields .textinput,
-.main .infosection .sectionfields .passinput {
-  width: 75%;
-  border-radius: 0px;
-  margin-bottom: 2%;
+.mainPage .paidRate {
+  width: 100%;
+  padding-bottom: 5%;
 }
-.main .infosection .sectionfields .sexinput {
-  margin-bottom: 2%;
-}
-.main .infosection .sectionfields .sexinput:after {
+.mainPage .paidRate:after {
   content: "";
   display: block;
   visibility: hidden;
@@ -427,102 +365,80 @@ body {
   zoom: 1;
   height: 0px;
 }
-.main .infosection .sectionfields .sexinput label.title {
-  float: left;
-  background-color: #f78283;
-  color: white;
-  font-family: 'anivers reg', 'simhei';
-  font-size: 50px;
-  width: 25%;
-  height: 120px;
-  display: inline-block;
-  line-height: 120px;
-  text-align: center;
-}
-.main .infosection .sectionfields .sexinput .radioinput {
-  margin-left: 5%;
-  float: left;
-  width: 25%;
-}
-.main .infosection .sectionfields .textareainput {
-  position: relative;
-  margin-bottom: 2%;
-}
-.main .infosection .sectionfields .textareainput label.title {
-  position: absolute;
-  background-color: #f78283;
-  color: white;
-  font-family: 'anivers reg', 'simhei';
-  font-size: 50px;
-  width: 25%;
-  height: 120px;
-  display: inline-block;
-  line-height: 120px;
-  text-align: center;
-}
-.main .infosection .sectionfields .textareainput textarea {
-  width: 100%;
-  height: 360px;
-  resize: none;
-  overflow-y: scroll;
-  font-family: 'anivers reg', 'simhei';
-  font-size: 50px;
-  color: #677499;
-  outline: 0;
-  border: none;
-  text-indent: calc(100%/4 + 25px);
-  line-height: 120px;
-}
-.main .previewall {
-  width: 100%;
-  position: absolute;
-}
-.main .previewall table.previewtable {
-  border-spacing: 20px 20px;
-  border-collapse: separate;
-  margin-left: -20px;
-  width: calc(100% + 40px);
-  margin-bottom: 2%;
-}
-.main .previewall table.previewtable th {
-  background-color: #f78283;
-  color: white;
-  font-family: 'anivers reg', 'simhei';
-  font-size: 50px;
-  width: 25%;
-  height: 120px;
-  display: inline-block;
-  line-height: 120px;
-  text-align: center;
-  width: 100%;
-  font-weight: normal;
-}
-.main .previewall table.previewtable td {
-  background: rgba(255, 255, 255, 0.52);
-  height: 120px;
-  font-family: 'anivers reg', 'simhei';
-  font-size: 50px;
-}
-.main .previewall table.previewtable td:not([colspan]) {
-  width: 68.75%;
-}
-.main .previewall table.previewtable tr:last-child td {
-  height: 360px;
-  vertical-align: top;
-}
-.main .previewall table.previewtable tr:last-child td span.label {
-  background-color: #f78283;
-  color: white;
-  font-family: 'anivers reg', 'simhei';
-  font-size: 50px;
-  width: 25%;
-  height: 120px;
-  display: inline-block;
-  line-height: 120px;
-  text-align: center;
-  vertical-align: top;
+.mainPage .paidRate .paidRateBox {
   width: 31.25%;
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+  height: 300px;
+  float: left;
+  text-align: center;
+  background-color: white;
+  display: table;
+  position: relative;
 }
-.main .previewall .cmdtools .submit-button {
-  margin-bottom: 5%;
+.mainPage .paidRate .paidRateBox:nth-of-type(2) {
+  margin-left: 3.325%;
+}
+.mainPage .paidRate .paidRateBox:last-child {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+  float: right;
+}
+.mainPage .paidRate .paidRateBox:last-child:active {
+  background-color: #8ad1d7;
+  color: white;
+}
+.mainPage .paidRate .paidRateBox > span {
+  width: 100%;
+  margin: 0 auto;
+  display: table-cell;
+  vertical-align: middle;
+}
+.mainPage .paidRate .paidRateBox .hourRate {
+  display: table-cell;
+  vertical-align: middle;
+}
+.mainPage .paidRate .paidRateBox .imageCover {
+  height: 100%;
+  background-color: #f78283;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.mainPage .otherInfoLinks {
+  width: 100%;
+}
+.mainPage .otherInfoLinks .otherInfo {
+  background-color: #8ad1d7;
+  color: white;
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+  text-align: center;
+  border-radius: 0;
+  border: none;
+  width: 100%;
+  height: 120px;
+  line-height: 120px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+  background-color: white;
+  color: #677499;
+  margin-bottom: 2%;
+}
+.mainPage .otherInfoLinks .otherInfo:active {
+  background-color: #f78283;
+  color: white;
+}
+.mainPage .otherInfoLinks .otherInfo:last-of-type {
+  border-radius: 0px 0px 15px 15px;
+}
+.mainPage .otherInfoLinks .otherInfo:first-of-type {
+  border-radius: 15px 15px 0px 0px;
 }

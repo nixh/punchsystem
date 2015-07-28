@@ -3,7 +3,8 @@ extends ../layout.jade
 
 append links
     link(rel="stylesheet" href="/stylesheets/adminpunch.css") 
-    link(rel='stylesheet' href='/stylesheets/staffPunchReport.css')
+    //link(rel='stylesheet' href='/stylesheets/staffPunchReport.css')
+    link(rel='stylesheet' href='/stylesheets/staffPunchReportLs.css')
     link(rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css")
     link(rel="stylesheet" href="/pickadate/lib/themes/default.css" id="theme_base")
     link(rel="stylesheet" href="/pickadate/lib/themes/default.date.css" id="theme_date")
@@ -42,36 +43,36 @@ block content
                 .buttonItem= tr('export')
                 .returnStaff.buttonItem= tr('return')
 
-        .reportTable
-            table 
-                tr
+        .reportTableDiv
+            table.reportTable 
+                tr.tableRow
                     th(colspan='4')
                         = tr('time') + " "
                         = tr('in') + "/"
                         = tr('out')
 
                 if records.length === 0
-                    tr
-                        td(colspan=3 align="center")
+                    tr.tableRow
+                        td.tableData(colspan=3 align="center")
                             span.text= tr('empty records')
                 else
                     each record in records
-                        tr
-                            td 
+                        tr.tableRow
+                            td.tableData 
                                 ul
                                     li 
                                         .hollowcircle.green
                                     li 
                                         .hollowcircle.red
-                            td
+                            td.tableData
                                 ul.dateList
                                     li.outDate= record.outDate ? getDate(record.outDate) : ""
                                     li.inDate= getDate(record.inDate)
-                            td
+                            td.tableData
                                 ul.timeList
                                     li.outTime= record.outDate ? getTime(record.outDate) : ""
                                     li.inTime= getTime(record.inDate)
-                            td
+                            td.tableData
                                 ul
                                     li= tr('out')
                                     li= tr('in')

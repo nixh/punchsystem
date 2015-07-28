@@ -1,7 +1,8 @@
 extends ../layout.jade
 
 append links
-    link(rel='stylesheet', href='/stylesheets/staffMain.css')
+    //link(rel='stylesheet', href='/stylesheets/staffMain.css')
+    link(rel='stylesheet', href='/stylesheets/staffMainLs.css')
 
 append scripts
     //script(src= "/javascripts/showHideRate.js")
@@ -32,6 +33,8 @@ append scripts
                     rateSH.find("span").html("#{tr('hiderate')}");
                 }
             }
+
+
             $('.punchReport').on('click', function(){
                 location.href = "/recentRecords";
             });
@@ -52,36 +55,37 @@ append scripts
 
 block content
     .staffMainPage(ontouchstart="")
-        //.userInfo
         .avatar
-            img(src="#{user.sex ? '/images/boydefaultpicture.png' : '/images/girl default picture.png'}" alt="User Avatar") 
+            img(src="#{user.avatar ? user.avatar : user.sex ? '/images/boydefaultpicture.png' : '/images/girl default picture.png'}" alt="User Avatar") 
             p= tr('welcome') + " " + user.name
-            //.acctInfo
-                pre.
-                    Company: #{user.compid}
-                    User Account: #{user.email}
-                    User ID: #{user.userid}
-                    User Name: #{user.name}
-                    Gender: #{user.sex}
-                    Date Enrolled: #{user.createDate}
-                    Address: #{user.address}
 
-        .paidRate
-            .paidRateBox
-                span.text= tr('paidrate')
-            .paidRateBox
-                .hourRate $#{user.curRate} #{tr('per_hour')}
-                .imageCover
+        if su === false
+            .paidRate
+                .paidRateBox
+                    span= tr('paidrate')
+                .paidRateBox
+                    .hourRate $#{user.curRate} #{tr('per_hour')}
+                    .imageCover
 
-            .paidRateBox.showHideRate.noselect
-                span= tr('showrate')
+                .paidRateBox.showHideRate.noselect
+                    span= tr('showrate')
                     
-               
-        .otherInfoLinks.noselect
-            .punchReport.otherInfo= tr('punchReport')
-            if delegate
-                .delegate.otherInfo= tr('delegate')
-            .settings.otherInfo= tr('setting')
+        if su
+            .otherInfoLinks.noselect
+            .viewstaff.otherInfo= tr('view staff')
+            .addStaff.otherInfo= tr('add staff')
+            .manageRecords.otherInfo= tr('manage records')
+            .dynacode.otherInfo= tr('dynamic_qrcode')
+            .delegate.otherInfo= tr('delegate')
+            .adminpunch.otherInfo= tr('adminpunch')
+            .overview.otherInfo= tr('overview')
+            .setting.otherInfo= tr('setting')
             .logout.otherInfo= tr('logout')
-            if false
-                .wageReport.otherInfo= tr('wageReport')
+
+        else       
+            .otherInfoLinks.noselect
+                .punchReport.otherInfo= tr('punchReport')
+                if delegate
+                    .delegate.otherInfo= tr('delegate')
+                .settings.otherInfo= tr('setting')
+                .logout.otherInfo= tr('logout')

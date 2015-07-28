@@ -329,97 +329,70 @@ functions
   background-color: #f78283;
   color: white;
 }
-body {
-  margin: 0;
-  padding: 0;
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-  width: 100%;
-  background-color: #f5ede4;
+.bgbody {
+  background-repeat: repeat-y;
 }
-.main {
+.settingPage {
   width: 87.5%;
   margin: 0 auto;
-  color: #677499;
-  outline: 0;
-  padding-top: 15%;
-  position: relative;
 }
-.main .avatarsection {
+.settingPage .inputBar {
+  border-radius: 10px;
+  border: none;
   width: 100%;
-  display: table;
-  margin-bottom: 8%;
-}
-.main .avatarsection .avatarimg {
-  display: table-cell;
-  vertical-align: middle;
-  width: 300px;
-  font-size: 0;
-}
-.main .avatarsection .avatarimg img {
-  border-radius: 50%;
-  border: 20px solid #8ad1d7;
-  width: 300px;
-  height: 300px;
-}
-.main .avatarsection .avatarupload {
-  font-size: 0;
-  display: table-cell;
-  vertical-align: middle;
-  padding-left: calc(100%/16);
-}
-.main .avatarsection .avatarupload .textinput {
-  display: inline-block;
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
-  width: 81.25%;
-  margin-bottom: 5%;
-}
-.main .avatarsection .avatarupload #choosepic {
-  display: inline-block;
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
-  width: 18.75%;
-}
-.main .avatarsection .avatarupload .submit-button {
-  width: 100%;
-}
-.main .infosection {
-  position: absolute;
-}
-.main .infosection .sectiontitle {
-  margin-bottom: 5%;
-}
-.main .infosection .sectiontitle span {
+  height: 120px;
   font-family: 'anivers reg', 'simhei';
-  font-size: 75px;
-  color: #8ad1d7;
+  font-size: 50px;
+  text-indent: 10px;
+  color: #677499;
+  line-height: normal;
+  margin-bottom: 2%;
 }
-.main .infosection .sectionfields {
-  margin-bottom: 20%;
+.settingPage .inputBar::-webkit-input-placeholder {
+  color: #677499;
 }
-.main .infosection .sectionfields label.title {
-  background-color: #f78283;
+.settingPage .inputBar:-moz-placeholder {
+  /* Firefox 18- */
+  color: #677499;
+}
+.settingPage .inputBar::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #677499;
+}
+.settingPage .inputBar:-ms-input-placeholder {
+  color: #677499;
+}
+.settingPage .longButton {
+  background-color: #8ad1d7;
   color: white;
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
-  width: 25%;
-  height: 120px;
-  display: inline-block;
-  line-height: 120px;
   text-align: center;
+  border-radius: 10px;
+  border: none;
+  width: 100%;
+  height: 120px;
+  line-height: 120px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
 }
-.main .infosection .sectionfields .textinput,
-.main .infosection .sectionfields .passinput {
-  width: 75%;
-  border-radius: 0px;
-  margin-bottom: 2%;
+.settingPage .longButton:active {
+  background-color: #f78283;
+  color: white;
 }
-.main .infosection .sectionfields .sexinput {
-  margin-bottom: 2%;
+.settingPage .bigLabel {
+  float: left;
+  font-size: 60px;
 }
-.main .infosection .sectionfields .sexinput:after {
+.settingPage .switchButton {
+  width: 100%;
+  padding-top: 100px;
+  padding-bottom: 50px;
+}
+.settingPage .switchButton:after {
   content: "";
   display: block;
   visibility: hidden;
@@ -427,64 +400,152 @@ body {
   zoom: 1;
   height: 0px;
 }
-.main .infosection .sectionfields .sexinput label.title {
-  float: left;
-  background-color: #f78283;
-  color: white;
-  font-family: 'anivers reg', 'simhei';
-  font-size: 50px;
-  width: 25%;
-  height: 120px;
-  display: inline-block;
-  line-height: 120px;
-  text-align: center;
+.settingPage .switchButton .onOff {
+  float: right;
 }
-.main .infosection .sectionfields .sexinput .radioinput {
-  margin-left: 5%;
-  float: left;
-  width: 25%;
-}
-.main .infosection .sectionfields .textareainput {
-  position: relative;
-  margin-bottom: 2%;
-}
-.main .infosection .sectionfields .textareainput label.title {
-  position: absolute;
-  background-color: #f78283;
-  color: white;
-  font-family: 'anivers reg', 'simhei';
-  font-size: 50px;
-  width: 25%;
-  height: 120px;
-  display: inline-block;
-  line-height: 120px;
-  text-align: center;
-}
-.main .infosection .sectionfields .textareainput textarea {
+.settingPage .passwordChange {
   width: 100%;
-  height: 360px;
-  resize: none;
-  overflow-y: scroll;
-  font-family: 'anivers reg', 'simhei';
-  font-size: 50px;
+  padding-top: 100px;
+}
+.settingPage .passwordChange .passwordLabel {
+  margin-bottom: 2%;
+  color: #f78283;
+  display: inline-block;
+}
+.settingPage .emailSwitch {
+  width: 100%;
+}
+.settingPage .emailSwitch .switchLabel {
+  color: #f78283;
+}
+.settingPage .EmailReportSetting {
+  width: 100%;
+}
+.settingPage .EmailReportSetting .radioButton {
   color: #677499;
-  outline: 0;
+  width: 100%;
+  margin-top: 30px;
+}
+.settingPage .EmailReportSetting .radioButton:after {
+  content: "";
+  display: block;
+  visibility: hidden;
+  clear: both;
+  zoom: 1;
+  height: 0px;
+}
+.settingPage .EmailReportSetting .radioButton .chooseLabel {
+  font-size: 40px;
+  height: 300px;
+  float: left;
+  display: inline-block;
+}
+.settingPage .EmailReportSetting .radioButton .radioinput-center {
+  float: left;
+  height: 300px;
+  margin-left: 5%;
+  padding-top: 30px;
+  width: 25%;
+}
+.settingPage .EmailReportSetting .radioButton .radioinput-center .label {
+  font-size: 40px;
+}
+.settingPage .EmailReportSetting .radioButton .orLabel {
+  float: left;
+  font-size: 40px;
+  margin-left: 5%;
+  line-height: 240px;
+  height: 300px;
+}
+.settingPage .overTimeSwitch {
+  width: 100%;
+}
+.settingPage .overTimeSwitch .switchLabel {
+  color: #f78283;
+}
+.settingPage .overTimeSetting {
+  width: 100%;
+  padding-bottom: 100px;
+}
+.settingPage .overTimeSetting .thresholdDiv {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.settingPage .overTimeSetting .thresholdDiv:after {
+  content: "";
+  display: block;
+  visibility: hidden;
+  clear: both;
+  zoom: 1;
+  height: 0px;
+}
+.settingPage .overTimeSetting .thresholdDiv .thresholdLabel {
+  background-color: #f78283;
+  color: white;
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+  width: 25%;
+  height: 120px;
+  display: inline-block;
+  line-height: 120px;
+  text-align: center;
+  width: 50%;
+  height: 200px;
+  display: table;
+  border-radius: 10px;
   border: none;
-  text-indent: calc(100%/4 + 25px);
-  line-height: 120px;
+  float: left;
 }
-.main .previewall {
+.settingPage .overTimeSetting .thresholdDiv .hourDisplay {
+  float: left;
+  height: 200px;
+  line-height: normal;
+  text-align: center;
+  background-color: white;
+  color: #677499;
+  border-radius: 10px;
+  border: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  pointer-events: none;
+  width: 18.75%;
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+  margin-left: 3.325%;
+}
+.settingPage .overTimeSetting .thresholdDiv .perWeekLabel {
+  float: right;
+  display: table;
+  height: 200px;
+  line-height: normal;
+  text-align: center;
+  background-color: white;
+  color: #677499;
+  border-radius: 10px;
+  border: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  pointer-events: none;
+  width: 25%;
+  font-size: 40px;
+}
+.settingPage .overTimeSetting .rateDiv {
   width: 100%;
-  position: absolute;
+  margin-bottom: 20px;
 }
-.main .previewall table.previewtable {
-  border-spacing: 20px 20px;
-  border-collapse: separate;
-  margin-left: -20px;
-  width: calc(100% + 40px);
-  margin-bottom: 2%;
+.settingPage .overTimeSetting .rateDiv:after {
+  content: "";
+  display: block;
+  visibility: hidden;
+  clear: both;
+  zoom: 1;
+  height: 0px;
 }
-.main .previewall table.previewtable th {
+.settingPage .overTimeSetting .rateDiv .rateLabel {
   background-color: #f78283;
   color: white;
   font-family: 'anivers reg', 'simhei';
@@ -494,35 +555,35 @@ body {
   display: inline-block;
   line-height: 120px;
   text-align: center;
-  width: 100%;
-  font-weight: normal;
+  width: 50%;
+  height: 200px;
+  display: table;
+  border-radius: 10px;
+  border: none;
+  float: left;
 }
-.main .previewall table.previewtable td {
-  background: rgba(255, 255, 255, 0.52);
-  height: 120px;
-  font-family: 'anivers reg', 'simhei';
-  font-size: 50px;
-}
-.main .previewall table.previewtable td:not([colspan]) {
-  width: 68.75%;
-}
-.main .previewall table.previewtable tr:last-child td {
-  height: 360px;
-  vertical-align: top;
-}
-.main .previewall table.previewtable tr:last-child td span.label {
-  background-color: #f78283;
-  color: white;
-  font-family: 'anivers reg', 'simhei';
-  font-size: 50px;
-  width: 25%;
-  height: 120px;
-  display: inline-block;
-  line-height: 120px;
+.settingPage .overTimeSetting .rateDiv .rateDisplay {
+  float: right;
+  display: table;
+  height: 200px;
+  line-height: normal;
   text-align: center;
-  vertical-align: top;
-  width: 31.25%;
+  background-color: white;
+  color: #677499;
+  border-radius: 10px;
+  border: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  pointer-events: none;
+  width: 43.75%;
+  font-size: 40px;
 }
-.main .previewall .cmdtools .submit-button {
-  margin-bottom: 5%;
+.settingPage .overTimeSetting span.labelSpan {
+  line-height: normal;
+  font-size: 40px;
+  word-wrap: break-word;
+  display: table-cell;
+  vertical-align: middle;
 }

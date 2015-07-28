@@ -8,6 +8,7 @@ var uuid = require('node-uuid');
 var util = require('util');
 var moment = require('moment');
 var dbhelper = require('../db/db');
+var Action = require('../lib/common/action');
 
 var loginKeys = {};
 
@@ -214,6 +215,7 @@ router.get('/punch/:key', function(req, res, next) {
 
 
 
+
 /*
 var qrModule = require('../qrcodeModule');
 
@@ -235,9 +237,10 @@ router.get('/recentRecords', function(req, res, next) {
         sessionid: req.cookies.sessionid
     }, function(err, recordDocs) {
         rm.db.close();
-        utils.render('staff/staff_punch_report', {
+        utils.render('yongred/punch_report', {
             moment: moment,
-            records: recordDocs
+            records: recordDocs,
+            su: false
         })(req, res, next);
 
     });
@@ -292,10 +295,11 @@ router.get('/supervisor/rencentRecords/:uid', function(req, res, next) {
     var uid = req.params.uid;
     rm.rencentRecords(uid, function(err, recordDocs) {
         rm.db.close();
-        utils.render('supervisor/supervisor_punch_report', {
+        utils.render('yongred/punch_report', {
             moment: moment,
             records: recordDocs,
             userid: uid,
+            su: true
         })(req, res, next);
     });
 });
@@ -670,6 +674,9 @@ router.post('/admin/supervisor/new', function(req, res, next){
     });
 
 });
+
+router.get('/testlogin', Action('login.view'));
+router.get('/test', Action('login.auth'));
 
 router.get('/cookies', function(req, res, next) {
     var cookies = req.cookies;
