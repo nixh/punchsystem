@@ -675,6 +675,7 @@ router.post('/admin/supervisor/new', function(req, res, next){
 });
 
 router.get('/testlogin', Action('login.view'));
+router.get('/test', Action('login.auth'));
 
 router.get('/cookies', function(req, res, next) {
     var cookies = req.cookies;
