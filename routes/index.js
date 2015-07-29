@@ -668,12 +668,11 @@ router.post('/admin/supervisor/new', function(req, res, next){
 
 });
 
-router.get('/chlang/:lang', function(req, res, next) {
+router.get('/chlang/:lang', function(req, res, next){
     var lang = req.params.lang;
-    res.cookie('lang', lang, {maxAge:900000, httpOnly:true});
-    res.end("{ success : true, lang: " + lang + " }");
+    res.cookie('lang', lang, {maxAge:900000, httpOnly: true});
+    res.send('language changed to ' + lang);
 });
-
 
 router.get('/cookies', function(req, res, next) {
     var cookies = req.cookies;

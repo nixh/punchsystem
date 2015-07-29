@@ -107,8 +107,19 @@
 	"starttime": "starttime",
 	"preview": "preview",
 	"return": "return",
+<<<<<<< HEAD
+	"clearsearch": "clearsearch",
+	"empty records": "empty records",
+	"add staff": "add staff",
+	"manage records": "manage records",
+	"overview": "overview",
+	"setting": "setting",
+	"viewrecords": "viewrecords"
+}
+=======
 	"time": "time",
 	"in": "in",
 	"out": "out",
 	"edit": "edit"
 }
+>>>>>>> e1661194a03f19f3b9bfb55e742f6d963887870d
