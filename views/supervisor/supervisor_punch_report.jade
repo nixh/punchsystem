@@ -24,38 +24,52 @@ append scripts
             });
             $('.editButton').on('click', function(){
                 var $btn = $(this);
-                var date = $btn.attr('data-date');
-                var time = $btn.attr('data-time');
-                var type = $btn.attr('data-type');
-                var tr = $btn.parent().parent().parent().parent().parent();
-                if(type === 'in') {
-                    tr.find('.inDateInput').val(date);
-                    tr.find('.inTimeInput').val(time);
-                } else {
-                    tr.find('.outDateInput').val(date);
-                    tr.find('.outTimeInput').val(time);
-                }
+                var tr = $btn.parent().parent();
+                var inDateInput = tr.find('.inDateInput');
+                inDateInput.val(inDateInput.attr('data-value'));
+                var inTimeInput = tr.find('.inTimeInput');
+                inTimeInput.val(inTimeInput.attr('data-value'));
+                var outDateInput = tr.find('.outDateInput');
+                outDateInput.val(outDateInput.attr('data-value'));
+                var outTimeInput = tr.find('.outTimeInput');
+                outTimeInput.val(outTimeInput.attr('data-value'));
             });
             $('.confirmButton').on('click', function(){
                 var $btn = $(this);
-                var value = $btn.attr('data-value');
-                var type = $btn.attr('data-type');
-                var userid = "#{userid}";
-                var data = {userid: userid, type:type, value:value};
-                var tr = $btn.parent().parent().parent().parent().parent();
-                if(type === 'in') {
-                    var inDate = tr.find('.inDateInput').val();
-                    var inTime = tr.find('.inTimeInput').val();
-                    data.date = inDate+" "+inTime;
-                } else {
-                    var outDate = tr.find('.outDateInput').val();
-                    var outTime = tr.find('.outTimeInput').val();
-                    data.date = outDate+" "+outTime;
-                }
-                $.post("/supervisor/records_update", data, function(data){ 
-                    alert(123);
+                var recordid = $btn.attr('data-record-id');
+                var data = {id:recordid};
+                var tr = $btn.parent().parent().parent();
+                var inDateInput = tr.find('.inDateInput');
+                var inTimeInput = tr.find('.inTimeInput');
+                var outDateInput = tr.find('.outDateInput');
+                var outTimeInput = tr.find('.outTimeInput');
+                var inDate = inDateInput.val();
+                var inTime = inTimeInput.val();
+                data.inDate = inDate+" "+inTime;
+                var outDate = outDateInput.val();
+                var outTime = outTimeInput.val();
+                data.outDate = outDate+" "+outTime;
+                $.post("/supervisor/records_update", data, function(res){ 
+                    if(res && res.success) {
+                        location.reload();
+                    } else {
+                        alert(res.msg);
+                    }
                 }, "json");
             });
+            $('.deleteButton').on('click', function(){
+                var $btn = $(this);
+                var recordid = $btn.attr('data-record-id');
+                var data = {id: recordid};
+                $.post("/supervisor/records_delete", data, function(res){ 
+                    if(res && res.success) {
+                        location.reload();
+                    } else {
+                        alert(res.msg);
+                    }
+                }, "json");
+                
+            })
         });
 
     - function getTime(tstamp) {
@@ -66,12 +80,12 @@ append scripts
     - }
 block content
     .supervisorPunchPage(ontouchstart="")
-        form#searchform(action="/supervisor/records_search" method="POST")
+        form#searchform(action="/supervisor/records_search" method="GET")
             .startEndTime
+                input(type="hidden" name="userid" value="#{userid}")
                 input.useDatePicker(type= "text" name="startdate" placeholder="#{tr('starttime')}") 
                 //.endTime 
                 input.useDatePicker(type= "text" name="enddate" placeholder="#{tr('endtime')}")
-                input(type="hidden" name="userid" value="#{userid}")
 
             .controlButtons
                 .preview.buttonItem= tr('preview')
@@ -96,31 +110,35 @@ block content
                             td.tableData 
                                 ul
                                     li.listItem 
-                                        .hollowcircle.green
+                                        .green OUT
                                     li.listItem  
-                                        .hollowcircle.red
+                                        .red IN
                             td.tableData
+                                - var outDate = record.outDate ? getDate(record.outDate) : "";
+                                - var inDate = record.inDate ? getDate(record.inDate) : "";
                                 ul.dateList
                                     li.listItem.date.outDate
-                                        span= record.outDate ? getDate(record.outDate) : ""
-                                        input.dateInput.outDateInput.useDatePicker.hidden(type= "text")
+                                        span= outDate
+                                        input.dateInput.outDateInput.useDatePicker.hidden(type="text" data-value=outDate)
                                     li.listItem.date.inDate
-                                        span= getDate(record.inDate)
-                                        input.dateInput.inDateInput.useDatePicker.hidden(type= "text")
+                                        span= inDate
+                                        input.dateInput.inDateInput.useDatePicker.hidden(type="text" data-value=inDate)
                             td.tableData
+                                - var outTime = record.outDate ? getTime(record.outDate) : "";
+                                - var inTime = record.inDate ? getTime(record.inDate) : "";
                                 ul.timeList
                                     li.listItem.time.outTime
-                                        span= record.outDate ? getTime(record.outDate) : ""
-                                        input.timeInput.outTimeInput.useTimePicker.hidden(type= "text")
+                                        span= outTime
+                                        input.timeInput.outTimeInput.useTimePicker.hidden(type= "text" data-value=outTime)
                                     li.listItem.time.inTime
-                                        span= getTime(record.inDate)
-                                        input.timeInput.inTimeInput.useTimePicker.hidden(type= "text")
+                                        span= inTime 
+                                        input.timeInput.inTimeInput.useTimePicker.hidden(type= "text" data-value=inTime)
                             td.tableData
-                                .editOutButton.editButton(data-date="#{getDate(record.outDate)}" data-time="#{getTime(record.outDate)}" data-type="out")= tr('edit')
+                                .editOutButton.editButton= tr('edit')
                                 .confirmReturnDelete.outConfirmReturn.hidden
-                                    .confirmButton.funcButton(data-value="#{record._id}" data-type="out") O 
+                                    .confirmButton.funcButton(data-record-id="#{record._id}") O 
                                     .returnButton.funcButton X
-                                    .deleteButton.funcButton DELETE
+                                    .deleteButton.funcButton(data-record-id="#{record._id}")= tr('delete')
 
                                     //li.listItem 
                                         button.editInButton.editButton(data-date="#{getDate(record.inDate)}" data-time="#{getTime(record.inDate)}" data-type="in")= tr('edit') 

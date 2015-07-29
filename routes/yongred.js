@@ -83,7 +83,6 @@ router.get('/settings', function(req, res, next){
 	//res.render('staff/staff_setting', {emailReportData:['one', 'two', 'three']});
 });*/
 
-/*
 var qrModule = require('../qrcodeModule');
 router.get('/staff_delegate', function(req, res, next){
     var qrm = new qrModule();
@@ -94,7 +93,7 @@ router.get('/staff_delegate', function(req, res, next){
         })(req, res, next);
     });
 });
-*/
+
 router.get('/staff_punch_report', function(req, res, next){
 
 	res.render('staff/staff_punch_report', {
