@@ -31,15 +31,11 @@
     "node-uuid": "~1.4.3",
     "q": "^1.4.1",
     "request": "~2.58.0",
-<<<<<<< HEAD
-    "underscore": "~1.8.3"
-=======
     "underscore": "~1.8.3",
     "grunt": "~0.4.5",
     "grunt-contrib-watch": "~0.6.1",
     "grunt-contrib-less": "~1.0.1",
     "q": "~1.4.1",
     "winston": "~1.0.1"
->>>>>>> 8725666960ae9a4da5e58eaa63cd2c8d60477b91
   }
 }

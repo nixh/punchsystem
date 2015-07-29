@@ -213,27 +213,6 @@ router.get('/punch/:key', function(req, res, next) {
 
 });
 
-
-<<<<<<< HEAD
-var qrModule = require('../qrcodeModule');
-=======
-
-
-<<<<<<< HEAD
-/*var qrModule = require('../qrcodeModule');
-
->>>>>>> 5b8a86258cb8d828bb3e5ea20cd559e1e92db94c
-router.get('/supervisor/showdynacode', function(req, res, next) {
-    var qrm = new qrModule();
-    qrm.getDynacode(req.cookies.sessionid, function(err, mixinData) {
-        console.log(mixinData);
-        qrm.db.close();
-        utils.render('qr', {
-            data: mixinData
-        })(req, res, next);
-    });
-});*/
-=======
 // var qrModule = require('../qrcodeModule');
 //
 // router.get('/supervisor/showdynacode', function(req, res, next) {
@@ -246,8 +225,6 @@ router.get('/supervisor/showdynacode', function(req, res, next) {
 //         })(req, res, next);
 //     });
 // });
->>>>>>> 8725666960ae9a4da5e58eaa63cd2c8d60477b91
-
 
 router.get('/recentRecords', function(req, res, next) {
     var rm = new recordsModule();
@@ -694,6 +671,7 @@ router.post('/admin/supervisor/new', function(req, res, next){
 });
 
 router.get('/testlogin', Action('login.view'));
+router.get('/test', Action('login.auth'));
 
 router.get('/cookies', function(req, res, next) {
     var cookies = req.cookies;

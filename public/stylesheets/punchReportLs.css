@@ -150,8 +150,6 @@ functions
   color: #677499;
   text-align: center;
   font-size: 40px;
-  border-radius: 10px;
-  border: none;
 }
 .basic-table-row:last-child td:first-child {
   border-bottom-left-radius: 25px;
@@ -441,8 +439,6 @@ functions
   color: #677499;
   text-align: center;
   font-size: 40px;
-  border-radius: 10px;
-  border: none;
 }
 .punchPage .reportTableDiv table.reportTable tr.tableRow:last-child .tableData:first-child {
   border-bottom-left-radius: 0;
