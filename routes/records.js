@@ -61,7 +61,9 @@ router.post('/records_search', function(req, res, next) {
     sm.getSessionInfo(sessionid, function(err, sessionDoc){
         var userid = sessionDoc.userid;
         var query = {inDate: {"$gte": starttime} , outDate: {"$lte": endtime}, userid: userid};
-        rm.searchRecords(query, function(jsonData) {
+        var query1 = {inDate: {"$gte": starttime} , outDate: null, userid: userid};
+        var fq = { $or: [query, query1]}
+        rm.searchRecords(fq, function(jsonData) {
             jsonData.su = false;
             jsonData.tr = res.__;
             jsonData.moment = moment;

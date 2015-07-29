@@ -43,9 +43,7 @@ block content
                 th= tr('select')
             each user, index in users
                 - var record = getRecord(user.userid, lastRecords);
-                - var punchOut = false;
-                - if(record)
-                -   punchOut = getRecord(user.userid, lastRecords).outDate
+                - var punchOut = record ? record.outDate : true;
                 tr
                     td
                         .statusbox

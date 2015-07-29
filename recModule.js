@@ -428,7 +428,7 @@ function getWageByWeek(query, callback) {
                         userReport.userid = report.userid;
                         userReport.from = moment(report.from).format("LLLL");
                         userReport.to = moment(report.to).format("LLLL");
-                        userReport.totalhours = totalhours.toFixed(2);
+                        userReport.totalhours = totalhours;
                         userReport.avgRate = report.avgRate;
                         var totalWage = 0;
                         var rates = report.rates;
@@ -440,7 +440,7 @@ function getWageByWeek(query, callback) {
                         if (overTime > 0) {
                             totalWage += overTime * report.avgRate * 0.5;
                         }
-                        userReport.totalWage = totalWage.toFixed(2);
+                        userReport.totalWage = totalWage;
                         jsonData.userReports.push(userReport);
                     });
                     jsonData.userList = userList;

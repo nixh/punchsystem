@@ -4,7 +4,6 @@ var monk = require('monk');
 var utils = require('./utils');
 var db = monk(utils.getConfig('mongodbPath'));
 var dbhelper = require('./db/db');
-var userModule = require('./usermodule');
 
 //var path = process.argv[2];
 
@@ -44,11 +43,10 @@ lines.forEach(function(line, index){
         password: initPass,
         sex: sex,
         email: email,
-        address_street: add_street,
-        address_city: add_city,
-        address_state: add_state,
-        address_zip : add_zip,
+        address: add_street + "|" + add_city + "|" + add_state + "|" + add_zip
         tel : tel,
+        owner: true,
+        curRate: 9,
         rates: [{ createTime: currentDate, rate: 9 }]
     };
     dbhelper.newDocWithIncId('companies', 'compid', compDoc, db, function(err, comp){
@@ -61,18 +59,14 @@ lines.forEach(function(line, index){
             "report_send_frequency" : 0,
             "qrcode_update_frequency" : 7000
         }, function(err, defaultSettings){
-            var um = new userModule({db: db});
-            um.addUser(userObj, function(err, user){
-                um.db.close();
+            userObj.compid = comp.compid;
+            db.get('users').insert(userObj, function(err, user) {
+                if(err)
+                    return console.log(err);
                 console.log(user);
             });
         });
         
     });
-
-    
-
-    
-
 });
 

@@ -213,20 +213,18 @@ router.get('/punch/:key', function(req, res, next) {
 });
 
 
+var qrModule = require('../qrcodeModule');
 
-
-// var qrModule = require('../qrcodeModule');
-//
-// router.get('/supervisor/showdynacode', function(req, res, next) {
-//     var qrm = new qrModule();
-//     qrm.getDynacode(req.cookies.sessionid, function(err, mixinData) {
-//         console.log(mixinData);
-//         qrm.db.close();
-//         utils.render('qr', {
-//             data: mixinData
-//         })(req, res, next);
-//     });
-// });
+router.get('/supervisor/showdynacode', function(req, res, next) {
+    var qrm = new qrModule();
+    qrm.getDynacode(req.cookies.sessionid, function(err, mixinData) {
+        console.log(mixinData);
+        qrm.db.close();
+        utils.render('qr', {
+            data: mixinData
+        })(req, res, next);
+    });
+});
 
 
 router.get('/recentRecords', function(req, res, next) {
@@ -311,8 +309,7 @@ router.get('/supervisor/employees', function(req, res, next) {
         console.log(sObj.compid);
 
         um.getAllUsers({
-            compid: sObj.compid,
-            owner: false
+            compid: sObj.compid
         }, function(err, users) {
             console.log(JSON.stringify(users));
             utils.render('users/userListSearch', {
