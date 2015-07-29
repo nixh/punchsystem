@@ -1,0 +1,81 @@
+extends layout
+append links
+    link(rel="stylesheet" href="/stylesheets/overviewreport.css")
+
+    - function getRecord(userid, records) {
+    -   return records.filter(function(r){ return r.userid === userid })[0];
+    - }
+
+    - var now = moment(m, "MM-DD");
+    - var year = now.format('YYYY');
+    - var month = now.format("MMMM");
+    - now.startOf('month');
+    - var weeklist = [];
+    - var counter = 5;
+    - while(counter > 0) {
+    -   var weekObj = { start: now.startOf('week').format('MM-DD'), end: now.endOf('week').format('MM-DD') };
+    -   now.add(1, 'w');
+    -   weeklist.push(weekObj);
+    -   counter--;
+    - }
+
+append scripts
+    script.
+        $(function initEvents(){
+            $('.weekly > .submitbutton').on('click', function(){
+                $('.weeklist').slideToggle('slow');
+            });
+            $('.weekly ul li').on('click', function(){
+                var $liBtn = $(this);
+                location.href = "/supervisor/overviewreport/" + $liBtn.html();
+            });
+
+            $('.monthly>.submitbutton').on('click', function(){
+                location.href = "/supervisor/overviewreport#{month? '/'+month : ''}";
+            });
+            $('.back').on('click', function(){
+                location.href = "/supervisor/supervisor_main"
+            });
+            
+
+        });
+
+
+block content
+    .main
+        .header
+            span= tr('overview_summary')
+        .cmdtools
+            .monthly
+                .submitbutton #{tr('month_of')} #{tr(month)} <br> #{year}
+            .weekly
+                .submitbutton #{tr('weekly')} <br> #{tr('report')}
+                .weeklist.hidden
+                    ul
+                        each week, index in weeklist
+                            li= week.start + "/" + week.end
+
+
+        table.overviewtable
+            tr
+                th= tr('name')
+                th!= tr('start_end_date')
+                th= tr('paid_rate')
+                th= tr('hours')
+                th= tr('totalpay')
+            if userReports.length == 0
+                td(colspan="5")= tr('empty')
+            else
+                each user, index in userList
+                    - var record = getRecord(user.userid, userReports);
+                    if record
+                        tr
+                            td= user.name
+                            td
+                                span= moment(record.from).format("MM-DD hh:mm A")
+                                br
+                                span= moment(record.to).format("MM-DD hh:mm A")
+                            td= "$" + record.avgRate
+                            td= new Number(record.totalhours).toFixed(2) + " " + tr('hour')
+                            td= "$" + new Number(record.totalWage).toFixed(2)
+        .submitbutton.back= tr('back')

@@ -1,0 +1,166 @@
+@font-face {
+    font-family: "anivers reg";
+    src: url('/fonts/Anivers_Regular.otf') format("opentype");
+}
+@font-face {
+    font-family: "dinbek";
+    src: url('/fonts/DINBek.ttf');
+}
+
+@font-face {
+    font-family: "open sans";
+    src: url('/fonts/OpenSans-Regular.ttf');
+}
+
+@font-face {
+    font-family: "simhei";
+    src: url('/fonts/SimHei.ttf');
+}
+* {
+    -webkit-appearance: none;
+    outline: none;
+    box-sizing: border-box;
+}
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    min-height: 100%;
+    font-family: 'anivers reg';
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: transparent;
+}
+body.bgbody {
+    background: rgb(245, 237, 228);
+}
+.loadinglogo {} 
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.hidden {
+    display: none;
+}
+.show {
+    display: '';
+}
+
+.inputError{
+    border:5px solid red;
+}
+
+.avoid-clicks {
+  pointer-events: none;
+}
+
+.loginpage {
+    position: relative;
+    width: 100%;
+}
+
+.loginpage .topImage {
+    width: 100%;
+    text-align: center;
+    padding-top: 17%;
+}
+.loginpage .content {
+    width: 100%;
+    margin-top: 15%;
+}
+.loginpage .content table {
+    width: 93%;
+    margin: 0 auto;
+}
+.loginpage .content table td {
+    text-align: center;
+    font-family: "anivers reg" padding-top: 40px;
+    padding-bottom: 40px;
+}
+.loginpage .content table input[type='text'],
+.loginpage .content table input[type='password']
+ {
+    width: 99%;
+    height: 120px;
+    border-radius: 40px;
+    border:none;
+    /*border: 4px solid rgb(138, 209, 215);*/
+    line-height: normal;
+    text-indent: 40px;
+    background: rgba(255, 255, 255, .8);
+    color: rgba(103, 116, 153, .8);
+    font-size: 50px;
+    font-family: "anivers reg";
+}
+img.icon {
+    width: 105px;
+    height: 105px;
+}
+.loginpage .content table input[type='submit'] {
+    height: 120px;
+    border-radius: 40px;
+    border: none;
+    line-height: 100%;
+    color: white;
+    background-color: rgb(138, 209, 215);
+    font-size: 75px;
+    width: 100%;
+    cursor: pointer;
+    font-family: "anivers reg";
+}
+
+.button {
+    height: 120px;
+    border-radius: 40px;
+    border: none;
+    line-height: normal;
+    color: white;
+    background-color: rgb(138, 209, 215);
+    font-size: 75px;
+    cursor: pointer;
+    font-family: "anivers reg";
+}
+
+.loginpage .content table input[type='submit']:active {
+    background-color: rgb(247, 130, 131);
+}
+span.number {
+    font-family: 'dinbek';
+    font-size: 40px;
+}
+span.text {
+    font-family: "anivers reg", "simhei";
+    font-size: 40px;
+}
+.loginpage .bottom {
+    margin-top: 18%;
+    display: table;
+    width: 100%;
+    font-size: 50px;
+    color: rgba(103, 116, 153, .52);
+}
+.loginpage .bottom .left {
+    width: 50%;
+    text-align: center;
+    background-color: rgba(255, 255, 255, .52);
+    display: table-cell;
+    height: 200px;
+    vertical-align: middle;
+    border-right: 3px solid rgb(247, 130, 131);
+}
+.loginpage .bottom .right {
+    width: 50%;
+    display: table-cell;
+    background-color: rgba(255, 255, 255, .52);
+    text-align: center;
+    height: 200px;
+    vertical-align: middle;
+    border-left: 3px solid rgb(247, 130, 131);
+}
+a {
+    color: #00B7FF;
+}

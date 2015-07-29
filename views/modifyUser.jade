@@ -1,0 +1,266 @@
+extends layout
+append links
+    link(rel="stylesheet" href="/stylesheets/userform.css")
+    link(rel="stylesheet" href="/pickadate/lib/themes/default.css" id="theme_base")
+    link(rel="stylesheet" href="/pickadate/lib/themes/default.date.css" id="theme_date")
+    link(rel="stylesheet" href="/pickadate/lib/themes/default.time.css" id="theme_time")
+        
+append scripts
+    script(src="/javascripts/jquery-ui.min.js")
+    script(src="/javascripts/pickadateControl.js")
+    script(src="/pickadate/lib/picker.js")
+    script(src="/pickadate/lib/picker.date.js")
+    script(src="/pickadate/lib/picker.time.js")
+    script.
+        function setAllFieldsToTable() {
+            $('.previewtable td>span').each(function(){
+                var $span = $(this);
+                var name = $span[0].id;
+                var idName = name.substring(0, name.length-4);
+                var value = $('form input[name="'+idName+'"]').val();
+
+                if(idName === 'sex') {
+                    if (value ===false){
+                            value = "0";
+                        }else{
+                            value= "1";
+                        }
+                    value = !value ? "#{tr('sex_male')}" : "#{tr('sex_female')}";
+
+                }
+                $span.html(value);
+            });
+        }
+        $(function initEvents(){
+            setAllFieldsToTable();
+            $('.radioinput').on('click', function(){
+                var $this = $(this);
+                $('.radioinput').each(function(i, radio){
+                    $(radio).removeClass('radioselected');
+                });
+                $this.addClass('radioselected');
+                $('.sexinput>input').val($this.attr('data-value'));
+            });
+            $('#choosepic').on('click', function(e){
+                e.preventDefault();
+                $('.uploadfield').trigger('click');
+            });
+            $('input[type="file"]').change(function(e){
+                var fileInput = $(this)[0];
+                var files = fileInput.files;
+                var fileNames = [];
+                $.each(files, function(i, v){
+                    fileNames.push(v.name);
+
+                });
+                $('.uploadfield>input:first-child').val(fileNames.join(', '));
+            });
+            $('.page').each(function(i, val){
+                if(i != 0) {
+                    $(this).hide();    
+                }
+            });
+            $('form input').change(function(){
+                setAllFieldsToTable();
+            });
+            var curPage = 1;
+            function changePage(nextOrPrev) {
+                if(nextOrPrev)
+                    curPage+=1;
+                else
+                    curPage-=1;
+                var selected = null;
+                $('.page').each(function(){
+                    var $this = $(this);
+                    if(+$this.attr('data-value') === curPage) {
+                        selected = $this;
+                    }
+                });
+                var $visible = $('.page:visible');
+                if(nextOrPrev) {
+                    $visible.eq(0).hide('slide', { direction: 'left' }, 400);
+                    selected.show('slide', { direction: 'right' }, 600);
+                }
+                else {
+                    $visible.eq(0).hide('slide', { direction: 'right' }, 400);
+                    selected.show('slide', { direction: 'left' }, 600);
+                }
+            }
+            $('.nextBtn').on('click', function(){
+                changePage(true);
+            });
+
+            $('.previousBtn').on('click', function(){
+                changePage(false);
+            });
+            $('#makechange').on('click', function(){
+                $('.previewall').eq(0).hide('slide', { direction: 'right' }, 400);
+                $('.page:eq(0)').show('slide', { direction: 'left' }, 600);
+                curPage = 1;
+            });
+            
+            $('#confirm').on('click', function(){
+                $form = $('form#big');
+                $form.attr('enctype', 'multipart/form-data')
+                $form.attr('action', '/users/change');
+                $form.attr('method', 'post');
+                $form.submit();
+            });
+            $('.sexinput input').change(function(){
+                var sex = $(this).val();
+                if(sex) {
+                    $('.sexinput .radioinput[data-value="1"]').addClass('radioselected');
+                    $('.sexinput .radioinput[data-value="0"]').removeClass('radioselected');
+                } else {
+                    $('.sexinput .radioinput[data-value="1"]').remvoeClass('radioselected');
+                    $('.sexinput .radioinput[data-value="0"]').addClass('radioselected');
+                }
+                
+
+            });
+        });
+    
+    script.
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#img_prev')
+                        .attr('src', e.target.result);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+block content
+    .main
+        form#big
+            .infosection.page(data-value="1")
+                .avatarsection
+                    .avatarimg
+                        img(id="img_prev" src="#{!user ? '/images/boydefaultpicture.png' :user.avatar}" alt="your image")
+                    .avatarupload
+                        .uploadfield 
+                            input.textinput(type="text" name="avatar_url")
+                            #choosepic.submitbutton= tr('...')
+                            input.uploadfield.hidden(type="file" name="avatar" multiple="multiple" onchange="readURL(this);")
+                        .submitupload
+    
+                - var _id = (user == undefined ? undefined: user._id);
+                
+                input(id="dbid" name="_id" type="text" value = "#{_id}" style="display: none")
+                
+                .sectiontitle
+                    span= tr('basic_info')
+                .sectionfields
+                    
+                    label.title= tr('userid')
+                    input(id="userid" name="userid" type="text" value="#{!user? '': user.userid}").textinput()
+                    label.title= tr('name')
+                    input(id="name" name="name" type="text" value="#{!user? '' : user.name}").textinput()
+                    label.title= tr('password')
+                    input(id="password" name="password" type="password" value="#{!user? '' : user.password}").passinput()
+                    .sexinput
+                        label.title= tr('sex')
+                        .radioinput.radioselected(data-value="1")
+                            .outer
+                                .inner
+                            .label= tr('sex_male')
+                        .radioinput(data-value="0")
+                            .outer
+                                .inner
+                            .label= tr('sex_female')
+                        input(name="sex" type="hidden" value="#{!user? '' : user.sex}")
+                .nextBtn.submitbutton= tr('next')
+
+            .infosection.page(data-value='2')
+                .previousBtn.submitbutton= tr('previous')
+                .sectiontitle
+                    span= tr('address')
+                .sectionfields
+                    label.title= tr('userform_address_street')
+                    input(type="text" id="address_street" name="address_street" value="#{!user? '' : user.address_street ? user.address_street : '' }").textinput
+                    label.title= tr('userform_address_city')
+                    input(type="text" id="address_city" name="address_city" value="#{!user? '' : user.address_city ? user.address_city : '' }").textinput
+                    label.title= tr('userform_address_state')
+                    input.textinput.small.inline(id="address_state" name="address_state" value="#{!user? '' : user.address_state}")
+                    label.title= tr('userform_address_zip')
+                    input.textinput.small.inline(id="address_zip" name="address_zip" value="#{!user? '' : user.address_zip}")
+                .nextBtn.submitbutton= tr('next')
+
+            .infosection.page(data-value='3')
+                .previousBtn.submitbutton= tr('previous')
+                .sectiontitle
+                    span= tr('other')
+                .sectionfields
+                    label.title= tr('paid_rate')
+                    input.textinput.small.inline(id="payrate" name="curRate" value="#{!user? '' : user.curRate}")
+                    label.title= tr('rate_change_date')
+
+                    //input.textinput.small.inline.useDatePicker(id="change_from" name="rate_change_date" value="#{!user?'': user.rates[user.rates.length-1].changetime}")
+
+                    input.textinput.small.inline.useDatePicker(id="change_from" name="rate_change_date")
+                    label.title= tr('userform_tel')
+                    input.textinput(name="tel" value="#{!user? '' : user.tel}")
+                    label.title= tr('userform_email')
+                    input.textinput(name="email" value="#{!user? '' : user.email}")
+                    .textareainput
+                        label.title= tr('remark')
+                        textarea(name='remark')= user? user.remark: ''
+                .nextBtn.submitbutton= tr('next')
+
+        .previewall.page(data-value='4')
+            table.previewtable()
+                tr
+                    th= tr('userid')
+                    td
+                        span#useridtext
+                tr
+                    th= tr('name')
+                    td
+                        span#nametext
+                tr
+                    th= tr('password')
+                    td
+                        span#passwordtext
+                tr
+                    th= tr('sex')
+                    td
+                        span#sextext
+                tr
+                    th= tr('userform_address')
+                    td
+                        span#streettext
+                tr
+                    td(colspan=2)
+                        span#citytext 
+                        span#statetext
+                        span#ziptext
+
+                tr
+                    th= tr('paid_rate')
+                    td
+                        span#ratetext
+                tr
+                    th= tr('rate_date')
+                    td
+                        span#ratedatetext
+                tr
+                    th= tr('userform_tel')
+                    td
+                        span#teltext
+                tr
+                    th= tr('userform_email')
+                    td
+                        span#email
+                tr
+                    td(colspan=2)
+                        span.label= tr('remark')
+                        span#remarktext 
+            .cmdtools
+                    #makechange.submitbutton
+                        = tr('make_change')
+                    #confirm.submitbutton
+                        = tr('submit_change')

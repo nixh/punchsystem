@@ -1,0 +1,81 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+.total {
+    background: rgb(238, 238, 238);
+    margin-top: 0;
+    width: 100%;
+}
+.companyname {
+    background: #FFFFFF;
+    color: rgb(103, 116, 153);
+    font-size: 275%;
+    line-height: 1%;
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+    margin-top: 2%;
+    width: 99%;
+    text-align: center;
+    display: inline-block;
+}
+.phone {
+    margin-top: 0.1%;
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+    color: rgb(103, 116, 153);
+    width: 99%;
+    margin-top: 1%;
+}
+.phoneleft {
+    margin-top: 0;
+    margin-right: 0.5%;
+    width: 49%;
+    text-align: center;
+    background: #FFFFFF;
+    float: left;
+    color: rgb(103, 116, 153);
+}
+.phoneright {
+    margin: 0;
+    width: 49%;
+    text-align: center;
+    background: #FFFFFF;
+    float: right;
+}
+.address {
+    background: #FFFFFF;
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+    margin-top: 1%;
+    width: 99%;
+    color: rgb(103, 116, 153);
+    text-align: center;
+    display: inline-block;
+}
+.qrframe {
+    margin-left: 25%;
+    margin-top: 5%;
+    margin-bottom: 0;
+    width: 50%;
+    text-align: center;
+    margin-bottom: 5%;
+    display: inline-block;
+}
+.button {
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    margin-top: 0;
+    width: 95%;
+    text-align: center;
+    display: inline-block;
+    background: rgb(138, 209, 215);
+    font-size: 200%;
+    font: #FFFFFF;
+    display: inline-block;
+    line-height: 12%;
+    color: #FFFFFF;
+}
+.button:active {
+    background: rgb(247, 130, 131);
+}

@@ -1,0 +1,31 @@
+extends layout
+append links
+    link(rel='stylesheet', href='/stylesheets/userdetails.css')
+
+block content
+    .total
+        .upper
+            .images 
+                img(src="/images/boydefaultpicture.png" width=300 height=300)
+            .name
+                | Name: #{user.name}
+            .information
+                .gender
+                    | FEMALE
+                .address
+                    | 140-75 ASH AVE, SUITE 2F </br>
+                    | FLUSHING, NY 11355
+                .phone
+                    |917-833-8912
+                .email
+                    |SOMYEE.HO@GMAIL.COM
+        .lower                  
+            table
+                tr
+                    td(style='color:rgb(103,116,153)' class="userid") USER ID </br>#12121212
+                    td(id='1' class="rate") RATE
+                tr
+                    td(rowspan='2' class="time" ) CREATE TIME
+                    td(class="modify") MODIFY                        
+                tr 
+                    td(class="delete") DELETE

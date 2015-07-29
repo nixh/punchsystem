@@ -1,0 +1,29 @@
+extends ../layout.jade
+
+append links
+    link(rel= "stylesheet" href= "/stylesheets/staffDelegate.css")
+
+append scripts
+
+block content
+    .staffDelegatePage(ontouchstart="")
+
+        .companyInfo 
+            .companyTitle ADMINSYS INC
+            .companyNumber 
+                .number 347-698-8300
+                .number 917-291-7836
+            .companyAddress
+                .streetAddress 140-75 ASH AVE, SUITE 2F
+                .cityAddress FLUSHING, NY 11355
+
+        .qrcode
+            img(src= dataURL)
+
+        .change.noselect
+            button.changeButton CHANGE
+    
+    script.
+        $(".changeButton").on('click', function(){
+            location.reload();
+        });

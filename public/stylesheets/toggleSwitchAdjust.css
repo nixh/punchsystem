@@ -1,0 +1,71 @@
+/*
+.toggle {
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  width: 150px;
+  height: 60px;
+  color: white;
+  outline: 0;
+  text-decoration: none;
+  border-radius: 100px;
+  border: 2px solid #546E7A;
+  background-color: #263238;
+  transition: all 500ms;
+}
+*/
+
+.toggle {
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  width: 180px;
+  height: 80px;
+  color: white;
+  outline: 0;
+  text-decoration: none;
+  border-radius: 5px;
+  background-color: rgb(138, 209, 215);
+  transition: all 500ms;
+}
+
+.toggle:active { background-color: rgb(138, 209, 215); }
+
+.toggle:hover:not(.toggle-moving):after { background-color: rgb(103, 116, 153); }
+
+.toggle:after {
+  display: block;
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  line-height: 80px;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 40px;
+  color: white;
+  background-color:  rgb(103, 116, 153);
+  transition: all 500ms;
+}
+
+.toggle-on:after {
+  content: 'On';
+  color: white;
+}
+
+.toggle-off:after {
+  content: 'Off';
+  
+
+  -webkit-transform: translate(100%, 0) ;
+  -moz-transform: translate(100%, 0);
+  transform: translate(100%, 0);
+  color: white;
+}
+
+.toggle-moving { }
+
+.toggle-moving:after {
+  color: transparent;
+  background-color: #222c31;
+  transition: color 0s, transform 500ms, border-radius 500ms, background-color 500ms;
+}
