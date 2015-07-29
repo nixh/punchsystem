@@ -38,6 +38,7 @@
 				&:nth-child(2){
 					margin-left: 3.325%;
 				}
+
 				&:last-child{
 					float: right;
 				}
@@ -64,7 +65,7 @@
 			}
 
 			th.tableHead{
-				background-color: @normal-display-background;
+				background-color: @table-head-background;
 				color: @text-color;
 			}
 
@@ -85,13 +86,13 @@
 
 						.editButton{
 							.roundBorder(@small-radius);
-							color:@button-color;
+							color:@functional-button-color;
 						}
 						.editInButton{
-							background-color: @button-in-background; 
+							background-color: @functional-button-background; 
 						}
 						.editOutButton{
-							background-color: @button-out-background;
+							background-color: @functional-button-background;
 						}
 
 						.confirmReturn{
@@ -101,18 +102,18 @@
 							}
 							& > button{
 								.roundBorder(@small-radius);
-								color:@button-color;
+								color:@functional-button-color;
 								text-align: center;
 								width: 48%;
 								padding: 0px;
 							}
 							.confirmButton{
 								float: left;
-								background-color: @button-out-background;
+								background-color: @functional-button-background;
 							}
 							.returnButton{
 								float: right;
-								background-color: @button-in-background;
+								background-color: @functional-button-background;
 							}
 						}
 					}
