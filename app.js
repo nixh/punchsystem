@@ -50,7 +50,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 i18n.configure({
     locales: ['cn','en'],
     directory: path.join(__dirname, 'i18n/locales'),
-    defaultLocale: 'cn'
+    defaultLocale: 'cn',
+    cookie: 'lang'
 });
 
 app.use(function(req, res, next) {
@@ -58,7 +59,6 @@ app.use(function(req, res, next) {
     if(lang)
         i18n.setLocale(lang);
     res.__ = i18n.__;
-    console.log(lang);
     return next();
 });
 

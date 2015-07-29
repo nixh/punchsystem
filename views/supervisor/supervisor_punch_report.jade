@@ -101,28 +101,28 @@ block content
                                         .hollowcircle.red
                             td.tableData
                                 ul.dateList
-                                    li.listItem.outDate
+                                    li.listItem.date.outDate
                                         span= record.outDate ? getDate(record.outDate) : ""
-                                        input.outDateInput.useDatePicker.hidden(type= "text")
-                                    li.listItem.inDate
+                                        input.dateInput.outDateInput.useDatePicker.hidden(type= "text")
+                                    li.listItem.date.inDate
                                         span= getDate(record.inDate)
-                                        input.inDateInput.useDatePicker.hidden(type= "text")
+                                        input.dateInput.inDateInput.useDatePicker.hidden(type= "text")
                             td.tableData
                                 ul.timeList
-                                    li.listItem.outTime
+                                    li.listItem.time.outTime
                                         span= record.outDate ? getTime(record.outDate) : ""
-                                        input.outTimeInput.useTimePicker.hidden(type= "text")
-                                    li.listItem.inTime
+                                        input.timeInput.outTimeInput.useTimePicker.hidden(type= "text")
+                                    li.listItem.time.inTime
                                         span= getTime(record.inDate)
-                                        input.inTimeInput.useTimePicker.hidden(type= "text")
+                                        input.timeInput.inTimeInput.useTimePicker.hidden(type= "text")
                             td.tableData
-                                ul
-                                    li.listItem 
-                                        button.editOutButton.editButton(data-date="#{getDate(record.outDate)}" data-time="#{getTime(record.outDate)}" data-type="out")= tr('edit')
-                                        .confirmReturn.outConfirmReturn.hidden
-                                            button.confirmButton(data-value="#{record._id}" data-type="out") O 
-                                            button.returnButton X
-                                    li.listItem 
+                                .editOutButton.editButton(data-date="#{getDate(record.outDate)}" data-time="#{getTime(record.outDate)}" data-type="out")= tr('edit')
+                                .confirmReturnDelete.outConfirmReturn.hidden
+                                    .confirmButton.funcButton(data-value="#{record._id}" data-type="out") O 
+                                    .returnButton.funcButton X
+                                    .deleteButton.funcButton DELETE
+
+                                    //li.listItem 
                                         button.editInButton.editButton(data-date="#{getDate(record.inDate)}" data-time="#{getTime(record.inDate)}" data-type="in")= tr('edit') 
                                         .confirmReturn.inConfirmReturn.hidden
                                             button.confirmButton(data-value="#{record._id}" data-type="in") O 

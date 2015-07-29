@@ -393,6 +393,28 @@ functions
   background-color: white;
   color: #677499;
 }
+.supervisorPunchPage .reportTableDiv table.reportTable .tableData {
+  /*
+				.editInButton{
+					background-color: @pink; 
+				}
+				.editOutButton{
+					background-color: @green;
+				}
+				*/
+}
+.supervisorPunchPage .reportTableDiv table.reportTable .tableData:first-of-type {
+  width: 6.25%;
+}
+.supervisorPunchPage .reportTableDiv table.reportTable .tableData:nth-of-type(2) {
+  width: 37.5%;
+}
+.supervisorPunchPage .reportTableDiv table.reportTable .tableData:nth-of-type(3) {
+  width: 37.5%;
+}
+.supervisorPunchPage .reportTableDiv table.reportTable .tableData:last-of-type {
+  width: 18.75%;
+}
 .supervisorPunchPage .reportTableDiv table.reportTable .tableData > ul {
   list-style: none;
   padding-left: 0;
@@ -430,21 +452,26 @@ functions
 .supervisorPunchPage .reportTableDiv table.reportTable .tableData > ul > li > input:-ms-input-placeholder {
   color: #677499;
 }
-.supervisorPunchPage .reportTableDiv table.reportTable .tableData > ul > li .editButton {
-  border-radius: 10px;
-  border: none;
+.supervisorPunchPage .reportTableDiv table.reportTable .tableData .editButton {
+  background-color: #8ad1d7;
+  color: white;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+  height: 100%;
+  line-height: 200px;
+}
+.supervisorPunchPage .reportTableDiv table.reportTable .tableData .editButton:active {
+  background-color: #f78283;
   color: white;
 }
-.supervisorPunchPage .reportTableDiv table.reportTable .tableData > ul > li .editInButton {
-  background-color: #f78283;
-}
-.supervisorPunchPage .reportTableDiv table.reportTable .tableData > ul > li .editOutButton {
-  background-color: #8ad1d7;
-}
-.supervisorPunchPage .reportTableDiv table.reportTable .tableData > ul > li .confirmReturn {
+.supervisorPunchPage .reportTableDiv table.reportTable .tableData .confirmReturnDelete {
   width: 100%;
+  height: 100%;
 }
-.supervisorPunchPage .reportTableDiv table.reportTable .tableData > ul > li .confirmReturn:after {
+.supervisorPunchPage .reportTableDiv table.reportTable .tableData .confirmReturnDelete:after {
   content: "";
   display: block;
   visibility: hidden;
@@ -452,19 +479,43 @@ functions
   zoom: 1;
   height: 0px;
 }
-.supervisorPunchPage .reportTableDiv table.reportTable .tableData > ul > li .confirmReturn > button {
-  border-radius: 10px;
-  border: none;
+.supervisorPunchPage .reportTableDiv table.reportTable .tableData .confirmReturnDelete .funcButton {
   color: white;
   text-align: center;
-  width: 48%;
   padding: 0px;
+  height: 50%;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+  line-height: 100px;
 }
-.supervisorPunchPage .reportTableDiv table.reportTable .tableData > ul > li .confirmReturn .confirmButton {
+.supervisorPunchPage .reportTableDiv table.reportTable .tableData .confirmReturnDelete .funcButton:active {
+  background-color: #677499;
+  color: white;
+}
+.supervisorPunchPage .reportTableDiv table.reportTable .tableData .confirmReturnDelete .confirmButton {
   float: left;
+  width: 50%;
   background-color: #8ad1d7;
 }
-.supervisorPunchPage .reportTableDiv table.reportTable .tableData > ul > li .confirmReturn .returnButton {
+.supervisorPunchPage .reportTableDiv table.reportTable .tableData .confirmReturnDelete .returnButton {
   float: right;
+  width: 50%;
   background-color: #f78283;
+}
+.supervisorPunchPage .reportTableDiv table.reportTable .tableData .confirmReturnDelete .deleteButton {
+  width: 100%;
+  background-color: #677499;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+  clear: both;
+}
+.supervisorPunchPage .reportTableDiv table.reportTable .tableData .confirmReturnDelete .deleteButton:active {
+  background-color: #8ad1d7;
+  color: white;
 }

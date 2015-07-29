@@ -3,28 +3,33 @@ $(document).ready(function(){
 	var inDateInput = $('.inDateInput');
 	var outTimeInput = $('.outTimeInput');
 	var inTimeInput = $('.inTimeInput');
-	var editOutButton = $('.editOutButton');
-	var editInButton = $('.editInButton');
+	var editButton = $('.editButton');
+	//var editOutButton = $('.editOutButton');
+	//var editInButton = $('.editInButton');
+	var confirmButton = $('.confirmReturnDelete > .confirmButton');
+	var returnButton = $('.confirmReturnDelete > .returnButton');
+	/*
 	var outConfirmButton = $('.outConfirmReturn > .confirmButton');
 	var outReturnButton = $('.outConfirmReturn > .returnButton');
 	var inConfirmButton = $('.inConfirmReturn > .confirmButton');
 	var inReturnButton = $('.inConfirmReturn > .returnButton');
+	*/
 
-	editOutButton.on('click', function(){
+	editButton.on('click', function(){
 		var parentTd = $(this).closest("td");
 		var timeTd = parentTd.prev("td");
 		var dateTd = parentTd.prev().prev("td");
 
-		timeTd.find(".outTimeInput").removeClass("hidden");
-		dateTd.find(".outDateInput").removeClass("hidden");
+		timeTd.find(".timeInput").removeClass("hidden");
+		dateTd.find(".dateInput").removeClass("hidden");
 
-		timeTd.find(".outTime> span").addClass("hidden");
-		dateTd.find(".outDate> span").addClass("hidden");
+		timeTd.find(".time> span").addClass("hidden");
+		dateTd.find(".date> span").addClass("hidden");
 
 		$(this).addClass("hidden")
 		$(this).siblings().removeClass("hidden");
 	});
-
+	/*
 	editInButton.on('click', function(){
 		var parentTd = $(this).closest("td");
 		var timeTd = parentTd.prev("td");
@@ -39,55 +44,62 @@ $(document).ready(function(){
 		$(this).addClass("hidden")
 		$(this).siblings().removeClass("hidden");
 	});
-
-	outConfirmButton.on('click', function(){
+	*/
+	confirmButton.on('click', function(){
 		var parentTd = $(this).closest("td");
 		var timeTd = parentTd.prev("td");
 		var dateTd = parentTd.prev().prev("td");
+
+		var dateSpan = dateTd.find(".date> span");
+		var timeSpan = timeTd.find(".time> span");
+		var timeInput= timeTd.find(".timeInput");
+		var dateInput= dateTd.find(".dateInput");
+		/*
 		var outTimeSpan = timeTd.find(".outTime> span");
 		var outDateSpan = dateTd.find(".outDate> span");
 		var outTimeInput = timeTd.find(".outTimeInput");
 		var outDateInput = dateTd.find(".outDateInput");
+		*/
 
 		var dateRegEx = /^\d\d\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$/;
 		var timeRegEx = /^[01]?[0-9]:[0-5][0-9] [AP]M$/;
 
-		var outDateInputVal = outDateInput.val();
-		var outTimeInputVal = outTimeInput.val();
+		var dateInputVal = dateInput.val();
+		var timeInputVal = timeInput.val();
 		var checkTimeDate = true;
 
-		if(dateRegEx.test(outDateInputVal)){
+		if(dateRegEx.test(dateInputVal)){
 
-			outDateSpan.html(outDateInputVal);
-			if(outDateInput.hasClass("inputError")){
-				outDateInput.removeClass("inputError");
+			dateSpan.html(dateInputVal);
+			if(dateInput.hasClass("inputError")){
+				dateInput.removeClass("inputError");
 			}
 
-		}else if(!dateRegEx.test(outDateInputVal)){
+		}else if(!dateRegEx.test(dateInputVal)){
 
-			outDateInput.addClass("inputError");
+			dateInput.addClass("inputError");
 			checkTimeDate= false;
 		}
 
-		if(timeRegEx.test(outTimeInputVal)){
-			outTimeSpan.html(outTimeInputVal);
-			if(outTimeInput.hasClass("inputError")){
-				outTimeInput.removeClass("inputError");
+		if(timeRegEx.test(timeInputVal)){
+			timeSpan.html(timeInputVal);
+			if(timeInput.hasClass("inputError")){
+				timeInput.removeClass("inputError");
 			}
 
-		}else if(!timeRegEx.test(outTimeInputVal)){
+		}else if(!timeRegEx.test(timeInputVal)){
 			
-			outTimeInput.addClass("inputError");
+			timeInput.addClass("inputError");
 			checkTimeDate= false;
 		}
 
 
 		if(checkTimeDate){
-			outTimeInput.addClass("hidden");
-			outDateInput.addClass("hidden");
+			timeInput.addClass("hidden");
+			dateInput.addClass("hidden");
 
-			outTimeSpan.removeClass("hidden");
-			outDateSpan.removeClass("hidden");
+			timeSpan.removeClass("hidden");
+			dateSpan.removeClass("hidden");
 
 
 			$(this).parent().addClass("hidden");
@@ -95,21 +107,22 @@ $(document).ready(function(){
 		}
 	});
 
-	outReturnButton.on('click', function(){
+	returnButton.on('click', function(){
 		var parentTd = $(this).closest("td");
 		var timeTd = parentTd.prev("td");
 		var dateTd = parentTd.prev().prev("td");
 
-		timeTd.find(".outTimeInput").addClass("hidden");
-		dateTd.find(".outDateInput").addClass("hidden");
+		timeTd.find(".timeInput").addClass("hidden");
+		dateTd.find(".dateInput").addClass("hidden");
 
-		timeTd.find(".outTime> span").removeClass("hidden");
-		dateTd.find(".outDate> span").removeClass("hidden");
+		timeTd.find(".time> span").removeClass("hidden");
+		dateTd.find(".date> span").removeClass("hidden");
 
 		$(this).parent().addClass("hidden");
 		$(this).parent().siblings().removeClass("hidden");
 	});
 
+	/*
 	inConfirmButton.on('click', function(){
 		var parentTd = $(this).closest("td");
 		var timeTd = parentTd.prev("td");
@@ -179,6 +192,6 @@ $(document).ready(function(){
 		$(this).parent().addClass("hidden");
 		$(this).parent().siblings().removeClass("hidden");
 	});
-
+	*/
 
 });
