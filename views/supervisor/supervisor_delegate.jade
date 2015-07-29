@@ -21,15 +21,15 @@ block content
 		.searchDiv
 			form 
 				input(type= "text" name= "ID" placeholder= " ......")
-				input(type= "submit" value= "Search")
+				input(type= "submit" value= "#{tr('search')}")
 
 		.delegationTable
 			table 
 				tr.delegateHead
-					th Name
-					th Id
-					th Status
-					th Delegation
+					th= tr('name')
+					th= tr('userid')
+					th= tr('status')
+					th= tr('delegation')
 				
 				-for(var r in userInfos)
 					td= userInfos[r].name
@@ -39,11 +39,11 @@ block content
 						.hollowcircle.green &nbsp;
 					td.delegation.noselect
 						if userInfos[r].delegate
-							.btn.authorize.hidden(data-url="/supervisor/delegate_action/#{userInfos[r].userid}/1") Authorize
-							.btn.revoke(data-url= "/supervisor/delegate_action/#{userInfos[r].userid}/0") Revoke
+							.btn.authorize.hidden(data-url="/supervisor/delegate_action/#{userInfos[r].userid}/1")= tr('authorize')
+							.btn.revoke(data-url= "/supervisor/delegate_action/#{userInfos[r].userid}/0")= tr('revoke')
 						else
-							.btn.authorize(data-url= "/supervisor/delegate_action/#{userInfos[r].userid}/1") Authorize
-							.btn.revoke.hidden(data-url= "/supervisor/delegate_action/#{userInfos[r].userid}/0") Revoke
+							.btn.authorize(data-url= "/supervisor/delegate_action/#{userInfos[r].userid}/1")= tr('authorize')
+							.btn.revoke.hidden(data-url= "/supervisor/delegate_action/#{userInfos[r].userid}/0")= tr('revoke')
 					tr
 
 

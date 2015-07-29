@@ -36,8 +36,6 @@ append scripts
             $('.back').on('click', function(){
                 location.href = "/supervisor/supervisor_main"
             });
-            
-
         });
 
 
@@ -57,25 +55,26 @@ block content
 
 
         table.overviewtable
-            tr
-                th= tr('name')
-                th!= tr('start_end_date')
-                th= tr('paid_rate')
-                th= tr('hours')
-                th= tr('totalpay')
+            tr.tableRow    
+                th.tableHead= tr('name')
+                th.tableHead!= tr('start_end_date')
+                th.tableHead= tr('paid_rate')
+                th.tableHead= tr('hours')
+                th.tableHead= tr('totalpay')
             if userReports.length == 0
-                td(colspan="5")= tr('empty')
+                tr.tableRow
+                    td.tableData(colspan="5")= tr('empty')
             else
                 each user, index in userList
                     - var record = getRecord(user.userid, userReports);
                     if record
-                        tr
-                            td= user.name
-                            td
+                        tr.tableRow
+                            td.tableData= user.name
+                            td.tableData
                                 span= moment(record.from).format("MM-DD hh:mm A")
                                 br
                                 span= moment(record.to).format("MM-DD hh:mm A")
-                            td= "$" + record.avgRate
-                            td= new Number(record.totalhours).toFixed(2) + " " + tr('hour')
-                            td= "$" + new Number(record.totalWage).toFixed(2)
+                            td.tableData= "$" + record.avgRate
+                            td.tableData= new Number(record.totalhours).toFixed(2) + " " + tr('hour')
+                            td.tableData= "$" + new Number(record.totalWage).toFixed(2)
         .submitbutton.back= tr('back')

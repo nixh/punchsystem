@@ -55,13 +55,13 @@
 	"welcome": "欢迎进入",
 	"paidrate": "时薪",
 	"hiderate": "隐藏时薪",
-	"punchReport": "打卡报告",
+	"punchReport": "打卡报告/REPORT",
 	"wageReport": "工资报表",
 	"per_hour": "/小时",
 	"showrate": "显示工资",
 	"staffmanagement": "员工管理/Staff Management",
 	"delegate": "授权/Authorize",
-	"view staff": "浏览员工列表/View Staff List",
+	"view staff": "浏览员工列表/Staff List",
 	"dynamic_qrcode": "动态二维码/Clocking In",
 	"adminpunch": "管理员代打/Admin Manully Clock In",
 	"logout": "登出/Logout",
@@ -84,7 +84,7 @@
 	"address": "地址信息",
 	"other": "其他信息",
 	"paid_rate": "时薪",
-	"rate_change_date": "薪水生效时间",
+	"rate_change_date": "薪水生效",
 	"tel": "电话",
 	"email": "邮箱",
 	"make_change": "返回修改",
@@ -157,6 +157,11 @@
 	"confirmpassword": "确认密码",
 	"monthly": "按月",
 	"or": "或者",
-	"change_language": "更换语言"
+	"change_language": "更换语言",
+	"search": "搜索",
+	"delegation": "委托",
+	"April": "April",
+	"authorize": "授权",
+	"revoke": "撤回",
+	"December": "December"
 }
-
