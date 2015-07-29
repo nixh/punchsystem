@@ -45,56 +45,48 @@ $(document).ready(function(){
 		$(this).siblings().removeClass("hidden");
 	});
 	*/
+	function checkDateTime(input, regEx, span){
+		var correct = true;
+		if(!regEx.test(input.val())){
+			input.addClass("inputError");
+			correct = false;
+		}else{
+			span.html(input.val());
+			input.removeClass("inputError");
+			correct = true;
+		}
+		return correct;
+	}
+
 	confirmButton.on('click', function(){
 		var parentTd = $(this).closest("td");
 		var timeTd = parentTd.prev("td");
 		var dateTd = parentTd.prev().prev("td");
-
+		
 		var dateSpan = dateTd.find(".date> span");
 		var timeSpan = timeTd.find(".time> span");
 		var timeInput= timeTd.find(".timeInput");
 		var dateInput= dateTd.find(".dateInput");
-		/*
+		
 		var outTimeSpan = timeTd.find(".outTime> span");
 		var outDateSpan = dateTd.find(".outDate> span");
 		var outTimeInput = timeTd.find(".outTimeInput");
 		var outDateInput = dateTd.find(".outDateInput");
-		*/
+		var inTimeSpan = timeTd.find(".inTime> span");
+		var inDateSpan = dateTd.find(".inDate> span");
+		var inTimeInput = timeTd.find(".inTimeInput");
+		var inDateInput = dateTd.find(".inDateInput");
 
 		var dateRegEx = /^\d\d\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$/;
 		var timeRegEx = /^[01]?[0-9]:[0-5][0-9] [AP]M$/;
+		var check = true;
 
-		var dateInputVal = dateInput.val();
-		var timeInputVal = timeInput.val();
-		var checkTimeDate = true;
+		check = checkDateTime(outDateInput, dateRegEx, outDateSpan);
+		check = checkDateTime(outTimeInput, timeRegEx, outTimeSpan);
+		check = checkDateTime(inDateInput, dateRegEx, inDateSpan);
+		check = checkDateTime(inTimeInput, timeRegEx, inTimeSpan);
 
-		if(dateRegEx.test(dateInputVal)){
-
-			dateSpan.html(dateInputVal);
-			if(dateInput.hasClass("inputError")){
-				dateInput.removeClass("inputError");
-			}
-
-		}else if(!dateRegEx.test(dateInputVal)){
-
-			dateInput.addClass("inputError");
-			checkTimeDate= false;
-		}
-
-		if(timeRegEx.test(timeInputVal)){
-			timeSpan.html(timeInputVal);
-			if(timeInput.hasClass("inputError")){
-				timeInput.removeClass("inputError");
-			}
-
-		}else if(!timeRegEx.test(timeInputVal)){
-			
-			timeInput.addClass("inputError");
-			checkTimeDate= false;
-		}
-
-
-		if(checkTimeDate){
+		if(check){
 			timeInput.addClass("hidden");
 			dateInput.addClass("hidden");
 
@@ -105,7 +97,10 @@ $(document).ready(function(){
 			$(this).parent().addClass("hidden");
 			$(this).parent().siblings().removeClass("hidden");
 		}
+	
 	});
+
+
 
 	returnButton.on('click', function(){
 		var parentTd = $(this).closest("td");
@@ -193,5 +188,4 @@ $(document).ready(function(){
 		$(this).parent().siblings().removeClass("hidden");
 	});
 	*/
-
 });
