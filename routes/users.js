@@ -51,7 +51,7 @@ router.post('/add', function(req, res){
 							utils.render('users/search')(req, res);
 						}else{
 							// console.log(doc);
-							var loc = '/supervisor/employees/' + userObj.userid;
+							var loc = '/supervisor/supervisor_main';
 							res.redirect(loc);
 						}
 					});
@@ -80,7 +80,7 @@ router.post('/add', function(req, res){
 									utils.render('users/search')(req, res);
 								}else{
 									// console.log(doc);
-									res.redirect('/supervisor/employees');
+									res.redirect('/supervisor/supervisor_main');
 								}
 							});
 
@@ -212,7 +212,7 @@ router.post('/change', function(req, res, next){
 			   		utils.render('users/search')(req, res);
 			   	}else{
 			   		// console.log(doc);
-					var loc = '/testusermodify/' + userObj.userid;
+					var loc = '/supervisor/supervisor_main';
 			   		res.redirect(loc);
 			   	}
 			});
@@ -238,7 +238,7 @@ router.post('/change', function(req, res, next){
 					   		utils.render('users/search')(req, res);
 					   	}else{
 					   		// console.log(doc);
-					   		res.redirect('/supervisor/employees');
+					   		res.redirect('/supervisor/supervisor_main');
 					   	}
 					});
 

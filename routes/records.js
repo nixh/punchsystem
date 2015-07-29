@@ -6,7 +6,9 @@ var monk = require('monk');
 var db = monk('mongodb://localhost:27017/punchsystem');
 var recModule = require('../recModule');
 var sessionModule = require('../sessionModule');
+var utils = require('../utils');
 
+/*
 router.get('/staff_delegate:uid', function(req, res, next) {
     var rm = new recModule();
     var sessionid = req.cookies.seccionid;
@@ -17,16 +19,15 @@ router.get('/staff_delegate:uid', function(req, res, next) {
         if (dels) {
             delegate = true;
         }
-        res.render('', delegate);
+        utils.render('supervisor/supervisor_delegate', dels)(req, res, next);
     });
 });
-
+*/
 router.get('/supervisor_delegate', function(req, res, next){
     var rm = new recModule();
     var sessionid = req.cookies.sessionid;
     rm.showUsersForDelegate(sessionid, function(err, ret) {
-        console.log(ret);
-        res.render('supervisor/supervisor_delegate', ret);
+        utils.render('supervisor/supervisor_delegate', ret)(req, res, next);
     });
 });
 
