@@ -13,6 +13,10 @@ var msg = crt.encrypt(text, 'utf8', 'hex')
 console.log(msg);
 console.log(skey.decrypt(msg, 'hex', 'utf8'));
 
+msg = skey.encrypt(text, 'utf8', 'hex')
+console.log(msg);
+console.log(skey.decrypt(msg, 'hex', 'utf8'));
+
 var config = require('./lib/common/config')();
 
 var verified = utils.crypto.verify(config.get('clientAuthSig'), "w6wrw6bCucKQJlzDhsONw7tUw7knBcKJCw9KbCg=");
