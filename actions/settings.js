@@ -1,23 +1,24 @@
 var utils = require('../lib/common/utils');
 var actionUtils = utils.actions;
-var s = require('../lib/module/usersettingModule')
+var s = require('../lib/module/usersettingModule');
 var s = new s();
+var Q = require('q');
 Settings ={};
+
 //用户页面
 Settings.staffSettingView={
 	type : 'jade',
 	template : './staff/staff_setting_su',
 	execute: function(req,res,next) {
-		sessionid = req.cookies.sessionid;
+		var sessionid = req.cookies.sessionid;
 		var docs = s.showEmail(sessionid);
-		docs.fail(function(err) {
-			next(err)
-		}).then(function(doc) {
-			return data = {
+		return docs.then(function(doc) {
+			var data = {
 				'userid':doc.userid,
 				'receiveEmails': doc.email,
 				'su':false
 			};
+			return data;
 		});
 	}
 }
@@ -26,13 +27,11 @@ Settings.supSettingView = {
 	type : 'jade',
 	template : './staff/staff_setting_su',
 	execute: function(req,res,next) {
-		sessionid = req.cookies.sessionid;
+		var sessionid = req.cookies.sessionid;
 		var docs = s.showEmail(sessionid);
-		docs.fail(function(err) {
-			next(err)
-		}).then(function(doc) {
-			return data = {
-				"userid":userid,
+		return docs.then(function(doc) {
+			var data = {
+				"userid":doc.userid,
 				"receiveEmails":doc.email,
 				"su":true,
 				"enableEmail":doc.enableEmail,
@@ -40,6 +39,7 @@ Settings.supSettingView = {
 				"overtime":doc.overtime,
 				"newrate":doc.curRate
 			};
+			return data;
 		});
 	}
 }
@@ -48,13 +48,11 @@ Settings.setEmailView = {
 	type: 'jade',
 	template: './staff/staff_setting_su',
 	execute: function(req,res,next) {
-		sessionid = req.cookies.sessionid;
+		var sessionid = req.cookies.sessionid;
 		var docs = s.showEmail(sessionid);
-		docs.fail(function(err) {
-			next(err)
-		}).then(function(doc) {
-			return data = {
-				"userid":userid,
+		return docs.then(function(doc) {
+			var data = {
+				"userid":doc.userid,
 				"receiveEmails":doc.email,
 				"su":true,
 				"enableEmail":doc.enableEmail,
@@ -62,6 +60,7 @@ Settings.setEmailView = {
 				"overtime":doc.overtime,
 				"newrate":doc.curRate
 			};
+			return data;
 		});
 	}
 }
@@ -70,13 +69,11 @@ Settings.setRateView = {
 	type: 'jade',
 	template : './staff/staff_setting_su',
 	execute: function(req,res,next) {
-		sessionid = req.cookies.sessionid;
+		var sessionid = req.cookies.sessionid;
 		var docs = s.showEmail(sessionid);
-		docs.fail(function(err) {
-			next(err)
-		}).then(function(doc) {
-			return data = {
-				"userid":userid,
+		return docs.then(function(doc) {
+			var data = {
+				"userid":doc.userid,
 				"receiveEmails":doc.email,
 				"su":true,
 				"enableEmail":doc.enableEmail,
@@ -84,6 +81,7 @@ Settings.setRateView = {
 				"overtime":doc.overtime,
 				"newrate":doc.curRate
 			};
+			return data;
 		});
 	}
 }
@@ -92,7 +90,7 @@ Settings.emailSwitch = {
 	type : 'jade',
 	template : './staff/staff_setting_su',
 	execute: function(req,res,next) {
-		sessionid = req.cookies.sessionid;
+		var sessionid = req.cookies.sessionid;
 		var switchs = parseInt(req.params.switchs);
 		if(req.params.switchs == 1) {
 			switchs = 0;
@@ -101,14 +99,13 @@ Settings.emailSwitch = {
 			switchs = 1;
 		}
 		var docs = s.enableEmail(sessionid,switchs);
-		docs.fail(function(err) {
-			next(err)
-		}).then(function (doc) {
-			return data = {
+		return docs.then(function (doc) {
+			var data = {
 				'userid':doc.userid,
 				'su': true,
 				'enableEmail':doc.enableEmail
 			};
+			return data;
 		});
 	}	
 }
@@ -117,7 +114,7 @@ Settings.rateSwitch = {
 	type : 'jade',
 	template : './staff/staff_setting_su',
 	execute: function(req,res,next) {
-		sessionid = req.cookies.sessionid;
+		var sessionid = req.cookies.sessionid;
 		var switchs
 		if(req.params.switchs == 1) {
 			switchs = 0;
@@ -126,14 +123,13 @@ Settings.rateSwitch = {
 			switchs = 1;
 		}
 		var docs = s.enableRate(sessionid,switchs);
-		docs.fail(function(err) {
-			next(err)
-		}).then(function (doc) {
-			return data = {
+		return docs.then(function (doc) {
+			var data = {
 				'userid':doc.userid,
 				'su': true,
 				'enableEmail':doc.enablerate
 			};
+			return data;
 		});
 	}
 }
@@ -143,26 +139,29 @@ Settings.changePass = {
 	type : 'jade',
 	template : 'message',
 	execute: function(req,res,next) {
-		sessionid = req.cookies.sessionid;
-		oldpass = req.oldpass;
-		newrate = req.newpass;
+		var sessionid = req.cookies.sessionid;
+		var oldpass = req.body.oldpass;
+		var newpass = req.body.newpass;
 		var docs = s.changepass(oldpass,newpass,sessionid)
-		docs.fail(function(err) {
-			next(err)
-		}).then(function (doc) {
+		return docs.then(function (doc) {
+			
 			if(!doc) {
-				return data = {
+				var data = {
 					'success': false,
                 	'msg': {head:res.__("changepass failed, maybe wrong password")},
                 	'pageUrl': '/settings'
 				};
+				return data;
 			}
 			else {
-				return data = {
+				var data = {
 					'success': true,
             		'msg': {head:res.__("changepass successful")},
             		'pageUrl': '/settings'
 				};
+				
+				return data;
+				
 			}
 		});
 	}
@@ -172,26 +171,26 @@ Settings.supChangePass = {
 	type : 'jade',
 	template : 'message',
 	execute: function(req,res,next) {
-		sessionid = req.cookies.sessionid;
-		oldpass = req.oldpass;
-		newrate = req.newpass;
+		var sessionid = req.cookies.sessionid;
+		var oldpass = req.body.oldpass;
+		var newpass = req.body.newpass;
 		var docs = s.changepass(oldpass,newpass,sessionid)
-		docs.fail(function(err) {
-			next(err)
-		}).then(function (doc) {
+		return docs.then(function (doc) {
 			if(!doc) {
-				return data = {
+				var data = {
 					'success': false,
                 	'msg': {head:res.__("changepass failed, maybe wrong password")},
                 	'pageUrl': '/supervisor/settings'
 				};
+				return data;
 			}
 			else {
-				return data = {
+				var data = {
 					'success': true,
             		'msg': {head:res.__("changepass successful")},
             		'pageUrl': '/supervisor/settings'
 				};
+				return data;
 			}
 		});
 	}
@@ -201,15 +200,13 @@ Settings.setRate = {
 	type : 'jade',
 	template : './staff/staff_setting_su',
 	execute: function(req,res,next) {
-		sessionid = req.cookies.sessionid;
-		newRate = req.body.newrate;
-		overTime = req.body.overtime;
-		enableRate = req.body.enablerate;
+		var sessionid = req.cookies.sessionid;
+		var newRate = req.body.newrate;
+		var overTime = req.body.overtime;
+		var enableRate = req.body.enablerate;
 		var docs = s.setRate(sessionid,newRate,overTime,enableRate);
-		docs.fail(function(err){
-			next(err)
-		}).then(function(doc){
-			return date = {
+		return docs.then(function(doc){
+			var date = {
 				"userid":doc.userid,
 				"receiveEmails":doc.email,
 				"oldpassword":doc.password,
@@ -218,7 +215,8 @@ Settings.setRate = {
 				"enablerate":doc.enablerate,
 				"overtime":doc.overtime,
 				"newrate":doc.newrate
-			};	
+			};
+			return data;	
 		});
 	}
 }
@@ -227,17 +225,17 @@ Settings.setEmail = {
 	type : 'jade',
 	template : './staff/staff_setting_su',
 	execute: function(req,res,next) {
-		sessionid = req.cookies.sessionid;
-		timePeriod = req.body.timePeriod;
-		receiveEmails = req.body.receiveEmails;
-		enableEmail = req.body.enableEmail;
+		var sessionid = req.cookies.sessionid;
+		var timePeriod = req.body.timePeriod;
+		var receiveEmails = req.body.receiveEmails;
+		var enableEmail = req.body.enableEmail;
 		var docs = s.settingEmail(timePeriod,receiveEmails,sessionid,enableEmail);
-		docs.fail(function(err){
+		return docs.fail(function(err){
 			next(err)
 		}).then(function(doc){
-			return data = {
+			var data = {
 				"userid":doc.userid,
-				"receiveEmails":doc.receiveEmails,
+				"receiveEmails":doc.email,
 				"su":true,
 				"enableEmail":doc.enableEmail,
 				"enablerate":doc.enablerate,
@@ -245,6 +243,7 @@ Settings.setEmail = {
 				"oldpassword":doc.password,
 				"newrate":doc.curRate
 			};
+			return data;
 		})
 	}
 }
