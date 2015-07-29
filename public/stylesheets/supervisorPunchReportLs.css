@@ -403,6 +403,18 @@ functions
 				}
 				*/
 }
+.supervisorPunchPage .reportTableDiv table.reportTable .tableData:first-of-type {
+  width: 6.25%;
+}
+.supervisorPunchPage .reportTableDiv table.reportTable .tableData:nth-of-type(2) {
+  width: 37.5%;
+}
+.supervisorPunchPage .reportTableDiv table.reportTable .tableData:nth-of-type(3) {
+  width: 37.5%;
+}
+.supervisorPunchPage .reportTableDiv table.reportTable .tableData:last-of-type {
+  width: 18.75%;
+}
 .supervisorPunchPage .reportTableDiv table.reportTable .tableData > ul {
   list-style: none;
   padding-left: 0;

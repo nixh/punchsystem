@@ -68,8 +68,21 @@
 				background-color: @white;
 				color: @text-color;
 			}
-
 			.tableData{
+				&:first-of-type{
+					.width-1;
+				}
+
+				&:nth-of-type(2){
+					.width-6;
+				}
+				&:nth-of-type(3){
+					.width-6;
+				}
+				&:last-of-type{
+					.width-3;
+				}
+
 				& > ul{
 					.unorder-list;
 					& > .listItem{
