@@ -136,8 +136,8 @@ functions
 .basic-table-head {
   font-family: 'anivers reg', 'simhei';
   font-size: 75px;
-  background-color: #f78283;
-  color: white;
+  background-color: white;
+  color: #505a6a;
 }
 .basic-table-head:first-child {
   border-top-left-radius: 25px;
@@ -146,8 +146,8 @@ functions
   border-top-right-radius: 25px;
 }
 .basic-table-data {
-  background-color: rgba(255, 255, 255, 0.8);
-  color: #677499;
+  background-color: rgba(238, 238, 238, 0.52);
+  color: #505a6a;
   text-align: center;
   font-size: 40px;
 }
@@ -166,21 +166,21 @@ functions
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
   text-indent: 10px;
-  color: #677499;
+  color: #505a6a;
 }
 .textinput::-webkit-input-placeholder {
-  color: #677499;
+  color: #505a6a;
 }
 .textinput:-moz-placeholder {
   /* Firefox 18- */
-  color: #677499;
+  color: #505a6a;
 }
 .textinput::-moz-placeholder {
   /* Firefox 19+ */
-  color: #677499;
+  color: #505a6a;
 }
 .textinput:-ms-input-placeholder {
-  color: #677499;
+  color: #505a6a;
 }
 .radioinput {
   -webkit-user-select: none;
@@ -190,7 +190,7 @@ functions
 }
 .radioinput .outer {
   border-radius: 50%;
-  border: 15px solid #8ad1d7;
+  border: 15px solid #8dc63f;
   width: 120px;
   height: 120px;
   float: left;
@@ -202,7 +202,7 @@ functions
   border: none;
   width: 50px;
   height: 50px;
-  background-color: #8ad1d7;
+  background-color: #8dc63f;
   position: absolute;
   margin: auto;
   top: 0;
@@ -227,7 +227,7 @@ functions
 }
 .radioinput-center .outer {
   border-radius: 50%;
-  border: 15px solid #8ad1d7;
+  border: 15px solid #8dc63f;
   width: 120px;
   height: 120px;
   cursor: pointer;
@@ -239,7 +239,7 @@ functions
   border: none;
   width: 50px;
   height: 50px;
-  background-color: #8ad1d7;
+  background-color: #8dc63f;
   position: absolute;
   margin: auto;
   top: 0;
@@ -266,7 +266,7 @@ functions
   line-height: normal;
   text-align: center;
   background-color: white;
-  color: #677499;
+  color: #505a6a;
   border-radius: 10px;
   border: none;
   -webkit-user-select: none;
@@ -288,27 +288,27 @@ functions
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
   text-indent: 10px;
-  color: #677499;
+  color: #505a6a;
   font-size: 40px;
   height: auto;
 }
 .inner-input::-webkit-input-placeholder {
-  color: #677499;
+  color: #505a6a;
 }
 .inner-input:-moz-placeholder {
   /* Firefox 18- */
-  color: #677499;
+  color: #505a6a;
 }
 .inner-input::-moz-placeholder {
   /* Firefox 19+ */
-  color: #677499;
+  color: #505a6a;
 }
 .inner-input:-ms-input-placeholder {
-  color: #677499;
+  color: #505a6a;
 }
 .submit-button {
-  background-color: #8ad1d7;
-  color: white;
+  background-color: white;
+  color: #505a6a;
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
   text-align: center;
@@ -324,9 +324,12 @@ functions
   cursor: pointer;
 }
 .submit-button:active {
-  background-color: #f78283;
+  background-color: #8dc63f;
   color: white;
 }
+/**
+yongred changing color, new variables
+*/
 .bgbody {
   background-repeat: repeat-y;
 }
@@ -350,24 +353,24 @@ functions
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
   text-indent: 10px;
-  color: #677499;
+  color: #505a6a;
   margin-bottom: 2%;
   text-align: center;
   display: block;
 }
 .punchPage #searchform .startEndTime input::-webkit-input-placeholder {
-  color: #677499;
+  color: #505a6a;
 }
 .punchPage #searchform .startEndTime input:-moz-placeholder {
   /* Firefox 18- */
-  color: #677499;
+  color: #505a6a;
 }
 .punchPage #searchform .startEndTime input::-moz-placeholder {
   /* Firefox 19+ */
-  color: #677499;
+  color: #505a6a;
 }
 .punchPage #searchform .startEndTime input:-ms-input-placeholder {
-  color: #677499;
+  color: #505a6a;
 }
 .punchPage #searchform .controlButtons {
   width: 100%;
@@ -392,14 +395,14 @@ functions
   height: 150px;
   float: left;
   text-align: center;
-  background-color: #8ad1d7;
-  color: white;
+  background-color: #8dc63f;
+  color: #8dc63f;
   line-height: 150px;
   border-radius: 10px;
 }
 .punchPage #searchform .controlButtons .buttonItem:active {
-  background-color: #f78283;
-  color: white;
+  background-color: #505a6a;
+  color: #8dc63f;
 }
 .punchPage #searchform .controlButtons .buttonItem:nth-child(2) {
   margin-left: 3.325%;
@@ -419,8 +422,8 @@ functions
 .punchPage .reportTableDiv table.reportTable th.tableHead {
   font-family: 'anivers reg', 'simhei';
   font-size: 75px;
-  background-color: #f78283;
-  color: white;
+  background-color: white;
+  color: #505a6a;
 }
 .punchPage .reportTableDiv table.reportTable th.tableHead:first-child {
   border-top-left-radius: 25px;
@@ -435,8 +438,8 @@ functions
   border-bottom-right-radius: 25px;
 }
 .punchPage .reportTableDiv table.reportTable tr.tableRow td.tableData {
-  background-color: rgba(255, 255, 255, 0.8);
-  color: #677499;
+  background-color: rgba(238, 238, 238, 0.52);
+  color: #505a6a;
   text-align: center;
   font-size: 40px;
 }
@@ -453,7 +456,7 @@ functions
 }
 .punchPage .reportTableDiv table.reportTable th.tableHead {
   background-color: white;
-  color: #677499;
+  color: #505a6a;
 }
 .punchPage .reportTableDiv table.reportTable .tableData > ul {
   list-style: none;
@@ -474,34 +477,34 @@ functions
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
   text-indent: 10px;
-  color: #677499;
+  color: #505a6a;
   font-size: 40px;
   height: auto;
 }
 .punchPage .reportTableDiv table.reportTable .tableData > ul > li > input::-webkit-input-placeholder {
-  color: #677499;
+  color: #505a6a;
 }
 .punchPage .reportTableDiv table.reportTable .tableData > ul > li > input:-moz-placeholder {
   /* Firefox 18- */
-  color: #677499;
+  color: #505a6a;
 }
 .punchPage .reportTableDiv table.reportTable .tableData > ul > li > input::-moz-placeholder {
   /* Firefox 19+ */
-  color: #677499;
+  color: #505a6a;
 }
 .punchPage .reportTableDiv table.reportTable .tableData > ul > li > input:-ms-input-placeholder {
-  color: #677499;
+  color: #505a6a;
 }
 .punchPage .reportTableDiv table.reportTable .tableData > ul > li .editButton {
   border-radius: 10px;
   border: none;
-  color: white;
+  color: #8dc63f;
 }
 .punchPage .reportTableDiv table.reportTable .tableData > ul > li .editInButton {
-  background-color: #f78283;
+  background-color: #505a6a;
 }
 .punchPage .reportTableDiv table.reportTable .tableData > ul > li .editOutButton {
-  background-color: #8ad1d7;
+  background-color: #505a6a;
 }
 .punchPage .reportTableDiv table.reportTable .tableData > ul > li .confirmReturn {
   width: 100%;
@@ -517,16 +520,16 @@ functions
 .punchPage .reportTableDiv table.reportTable .tableData > ul > li .confirmReturn > button {
   border-radius: 10px;
   border: none;
-  color: white;
+  color: #8dc63f;
   text-align: center;
   width: 48%;
   padding: 0px;
 }
 .punchPage .reportTableDiv table.reportTable .tableData > ul > li .confirmReturn .confirmButton {
   float: left;
-  background-color: #8ad1d7;
+  background-color: #505a6a;
 }
 .punchPage .reportTableDiv table.reportTable .tableData > ul > li .confirmReturn .returnButton {
   float: right;
-  background-color: #f78283;
+  background-color: #505a6a;
 }
