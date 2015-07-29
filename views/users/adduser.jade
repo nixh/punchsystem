@@ -101,15 +101,14 @@ append scripts
             });
             $('.sexinput input').change(function(){
                 var sex = $(this).val();
-                if(sex) {
+                console.log(sex);
+                if(sex === '0') {
                     $('.sexinput .radioinput[data-value="1"]').addClass('radioselected');
                     $('.sexinput .radioinput[data-value="0"]').removeClass('radioselected');
                 } else {
                     $('.sexinput .radioinput[data-value="1"]').remvoeClass('radioselected');
                     $('.sexinput .radioinput[data-value="0"]').addClass('radioselected');
                 }
-                
-
             });
         });
     
@@ -253,4 +252,4 @@ block content
                     #makechange.submitbutton
                         = tr('make_change')
                     #confirm.submitbutton
-                        = tr('add_user')
+                        = tr('submit')

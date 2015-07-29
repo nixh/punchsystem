@@ -108,7 +108,7 @@ append scripts
             });
             $('.sexinput input').change(function(){
                 var sex = $(this).val();
-                if(sex) {
+                if(sex == '0') {
                     $('.sexinput .radioinput[data-value="1"]').addClass('radioselected');
                     $('.sexinput .radioinput[data-value="0"]').removeClass('radioselected');
                 } else {
