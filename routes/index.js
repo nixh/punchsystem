@@ -219,7 +219,7 @@ router.get('/supervisor/showdynacode', function(req, res, next) {
     qrm.getDynacode(req.cookies.sessionid, function(err, mixinData) {
         console.log(mixinData);
         qrm.db.close();
-        utils.render('qr', {
+        utils.render('staff/staff_delegate', {
             data: mixinData
         })(req, res, next);
     });

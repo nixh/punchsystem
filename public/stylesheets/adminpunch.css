@@ -1,6 +1,6 @@
 .main {
     margin: 0 auto;
-    width: 95%;
+    width: 90%;
     padding-top: 5%;
     padding-bottom: 4%;
 }
@@ -63,18 +63,26 @@ table.punchTable tr:last-child td:last-child {
     border-bottom-right-radius: 25px;
 }
 
+.main form{
+    width: 100%;
+    padding-bottom: 5%;
+
+}
+
 .punchBtn {
-    height: 120px;
-    border-radius: 40px;
-    border: none;
-    line-height: 100%;
-    color: white;
     background-color: rgb(138, 209, 215);
-    font-size: 75px;
+    color: white;
+    font-size: 60px;
+    text-align: center;
+    border-radius: 10px;
+    height: 110px;
+    border: none;
     width: 100%;
     cursor: pointer;
-    font-family: "anivers reg";
-    margin: 0 auto;
+}
+
+.punchBtn:active{
+    background-color: rgb(247, 130, 131);
 }
 
 .in {
@@ -119,6 +127,26 @@ table.punchTable tr:last-child td:last-child {
     border: 5px solid rgb(138, 209, 215);
 }
 
+.main .returnDiv{
+    width: 100%;
+    padding-bottom: 5%;
+}
+
+.main .returnDiv .returnButton{
+    background-color: rgb(138, 209, 215);
+    color: white;
+    font-size: 60px;
+    text-align: center;
+    border-radius: 10px;
+    height: 110px;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+}
+
+.main .returnDiv .returnButton:active{
+    background-color: rgb(247, 130, 131);
+}
 
 
 

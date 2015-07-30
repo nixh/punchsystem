@@ -9,7 +9,7 @@ block content
     .staffDelegatePage(ontouchstart="")
 
         .companyInfo 
-            .companyTitle ADMINSYS INC
+            .companyTitle= data.name
             .companyNumber 
                 .number 347-698-8300
                 .number 917-291-7836
@@ -18,12 +18,28 @@ block content
                 .cityAddress FLUSHING, NY 11355
 
         .qrcode
-            img(src= dataURL)
+            img(src="#{data.qrdata}")
 
         .change.noselect
-            button.changeButton CHANGE
+            button.changeButton= tr('change_qrcode')
+
+        .returnDiv.noselect
+            button.returnButton= tr("return")
     
     script.
         $(".changeButton").on('click', function(){
             location.reload();
         });
+
+        var url = window.location.href;
+        if(/supervisor/.test(url)){
+            $(".returnButton").on('click', function(){
+
+                location.href= "/supervisor/supervisor_main";
+            });
+        }
+        else{
+            $(".returnButton").on('click', function(){
+                location.href= "/staff_main";
+            });
+        }

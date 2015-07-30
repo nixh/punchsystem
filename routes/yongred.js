@@ -88,7 +88,7 @@ router.get('/staff_delegate', function(req, res, next){
     var qrm = new qrModule();
     qrm.getDynacode(req.cookies.sessionid, function(err, mixinData) {
         qrm.db.close();
-        utils.render('qr', {
+        utils.render('staff/staff_delegate', {
             data: mixinData
         })(req, res, next);
     });
