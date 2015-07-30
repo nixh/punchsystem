@@ -136,8 +136,8 @@ functions
 .basic-table-head {
   font-family: 'anivers reg', 'simhei';
   font-size: 75px;
-  background-color: #f78283;
-  color: white;
+  background-color: white;
+  color: #505a6a;
 }
 .basic-table-head:first-child {
   border-top-left-radius: 25px;
@@ -146,12 +146,10 @@ functions
   border-top-right-radius: 25px;
 }
 .basic-table-data {
-  background-color: rgba(255, 255, 255, 0.8);
-  color: #677499;
+  background-color: rgba(238, 238, 238, 0.52);
+  color: #505a6a;
   text-align: center;
   font-size: 40px;
-  border-radius: 10px;
-  border: none;
 }
 .basic-table-row:last-child td:first-child {
   border-bottom-left-radius: 25px;
@@ -168,21 +166,21 @@ functions
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
   text-indent: 10px;
-  color: #677499;
+  color: #505a6a;
 }
 .textinput::-webkit-input-placeholder {
-  color: #677499;
+  color: #505a6a;
 }
 .textinput:-moz-placeholder {
   /* Firefox 18- */
-  color: #677499;
+  color: #505a6a;
 }
 .textinput::-moz-placeholder {
   /* Firefox 19+ */
-  color: #677499;
+  color: #505a6a;
 }
 .textinput:-ms-input-placeholder {
-  color: #677499;
+  color: #505a6a;
 }
 .radioinput {
   -webkit-user-select: none;
@@ -192,7 +190,7 @@ functions
 }
 .radioinput .outer {
   border-radius: 50%;
-  border: 15px solid #8ad1d7;
+  border: 15px solid #8dc63f;
   width: 120px;
   height: 120px;
   float: left;
@@ -204,7 +202,7 @@ functions
   border: none;
   width: 50px;
   height: 50px;
-  background-color: #8ad1d7;
+  background-color: #8dc63f;
   position: absolute;
   margin: auto;
   top: 0;
@@ -229,7 +227,7 @@ functions
 }
 .radioinput-center .outer {
   border-radius: 50%;
-  border: 15px solid #8ad1d7;
+  border: 15px solid #8dc63f;
   width: 120px;
   height: 120px;
   cursor: pointer;
@@ -241,7 +239,7 @@ functions
   border: none;
   width: 50px;
   height: 50px;
-  background-color: #8ad1d7;
+  background-color: #8dc63f;
   position: absolute;
   margin: auto;
   top: 0;
@@ -268,7 +266,7 @@ functions
   line-height: normal;
   text-align: center;
   background-color: white;
-  color: #677499;
+  color: #505a6a;
   border-radius: 10px;
   border: none;
   -webkit-user-select: none;
@@ -290,27 +288,27 @@ functions
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
   text-indent: 10px;
-  color: #677499;
+  color: #505a6a;
   font-size: 40px;
   height: auto;
 }
 .inner-input::-webkit-input-placeholder {
-  color: #677499;
+  color: #505a6a;
 }
 .inner-input:-moz-placeholder {
   /* Firefox 18- */
-  color: #677499;
+  color: #505a6a;
 }
 .inner-input::-moz-placeholder {
   /* Firefox 19+ */
-  color: #677499;
+  color: #505a6a;
 }
 .inner-input:-ms-input-placeholder {
-  color: #677499;
+  color: #505a6a;
 }
 .submit-button {
-  background-color: #8ad1d7;
-  color: white;
+  background-color: white;
+  color: #505a6a;
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
   text-align: center;
@@ -326,9 +324,12 @@ functions
   cursor: pointer;
 }
 .submit-button:active {
-  background-color: #f78283;
+  background-color: #8dc63f;
   color: white;
 }
+/**
+yongred changing color, new variables
+*/
 .bgbody {
   background-repeat: repeat-y;
 }
@@ -344,27 +345,27 @@ functions
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
   text-indent: 10px;
-  color: #677499;
+  color: #505a6a;
   line-height: normal;
   margin-bottom: 2%;
 }
 .settingPage .inputBar::-webkit-input-placeholder {
-  color: #677499;
+  color: #505a6a;
 }
 .settingPage .inputBar:-moz-placeholder {
   /* Firefox 18- */
-  color: #677499;
+  color: #505a6a;
 }
 .settingPage .inputBar::-moz-placeholder {
   /* Firefox 19+ */
-  color: #677499;
+  color: #505a6a;
 }
 .settingPage .inputBar:-ms-input-placeholder {
-  color: #677499;
+  color: #505a6a;
 }
 .settingPage .longButton {
-  background-color: #8ad1d7;
-  color: white;
+  background-color: white;
+  color: #505a6a;
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
   text-align: center;
@@ -380,7 +381,7 @@ functions
   cursor: pointer;
 }
 .settingPage .longButton:active {
-  background-color: #f78283;
+  background-color: #8dc63f;
   color: white;
 }
 .settingPage .bigLabel {
@@ -409,20 +410,20 @@ functions
 }
 .settingPage .passwordChange .passwordLabel {
   margin-bottom: 2%;
-  color: #f78283;
+  color: #505a6a;
   display: inline-block;
 }
 .settingPage .emailSwitch {
   width: 100%;
 }
 .settingPage .emailSwitch .switchLabel {
-  color: #f78283;
+  color: #505a6a;
 }
 .settingPage .EmailReportSetting {
   width: 100%;
 }
 .settingPage .EmailReportSetting .radioButton {
-  color: #677499;
+  color: #505a6a;
   width: 100%;
   margin-top: 30px;
 }
@@ -461,7 +462,7 @@ functions
   width: 100%;
 }
 .settingPage .overTimeSwitch .switchLabel {
-  color: #f78283;
+  color: #505a6a;
 }
 .settingPage .overTimeSetting {
   width: 100%;
@@ -480,7 +481,7 @@ functions
   height: 0px;
 }
 .settingPage .overTimeSetting .thresholdDiv .thresholdLabel {
-  background-color: #f78283;
+  background-color: #505a6a;
   color: white;
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
@@ -502,7 +503,7 @@ functions
   line-height: normal;
   text-align: center;
   background-color: white;
-  color: #677499;
+  color: #505a6a;
   border-radius: 10px;
   border: none;
   -webkit-user-select: none;
@@ -522,7 +523,7 @@ functions
   line-height: normal;
   text-align: center;
   background-color: white;
-  color: #677499;
+  color: #505a6a;
   border-radius: 10px;
   border: none;
   -webkit-user-select: none;
@@ -546,7 +547,7 @@ functions
   height: 0px;
 }
 .settingPage .overTimeSetting .rateDiv .rateLabel {
-  background-color: #f78283;
+  background-color: #505a6a;
   color: white;
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
@@ -569,7 +570,7 @@ functions
   line-height: normal;
   text-align: center;
   background-color: white;
-  color: #677499;
+  color: #505a6a;
   border-radius: 10px;
   border: none;
   -webkit-user-select: none;

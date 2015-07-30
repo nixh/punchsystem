@@ -102,13 +102,13 @@ append scripts
 
 
 block content
-    .mainPage(ontouchstart="")
-        .avatar
+    .main(ontouchstart="")
+        .avatar.section
             img(src="#{user.avatar ? user.avatar : user.sex ? '/images/boydefaultpicture.png' : '/images/girl default picture.png'}" alt="User Avatar") 
             p= tr('welcome') + " " + user.name
 
         if su === false
-            .paidRate
+            .paidRate.section
                 .paidRateBox
                     span= tr('paidrate')
                 .paidRateBox
@@ -119,21 +119,21 @@ block content
                     span= tr('showrate')
                     
         if su
-            .otherInfoLinks.noselect
-                .viewstaff.otherInfo= tr('view staff')
-                .addStaff.otherInfo= tr('add staff')
-                .manageRecords.otherInfo= tr('manage records')
-                .dynacode.otherInfo= tr('dynamic_qrcode')
-                .delegate.otherInfo= tr('delegate')
-                .adminpunch.otherInfo= tr('adminpunch')
-                .overview.otherInfo= tr('overview')
-                .setting.otherInfo= tr('setting')
-                .logout.otherInfo= tr('logout')
+            .otherInfoLinks.section.noselect
+                .viewstaff.link_button= tr('view staff')
+                .addStaff.link_button= tr('add staff')
+                .manageRecords.link_button= tr('manage records')
+                .dynacode.link_button= tr('dynamic_qrcode')
+                .delegate.link_button= tr('delegate')
+                .adminpunch.link_button= tr('adminpunch')
+                .overview.link_button= tr('overview')
+                .setting.link_button= tr('setting')
+                .logout.link_button= tr('logout')
 
         else       
-            .otherInfoLinks.noselect
-                .punchReport.otherInfo= tr('punchReport')
+            .otherInfoLinks.section.noselect
+                .punchReport.link_button= tr('punchReport')
                 if delegate
-                    .delegate.otherInfo= tr('delegate')
-                .settings.otherInfo= tr('setting')
-                .logout.otherInfo= tr('logout')
+                    .delegate.link_button= tr('delegate')
+                .settings.link_button= tr('setting')
+                .logout.link_button= tr('logout')

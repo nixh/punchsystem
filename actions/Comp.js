@@ -8,7 +8,7 @@ Comp = {};
 //addcompview
 Comp.addCompView ={
 	type : 'jade',
-	template : 'supadmin/add',
+	template : 'supadmin_add',
 	execute: function(req,res,next) {
 		return Q('{}');
 	}
@@ -16,11 +16,11 @@ Comp.addCompView ={
 //add comp
 Comp.addComp = {
 	type : 'jade',
-	template : 'supadmin/add',
+	template : 'supadmin_add',
 	execute: function(req,res,next) {
 		var compobj = req.body;
 		var docs = s.addNewComp(compobj);
-		return docs.then(function(doc){
+		return docs.then(function(doc) {
 			return doc;
 		});
 	}
@@ -29,11 +29,14 @@ Comp.addComp = {
 //searchview:show curruent comp
 Comp.searchCompView = {
 	type : 'jade',
-	template : 'supadmin/search',
+	template : 'supadmin_search',
 	execute: function(req,res,next) {
 		var docs = s.searchAllComp();
 		return docs.then(function(doc) {
-			return doc;
+			var data = {
+				'comp':doc
+			};
+			return data;
 		});
 	}
 }
@@ -41,20 +44,70 @@ Comp.searchCompView = {
 //searchOneComp
 Comp.searchOneComp = {
 	type : 'jade',
-	template : 'supadmin/search',
+	template : 'supadmin_search',
 	execute: function(req,res,next) {
-		var compid = req.body.compid;
-		compid = new Number(compid);
+		var compid = parseInt(req.body.compid);
 		var docs = s.searchOneComp(compid);
-		return docs.then(function(doc){
-
-		})
+		return docs.then(function(doc) {
+			return doc;
+		});
 	}
 }
 
+//searchusers
+Comp.searchUserById = {
+	type : 'jade',
+	template : 'supadmin_users',
+	execute: function(req,res,next) {
+		var compid = parseInt(req.params.compid);
+		var docs = s.searchUserByCompId(compid);
+		return doc.then(function(doc) {
+			var data = {
+				'user': doc
+			};
+			return data;
+		});
+	}
+}
 
+//delComp
+Comp.delCompById = {
+	type : 'redirect',
+	execute: function(req,res,next) {
+		var compid = parseInt(res.params.compid);
+		var docs = s.delByCompId(compid);
+		return docs.then(function(){
+			return "/supadmin/search";
+		});
+	}
+}
 
+//ChangeComp
+Comp.changeCompById = {
+	type : 'jade',
+	template : 'supadmin_comp',
+	execute: function(req,res,next) {
+		var compid = parseInt(res.params.compid);
+		var data = req.body;
+		var docs = s.changeByCompId(compid,data);
+		return docs.then(function(doc){
+			return doc;
+		});
+	}
+}
+//changeCompView
+Comp.changeView = {
+	type : 'jade',
+	template : 'supadmin_comp',
+	execute: function(req,res,next) {
+		var compid = parseInt(res.params.compid);
+		var docs = s.searchOneComp(compid);
+		return docs.then(function(doc){
+			return doc;
+		});
+	}
 
+}
 
 module.exports = Comp;
 
