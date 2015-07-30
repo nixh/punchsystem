@@ -1,8 +1,19 @@
 var utils = require('./utils');
 var _ = require('underscore');
 var monk = require('monk');
+var dbm = require('./lib/common/db');
+var Q = require('q');
+
+var util = require('./lib/common/utils');
 
 var DBModule = require('./db_module');
+
+// Helper function to show mid results in db.use function.
+function show(obj) {
+    console.log(obj);
+    return Q(obj);
+}
+
 
 // Trim leading and trailing spaces
 function trim(s) {
@@ -27,126 +38,60 @@ function validate(userObj) {
         userObj['sex'] = !!parseInt(userObj['sex']);
     }
 
-    // if (typeof userObj['owner'] !== "boolean") {
-    //     userObj['owner'] = !!parseInt(userObj['owner']);
-    // }
-
     if (typeof userObj['curRate'] !== 'number') {
         userObj['curRate'] = Number(userObj['curRate']);
     }
 
-    // if (typeof userObj['compid'] !== 'number') {
-    //     userObj['compid'] = Number(userObj['compid']);
-    // }
-};
-
-
-function addUser(userObj, callback) {
-    // validate(userObj);
-
-    var addr = trim(userObj.address_street)
-                 + "|" + trim(userObj.address_city)
-                 + "|" + trim(userObj.address_state)
-                 + "|" + trim(userObj.address_zip);
-
-    userObj.address = addr;
-    userObj.owner = false;
-
-    var col = this.db.get('users');
-
-    console.log(JSON.stringify(userObj));
-
-    col.find({
-        "userid": userObj.userid
-    }, function(err, doc) {
-
-        console.log(doc);
-
-        if (err) {
-            callback(new Error('user error!'));
-        }
-        else{
-            if(!doc || doc.length === 0){
-                col.insert(userObj, callback);
-            }else{
-                callback(new Error("User already exists!"));
-            }
-        }
-    });
-
-    // var db = new DBModule({
-    //     schemaName: 'users',
-    //     idName: 'userid'
-    // });
-
-    // db.loadById(userObj.userid, function(err, doc){
-    //     if(err)
-    //         callback(new Error('search error!'));
-    //     if(!doc || doc.length === 0)
-    //         return db.insert(userObj, callback)
-    //     callback(new Error("User already exists!"));
-    //
-    // });
+    return Q(userObj);
 }
 
-function searchUser(searchTerm, compid, callback) {
+function parseUserObj(userObj) {
+        var address = trim(userObj.address_street)
+            + "|" + trim(userObj.address_city)
+            + "|" + trim(userObj.address_state)
+            + "|" + trim(userObj.address_zip);
 
-    console.log('Now in usermodule.js, doing searching...');
-    console.log("The search term is ..." + searchTerm);
-    console.log("The company id is..." + compid);
+        userObj.address = address;
+        userObj.owner = false;
 
-    var col = this.db.get('users');
-    if (typeof compid === 'function')
-        callback = compid;
-
-    col.find({
-            'name': {
-                $regex: searchTerm,
-                $options: "i"
-            },
-            owner: false
-            ,
-            'compid': typeof compid !== 'function'
-                         ? parseInt(compid) : undefined
-        }, {},
-        callback
-    );
+        return Q(userObj);
 }
 
-function getAllUsers(query, callback) {
-    var col = this.db.get('users');
-    col.find(query, {sort: {createDate: 1}}, callback);
+function addUserObj(userObj) {
+    return dbm.insert('users', userObj).call(this);
 }
 
-function getUserInfo(userid, callback) {
-    var col = this.db.get('users');
-    col.findOne({
-            'userid': userid
-        },
-        callback
-    )
+function addUser(userObj) {
+    return dbm.use(util.wrap(userObj), parseUserObj, addUserObj);
 }
 
-function changeUser(userObj, callback) {
-    validate(userObj);
+function searchUser(searchTerm, compid) {
+    var query = {
+        $or: [
+            {name: {$regex: searchTerm, $options: 'i'}},
+            {userid: {$regex: searchTerm, $options: 'i'}} ],
+        'owner': false,
+        'compid': compid
+    };
 
-    console.log('Now in usermodule.js, changing the user...');
-    console.log(userObj);
+    return dbm.query('users', query).call(this);
+}
 
-    var _id = userObj._id;
+function getAllUsers(query) {
+    return dbm.query('users', query).call(this);
+}
 
-    userObj.address = trim(userObj.address_street) + "|" + trim(userObj.address_city) + "|" + trim(userObj.address_state) + "|" + trim(userObj.address_zip);
+function getUserInfo(userid) {
+    return dbm.load('users', userid, 'userid').call(this);
+}
 
-    var col = this.db.get('users');
+function changeUserObj(obj) {
+    return dbm.updateOne('users', obj.query, obj.doc).call(this);
+}
 
-    var append = {};
-
-    if(userObj.curRate > 0 ){
-        append.rate = parseInt(userObj.curRate);
-        append.changetime = (userObj.rate_change_date ? new Date().getTime() : userObj.rate_change_date);
-
-        delete userObj.rate_change_date;
-    }
+function parseChangeUserInfo(userObj) {
+    var res = {};
+    res.query = {_id: userObj._id};
 
     if(!userObj.avatar){
         delete userObj.avatar;
@@ -156,31 +101,22 @@ function changeUser(userObj, callback) {
         delete userObj.avatar_url;
     }
 
+    userObj.address = trim(userObj.address_street)
+        + "|" + trim(userObj.address_city)
+        + "|" + trim(userObj.address_state)
+        + "|" + trim(userObj.address_zip);
+
     delete userObj._id;
 
-    col.findAndModify(
-        {
-            query: {'_id': _id},
-
-            update: {
-                    '$set': userObj,
-
-                    '$push': {
-                        'rates': append
-                    }
-            }
-        },
-        callback
-    );
+    res.doc = userObj;
 }
 
-function deleteUser(_id, callback) {
-    var col = this.db.get('users');
-    col.remove({
-            "_id": _id
-        },
-        callback
-    )
+function changeUser(userObj) {
+    return dbm.use(util.wrap(userObj), validate, parseChangeUserInfo, changeUserObj);
+}
+
+function deleteUser(_id) {
+    return dbm.deleteOne('users', {_id: _id}).call(this);
 }
 
 function Module(settings) {
