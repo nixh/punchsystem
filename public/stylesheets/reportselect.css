@@ -59,6 +59,7 @@ body {
 	font-weight: 100;
 	cursor: pointer;
 	line-height: 125px; 
+        margin-bottom: 5%;
 }
 .summary:active{ background:rgb(247,130,131); color:white;}
 
