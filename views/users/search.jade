@@ -31,3 +31,11 @@ block content
                         td(style="padding: 10px")
                             a(href="/users/delete/#{user._id}")
                                 img(src="/images/X transparent.png" alt="cross icon")
+
+        .returnDiv
+            button.returnButton.noselect= tr("return")
+
+        script.
+            $(".returnButton").on('click', function(){
+                location.href= "/supervisor/supervisor_main";
+            });

@@ -177,6 +177,9 @@ block content
                         option(value="en") English
                         option(value="cn") 中文
 
+        .returnDiv
+            button.returnButton.noselect= tr("return")
+
             if false
                 .overTimeSwitch.switchButton
                     .switchLabel OVERTIME SETTING
@@ -205,3 +208,14 @@ block content
                             input.rateDisplay(type= "text" placeholder="1.5x" name="newrate" id="newrate" value ="#{newrate}")
 
                     input.longButton.inputBar(type= 'submit' value= 'SUBMIT')
+        if su
+            script.
+                $(".returnButton").on('click', function(){
+                    location.href= "/supervisor/supervisor_main";
+                });
+
+        else
+            script.
+                $(".returnButton").on('click', function(){
+                    location.href= "/staff_main";
+                });
