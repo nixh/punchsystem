@@ -34,5 +34,8 @@
     "q": "~1.4.1",
     "winston": "~1.0.1",
     "ursa": "~0.8.5"
+  },
+  "devDependencies": {
+    "mock-express": "0.0.4"
   }
 }
