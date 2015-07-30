@@ -1,173 +1,117 @@
-var express = require('express');
-var router = express.Router();
-var assert = require ("assert");
-var usersettings = require ('../usersettingModule');
-var settings = new usersettings();
-//test changepass
-describe ("Module",function(){
-	describe('#changepass()',function(){
+var MockExpress = require('mock-express');
+var assert = require('assert');
+var jade = require('jade');
+var path = require('path');
+var _ = require('underscore');
 
-		it('should update password as newpass',function(done){
+function getTemplatePath(templateName) {
+    return path.join(__dirname, "../views", templateName+".jade")
+}
 
-				var userobj = {userid:'LoginName_4',
-							   newpass:"911",
-							   oldpass:"111",
-							   confirmpass:"911"};
-				settings.changepass(userobj,function(err,doc){
-					assert.equal(doc.password,userobj.newpass);
-					done();
-				})
+function wrapRequest(req, map) {
+    _.extend(req, map);
+}
 
-		})
+var app = MockExpress();
+var Action = require('../lib/common/action');
 
-		it('should not change the oldpass word',function(done){
-			var userobj = {	   userid: '1',
-							   newpass:"12345",
-							   oldpass:"12345678",
-							   confirmpass:"12345"
-						   };
-			settings.changepass(userobj,function(err,doc){
-					assert.notEqual(doc.password,userobj.newpass);
-					done();
-				})
-		})
+var staffSettingViewAction = Action.getAction('Settings.staffSettingView');
+app.get('/settings', Action.render(staffSettingViewAction));
 
-
-		it('should not change the oldpass word',function(done){
-			var userobj = {    userid:'LoginName_4',
-							   newpass:"12345",
-							   oldpass:"111",
-							   confirmpass:"12345678"};
-			settings.changepass(userobj,function(err,doc){
-					assert.notEqual(doc.password,userobj.newpass);
-					done();
-				})
-		})
-
-
-		it('should not change the oldpass word',function(done){
-			var userobj = {		userid:'',
-							   	newpass:"",
-							   	oldpass:"",
-							   	confirmpass:""
-						  };
-			settings.changepass(userobj,function(err,doc){
-					assert.notEqual(doc.password,userobj.newpass);
-					done();
-				})
-		})
-
-	})
-})
-// test receiveemail;
-
-describe ("Module",function(){
-	describe('#receiveemail()',function(){
-			it ('should return user email as expected',function(done){
-				var userobj = {userid: "LoginName_4",email:'sd2411@nyu.edu'};
-				settings.receiveemail(userobj,function(err,doc){
-					if(!doc|| doc.length === 0)
-						doc= {email: " "};
-					assert.equal(doc.email,userobj.email);
-					done();
-				})
-
-			})
-			it ('should not return user email as expected',function(done){
-				var userobj = {userid: "LoginName_7",email:''};
-				settings.receiveemail(userobj,function(err,doc){
-					if(!doc|| doc.length === 0)
-						doc= {email: " "};
-					assert.equal(doc.email,userobj.email);
-					done();
-				})
-
-			})
-
-			it ('should not return user email as expected',function(done){
-				var userobj = {userid: "LoginName_5",email:'sd2411@nyu.edu'};
-				settings.receiveemail(userobj,function(err,doc){
-					if(!doc|| doc.length === 0)
-						doc= {email: " "};
-					assert.eual(doc.email,userobj.email);
-					done();
-				})
-
-			})
-	})
-});
-
-describe ("Module",function(){
-	describe('#sendemail()',function(){
-		it('should be sent to correct user',function(done){
-			var userobj = {userid: "LoginName_4",email:'useremail4@email.com'};
-			settings.sendemail(userobj,function(doc){
-					if(!doc|| doc.length === 0)
-						doc= {email: " "};
-					assert.equal(doc.email,userobj.email);
-					done();
-			});
-		})
-
-		it('should not be sent',function(done){
-			var userobj = {userid: "1",email:'useremail4@email.com'};
-			settings.sendemail(userobj,function(doc){
-					if(!doc|| doc.length === 0)
-						doc= {email: " "};
-					assert.notEqual(doc.email,userobj.email);
-					done();
-			});
-		})
-
-		it('should not be sent',function(done){
-			var userobj = {userid: " ",email:'useremail4@email.com'};
-			settings.sendemail(userobj,function(doc){
-					if(!doc|| doc.length === 0)
-						doc= {email: " "};
-					assert.notEqual(doc.email,userobj.email);
-					done();
-			});
-		})
-	})
+describe('test staffSetting action',function(){
+    describe('staffSetting#main',function(){
+        it ('should show jade template', function(done) {
+            var req = app.makeRequest();
+            wrapRequest(req, {'cookies': { sessionid: 'a6fe8c70-2713-11e5-b55d-ff9bc9b1b763'}});
+            var res = app.makeResponse(function(err, response){
+                var compiler = jade.compileFile(getTemplatePath(staffSettingViewAction.template));        
+                compiler(response.model);
+                assert.equal(response.model.title, 'AdminSys Inc.')
+                done();
+            });
+            app.invoke('get', '/settings', req, res);
+        });
+    })
 });
 
 
-// test
-describe ('Module',function(){
-	describe('#switchinformation()',function(){
-		it ('should insert into users collection',function(done){
-			var userobj = {userid:"LoginName_4",frequency:"1",onoffswitch:"1"};
-			settings.switchinformation(userobj,function(err,doc){
 
-				assert.equal(doc,1);
-				done();
-			})
-		})
-		it ('should not insert into user collection',function(done){
-		 	var userobj = {userid: " ",frequency:'1',onoffswitch:"0"};
-		 	settings.switchinformation(userobj,function(err,doc){
+var staffSettingViewAction = Action.getAction('Settings.supSettingView');
+app.get('/supervisor/settings', Action.render(staffSettingViewAction));
+
+describe('test supSetting action',function(){
+    describe('supSetting#main',function(){
+        it ('should show jade template', function(done) {
+            var req = app.makeRequest();
+            wrapRequest(req, {'cookies': { sessionid: 'f39efc70-3629-11e5-a55f-9be434ab7853'}});
+            var res = app.makeResponse(function(err, response){
+                var compiler = jade.compileFile(getTemplatePath(staffSettingViewAction.template));        
+                compiler(response.model);
+                assert.equal(response.model.title, 'AdminSys Inc.')
+                done();
+            });
+            app.invoke('get', '/supervisor/settings', req, res);
+        });
+    })
+});
+
+var staffSettingViewAction = Action.getAction('Settings.setEmailView');
+app.get('/supervisor/sendemail', Action.render(staffSettingViewAction));
+
+describe('test supSetting action',function(){
+    describe('supSetting#setEmailView',function(){
+        it ('should show jade template', function(done) {
+            var req = app.makeRequest();
+            wrapRequest(req, {'cookies': { sessionid: 'f39efc70-3629-11e5-a55f-9be434ab7853'}});
+            var res = app.makeResponse(function(err, response){
+                var compiler = jade.compileFile(getTemplatePath(staffSettingViewAction.template));        
+                compiler(response.model);
+                assert.equal(response.model.title, 'AdminSys Inc.')
+                done();
+            });
+            app.invoke('get', '/supervisor/sendemail', req, res);
+        });
+    })
+});
+
+var staffSettingViewAction = Action.getAction('Settings.setRateView');
+app.get('/supervisor/setrate', Action.render(staffSettingViewAction));
+
+describe('test supSetting action',function(){
+    describe('supSetting#setRateView',function(){
+        it ('should show jade template', function(done) {
+            var req = app.makeRequest();
+            wrapRequest(req, {'cookies': { sessionid: 'f39efc70-3629-11e5-a55f-9be434ab7853'}});
+            var res = app.makeResponse(function(err, response){
+                var compiler = jade.compileFile(getTemplatePath(staffSettingViewAction.template));        
+                compiler(response.model);
+                assert.equal(response.model.title, 'AdminSys Inc.')
+                done();
+            });
+            app.invoke('get', '/supervisor/setrate', req, res);
+        });
+    })
+});
+
+var staffSettingViewAction = Action.getAction('Settings.changePass');
+app.get('/settings', Action.render(staffSettingViewAction));
+
+describe('test supSetting action',function(){
+    describe('supSetting#changePass',function(){
+        it ('should show jade template', function(done) {
+            var req = app.makeRequest();
+            wrapRequest(req, {'cookies': { sessionid: 'f39efc70-3629-11e5-a55f-9be434ab7853'},body:{oldpass:"111",newpass:'123'}});
+            var res = app.makeResponse(function(err, response){
+                var compiler = jade.compileFile(getTemplatePath(staffSettingViewAction.template));        
+                compiler(response.model);
+                assert.equal(response.model.title, 'AdminSys Inc.')
+                done();
+            });
+            app.invoke('post', '/settings', req, res);
+        });
+    })
+});
 
 
-		 		assert.notEqual(doc,1);
-		 		done();
-		 	});
-		 })
-
-		it ('should insert into users collection',function(done){
-			var userobj = {userid:"LoginName_4",frequency:"0",onoffswitch:"0"};
-			settings.switchinformation(userobj,function(err,doc){
-				assert.equal(doc,1);
-				done();
-			})
-		})
 
 
-		it ('should insert into users collection',function(done){
-			var userobj = {userid:"LoginName_4",frequency:" ",onoffswitch:" "};
-			settings.switchinformation(userobj,function(err,doc){
-				assert.equal(doc,1);
-				done();
-			})
-		})
-	})
-})
