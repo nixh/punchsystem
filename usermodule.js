@@ -86,11 +86,12 @@ function getUserInfo(userid) {
 }
 
 function changeUserObj(obj) {
-    return dbm.updateOne('users', obj.query, obj.doc).call(this);
+    return dbm.updateOne('users', obj.query, obj.doc, obj.).call(this);
 }
 
 function parseChangeUserInfo(userObj) {
     var res = {};
+
     res.query = {_id: userObj._id};
     delete userObj._id;
 
@@ -106,8 +107,6 @@ function parseChangeUserInfo(userObj) {
         + "|" + trim(userObj.address_city)
         + "|" + trim(userObj.address_state)
         + "|" + trim(userObj.address_zip);
-
-    delete userObj._id;
 
     res.doc = userObj;
 

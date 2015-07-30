@@ -1,20 +1,13 @@
-class C:
-    def foo(cls, y):
-        print "classmethod", cls, y
+var Q = require('q');
+var um = require('./usermodule');
+var user = new um();
 
-    foo = classmethod(foo);
+var p = user.addUser({'name':'comebackisreal', 'userid': "Fuck you bitch"});
 
+p.then(function(value){
+    console.log(value);
+});
 
-// var Q = require('q');
-// var um = require('./usermodule');
-// var user = new um();
-//
-// var p = user.addUser({'name':'comebackisreal', 'userid': "Fuck you bitch"});
-//
-// p.then(function(value){
-//     console.log(value);
-// });
-//
 //
 // function changeUser(userObj, callback) {
 //     validate(userObj);
