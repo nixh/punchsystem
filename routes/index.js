@@ -199,6 +199,7 @@ router.get('/punch/:key', function(req, res, next) {
                 utils.render('message', punchData(record, msg, userInfo))(req, res, next);
             });
         } else {
+            rm.db.close();
             msg = {
                 head: res.__('punchFailedHead'),
                 body: res.__('punchFailed')
@@ -216,7 +217,10 @@ router.get('/punch/:key', function(req, res, next) {
 
 
 
+<<<<<<< HEAD
 /*
+=======
+>>>>>>> a1fc4bb301a2acd296f96730f046da1580bde65c
 var qrModule = require('../qrcodeModule');
 
 router.get('/supervisor/showdynacode', function(req, res, next) {
@@ -229,7 +233,11 @@ router.get('/supervisor/showdynacode', function(req, res, next) {
         })(req, res, next);
     });
 });
+<<<<<<< HEAD
 */
+=======
+
+>>>>>>> a1fc4bb301a2acd296f96730f046da1580bde65c
 
 router.get('/recentRecords', function(req, res, next) {
     var rm = new recordsModule();
