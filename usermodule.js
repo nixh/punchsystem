@@ -92,6 +92,7 @@ function changeUserObj(obj) {
 function parseChangeUserInfo(userObj) {
     var res = {};
     res.query = {_id: userObj._id};
+    delete userObj._id;
 
     if(!userObj.avatar){
         delete userObj.avatar;
@@ -109,6 +110,9 @@ function parseChangeUserInfo(userObj) {
     delete userObj._id;
 
     res.doc = userObj;
+
+
+    return Q(res);
 }
 
 function changeUser(userObj) {
