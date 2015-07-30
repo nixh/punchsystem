@@ -4,26 +4,28 @@
 	background-repeat: repeat-y;
 }
 
-.mainPage{
+.main{
 	.width-14;
 	.mcenter;
 	color: @text-color;
 	padding-top: 5%;
 
-	.avatar{
+	.section{
 		.width-16;
+		.test-border;
+	}
+	.avatar{
 		text-align: center;
 		img {
-                .hollowcircle(300px, 20px, @avatar-border);
+                .hollowcircle(300px, 20px, @avatar-border-color);
             }
         p{
         	.normal-font;
-        	color: @big-word-label-color;
+        	color: @head-label-color;
         }
 	}
 
 	.paidRate{
-		.width-16;
 		padding-bottom: 5%;
 
 		&:after{
@@ -40,10 +42,10 @@
 			}
 
 			&:last-child{
-				.button-function(@green);
+				.functional-button;
 			    float: right;
 			}
-
+			
 			& > span{
 				.width-16;
 				.mcenter;
@@ -63,11 +65,10 @@
 	}
 
 	.otherInfoLinks{
-		.width-16;
-		.otherInfo{
+		.link_button{
 			.width-16;
 			.basic-button;
-			background-color: @normal-display-background;
+			background-color: @box-display-background;
 			color: @text-color;
 			.mb;
 
