@@ -6,7 +6,7 @@ var Q = require('q');
 Settings ={};
 
 //用户页面
-Settings.staffSettingView={
+Settings.staffSettingView = {
 	type : 'jade',
 	template : './staff/staff_setting_su',
 	execute: function(req,res,next) {
