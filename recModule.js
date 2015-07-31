@@ -16,11 +16,11 @@ function updateRecord(query, record, records) {
     return records.findAndModify(query, { $set: record }, { new: true });
 }
 
-function newRecordFromUserDoc(userDoc) {
+function newRecordFromUserDoc(userDoc, users) {
     return {
         compid: userDoc.compid,
         userid: userDoc.userid,
-        //hourlyrate: userDoc.curRate,
+        hourlyrate: getCurrentRate(userDoc.userid, users),
         remark: 'defaut remark'
     };
 }
@@ -111,6 +111,7 @@ function rencentRecords(idObj, callback) {
 
 function getCurrentRate(userid, users) {
     users.findOne({userid: userid}, function(err, user) {
+        //console.log(user);
         if(err) {
             console.log(err);
         } else {
@@ -192,8 +193,7 @@ function punch(query, callback) {
         users.findOne(query, {}, function(err, user) {
             var timeNow = new Date().getTime();
             if (!lastRecord || lastRecord.outDate) {
-                var newRecord = newRecordFromUserDoc(user);
-                newRecord.hourlyrate = getCurrentRate(userid, users);
+                var newRecord = newRecordFromUserDoc(user, users);
                 newRecord.inDate = timeNow;
                 newRecord.outDate = null;
                 insertRecord(newRecord, records).on('complete', callback);
@@ -374,14 +374,13 @@ function getWageByWeek(query, callback) {
     var compid = query.compid;
     var startDate = query.startDate;
     var endDate = query.endDate;
-    console.log(compid);
     users.find({ compid : compid,  owner : false}, function(err, userList) {
         if (err) {
             console.log(err);
         } else {
             var userIdList = userList.map(function(u) {return u.userid;});
             records.col.aggregate([
-                { $match : {  userid: {$in : userIdList} , inDate: {$gte: startDate}, outDate: {$lte: endDate} } },
+                { $match : {  userid: {$in : userIdList} , inDate: {$gte: startDate}, outDate: {$ne: null, $lte: endDate} } },
                 { $sort : { inDate : 1} },
                 { $group : {
                         _id : { rate : '$hourlyRate', userid : '$userid' },
@@ -428,7 +427,7 @@ function getWageByWeek(query, callback) {
                         userReport.userid = report.userid;
                         userReport.from = moment(report.from).format("LLLL");
                         userReport.to = moment(report.to).format("LLLL");
-                        userReport.totalhours = totalhours.toFixed(2);
+                        userReport.totalhours = totalhours;
                         userReport.avgRate = report.avgRate;
                         var totalWage = 0;
                         var rates = report.rates;
@@ -440,7 +439,7 @@ function getWageByWeek(query, callback) {
                         if (overTime > 0) {
                             totalWage += overTime * report.avgRate * 0.5;
                         }
-                        userReport.totalWage = totalWage.toFixed(2);
+                        userReport.totalWage = totalWage;
                         jsonData.userReports.push(userReport);
                     });
                     jsonData.userList = userList;

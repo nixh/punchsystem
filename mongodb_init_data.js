@@ -53,7 +53,7 @@ for(var i=0; i<userNumber; i++) {
             {changetime: changetime2, rate: 12},
             {changetime: changetime3, rate: 15}
         ],
-        owner : i % (userNumber / companyNumber) == 0 ? true : false,
+        owner : i % (userNumber / companyNumber) === 0 ? true : false,
         remark : 'User Remark',
         avatar: 'avatar url'
     });
@@ -76,23 +76,23 @@ users_cursor.forEach(function(doc){
     var date = startDate;
 
     (function(d) {
-    for(var i=0; i<20; i++) {
-        report_id_counter += 1;
-        var index = getRandomNumber(3)
-        var inTime = d + hourToMillis(possibleStartHours[index]);
-        index = getRandomNumber(3);
-        var outTime = d + hourToMillis(possibleEndHours[index]);
-
-        db.records.insert({
-            reportid : report_id_counter,
-            compid : compid,
-            userid : userid,
-            inDate : inTime,
-            outDate : outTime,
-            hourlyRate : 8.75,
-            remark : 'test'
-        }, function(){ d += 24 * 3600 * 1000; });
-    }
+        for(var i=0; i<20; i++) {
+            report_id_counter += 1;
+            var index = getRandomNumber(3);
+            var inTime = d + hourToMillis(possibleStartHours[index]);
+            index = getRandomNumber(3);
+            var outTime = d + hourToMillis(possibleEndHours[index]);
+            d += 24 * 3600 * 1000;
+            db.records.insert({
+                reportid : report_id_counter,
+                compid : compid,
+                userid : userid,
+                inDate : inTime,
+                outDate : outTime,
+                hourlyRate : 8.75,
+                remark : 'test'
+            });
+        }
     })(date);
 });
 
