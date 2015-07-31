@@ -133,24 +133,6 @@ functions
   zoom: 1;
   height: 0px;
 }
-.basic-table-head {
-  font-family: 'anivers reg', 'simhei';
-  font-size: 75px;
-  background-color: white;
-  color: #505a6a;
-}
-.basic-table-head:first-child {
-  border-top-left-radius: 25px;
-}
-.basic-table-head:last-child {
-  border-top-right-radius: 25px;
-}
-.basic-table-data {
-  background-color: rgba(238, 238, 238, 0.52);
-  color: #505a6a;
-  text-align: center;
-  font-size: 40px;
-}
 .basic-table-row:last-child td:first-child {
   border-bottom-left-radius: 25px;
 }
@@ -330,22 +312,77 @@ functions
 /**
 yongred changing color, new variables
 */
+.functional-button {
+  background-color: #505a6a;
+  color: #8dc63f;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+}
+.functional-button:active {
+  background-color: #8dc63f;
+  color: white;
+}
+.link-button {
+  background-color: white;
+  color: #505a6a;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+}
+.link-button:active {
+  background-color: #8dc63f;
+  color: white;
+}
+.text-input,
+.pwd-input {
+  border-radius: 10px;
+  border: none;
+  width: 100%;
+  height: 120px;
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+  text-indent: 10px;
+  color: #505a6a;
+}
+.text-input::-webkit-input-placeholder {
+  color: #505a6a;
+}
+.text-input:-moz-placeholder {
+  /* Firefox 18- */
+  color: #505a6a;
+}
+.text-input::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #505a6a;
+}
+.text-input:-ms-input-placeholder {
+  color: #505a6a;
+}
 .bgbody {
   background-repeat: repeat-y;
+  background-color: #eeeeee;
 }
-.punchPage {
+.main {
   width: 87.5%;
   margin: 0 auto;
-  padding-top: 5%;
 }
-.punchPage #searchform {
+.main .section {
   width: 100%;
+}
+.main #searchform {
+  width: 100%;
+  padding-top: 5%;
   padding-bottom: 2%;
 }
-.punchPage #searchform .startEndTime {
+.main #searchform .startEndTime {
   width: 100%;
 }
-.punchPage #searchform .startEndTime input {
+.main #searchform .startEndTime input {
   border-radius: 10px;
   border: none;
   width: 100%;
@@ -358,24 +395,24 @@ yongred changing color, new variables
   text-align: center;
   display: block;
 }
-.punchPage #searchform .startEndTime input::-webkit-input-placeholder {
+.main #searchform .startEndTime input::-webkit-input-placeholder {
   color: #505a6a;
 }
-.punchPage #searchform .startEndTime input:-moz-placeholder {
+.main #searchform .startEndTime input:-moz-placeholder {
   /* Firefox 18- */
   color: #505a6a;
 }
-.punchPage #searchform .startEndTime input::-moz-placeholder {
+.main #searchform .startEndTime input::-moz-placeholder {
   /* Firefox 19+ */
   color: #505a6a;
 }
-.punchPage #searchform .startEndTime input:-ms-input-placeholder {
+.main #searchform .startEndTime input:-ms-input-placeholder {
   color: #505a6a;
 }
-.punchPage #searchform .controlButtons {
+.main #searchform .controlButtons {
   width: 100%;
 }
-.punchPage #searchform .controlButtons:after {
+.main #searchform .controlButtons:after {
   content: "";
   display: block;
   visibility: hidden;
@@ -383,7 +420,7 @@ yongred changing color, new variables
   zoom: 1;
   height: 0px;
 }
-.punchPage #searchform .controlButtons .buttonItem {
+.main #searchform .controlButtons .buttonItem {
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -396,81 +433,91 @@ yongred changing color, new variables
   float: left;
   text-align: center;
   background-color: #8dc63f;
-  color: #8dc63f;
+  color: white;
   line-height: 150px;
   border-radius: 10px;
 }
-.punchPage #searchform .controlButtons .buttonItem:active {
+.main #searchform .controlButtons .buttonItem:active {
   background-color: #505a6a;
   color: #8dc63f;
 }
-.punchPage #searchform .controlButtons .buttonItem:nth-child(2) {
+.main #searchform .controlButtons .buttonItem:nth-child(2) {
   margin-left: 3.325%;
 }
-.punchPage #searchform .controlButtons .buttonItem:last-child {
+.main #searchform .controlButtons .buttonItem:last-child {
   float: right;
 }
-.punchPage .reportTableDiv {
+.main .reportTableDiv {
   width: 100%;
 }
-.punchPage .reportTableDiv table.reportTable {
+.main .reportTableDiv table.reportTable {
   border-collapse: separate;
   border-spacing: 5px;
   margin-left: -5px;
   width: calc(100% + 2*5px);
 }
-.punchPage .reportTableDiv table.reportTable th.tableHead {
-  font-family: 'anivers reg', 'simhei';
-  font-size: 75px;
-  background-color: white;
-  color: #505a6a;
-}
-.punchPage .reportTableDiv table.reportTable th.tableHead:first-child {
-  border-top-left-radius: 25px;
-}
-.punchPage .reportTableDiv table.reportTable th.tableHead:last-child {
-  border-top-right-radius: 25px;
-}
-.punchPage .reportTableDiv table.reportTable tr.tableRow:last-child td:first-child {
-  border-bottom-left-radius: 25px;
-}
-.punchPage .reportTableDiv table.reportTable tr.tableRow:last-child td:last-child {
-  border-bottom-right-radius: 25px;
-}
-.punchPage .reportTableDiv table.reportTable tr.tableRow td.tableData {
-  background-color: rgba(238, 238, 238, 0.52);
-  color: #505a6a;
-  text-align: center;
-  font-size: 40px;
-}
-.punchPage .reportTableDiv table.reportTable tr.tableRow:last-child .tableData:first-child {
+.main .reportTableDiv table.reportTable tr.table_row:last-child .table_data:first-child {
   border-bottom-left-radius: 0;
 }
-.punchPage .reportTableDiv table.reportTable tr.tableRow:last-child .tableData:last-child {
+.main .reportTableDiv table.reportTable tr.table_row:last-child .table_data:last-child {
   border-bottom-right-radius: 0;
 }
-.punchPage .reportTableDiv table.reportTable .tableHead,
-.punchPage .reportTableDiv table.reportTable .tableData {
+.main .reportTableDiv table.reportTable .table_head,
+.main .reportTableDiv table.reportTable .table_data {
   text-align: center;
   height: 200px;
 }
-.punchPage .reportTableDiv table.reportTable th.tableHead {
-  background-color: white;
+.main .reportTableDiv table.reportTable th.table_head {
+  font-family: 'anivers reg', 'simhei';
+  font-size: 75px;
+  background-color: rgba(238, 238, 238, 0.52);
   color: #505a6a;
 }
-.punchPage .reportTableDiv table.reportTable .tableData > ul {
+.main .reportTableDiv table.reportTable th.table_head:first-child {
+  border-top-left-radius: 25px;
+}
+.main .reportTableDiv table.reportTable th.table_head:last-child {
+  border-top-right-radius: 25px;
+}
+.main .reportTableDiv table.reportTable .table_data {
+  background-color: white;
+  color: #505a6a;
+  text-align: center;
+  font-size: 40px;
+  /*
+				.editInButton{
+					background-color: @pink; 
+				}
+				.editOutButton{
+					background-color: @green;
+				}
+				*/
+}
+.main .reportTableDiv table.reportTable .table_data:first-of-type {
+  width: 6.25%;
+}
+.main .reportTableDiv table.reportTable .table_data:nth-of-type(2) {
+  width: 37.5%;
+}
+.main .reportTableDiv table.reportTable .table_data:nth-of-type(3) {
+  width: 37.5%;
+}
+.main .reportTableDiv table.reportTable .table_data:last-of-type {
+  width: 18.75%;
+}
+.main .reportTableDiv table.reportTable .table_data > ul {
   list-style: none;
   padding-left: 0;
   width: 100%;
   height: 100%;
 }
-.punchPage .reportTableDiv table.reportTable .tableData > ul > .listItem {
+.main .reportTableDiv table.reportTable .table_data > ul > .listItem {
   margin-top: 28px;
   width: 100%;
   text-align: center;
   height: 30%;
 }
-.punchPage .reportTableDiv table.reportTable .tableData > ul > li > input {
+.main .reportTableDiv table.reportTable .table_data > ul > .listItem > input {
   border-radius: 10px;
   width: 80%;
   height: 120px;
@@ -481,35 +528,46 @@ yongred changing color, new variables
   font-size: 40px;
   height: auto;
 }
-.punchPage .reportTableDiv table.reportTable .tableData > ul > li > input::-webkit-input-placeholder {
+.main .reportTableDiv table.reportTable .table_data > ul > .listItem > input::-webkit-input-placeholder {
   color: #505a6a;
 }
-.punchPage .reportTableDiv table.reportTable .tableData > ul > li > input:-moz-placeholder {
+.main .reportTableDiv table.reportTable .table_data > ul > .listItem > input:-moz-placeholder {
   /* Firefox 18- */
   color: #505a6a;
 }
-.punchPage .reportTableDiv table.reportTable .tableData > ul > li > input::-moz-placeholder {
+.main .reportTableDiv table.reportTable .table_data > ul > .listItem > input::-moz-placeholder {
   /* Firefox 19+ */
   color: #505a6a;
 }
-.punchPage .reportTableDiv table.reportTable .tableData > ul > li > input:-ms-input-placeholder {
+.main .reportTableDiv table.reportTable .table_data > ul > .listItem > input:-ms-input-placeholder {
   color: #505a6a;
 }
-.punchPage .reportTableDiv table.reportTable .tableData > ul > li .editButton {
-  border-radius: 10px;
-  border: none;
+.main .reportTableDiv table.reportTable .table_data > ul > .listItem > .out {
   color: #8dc63f;
 }
-.punchPage .reportTableDiv table.reportTable .tableData > ul > li .editInButton {
-  background-color: #505a6a;
+.main .reportTableDiv table.reportTable .table_data > ul > .listItem > .in {
+  color: #505a6a;
 }
-.punchPage .reportTableDiv table.reportTable .tableData > ul > li .editOutButton {
-  background-color: #505a6a;
+.main .reportTableDiv table.reportTable .table_data .editButton {
+  background-color: #8dc63f;
+  color: white;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+  height: 100%;
+  line-height: 200px;
 }
-.punchPage .reportTableDiv table.reportTable .tableData > ul > li .confirmReturn {
+.main .reportTableDiv table.reportTable .table_data .editButton:active {
+  background-color: #505a6a;
+  color: white;
+}
+.main .reportTableDiv table.reportTable .table_data .confirmReturnDelete {
   width: 100%;
+  height: 100%;
 }
-.punchPage .reportTableDiv table.reportTable .tableData > ul > li .confirmReturn:after {
+.main .reportTableDiv table.reportTable .table_data .confirmReturnDelete:after {
   content: "";
   display: block;
   visibility: hidden;
@@ -517,19 +575,54 @@ yongred changing color, new variables
   zoom: 1;
   height: 0px;
 }
-.punchPage .reportTableDiv table.reportTable .tableData > ul > li .confirmReturn > button {
-  border-radius: 10px;
-  border: none;
-  color: #8dc63f;
+.main .reportTableDiv table.reportTable .table_data .confirmReturnDelete .funcButton {
   text-align: center;
-  width: 48%;
   padding: 0px;
+  height: 50%;
+  line-height: 100px;
 }
-.punchPage .reportTableDiv table.reportTable .tableData > ul > li .confirmReturn .confirmButton {
+.main .reportTableDiv table.reportTable .table_data .confirmReturnDelete .confirmButton {
   float: left;
-  background-color: #505a6a;
+  width: 50%;
+  background-color: #8dc63f;
+  color: white;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
 }
-.punchPage .reportTableDiv table.reportTable .tableData > ul > li .confirmReturn .returnButton {
-  float: right;
+.main .reportTableDiv table.reportTable .table_data .confirmReturnDelete .confirmButton:active {
   background-color: #505a6a;
+  color: #8dc63f;
+}
+.main .reportTableDiv table.reportTable .table_data .confirmReturnDelete .returnButton {
+  float: right;
+  width: 50%;
+  background-color: #505a6a;
+  color: white;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+}
+.main .reportTableDiv table.reportTable .table_data .confirmReturnDelete .returnButton:active {
+  background-color: #8dc63f;
+  color: white;
+}
+.main .reportTableDiv table.reportTable .table_data .confirmReturnDelete .deleteButton {
+  width: 100%;
+  background-color: white;
+  color: #505a6a;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+  clear: both;
+}
+.main .reportTableDiv table.reportTable .table_data .confirmReturnDelete .deleteButton:active {
+  background-color: #8dc63f;
+  color: white;
 }
