@@ -5,7 +5,6 @@ var monk = require('monk');
 var db = monk('mongodb://localhost:27017/punchsystem');
 var utils = require('../utils');
 
-
 router.get('/', function(req, res, next) {
     var test = db.get('test');
     var results = test.find({}, {});
@@ -128,7 +127,7 @@ router.get('/settings', function(req, res, next){
 // router.get('/staff_punch_report', function(req, res, next){
 
 // 	res.render('staff/staff_punch_report', {
-		
+
 // 		var records = db.get("records");
 // 		records.findOne({reportid:1}, {}, function(err, doc){
 // 				var ret= {msg: null, ok: true};
@@ -140,7 +139,7 @@ router.get('/settings', function(req, res, next){
 // 				ret.record= doc;
 // 				res.render('staff/staff_punch_report', ret);
 // 		});
-		
+
 
 // 		clockData: [
 // 			{

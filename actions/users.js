@@ -6,4 +6,4 @@ var um = new usermodule();
 
 user = {};
 
-module.exports = Users;
+module.exports = users;
