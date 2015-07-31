@@ -160,16 +160,16 @@ functions
     line-height: @basic-ctrol-height;
     &:active {
         background-color: @link-button-active-background;
-        color: @@link-button-active-color;
+        color: @link-button-active-color;
     }
     .non-selectable;
     cursor: pointer;
 }
 
-.basic-table-head{
+.basic-table-head(@background: @table-head-background, @color:  @table-head-color){
     .header-font;
-    background-color: @table-head-background;
-    color: @table-head-color;
+    background-color: @background;
+    color: @color;
     &:first-child {
         border-top-left-radius: @basic-radius;
     }
@@ -178,9 +178,9 @@ functions
     }
 }
 
-.basic-table-data{
-    background-color: @table-cell-background;
-    color: @table-cell-color;
+.basic-table-data(@background: @table-cell-background, @color:  @table-cell-color){
+    background-color: @background;
+    color: @color;
     text-align: center;
     .small-font;
     //.roundBorder(@small-radius);
@@ -200,15 +200,15 @@ functions
     border-spacing: @border-spacing;
     margin-left: -@border-spacing;
     width: calc(~"100% + 2*@{border-spacing}");
-    th.tableHead{
-        .basic-table-head;
-    }
-    tr.tableRow {
-        .basic-table-row;
-        td.tableData {
-            .basic-table-data;
-        }
-    }
+    // th.tableHead{
+    //     .basic-table-head;
+    // }
+    // tr.tableRow {
+    //     .basic-table-row;
+    //     td.tableData {
+    //         .basic-table-data;
+    //     }
+    // }
     
 }
 
@@ -330,23 +330,6 @@ functions
 
 }
 
-.button-function(@active-background-color: @blue, @active-color: @green){
-     &:active {
-        background-color: @active-background-color;
-        color: @active-color;
-    }
-    .non-selectable;
-    cursor: pointer;
-}
-
-.inline-button(@background-color: @green, @box-height: @box-float-height){
-    .button-function;
-    .float-box(@box-height, @background-color);
-    color: @functional-button-color;
-    line-height: @box-height;
-
-}
-
 .unorder-list{
     list-style: none;
     padding-left:0;
@@ -384,12 +367,54 @@ functions
     border: 1px solid @color;
 }
 
+
 /**
 yongred changing color, new variables
 */
-.functional-button(@active-background-color: @functional-button-active-background, @active-color: @functional-button-active-color){
+.simple-button(@background: @link-button-background, @color: @link-button-color, @active-background-color: @link-button-active-background, @active-color: @link-button-active-color){
     
-    background-color: @functional-button-background;
-    color: @functional-button-color;
+    background-color: @background;
+    color: @color;
     .button-function(@active-background-color, @active-color);
+}
+
+.button-function(@active-background-color: @blue, @active-color: @green){
+     &:active {
+        background-color: @active-background-color;
+        color: @active-color;
+    }
+    .non-selectable;
+    cursor: pointer;
+}
+
+.long-button-shape(@border-radius:0) {
+    .normal-font;
+    text-align: center;
+    .roundSquare(@basic-ctrol-width, @basic-ctrol-height, @border-radius);
+    line-height: @basic-ctrol-height;
+}
+
+.functional-button{
+    .simple-button(@functional-button-background, @functional-button-color, @functional-button-active-background, @functional-button-active-color);
+}
+
+.link-button{
+    .simple-button(@link-button-background, @link-button-color, @link-button-active-background, @link-button-active-color);
+}
+
+.inline-button(@box-height: @box-float-height, @background: @altfunc-button-background, @color: @altfunc-button-color, @background-active: @altfunc-button-active-background, @color-active: @altfunc-button-active-color){
+
+    .button-function(@background-active, @color-active);
+    .float-box(@box-height, @background);
+    color: @color;
+    line-height: @box-height;
+
+}
+
+.text-input {
+    .basic-input(@small-radius);
+}
+
+.pwd-input:extend(.text-input) {
+    
 }

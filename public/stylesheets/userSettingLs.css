@@ -133,24 +133,6 @@ functions
   zoom: 1;
   height: 0px;
 }
-.basic-table-head {
-  font-family: 'anivers reg', 'simhei';
-  font-size: 75px;
-  background-color: white;
-  color: #505a6a;
-}
-.basic-table-head:first-child {
-  border-top-left-radius: 25px;
-}
-.basic-table-head:last-child {
-  border-top-right-radius: 25px;
-}
-.basic-table-data {
-  background-color: rgba(238, 238, 238, 0.52);
-  color: #505a6a;
-  text-align: center;
-  font-size: 40px;
-}
 .basic-table-row:last-child td:first-child {
   border-bottom-left-radius: 25px;
 }
@@ -330,14 +312,34 @@ functions
 /**
 yongred changing color, new variables
 */
-.bgbody {
-  background-repeat: repeat-y;
+.functional-button {
+  background-color: #505a6a;
+  color: #8dc63f;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
 }
-.settingPage {
-  width: 87.5%;
-  margin: 0 auto;
+.functional-button:active {
+  background-color: #8dc63f;
+  color: white;
 }
-.settingPage .inputBar {
+.link-button {
+  background-color: white;
+  color: #505a6a;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+}
+.link-button:active {
+  background-color: #8dc63f;
+  color: white;
+}
+.text-input,
+.pwd-input {
   border-radius: 10px;
   border: none;
   width: 100%;
@@ -346,26 +348,44 @@ yongred changing color, new variables
   font-size: 50px;
   text-indent: 10px;
   color: #505a6a;
-  line-height: normal;
-  margin-bottom: 2%;
 }
-.settingPage .inputBar::-webkit-input-placeholder {
+.text-input::-webkit-input-placeholder {
   color: #505a6a;
 }
-.settingPage .inputBar:-moz-placeholder {
+.text-input:-moz-placeholder {
   /* Firefox 18- */
   color: #505a6a;
 }
-.settingPage .inputBar::-moz-placeholder {
+.text-input::-moz-placeholder {
   /* Firefox 19+ */
   color: #505a6a;
 }
-.settingPage .inputBar:-ms-input-placeholder {
+.text-input:-ms-input-placeholder {
   color: #505a6a;
 }
-.settingPage .longButton {
-  background-color: white;
-  color: #505a6a;
+.bgbody {
+  background-repeat: repeat-y;
+  background-color: #eeeeee;
+}
+.main {
+  width: 87.5%;
+  margin: 0 auto;
+}
+.main .section {
+  width: 100%;
+}
+.main .pwd-input {
+  line-height: normal;
+  margin-bottom: 2%;
+}
+.main .func_button {
+  background-color: #505a6a;
+  color: #8dc63f;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
   text-align: center;
@@ -374,26 +394,21 @@ yongred changing color, new variables
   width: 100%;
   height: 120px;
   line-height: 120px;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-  cursor: pointer;
 }
-.settingPage .longButton:active {
+.main .func_button:active {
   background-color: #8dc63f;
   color: white;
 }
-.settingPage .bigLabel {
+.main .bigLabel {
   float: left;
   font-size: 60px;
 }
-.settingPage .switchButton {
+.main .switchButton {
   width: 100%;
   padding-top: 100px;
   padding-bottom: 50px;
 }
-.settingPage .switchButton:after {
+.main .switchButton:after {
   content: "";
   display: block;
   visibility: hidden;
@@ -401,33 +416,26 @@ yongred changing color, new variables
   zoom: 1;
   height: 0px;
 }
-.settingPage .switchButton .onOff {
+.main .switchButton .onOff {
   float: right;
 }
-.settingPage .passwordChange {
-  width: 100%;
+.main .passwordChange {
   padding-top: 100px;
 }
-.settingPage .passwordChange .passwordLabel {
+.main .passwordChange .passwordLabel {
   margin-bottom: 2%;
   color: #505a6a;
   display: inline-block;
 }
-.settingPage .emailSwitch {
-  width: 100%;
-}
-.settingPage .emailSwitch .switchLabel {
+.main .emailSwitch .switchLabel {
   color: #505a6a;
 }
-.settingPage .EmailReportSetting {
-  width: 100%;
-}
-.settingPage .EmailReportSetting .radioButton {
+.main .EmailReportSetting .radioButton {
   color: #505a6a;
   width: 100%;
   margin-top: 30px;
 }
-.settingPage .EmailReportSetting .radioButton:after {
+.main .EmailReportSetting .radioButton:after {
   content: "";
   display: block;
   visibility: hidden;
@@ -435,44 +443,40 @@ yongred changing color, new variables
   zoom: 1;
   height: 0px;
 }
-.settingPage .EmailReportSetting .radioButton .chooseLabel {
+.main .EmailReportSetting .radioButton .chooseLabel {
   font-size: 40px;
   height: 300px;
   float: left;
   display: inline-block;
 }
-.settingPage .EmailReportSetting .radioButton .radioinput-center {
+.main .EmailReportSetting .radioButton .radioinput-center {
   float: left;
   height: 300px;
   margin-left: 5%;
   padding-top: 30px;
   width: 25%;
 }
-.settingPage .EmailReportSetting .radioButton .radioinput-center .label {
+.main .EmailReportSetting .radioButton .radioinput-center .label {
   font-size: 40px;
 }
-.settingPage .EmailReportSetting .radioButton .orLabel {
+.main .EmailReportSetting .radioButton .orLabel {
   float: left;
   font-size: 40px;
   margin-left: 5%;
   line-height: 240px;
   height: 300px;
 }
-.settingPage .overTimeSwitch {
-  width: 100%;
-}
-.settingPage .overTimeSwitch .switchLabel {
+.main .overTimeSwitch .switchLabel {
   color: #505a6a;
 }
-.settingPage .overTimeSetting {
-  width: 100%;
+.main .overTimeSetting {
   padding-bottom: 100px;
 }
-.settingPage .overTimeSetting .thresholdDiv {
+.main .overTimeSetting .thresholdDiv {
   width: 100%;
   margin-bottom: 10px;
 }
-.settingPage .overTimeSetting .thresholdDiv:after {
+.main .overTimeSetting .thresholdDiv:after {
   content: "";
   display: block;
   visibility: hidden;
@@ -480,7 +484,7 @@ yongred changing color, new variables
   zoom: 1;
   height: 0px;
 }
-.settingPage .overTimeSetting .thresholdDiv .thresholdLabel {
+.main .overTimeSetting .thresholdDiv .thresholdLabel {
   background-color: #505a6a;
   color: white;
   font-family: 'anivers reg', 'simhei';
@@ -497,7 +501,7 @@ yongred changing color, new variables
   border: none;
   float: left;
 }
-.settingPage .overTimeSetting .thresholdDiv .hourDisplay {
+.main .overTimeSetting .thresholdDiv .hourDisplay {
   float: left;
   height: 200px;
   line-height: normal;
@@ -516,7 +520,7 @@ yongred changing color, new variables
   font-size: 50px;
   margin-left: 3.325%;
 }
-.settingPage .overTimeSetting .thresholdDiv .perWeekLabel {
+.main .overTimeSetting .thresholdDiv .perWeekLabel {
   float: right;
   display: table;
   height: 200px;
@@ -534,11 +538,11 @@ yongred changing color, new variables
   width: 25%;
   font-size: 40px;
 }
-.settingPage .overTimeSetting .rateDiv {
+.main .overTimeSetting .rateDiv {
   width: 100%;
   margin-bottom: 20px;
 }
-.settingPage .overTimeSetting .rateDiv:after {
+.main .overTimeSetting .rateDiv:after {
   content: "";
   display: block;
   visibility: hidden;
@@ -546,7 +550,7 @@ yongred changing color, new variables
   zoom: 1;
   height: 0px;
 }
-.settingPage .overTimeSetting .rateDiv .rateLabel {
+.main .overTimeSetting .rateDiv .rateLabel {
   background-color: #505a6a;
   color: white;
   font-family: 'anivers reg', 'simhei';
@@ -563,7 +567,7 @@ yongred changing color, new variables
   border: none;
   float: left;
 }
-.settingPage .overTimeSetting .rateDiv .rateDisplay {
+.main .overTimeSetting .rateDiv .rateDisplay {
   float: right;
   display: table;
   height: 200px;
@@ -581,7 +585,7 @@ yongred changing color, new variables
   width: 43.75%;
   font-size: 40px;
 }
-.settingPage .overTimeSetting span.labelSpan {
+.main .overTimeSetting span.labelSpan {
   line-height: normal;
   font-size: 40px;
   word-wrap: break-word;
