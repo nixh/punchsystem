@@ -1,7 +1,7 @@
 extends ../layout.jade
 
 append links
-    link(rel="stylesheet" href="/stylesheets/adminpunch.css") 
+    //link(rel="stylesheet" href="/stylesheets/adminpunch.css") 
     //link(rel='stylesheet' href='/stylesheets/supervisorPunchReport.css')
     link(rel='stylesheet' href='/stylesheets/punchReportLs.css')
     link(rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css")
@@ -39,37 +39,52 @@ append scripts
             
             $('.editButton').on('click', function(){
                 var $btn = $(this);
-                var date = $btn.attr('data-date');
-                var time = $btn.attr('data-time');
-                var type = $btn.attr('data-type');
-                var tr = $btn.parent().parent().parent().parent().parent();
-                if(type === 'in') {
-                    tr.find('.inDateInput').val(date);
-                    tr.find('.inTimeInput').val(time);
-                } else {
-                    tr.find('.outDateInput').val(date);
-                    tr.find('.outTimeInput').val(time);
-                }
+                var tr = $btn.parent().parent();
+                var inDateInput = tr.find('.inDateInput');
+                inDateInput.val(inDateInput.attr('data-value'));
+                var inTimeInput = tr.find('.inTimeInput');
+                inTimeInput.val(inTimeInput.attr('data-value'));
+                var outDateInput = tr.find('.outDateInput');
+                outDateInput.val(outDateInput.attr('data-value'));
+                var outTimeInput = tr.find('.outTimeInput');
+                outTimeInput.val(outTimeInput.attr('data-value'));
             });
             $('.confirmButton').on('click', function(){
                 var $btn = $(this);
-                var value = $btn.attr('data-value');
-                var type = $btn.attr('data-type');
-                var userid = "#{userid}";
-                var data = {userid: userid, type:type, value:value};
-                var tr = $btn.parent().parent().parent().parent().parent();
-                if(type === 'in') {
-                    var inDate = tr.find('.inDateInput').val();
-                    var inTime = tr.find('.inTimeInput').val();
-                    data.date = inDate+" "+inTime;
-                } else {
-                    var outDate = tr.find('.outDateInput').val();
-                    var outTime = tr.find('.outTimeInput').val();
-                    data.date = outDate+" "+outTime;
-                }
-                $.post("/supervisor/records_update", data, function(data){ 
-                    alert(123);
+                var recordid = $btn.attr('data-record-id');
+                var data = {id:recordid};
+                var tr = $btn.parent().parent().parent();
+                var inDateInput = tr.find('.inDateInput');
+                var inTimeInput = tr.find('.inTimeInput');
+                var outDateInput = tr.find('.outDateInput');
+                var outTimeInput = tr.find('.outTimeInput');
+                var inDate = inDateInput.val();
+                var inTime = inTimeInput.val();
+                data.inDate = inDate+" "+inTime;
+                var outDate = outDateInput.val();
+                var outTime = outTimeInput.val();
+                data.outDate = outDate+" "+outTime;
+                $.post("/supervisor/records_update", data, function(res){ 
+                    if(res && res.success) {
+                        location.reload();
+                    } else {
+                        alert(res.msg);
+                    }
                 }, "json");
+            });
+
+            $('.deleteButton').on('click', function(){
+                var $btn = $(this);
+                var recordid = $btn.attr('data-record-id');
+                var data = {id: recordid};
+                $.post("/supervisor/records_delete", data, function(res){ 
+                    if(res && res.success) {
+                        location.reload();
+                    } else {
+                        alert(res.msg);
+                    }
+                }, "json");
+                
             });
         });
 
@@ -80,8 +95,8 @@ append scripts
     -   return moment(tstamp).format("YYYY-MM-DD");
     - }
 block content
-    .punchPage(ontouchstart="")
-        form#searchform(action="/supervisor/records_search" method="POST")
+    .main(ontouchstart="")
+        form#searchform.section(action="/supervisor/records_search" method="POST")
             .startEndTime
                 input.useDatePicker(type= "text" name="startdate" placeholder="#{tr('starttime')}") 
                 //.endTime 
@@ -93,59 +108,57 @@ block content
                 .buttonItem= tr('export')
                 .returnPage.buttonItem= tr('return')
 
-        .reportTableDiv
+        .reportTableDiv.section
             table.reportTable
-                tr.tableRow
-                    th.tableHead(colspan='4')
+                tr.table_row
+                    th.table_head(colspan='4')
                         = tr('time') + " "
                         = tr('in') + "/"
                         = tr('out')
 
                 if records.length === 0
-                    tr.tableRow
-                        td.tableData(colspan=3 align="center")
+                    tr.table_row
+                        td.table_data(colspan=3 align="center")
                             span.text= tr('empty records')
                 else
                     each record in records
-                        tr.tableRow
-                            td.tableData 
+                        tr.table_row
+                            td.table_data 
                                 ul
                                     li.listItem 
-                                        .hollowcircle.green
+                                        .out OUT
                                     li.listItem  
-                                        .hollowcircle.red
-                            td.tableData
+                                        .in IN
+                            td.table_data
+                                - var outDate = record.outDate ? getDate(record.outDate) : "";
+                                - var inDate = record.inDate ? getDate(record.inDate) : "";
                                 ul.dateList
-                                    li.listItem.outDate
-                                        span= record.outDate ? getDate(record.outDate) : ""
-                                        input.outDateInput.useDatePicker.hidden(type= "text")
-                                    li.listItem.inDate
-                                        span= getDate(record.inDate)
-                                        input.inDateInput.useDatePicker.hidden(type= "text")
-                            td.tableData
+                                    li.listItem.date.outDate
+                                        span= outDate
+                                        input.dateInput.outDateInput.useDatePicker.hidden(type="text" data-value=outDate)
+                                    li.listItem.date.inDate
+                                        span= inDate
+                                        input.dateInput.inDateInput.useDatePicker.hidden(type="text" data-value=inDate)
+                            td.table_data
+                                - var outTime = record.outDate ? getTime(record.outDate) : "";
+                                - var inTime = record.inDate ? getTime(record.inDate) : "";
                                 ul.timeList
-                                    li.listItem.outTime
-                                        span= record.outDate ? getTime(record.outDate) : ""
-                                        input.outTimeInput.useTimePicker.hidden(type= "text")
-                                    li.listItem.inTime
-                                        span= getTime(record.inDate)
-                                        input.inTimeInput.useTimePicker.hidden(type= "text")
+                                    li.listItem.time.outTime
+                                        span= outTime
+                                        input.timeInput.outTimeInput.useTimePicker.hidden(type= "text" data-value=outTime)
+                                    li.listItem.time.inTime
+                                        span= inTime 
+                                        input.timeInput.inTimeInput.useTimePicker.hidden(type= "text" data-value=inTime)
                             if su
-                                td.tableData
-                                    ul
-                                        li.listItem 
-                                            button.editOutButton.editButton(data-date="#{getDate(record.outDate)}" data-time="#{getTime(record.outDate)}" data-type="out")= tr('edit')
-                                            .confirmReturn.outConfirmReturn.hidden
-                                                button.confirmButton(data-value="#{record._id}" data-type="out") O 
-                                                button.returnButton X
-                                        li.listItem 
-                                            button.editInButton.editButton(data-date="#{getDate(record.inDate)}" data-time="#{getTime(record.inDate)}" data-type="in")= tr('edit') 
-                                            .confirmReturn.inConfirmReturn.hidden
-                                                button.confirmButton(data-value="#{record._id}" data-type="in") O 
-                                                button.returnButton X
+                                td.table_data
+                                    .editOutButton.editButton= tr('edit')
+                                    .confirmReturnDelete.outConfirmReturn.hidden
+                                        .confirmButton.funcButton(data-record-id="#{record._id}") O 
+                                        .returnButton.funcButton X
+                                        .deleteButton.funcButton(data-record-id="#{record._id}")= tr('delete')
 
                             else
-                                td.tableData
+                                td.table_data
                                     ul
                                         li.listItem= tr('out')
                                         li.listItem= tr('in')

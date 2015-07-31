@@ -1,20 +1,15 @@
 @import './lib/commonlib.less';
+@import './lib/basicStyle.less';
 
-.bgbody{
-	background-repeat: repeat-y;
-}
-
-.settingPage{
+.main{
 	//.test-border(red);
-	.width-14;
-	.mcenter;
-	.inputBar{
-		.basic-input(@small-radius);
+	.pwd-input{
 		line-height: normal;
 		.mb;
 	}//inputBar
-	.longButton{
-		.submit-button;
+	.func_button{
+		.functional-button;
+		.long-button-shape(@small-radius);
 	}
 	.bigLabel{
 		float: left;
@@ -34,7 +29,6 @@
 
 	.passwordChange{
 		//.test-border(blue);
-		.width-16;
 		padding-top: 100px;
 		.passwordLabel{
 			.mb;
@@ -45,7 +39,6 @@
 
 	.emailSwitch{
 		//.test-border(green);
-		.width-16;
 		.switchLabel{
 			color: @section-label-color;
 		}
@@ -55,7 +48,6 @@
 
 	.EmailReportSetting{
 		//.test-border(yellow);
-		.width-16;
 		.radioButton{
 			color: @text-color;
 			//.test-border(orange);
@@ -95,9 +87,7 @@
 	}//emailReportSetting
 
 	.overTimeSwitch{
-		//.test-border(blue);
-		.width-16;
-		
+		//.test-border(blue);		
 		.switchLabel{
 			color:@section-label-color;
 		}
@@ -105,7 +95,6 @@
 	}//overTimeSwitch
 	.overTimeSetting{
 		//.test-border(yellow);
-		.width-16;
 		padding-bottom: 100px;
 		.thresholdDiv{
 			.width-16;
