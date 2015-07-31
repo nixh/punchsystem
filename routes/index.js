@@ -217,7 +217,7 @@ router.get('/punch/:key', function(req, res, next) {
 
 
 
-<<<<<<< HEAD
+
 /*
 =======
 >>>>>>> a1fc4bb301a2acd296f96730f046da1580bde65c
@@ -235,9 +235,7 @@ router.get('/supervisor/showdynacode', function(req, res, next) {
 });
 <<<<<<< HEAD
 */
-=======
 
->>>>>>> a1fc4bb301a2acd296f96730f046da1580bde65c
 
 router.get('/recentRecords', function(req, res, next) {
     var rm = new recordsModule();

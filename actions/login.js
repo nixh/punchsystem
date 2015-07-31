@@ -15,9 +15,8 @@ login.view = actionUtils.jadeAction('login');
 login.auth = {
     type: 'redirect',
     execute: function(req, res, next) {
-
         return auth.login('user1', '123123').then(function(valid){
-            return "";
+            return "/login";
         });
     }
 };

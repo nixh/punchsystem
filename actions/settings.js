@@ -179,17 +179,19 @@ Settings.supChangePass = {
 			if(!doc) {
 				var data = {
 					'success': false,
-                	'msg': {head:res.__("changepass failed, maybe wrong password")},
+                	'msg': {head:res.__('changepass failed, maybe wrong password')},
                 	'pageUrl': '/supervisor/settings'
 				};
+				console.log(data)
 				return data;
 			}
 			else {
 				var data = {
 					'success': true,
-            		'msg': {head:res.__("changepass successful")},
+            		'msg': {head:res.__('changepass successful')},
             		'pageUrl': '/supervisor/settings'
 				};
+				console.log(data)
 				return data;
 			}
 		});

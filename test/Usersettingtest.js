@@ -36,7 +36,7 @@ describe('test staffSetting action',function(){
 
 
 
-var staffSettingViewAction = Action.getAction('Settings.supSettingView');
+var supSettingViewAction = Action.getAction('Settings.supSettingView');
 app.get('/supervisor/settings', Action.render(staffSettingViewAction));
 
 describe('test supSetting action',function(){
@@ -45,7 +45,7 @@ describe('test supSetting action',function(){
             var req = app.makeRequest();
             wrapRequest(req, {'cookies': { sessionid: 'f39efc70-3629-11e5-a55f-9be434ab7853'}});
             var res = app.makeResponse(function(err, response){
-                var compiler = jade.compileFile(getTemplatePath(staffSettingViewAction.template));        
+                var compiler = jade.compileFile(getTemplatePath(supSettingViewAction.template));        
                 compiler(response.model);
                 assert.equal(response.model.title, 'AdminSys Inc.')
                 done();
@@ -55,7 +55,7 @@ describe('test supSetting action',function(){
     })
 });
 
-var staffSettingViewAction = Action.getAction('Settings.setEmailView');
+var setEmailViewAction = Action.getAction('Settings.setEmailView');
 app.get('/supervisor/sendemail', Action.render(staffSettingViewAction));
 
 describe('test supSetting action',function(){
@@ -64,7 +64,7 @@ describe('test supSetting action',function(){
             var req = app.makeRequest();
             wrapRequest(req, {'cookies': { sessionid: 'f39efc70-3629-11e5-a55f-9be434ab7853'}});
             var res = app.makeResponse(function(err, response){
-                var compiler = jade.compileFile(getTemplatePath(staffSettingViewAction.template));        
+                var compiler = jade.compileFile(getTemplatePath(setEmailViewAction.template));        
                 compiler(response.model);
                 assert.equal(response.model.title, 'AdminSys Inc.')
                 done();
@@ -74,7 +74,7 @@ describe('test supSetting action',function(){
     })
 });
 
-var staffSettingViewAction = Action.getAction('Settings.setRateView');
+var setRateViewAction = Action.getAction('Settings.setRateView');
 app.get('/supervisor/setrate', Action.render(staffSettingViewAction));
 
 describe('test supSetting action',function(){
@@ -83,7 +83,8 @@ describe('test supSetting action',function(){
             var req = app.makeRequest();
             wrapRequest(req, {'cookies': { sessionid: 'f39efc70-3629-11e5-a55f-9be434ab7853'}});
             var res = app.makeResponse(function(err, response){
-                var compiler = jade.compileFile(getTemplatePath(staffSettingViewAction.template));        
+                console.log(response)
+                var compiler = jade.compileFile(getTemplatePath(setRateViewAction.template));        
                 compiler(response.model);
                 assert.equal(response.model.title, 'AdminSys Inc.')
                 done();
@@ -93,21 +94,22 @@ describe('test supSetting action',function(){
     })
 });
 
-var staffSettingViewAction = Action.getAction('Settings.changePass');
-app.get('/settings', Action.render(staffSettingViewAction));
+var supChangePassAction = Action.getAction('Settings.supChangePass');
+app.post('/supervisor/settings', Action.render(staffSettingViewAction));
 
-describe('test supSetting action',function(){
-    describe('supSetting#changePass',function(){
+describe('test staffSetting action',function(){
+    describe('staffSetting#changePass',function(){
         it ('should show jade template', function(done) {
             var req = app.makeRequest();
-            wrapRequest(req, {'cookies': { sessionid: 'f39efc70-3629-11e5-a55f-9be434ab7853'},body:{oldpass:"111",newpass:'123'}});
+            wrapRequest(req, {'cookies': { sessionid: 'f39efc70-3629-11e5-a55f-9be434ab7853'},body:{oldpass:"123",newpass:'123'}});
             var res = app.makeResponse(function(err, response){
-                var compiler = jade.compileFile(getTemplatePath(staffSettingViewAction.template));        
+                console.log(response)
+                var compiler = jade.compileFile(getTemplatePath(supChangePassAction.template));       
                 compiler(response.model);
                 assert.equal(response.model.title, 'AdminSys Inc.')
                 done();
             });
-            app.invoke('post', '/settings', req, res);
+            app.invoke('post', '/supervisor/settings', req, res);
         });
     })
 });
