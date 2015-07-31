@@ -37,6 +37,12 @@ Common Settings
 .small-font {
   font-size: 40px;
 }
+.big-font {
+  font-size: 60px;
+}
+.margin-gap-left {
+  margin-left: 3.325%;
+}
 .clear-browsersettings {
   margin: 0;
   padding: 0;
@@ -116,6 +122,9 @@ functions
       -ms-user-select: none;
           user-select: none;
 }
+.avoid-clicks {
+  pointer-events: none;
+}
 .after-float {
   content: "";
   display: block;
@@ -127,8 +136,8 @@ functions
 .basic-table-head {
   font-family: 'anivers reg', 'simhei';
   font-size: 75px;
-  background-color: #f78283;
-  color: white;
+  background-color: white;
+  color: #505a6a;
 }
 .basic-table-head:first-child {
   border-top-left-radius: 25px;
@@ -137,8 +146,8 @@ functions
   border-top-right-radius: 25px;
 }
 .basic-table-data {
-  background-color: rgba(255, 255, 255, 0.8);
-  color: #677499;
+  background-color: rgba(238, 238, 238, 0.52);
+  color: #505a6a;
   text-align: center;
   font-size: 40px;
 }
@@ -157,21 +166,21 @@ functions
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
   text-indent: 10px;
-  color: #677499;
+  color: #505a6a;
 }
 .textinput::-webkit-input-placeholder {
-  color: #677499;
+  color: #505a6a;
 }
 .textinput:-moz-placeholder {
   /* Firefox 18- */
-  color: #677499;
+  color: #505a6a;
 }
 .textinput::-moz-placeholder {
   /* Firefox 19+ */
-  color: #677499;
+  color: #505a6a;
 }
 .textinput:-ms-input-placeholder {
-  color: #677499;
+  color: #505a6a;
 }
 .radioinput {
   -webkit-user-select: none;
@@ -181,7 +190,7 @@ functions
 }
 .radioinput .outer {
   border-radius: 50%;
-  border: 15px solid #8ad1d7;
+  border: 15px solid #8dc63f;
   width: 120px;
   height: 120px;
   float: left;
@@ -193,7 +202,7 @@ functions
   border: none;
   width: 50px;
   height: 50px;
-  background-color: #8ad1d7;
+  background-color: #8dc63f;
   position: absolute;
   margin: auto;
   top: 0;
@@ -210,8 +219,61 @@ functions
   font-size: 50px;
   margin-left: 5%;
 }
+.radioinput-center {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.radioinput-center .outer {
+  border-radius: 50%;
+  border: 15px solid #8dc63f;
+  width: 120px;
+  height: 120px;
+  cursor: pointer;
+  position: relative;
+  margin: 0 auto;
+}
+.radioinput-center .outer .inner {
+  border-radius: 50%;
+  border: none;
+  width: 50px;
+  height: 50px;
+  background-color: #8dc63f;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: none;
+}
+.radioinput-center .label {
+  text-align: center;
+  height: 120px;
+  line-height: 120px;
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+}
 .radioinput.radioselected .inner {
   display: block !important;
+}
+.radioinput-center.radioselected .inner {
+  display: block !important;
+}
+.inline-display {
+  height: 200px;
+  line-height: normal;
+  text-align: center;
+  background-color: white;
+  color: #505a6a;
+  border-radius: 10px;
+  border: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  pointer-events: none;
 }
 .unorder-list {
   list-style: none;
@@ -226,27 +288,27 @@ functions
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
   text-indent: 10px;
-  color: #677499;
+  color: #505a6a;
   font-size: 40px;
   height: auto;
 }
 .inner-input::-webkit-input-placeholder {
-  color: #677499;
+  color: #505a6a;
 }
 .inner-input:-moz-placeholder {
   /* Firefox 18- */
-  color: #677499;
+  color: #505a6a;
 }
 .inner-input::-moz-placeholder {
   /* Firefox 19+ */
-  color: #677499;
+  color: #505a6a;
 }
 .inner-input:-ms-input-placeholder {
-  color: #677499;
+  color: #505a6a;
 }
 .submit-button {
-  background-color: #8ad1d7;
-  color: white;
+  background-color: white;
+  color: #505a6a;
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
   text-align: center;
@@ -262,14 +324,16 @@ functions
   cursor: pointer;
 }
 .submit-button:active {
-  background-color: #f78283;
+  background-color: #8dc63f;
   color: white;
 }
+/**
+yongred changing color, new variables
+*/
 .bgbody {
   background-repeat: repeat-y;
 }
 .settingPage {
-  border: 1px solid red;
   width: 87.5%;
   margin: 0 auto;
 }
@@ -281,27 +345,27 @@ functions
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
   text-indent: 10px;
-  color: #677499;
+  color: #505a6a;
   line-height: normal;
   margin-bottom: 2%;
 }
 .settingPage .inputBar::-webkit-input-placeholder {
-  color: #677499;
+  color: #505a6a;
 }
 .settingPage .inputBar:-moz-placeholder {
   /* Firefox 18- */
-  color: #677499;
+  color: #505a6a;
 }
 .settingPage .inputBar::-moz-placeholder {
   /* Firefox 19+ */
-  color: #677499;
+  color: #505a6a;
 }
 .settingPage .inputBar:-ms-input-placeholder {
-  color: #677499;
+  color: #505a6a;
 }
 .settingPage .longButton {
-  background-color: #8ad1d7;
-  color: white;
+  background-color: white;
+  color: #505a6a;
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
   text-align: center;
@@ -317,7 +381,7 @@ functions
   cursor: pointer;
 }
 .settingPage .longButton:active {
-  background-color: #f78283;
+  background-color: #8dc63f;
   color: white;
 }
 .settingPage .bigLabel {
@@ -341,29 +405,25 @@ functions
   float: right;
 }
 .settingPage .passwordChange {
-  border: 1px solid blue;
   width: 100%;
   padding-top: 100px;
 }
 .settingPage .passwordChange .passwordLabel {
   margin-bottom: 2%;
-  color: #f78283;
+  color: #505a6a;
   display: inline-block;
 }
 .settingPage .emailSwitch {
-  border: 1px solid green;
   width: 100%;
 }
 .settingPage .emailSwitch .switchLabel {
-  color: #f78283;
+  color: #505a6a;
 }
 .settingPage .EmailReportSetting {
-  border: 1px solid yellow;
   width: 100%;
 }
 .settingPage .EmailReportSetting .radioButton {
-  color: #677499;
-  border: 1px solid orange;
+  color: #505a6a;
   width: 100%;
   margin-top: 30px;
 }
@@ -376,64 +436,155 @@ functions
   height: 0px;
 }
 .settingPage .EmailReportSetting .radioButton .chooseLabel {
-  border: 1px solid black;
   font-size: 40px;
   height: 300px;
   float: left;
   display: inline-block;
 }
-.settingPage .EmailReportSetting .radioButton .radioinput {
+.settingPage .EmailReportSetting .radioButton .radioinput-center {
   float: left;
   height: 300px;
   margin-left: 5%;
   padding-top: 30px;
-  border: 1px solid black;
   width: 25%;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
 }
-.settingPage .EmailReportSetting .radioButton .radioinput .outer {
-  border-radius: 50%;
-  border: 15px solid #8ad1d7;
-  width: 120px;
-  height: 120px;
-  float: left;
-  cursor: pointer;
-  position: relative;
-}
-.settingPage .EmailReportSetting .radioButton .radioinput .outer .inner {
-  border-radius: 50%;
-  border: none;
-  width: 50px;
-  height: 50px;
-  background-color: #8ad1d7;
-  position: absolute;
-  margin: auto;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  display: none;
-}
-.settingPage .EmailReportSetting .radioButton .radioinput .label {
-  float: left;
-  height: 120px;
-  line-height: 120px;
-  font-family: 'anivers reg', 'simhei';
-  font-size: 50px;
-  margin-left: 5%;
-}
-.settingPage .EmailReportSetting .radioButton .radioinput .label {
-  display: block;
+.settingPage .EmailReportSetting .radioButton .radioinput-center .label {
   font-size: 40px;
 }
 .settingPage .EmailReportSetting .radioButton .orLabel {
-  border: 1px solid purple;
   float: left;
   font-size: 40px;
   margin-left: 5%;
   line-height: 240px;
   height: 300px;
+}
+.settingPage .overTimeSwitch {
+  width: 100%;
+}
+.settingPage .overTimeSwitch .switchLabel {
+  color: #505a6a;
+}
+.settingPage .overTimeSetting {
+  width: 100%;
+  padding-bottom: 100px;
+}
+.settingPage .overTimeSetting .thresholdDiv {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.settingPage .overTimeSetting .thresholdDiv:after {
+  content: "";
+  display: block;
+  visibility: hidden;
+  clear: both;
+  zoom: 1;
+  height: 0px;
+}
+.settingPage .overTimeSetting .thresholdDiv .thresholdLabel {
+  background-color: #505a6a;
+  color: white;
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+  width: 25%;
+  height: 120px;
+  display: inline-block;
+  line-height: 120px;
+  text-align: center;
+  width: 50%;
+  height: 200px;
+  display: table;
+  border-radius: 10px;
+  border: none;
+  float: left;
+}
+.settingPage .overTimeSetting .thresholdDiv .hourDisplay {
+  float: left;
+  height: 200px;
+  line-height: normal;
+  text-align: center;
+  background-color: white;
+  color: #505a6a;
+  border-radius: 10px;
+  border: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  pointer-events: none;
+  width: 18.75%;
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+  margin-left: 3.325%;
+}
+.settingPage .overTimeSetting .thresholdDiv .perWeekLabel {
+  float: right;
+  display: table;
+  height: 200px;
+  line-height: normal;
+  text-align: center;
+  background-color: white;
+  color: #505a6a;
+  border-radius: 10px;
+  border: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  pointer-events: none;
+  width: 25%;
+  font-size: 40px;
+}
+.settingPage .overTimeSetting .rateDiv {
+  width: 100%;
+  margin-bottom: 20px;
+}
+.settingPage .overTimeSetting .rateDiv:after {
+  content: "";
+  display: block;
+  visibility: hidden;
+  clear: both;
+  zoom: 1;
+  height: 0px;
+}
+.settingPage .overTimeSetting .rateDiv .rateLabel {
+  background-color: #505a6a;
+  color: white;
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+  width: 25%;
+  height: 120px;
+  display: inline-block;
+  line-height: 120px;
+  text-align: center;
+  width: 50%;
+  height: 200px;
+  display: table;
+  border-radius: 10px;
+  border: none;
+  float: left;
+}
+.settingPage .overTimeSetting .rateDiv .rateDisplay {
+  float: right;
+  display: table;
+  height: 200px;
+  line-height: normal;
+  text-align: center;
+  background-color: white;
+  color: #505a6a;
+  border-radius: 10px;
+  border: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  pointer-events: none;
+  width: 43.75%;
+  font-size: 40px;
+}
+.settingPage .overTimeSetting span.labelSpan {
+  line-height: normal;
+  font-size: 40px;
+  word-wrap: break-word;
+  display: table-cell;
+  vertical-align: middle;
 }

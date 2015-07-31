@@ -9,6 +9,7 @@ var uuid = require('node-uuid');
 var util = require('util');
 var moment = require('moment');
 var dbhelper = require('../db/db');
+var Action = require('../lib/common/action');
 
 var loginKeys = {};
 
@@ -199,6 +200,7 @@ router.get('/punch/:key', function(req, res, next) {
                 utils.render('message', punchData(record, msg, userInfo))(req, res, next);
             });
         } else {
+            rm.db.close();
             msg = {
                 head: res.__('punchFailedHead'),
                 body: res.__('punchFailed')
@@ -216,18 +218,18 @@ router.get('/punch/:key', function(req, res, next) {
 
 
 
-// var qrModule = require('../qrcodeModule');
-//
-// router.get('/supervisor/showdynacode', function(req, res, next) {
-//     var qrm = new qrModule();
-//     qrm.getDynacode(req.cookies.sessionid, function(err, mixinData) {
-//         console.log(mixinData);
-//         qrm.db.close();
-//         utils.render('qr', {
-//             data: mixinData
-//         })(req, res, next);
-//     });
-// });
+var qrModule = require('../qrcodeModule');
+
+router.get('/supervisor/showdynacode', function(req, res, next) {
+    var qrm = new qrModule();
+    qrm.getDynacode(req.cookies.sessionid, function(err, mixinData) {
+        console.log(mixinData);
+        qrm.db.close();
+        utils.render('qr', {
+            data: mixinData
+        })(req, res, next);
+    });
+});
 
 
 router.get('/recentRecords', function(req, res, next) {
@@ -673,6 +675,9 @@ router.post('/admin/supervisor/new', function(req, res, next){
     });
 
 });
+
+router.get('/testlogin', Action('login.view'));
+router.get('/test', Action('login.auth'));
 
 router.get('/cookies', function(req, res, next) {
     var cookies = req.cookies;
