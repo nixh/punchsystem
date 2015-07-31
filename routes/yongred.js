@@ -167,6 +167,16 @@ router.get('/staff_punch_report', function(req, res, next){
 });
 
 
+var qrModule = require('../qrcodeModule');
+router.get('/staff_delegate', function(req, res, next){
+     var qrm = new qrModule();
+    qrm.getDynacode(req.cookies.sessionid, function(err, mixinData) {
+        qrm.db.close();
+        utils.render('qr', {
+            data: mixinData
+        })(req, res, next);
+    });
+});
 
 // router.get('/staff_punch_report', function(req, res, next){
 
