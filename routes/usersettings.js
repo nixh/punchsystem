@@ -20,6 +20,6 @@ router.post('/supervisor/sendemail',Action('Settings.setEmail'))
 router.post('/supervisor/setrate',Action('Settings.setRate'))
 router.post('/enableEmail/:switchs',Action('Settings.emailSwitch'))
 router.post('/enablerate/:switchs',Action('Settings.rateSwitch'))
-
+router.post('/sendemail',Action('Settings.sendEmail'))
 
 module.exports = router;

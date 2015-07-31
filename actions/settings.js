@@ -3,6 +3,7 @@ var actionUtils = utils.actions;
 var s = require('../lib/module/usersettingModule');
 var s = new s();
 var Q = require('q');
+
 Settings ={};
 
 //用户页面
@@ -182,7 +183,7 @@ Settings.supChangePass = {
                 	'msg': {head:res.__('changepass failed, maybe wrong password')},
                 	'pageUrl': '/supervisor/settings'
 				};
-				console.log(data)
+
 				return data;
 			}
 			else {
@@ -191,7 +192,7 @@ Settings.supChangePass = {
             		'msg': {head:res.__('changepass successful')},
             		'pageUrl': '/supervisor/settings'
 				};
-				console.log(data)
+				
 				return data;
 			}
 		});
@@ -250,6 +251,20 @@ Settings.setEmail = {
 	}
 }
 
+Settings.sendEmail = {
+	type : "api",
+	execute: function(req,res,next) {
+		var sessionid = req.cookies.sessionid;
+		var cc = req.body.cc;
+		var subject = req.body.subject;
+		var html = req.body.html;
+		var csvStringForAttachments = req.body.csvStringForAttachments;
+		var docs = s.sendEmail(sessionid,cc,subject,html,csvStringForAttachments);
+		return docs.then(function(doc) {
+			return doc;
+		});
+	}
+}
 
 
 
