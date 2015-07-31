@@ -1,14 +1,11 @@
 var express = require('express');
 var router = express.Router();
-
 var usermodule = require('../usermodule');
 var utils = require("../utils");
-
 var multiparty = require('multiparty');
-
 var util = require('util');
-
 var um = new usermodule();
+var Action = require('../lib/common/action');
 
 // Add a new user
 router.get('/add', utils.render('users/adduser', {}));

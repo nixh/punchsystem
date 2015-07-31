@@ -199,6 +199,7 @@ router.get('/punch/:key', function(req, res, next) {
                 utils.render('message', punchData(record, msg, userInfo))(req, res, next);
             });
         } else {
+            rm.db.close();
             msg = {
                 head: res.__('punchFailedHead'),
                 body: res.__('punchFailed')
