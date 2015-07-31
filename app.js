@@ -7,6 +7,7 @@ var bodyParser     = require('body-parser');
 var i18n           = require('i18n');
 var authentication = require('./authentication');
 var routes         = require('./routes/index');
+var api            = require('./routes/api');
 var users          = require('./routes/users');
 var delegate       = require('./routes/delegate');
 var comp           = require('./routes/comp');
@@ -69,6 +70,7 @@ app.use(authentication());
 app.use('/', routes);
 app.use('/', yongred);
 app.use('/', records);
+app.use('/api', api);
 app.use('/users', users);
 app.use('/comp', comp);
 app.use('/company', company)
