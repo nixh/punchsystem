@@ -1,8 +1,5 @@
 var utils = require('../lib/common/utils');
 var actionUtils = utils.actions;
-
-var auth = require('../lib/module/authModule');
-
 var AuthModule = require('../lib/module/authModule');
 var Q = require('q');
 var auth = new AuthModule();
