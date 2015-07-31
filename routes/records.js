@@ -9,7 +9,7 @@ var sessionModule = require('../sessionModule');
 
 router.get('/staff_delegate:uid', function(req, res, next) {
     var rm = new recModule();
-    var sessionid = req.cookies.seccionid;
+    var sessionid = req.cookies.sessionid;
     var userid = req.params.uid;
     query = {userid : userid};
     rm.checkDelegate(query, function(err, dels) {
@@ -58,14 +58,14 @@ router.post('/records_search', function(req, res, next) {
     var starttime = Date.parse(req.body.startdate);
     var endtime = Date.parse(req.body.enddate);
     var sessionid = req.cookies.sessionid;
-    sm.getSessionInfo(sessionid, function(err, sessionDoc){
-        var userid = sessionDoc.userid;
-        var query = {inDate: {"$gte": starttime} , outDate: {"$lte": endtime}, userid: userid};
+    sm.getSessionInfo(sessionid, function(err, sessionDoc) {
+        var query = {inDate: {"$gte": starttime} , outDate: {"$lte": endtime}, userid: sessionDoc.userid};
         rm.searchRecords(query, function(jsonData) {
-            jsonData.su = false;
             jsonData.tr = res.__;
             jsonData.moment = moment;
+            jsonData.su = false;
             res.render('staff/staff_punch_report', jsonData);
+            sm.db.close();
         });
     });
 });
@@ -75,12 +75,11 @@ router.post('/supervisor/records_search', function(req, res, next) {
     var starttime = Date.parse(req.body.startdate);
     var endtime = Date.parse(req.body.enddate);
     var userid = req.body.userid;
-    var su = req.path.search("supervisor");
     var query = {inDate : {"$gte" : starttime} , outDate : {"$lte": endtime}, userid: userid};
     rm.searchRecords(query, function(jsonData) {
-        jsonData.su = true;
         jsonData.tr = res.__;
         jsonData.moment = moment;
+        jsonDate.su = true;
         res.render('supervisor/supervisor_punch_report', jsonData);
     });
 });

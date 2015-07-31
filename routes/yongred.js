@@ -89,13 +89,9 @@ router.post('/usersettings', function(req, res, next){
 
 	});
 });
-<<<<<<< HEAD
-*/
-/*router.get('/settings', function(req, res, next){
-=======
 
 router.get('/settings', function(req, res, next){
->>>>>>> yongred
+
 
 	var emailReport = db.get("records");
 	emailReport.findOne({reportid:1}, {}, function(err, doc){
@@ -113,17 +109,64 @@ router.get('/settings', function(req, res, next){
 <<<<<<< HEAD
 });*/
 
+/*
 
-// var qrModule = require('../qrcodeModule');
-// router.get('/staff_delegate', function(req, res, next){
-//     var qrm = new qrModule();
-//     qrm.getDynacode(req.cookies.sessionid, function(err, mixinData) {
-//         qrm.db.close();
-//         utils.render('qr', {
-//             data: mixinData
-//         })(req, res, next);
-//     });
-// });
+<<<<<<< HEAD
+var qrModule = require('../qrcodeModule');
+router.get('/staff_delegate', function(req, res, next){
+    var qrm = new qrModule();
+    qrm.getDynacode(req.cookies.sessionid, function(err, mixinData) {
+        qrm.db.close();
+        utils.render('qr', {
+            data: mixinData
+        })(req, res, next);
+    });
+});
+*/
+router.get('/staff_punch_report', function(req, res, next){
+
+	res.render('staff/staff_punch_report', {
+		/*
+		var records = db.get("records");
+		records.findOne({reportid:1}, {}, function(err, doc){
+				var ret= {msg: null, ok: true};
+				if(!doc){
+					ret.ok = false;
+					ret.msg= "no data found!";
+					return res.render('staff/staff_punch_report', ret);
+				}
+				ret.record= doc;
+				res.render('staff/staff_punch_report', ret);
+		});
+		*/
+
+		clockData: [
+			{
+				timeIn: 1436391432009,
+				timeOut: 1436391513763
+			},
+			{
+				timeIn: 1436391545759,
+				timeOut: 1436391554475
+			},
+			{
+				timeIn: 1436391561077,
+				timeOut: 1436391567173
+			},
+			{
+				timeIn: 1436391581457,
+				timeOut: 1436391586079
+			},
+			{
+				timeIn: 1436391589210,
+				timeOut: 1436391593407
+			}
+		]
+
+	});
+});
+
+
 
 // router.get('/staff_punch_report', function(req, res, next){
 

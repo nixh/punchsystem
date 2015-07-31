@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var monk = require('monk');
-var utils = require('../utils'); var db = monk(utils.getConfig('mongodbPath'));
+var utils = require('../utils');
+var db = monk(utils.getConfig('mongodbPath'));
 var btoa = require('btoa'); var nobi = require('nobi'); var crypto = require('crypto');
 var signer = nobi(utils.getConfig('appKey'));
 var uuid = require('node-uuid');
@@ -217,6 +218,10 @@ router.get('/punch/:key', function(req, res, next) {
 
 
 
+
+/*
+=======
+>>>>>>> a1fc4bb301a2acd296f96730f046da1580bde65c
 var qrModule = require('../qrcodeModule');
 
 router.get('/supervisor/showdynacode', function(req, res, next) {
@@ -229,6 +234,8 @@ router.get('/supervisor/showdynacode', function(req, res, next) {
         })(req, res, next);
     });
 });
+<<<<<<< HEAD
+*/
 
 
 router.get('/recentRecords', function(req, res, next) {

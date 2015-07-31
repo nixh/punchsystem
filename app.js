@@ -73,7 +73,7 @@ app.use('/', records);
 app.use('/api', api);
 app.use('/users', users);
 app.use('/comp', comp);
-app.use('/company', company)
+//app.use('/company', company)
 app.use('/delegate', delegate);
 app.use('/comp', comp);
 app.use('/', usersettings)
