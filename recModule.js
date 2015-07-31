@@ -374,7 +374,6 @@ function getWageByWeek(query, callback) {
     var compid = query.compid;
     var startDate = query.startDate;
     var endDate = query.endDate;
-    console.log(compid);
     users.find({ compid : compid,  owner : false}, function(err, userList) {
         if (err) {
             console.log(err);
