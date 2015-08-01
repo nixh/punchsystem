@@ -19,13 +19,27 @@ function newRecordFromUserDoc(userDoc) {
     return {
         compid: userDoc.compid,
         userid: userDoc.userid,
-        hourlyRate: userDoc.curRate,
+        // hourlyRate: userDoc.curRate,
         remark: 'default remark'
     };
 }
 
 function validate(record) {
 
+}
+function getCurrentRate(userid, users) {
+    users.findOne({userid: userid}, function(err, user) {
+        if(err) {
+            console.log(err);
+        } else {
+            var hourlyRate = user.houlyRate;
+            console.log(user);
+            console.log('devide');
+            console.log(user.hourlyRate);
+            hourlyRate.sort().reverse();
+            return hourlyRate[0].rate;
+        }
+    });
 }
 
 function findUserLastRecord(userid, cb) {
@@ -98,6 +112,7 @@ function punch(userid, cb) {
             var currentTime = new Date().getTime();
             if(!userLastRecord || userLastRecord.outDate) {
                 var recordDoc = newRecordFromUserDoc(userDoc);
+                recordDoc.hourlyrate = getCurrentRate(userid, userCol);
                 recordDoc.inDate = currentTime;
                 recordDoc.outDate = null;
                 insertRecord(recordDoc, recordsCol).on('complete',cb);
@@ -166,6 +181,7 @@ function Module(settings) {
 
 
 Module.prototype = {
+    getCurrentRate : getCurrentRate,
     punch : punch,
     checkQrcode: checkQrcode,
     rencentRecords: rencentRecords,

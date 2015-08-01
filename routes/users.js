@@ -7,7 +7,7 @@ var util = require('util');
 var um = new usermodule();
 var Action = require('../lib/common/action');
 
-router.get('/add', Action(user.allUsersView));
+router.get('/search', Action('users.allUsersView'));
 // // Add a new user
 // router.get('/add', utils.render('users/adduser', {}));
 // router.post('/add', function(req, res){
@@ -289,15 +289,15 @@ router.get('/add', Action(user.allUsersView));
 //
 // //Delete user
 // router.post('/delete', function(req, res){
-	var _id = req.body._id;
-
-	um.deleteUser(_id, function(err, doc){
-		if(err){
-			res.send('Failed deleting!');
-		}else{
-			res.redirect('search');
-		}
-	});
-});
+// 	var _id = req.body._id;
+//
+// 	um.deleteUser(_id, function(err, doc){
+// 		if(err){
+// 			res.send('Failed deleting!');
+// 		}else{
+// 			res.redirect('search');
+// 		}
+// 	});
+// });
 
 module.exports = router;

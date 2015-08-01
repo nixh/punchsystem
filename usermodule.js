@@ -84,6 +84,20 @@ function searchUser(searchTerm, compid) {
     };
 
     return dbm.query('users', query).call(this);
+
+    // var db = new DBModule({
+    //     schemaName: 'users',
+    //     idName: 'userid'
+    // });
+
+    // db.loadById(userObj.userid, function(err, doc){
+    //     if(err)
+    //         callback(new Error('search error!'));
+    //     if(!doc || doc.length === 0)
+    //         return db.insert(userObj, callback)
+    //     callback(new Error("User already exists!"));
+    //
+    // });
 }
 
 function getAllUsers(query) {
