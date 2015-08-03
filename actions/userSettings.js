@@ -6,7 +6,7 @@ var Q = require('q');
 
 userSettings ={};
 
-Settings.emailSwitch = {
+userSettings.emailSwitch = {
 	type : 'jade',
 	template : './staff/staff_setting_su',
 	execute: function(req,res,next) {
@@ -25,7 +25,7 @@ Settings.emailSwitch = {
 			};
 			return data;
 		});
-	}	
+	}
 }
 
 userSettings.changePass = {
@@ -36,10 +36,10 @@ userSettings.changePass = {
 		var newpass = req.body.newpass;
 		var docs = s.changepassById(oldpass,newpass,sessionid)
 		return docs.then(function (doc) {
-			
+
 			if(!doc) {
 				var data = {
-					'status': 'fail' 
+					'status': 'fail'
 				};
 				return data;
 			}

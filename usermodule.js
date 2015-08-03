@@ -61,7 +61,6 @@ function addUserObj(userObj) {
 }
 
 function checkUserObj(newUserObj) {
-
     return function(serverUserObj) {
         if(serverUserObj) {
             throw new Error('user_exists_already');
@@ -71,7 +70,7 @@ function checkUserObj(newUserObj) {
 }
 
 function addUser(userObj) {
-    return dbm.use( util.wrap(userObj), parseUserObj, function(userObj){ return Q(userObj.userid);}, getUserInfo, checkUserObj(userObj), show);
+    return dbm.use( util.wrap(userObj), parseUserObj, function(userObj){ return Q(userObj.userid);}, getUserInfo, checkUserObj(userObj));
 }
 
 function searchUser(searchTerm, compid) {
@@ -84,20 +83,6 @@ function searchUser(searchTerm, compid) {
     };
 
     return dbm.query('users', query).call(this);
-
-    // var db = new DBModule({
-    //     schemaName: 'users',
-    //     idName: 'userid'
-    // });
-
-    // db.loadById(userObj.userid, function(err, doc){
-    //     if(err)
-    //         callback(new Error('search error!'));
-    //     if(!doc || doc.length === 0)
-    //         return db.insert(userObj, callback)
-    //     callback(new Error("User already exists!"));
-    //
-    // });
 }
 
 function getAllUsers(query) {
