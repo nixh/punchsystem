@@ -17,27 +17,6 @@ function wrap(value) {
     return function() { return value; };
 }
 
-function newRecordFromUserDoc(user) {
-    var rateArray = user.hourlyRate.sort(function(a,b) {
-        return b.changetime - a.changetime;
-    });
-    return {
-        compid: user.compid,
-        userid: user.userid,
-        hourlyRate: rateArray[0].rate,
-        remark: 'default remark'
-    };
-}
-
-function loadLastRecords(userid) {
-    var options = {sort: {inDate:-1}, limit:1};
-    return dbm.load(records, userid, 'userid', options);
-}
-
-function loadUserById(userid) {
-    return dbm.load(users, userid, 'userid');
-}
-
 function getUsersBySession(session) {
     var query = {compid: session.compid, owner: false};
     return dbm.query(users, query);
@@ -48,23 +27,31 @@ function getDelsBySession(session) {
     return dbm.query(delegation, query);
 }
 
-function delegateJudge(userInfos, delegates) {
-    var ret = {msg: null, ok: true};
-    if (!userInfos) {
-        ret.ok = false;
-        ret.msg = 'No data Found!';
-    } else {
-        userInfos.forEach(function(userInfo, index) {
-            userInfo.delegate = false;
-            delegates.forEach(function(delegate, i) {
-                if (userInfo.userid === delegate.userid) {
-                    userInfo.delegate = true;
-                }
-            });
-        });
-        ret.userInfos = userInfos;
-    }
-    return ret;
+function getSessionBySessionid(sessionid) {
+    return dbm.load('session', sessionid, 'sessionid');
+}
+/******************************************************************************/
+
+/********************Functions for the punching operation**********************/
+function loadLastRecords(userid) {
+    var options = {sort: {inDate:-1}, limit:1};
+    return dbm.load(records, userid, 'userid', options);
+}
+
+function loadUserById(userid) {
+    return dbm.load(users, userid, 'userid');
+}
+
+function newRecordFromUserDoc(user) {
+    var rateArray = user.hourlyRate.sort(function(a,b) {
+        return b.changetime - a.changetime;
+    });
+    return {
+        compid: user.compid,
+        userid: user.userid,
+        hourlyRate: rateArray[0].rate,
+        remark: 'default remark'
+    };
 }
 
 function punchHelper(user, lastRecord) {
@@ -81,6 +68,25 @@ function punchHelper(user, lastRecord) {
     }
 }
 
+function punch(userid) {
+    return dbm.parallel(
+        loadUserById(userid),
+        loadLastRecords(userid)
+    ).spread(punchHelper);
+}
+
+function punchMany(userIdList) {
+    var promises = userIdList.map(function(userid){
+
+    });
+}
+/******************************************************************************/
+
+/***********Functions for the modification and deletion of a record************/
+function deleteRecord(_id) {
+    var query = {_id: _id};
+    return dbm.use(dbm.deleteOne(records, query));
+}
 
 function modifyRecordDate(newTime) {
     return function(rec) {
@@ -104,6 +110,19 @@ function findRecordById(_id) {
     return dbm.load(records, _id, '_id');
 }
 
+function updateRecord(_id, newTime) {
+    var query = {_id: _id};
+    return dbm.use(
+        findRecordById(_id),
+        modifyRecordDate(newTime),
+        function(newRec) {
+            return dbm.updateOne(records, query, newRec).call(this);
+        }
+    );
+}
+/******************************************************************************/
+
+/*****************Show the recent records of a specific user*******************/
 function getRecordsByUserId(recentNumber) {
     return function(session) {
         var userid = session.userid;
@@ -113,13 +132,68 @@ function getRecordsByUserId(recentNumber) {
     };
 }
 
-function getSessionBySessionid(sessionid) {
-    return dbm.load('session', sessionid, 'sessionid');
+/**
+ * Function that will get the records of a specific user
+ * @function recentRecords(idObj)
+ * @param idObj: While using by the supervisor, idObj will be the userid of a
+ *              specific user, otherwise will be an object with the sessionid of
+ *              specific user.
+ */
+function recentRecords(idObj) {
+    var userid = null;
+    var sessionid = null;
+    var reccentNumber = 5;
+    if (typeof idObj === 'string') {
+        userid = idObj;
+    } else if (typeof idObj === 'object') {
+        if (idObj.sessionid) {
+            sessionid = idObj.sessionid;
+        } else if (idObj.userid) {
+            userid = idObj.userid;
+        }
+    }
+    if (userid) {
+        return dbm.use(wrap(userid), getRecordsByUserId(reccentNumber));
+    } else if (sessionid) {
+        return dbm.use(getSessionBySessionid(sessionid), getRecordsByUserId(reccentNumber));
+    } else {
+        return wrap(new Error('userid or sessionid is required'));
+    }
 }
+/******************************************************************************/
 
+/********Functions for searching records by time range of a specific user*******/
 function searchRecordsByTimeRange(query) {
     var options = {sort: {inDate: -1}};
     return dbm.query(records, query, options).call(this);
+}
+
+function searchRecords(userid, timeRange) {
+    var startDate = timeRange.startDate;
+    var endDate = timeRange.endDate;
+    var query = {userid: userid, inDate: {$gte: startDate}, outDate: {$lte: endDate}};
+    return dbm.use(wrap(query), searchRecordsByTimeRange);
+}
+/******************************************************************************/
+
+/*****************************Functions for delegation*************************/
+function delegateJudge(userInfos, delegates) {
+    var ret = {msg: null, ok: true};
+    if (!userInfos) {
+        ret.ok = false;
+        ret.msg = 'No data Found!';
+    } else {
+        userInfos.forEach(function(userInfo, index) {
+            userInfo.delegate = false;
+            delegates.forEach(function(delegate, i) {
+                if (userInfo.userid === delegate.userid) {
+                    userInfo.delegate = true;
+                }
+            });
+        });
+        ret.userInfos = userInfos;
+    }
+    return ret;
 }
 
 function delegateAction(userid, flag) {
@@ -134,6 +208,26 @@ function delegateAction(userid, flag) {
     };
 }
 
+function showUsersForDelegate(sessionid) {
+    return dbm.use(
+        getSessionBySessionid(sessionid)
+    ).then(function(session) {
+        return dbm.parallel(
+            getUsersBySession(session),
+            getDelsBySession(session)
+        );
+    }).spread(delegateJudge);
+}
+
+function delegate(userid, flag, sessionid) {
+    return dbm.use(
+        getSessionBySessionid(sessionid),
+        delegateAction(userid, flag)
+    );
+}
+/******************************************************************************/
+
+/*****************Functions to compute the reports of a Company*****************/
 function getUserListBySession(session) {
     var query = {compid: session.compid, owner: false};
     return dbm.query(users, query).call(this);
@@ -221,93 +315,6 @@ function weeklyReport(values) {
     return jsonData;
 }
 
-/******************************************************************************/
-
-
-function punch(userid) {
-    return dbm.parallel(
-        loadUserById(userid),
-        loadLastRecords(userid)
-    ).spread(punchHelper);
-}
-
-function punchMany(userIdList) {
-    var promises = userIdList.map(function(userid){
-
-    });
-}
-
-function deleteRecord(_id) {
-    var query = {_id: _id};
-    return dbm.use(dbm.deleteOne(records, query));
-}
-
-function updateRecord(_id, newTime) {
-    var query = {_id: _id};
-    return dbm.use(
-        findRecordById(_id),
-        modifyRecordDate(newTime),
-        function(newRec) {
-            return dbm.updateOne(records, query, newRec).call(this);
-        }
-    );
-}
-
-/**
- * Function that will get the records of a specific user
- * @function recentRecords(idObj)
- * @param idObj: While using by the supervisor, idObj will be the userid of a
- *              specific user, otherwise will be an object with the sessionid of
- *              specific user.
- */
-function recentRecords(idObj) {
-    var userid = null;
-    var sessionid = null;
-    var reccentNumber = 5;
-    if (typeof idObj === 'string') {
-        userid = idObj;
-    } else if (typeof idObj === 'object') {
-        if (idObj.sessionid) {
-            sessionid = idObj.sessionid;
-        } else if (idObj.userid) {
-            userid = idObj.userid;
-        }
-    }
-    if (userid) {
-        return dbm.use(wrap(userid), getRecordsByUserId(reccentNumber));
-    } else if (sessionid) {
-        return dbm.use(getSessionBySessionid(sessionid), getRecordsByUserId(reccentNumber));
-    } else {
-        return wrap(new Error('userid or sessionid is required'));
-    }
-}
-/******************************************************************************/
-
-function searchRecords(userid, timeRange) {
-    var startDate = timeRange.startDate;
-    var endDate = timeRange.endDate;
-    var query = {userid: userid, inDate: {$gte: startDate}, outDate: {$lte: endDate}};
-    return dbm.use(wrap(query), searchRecordsByTimeRange);
-}
-
-function showUsersForDelegate(sessionid) {
-    return dbm.use(
-        getSessionBySessionid(sessionid)
-    ).then(function(session) {
-        return dbm.parallel(
-            getUsersBySession(session),
-            getDelsBySession(session)
-        );
-    }).spread(delegateJudge);
-}
-
-function delegate(userid, flag, sessionid) {
-    return dbm.use(
-        getSessionBySessionid(sessionid),
-        delegateAction(userid, flag)
-    );
-}
-
 function getReportsByWeek(sessionid, startDate, endDate) {
     return dbm.use(
         getSessionBySessionid(sessionid),
@@ -349,6 +356,8 @@ function getReportsByMonth(sessionid, startDate) {
         });
     });
 }
+/******************************************************************************/
+
 
 function Module() {
 
