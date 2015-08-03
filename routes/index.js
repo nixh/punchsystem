@@ -30,7 +30,7 @@ function login(loginObj, cb) {
     }
     var userCol = db.get('users');
     var shapwd = sha(loginObj.password);
-//    shapwd = loginObj.password;
+    shapwd = loginObj.password;
     var userid = loginObj.userid;
     userid = parseInt(userid);
     if (isNaN(userid))
@@ -235,7 +235,7 @@ router.get('/recentRecords', function(req, res, next) {
         sessionid: req.cookies.sessionid
     }, function(err, recordDocs) {
         rm.db.close();
-        utils.render('yongred/punch_report', {
+        utils.render('staff/staff_punch_report', {
             moment: moment,
             records: recordDocs,
             su: false
@@ -293,7 +293,7 @@ router.get('/supervisor/rencentRecords/:uid', function(req, res, next) {
     var uid = req.params.uid;
     rm.rencentRecords(uid, function(err, recordDocs) {
         rm.db.close();
-        utils.render('yongred/punch_report', {
+        utils.render('supervisor/supervisor_punch_report', {
             moment: moment,
             records: recordDocs,
             userid: uid,
