@@ -1,19 +1,11 @@
 @import './lib/commonlib.less';
-@import './lib/basicStyle.less';
 
 .main{
 	color: @text-color;
 	padding-top: 5%;
 
 	.avatar{
-		text-align: center;
-		img {
-                .hollowcircle(300px, 20px, @avatar-border-color);
-            }
-        p{
-        	.normal-font;
-        	color: @head-label-color;
-        }
+
 	}
 
 	.paidRate{
@@ -33,7 +25,7 @@
 			}
 
 			&:last-child{
-				.functional-button;
+				.simple-button(@functional-button-background, @functional-button-color, @functional-button-active-background, @functional-button-active-color);
 			    float: right;
 			}
 			
@@ -48,21 +40,14 @@
 				display: table-cell;
     			vertical-align: middle;
 			}
-
-			.imageCover{
-				.cover;
-			}
 		}
 	}
 
 	.otherInfoLinks{
-		.link_button{
+		.link-button{
 			.width-16;
-			.basic-button;
-			background-color: @box-display-background;
-			color: @text-color;
 			.mb;
-
+			border-radius: 0;
 			&:last-of-type{
 		    	border-radius: 0px 0px 15px 15px;
 			}

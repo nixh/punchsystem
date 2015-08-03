@@ -6,7 +6,11 @@ router.post('/login', Action('login.api'));
 router.post('/changepwd', Action('userSettings.changePass'));
 router.post('/email_report_settings', Action('userSettings.emailSwitch'));
 router.post('/send_email/:userid', Action('userSettings.sendEmail'));
+<<<<<<< HEAD
 // router.post('/records', Action(''));
+=======
+router.post('/records', Action('auth.searchRecords'));
+>>>>>>> cea86585a53f984e0c355ac67c12520ba5c2b0c3
 router.post('/auth_key', Action('auth.getKey'));
 router.post('/disable_key', Action('auth.disableKey'));
 router.post('/punch/:punchkey', Action('auth.punch'));

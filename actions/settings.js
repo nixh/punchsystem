@@ -9,8 +9,13 @@ Settings ={};
 //用户页面
 Settings.staffSettingView = {
 	type : 'jade',
+<<<<<<< HEAD
 	template : './staff/staff_setting_su',
 	execute: function(req, res, next) {
+=======
+	template : './yongred/user_setting',
+	execute: function(req,res,next) {
+>>>>>>> cea86585a53f984e0c355ac67c12520ba5c2b0c3
 		var sessionid = req.cookies.sessionid;
 		var docs = s.showEmail(sessionid);
 		return docs.then(function(doc) {
@@ -26,7 +31,7 @@ Settings.staffSettingView = {
 //管理员页面
 Settings.supSettingView = {
 	type : 'jade',
-	template : './staff/staff_setting_su',
+	template : './yongred/user_setting',
 	execute: function(req,res,next) {
 		var sessionid = req.cookies.sessionid;
 		var docs = s.showEmail(sessionid);
@@ -47,7 +52,7 @@ Settings.supSettingView = {
 
 Settings.setEmailView = {
 	type: 'jade',
-	template: './staff/staff_setting_su',
+	template: './yongred/user_setting',
 	execute: function(req,res,next) {
 		var sessionid = req.cookies.sessionid;
 		var docs = s.showEmail(sessionid);
@@ -68,7 +73,7 @@ Settings.setEmailView = {
 
 Settings.setRateView = {
 	type: 'jade',
-	template : './staff/staff_setting_su',
+	template : './yongred/user_setting',
 	execute: function(req,res,next) {
 		var sessionid = req.cookies.sessionid;
 		var docs = s.showEmail(sessionid);
@@ -89,7 +94,7 @@ Settings.setRateView = {
 //邮箱开关
 Settings.emailSwitch = {
 	type : 'jade',
-	template : './staff/staff_setting_su',
+	template : './yongred/user_setting',
 	execute: function(req,res,next) {
 		var sessionid = req.cookies.sessionid;
 		var switchs = parseInt(req.params.switchs);
@@ -113,7 +118,7 @@ Settings.emailSwitch = {
 //工资设置开关
 Settings.rateSwitch = {
 	type : 'jade',
-	template : './staff/staff_setting_su',
+	template : './yongred/user_setting',
 	execute: function(req,res,next) {
 		var sessionid = req.cookies.sessionid;
 		var switchs
@@ -201,7 +206,7 @@ Settings.supChangePass = {
 //设置工资
 Settings.setRate = {
 	type : 'jade',
-	template : './staff/staff_setting_su',
+	template : './yongred/user_setting',
 	execute: function(req,res,next) {
 		var sessionid = req.cookies.sessionid;
 		var newRate = req.body.newrate;
@@ -226,7 +231,7 @@ Settings.setRate = {
 
 Settings.setEmail = {
 	type : 'jade',
-	template : './staff/staff_setting_su',
+	template : './yongred/user_setting',
 	execute: function(req,res,next) {
 		var sessionid = req.cookies.sessionid;
 		var timePeriod = req.body.timePeriod;

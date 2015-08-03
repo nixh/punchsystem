@@ -5,8 +5,6 @@ var moment = require('moment');
 var _ = require('underscore');
 var crypto = require('crypto');
 
-dbm.setUrl('localhost/aps');
-
 dbm.on('error', function(err){
     logger.error(err);
 });

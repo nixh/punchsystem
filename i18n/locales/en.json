@@ -1,10 +1,21 @@
 {
+<<<<<<< HEAD
 	"showrate": "showrate",
 	"hiderate": "hiderate",
 	"welcome": "welcome",
 	"paidrate": "paidrate",
 	"per_hour": "per_hour",
 	"punchReport": "punchReport",
+=======
+	"welcome": "welcome",
+	"view staff": "view staff",
+	"add staff": "add staff",
+	"manage records": "manage records",
+	"dynamic_qrcode": "dynamic_qrcode",
+	"delegate": "delegate",
+	"adminpunch": "adminpunch",
+	"overview": "overview",
+>>>>>>> cea86585a53f984e0c355ac67c12520ba5c2b0c3
 	"setting": "setting",
 	"logout": "logout"
 }

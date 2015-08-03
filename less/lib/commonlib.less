@@ -9,10 +9,14 @@ Variables
 @basic-ctrol-width: 100%;
 @basic-ctrol-height: 120px;
 
-@header-font-size: 75px;
-@big-font-size: 60px;
-@normal-font-size: 50px;
-@small-font-size: 40px;
+@font-XL: 75px;
+@font-L: 60px;
+@font-M: 50px;
+@font-S: 40px;
+@font-XS: 30px;
+
+@font-text: 'anivers reg', 'simhei';
+@font-number: 'dinbeck';
 
 @box-float-height: 300px;
 @half-box-height: 150px;
@@ -49,28 +53,28 @@ Common Settings
 }
 
 .text {
-    font-family: 'anivers reg', 'simhei';
+    font-family: @font-text;
 }
 .number {
-    font-family: 'dinbeck';
+    font-family: @font-number;
 }
 
 .header-font {
     .text;
-    font-size: @header-font-size;
+    font-size: @font-XL;
 }
 
 .normal-font {
     .text;
-    font-size: @normal-font-size;
+    font-size: @font-M;
 }
 
 .small-font{
-    font-size: @small-font-size;
+    font-size: @font-S;
 }
 
 .big-font{
-    font-size: @big-font-size;
+    font-size: @font-L;
 }
 
 .margin-gap-left{
@@ -166,10 +170,10 @@ functions
     cursor: pointer;
 }
 
-.basic-table-head(@background: @table-head-background, @color:  @table-head-color){
+.table-head{
     .header-font;
-    background-color: @background;
-    color: @color;
+    background-color: @table-head-background;
+    color: @table-head-color;
     &:first-child {
         border-top-left-radius: @basic-radius;
     }
@@ -178,15 +182,15 @@ functions
     }
 }
 
-.basic-table-data(@background: @table-cell-background, @color:  @table-cell-color){
-    background-color: @background;
-    color: @color;
+.table-data{
+    background-color: @table-cell-background;
+    color: @table-cell-color;
     text-align: center;
     .small-font;
     //.roundBorder(@small-radius);
 }
 
-.basic-table-row{
+.table-row{
     &:last-child td:first-child {
         border-bottom-left-radius: @basic-radius;
     }
@@ -343,7 +347,7 @@ functions
     height: @li-height;
 }
 
-.cover(@cover-color: @green){
+.cover{
     height: 100%;
     background-color: @cover-color;
     position: absolute;
@@ -371,6 +375,52 @@ functions
 /**
 yongred changing color, new variables
 */
+
+.bgbody{
+    background-repeat: repeat-y;
+    background-color: @background-color;
+}
+
+.main{
+    //.test-border(red);
+    .width-14;
+    .mcenter;
+
+    .section{
+        .width-16;
+        //.test-border;
+    }
+
+}
+
+.avatar{
+    text-align: center;
+    img {
+        .hollowcircle(300px, 20px, @avatar-border-color);
+    }
+}
+
+.header-label{
+    .normal-font;
+    color: @head-label-color;
+}
+
+.section-label{
+    .normal-font;
+    color: @section-label-color;
+    display: inline-block;
+}
+
+.box-label {
+    background-color: @box-label-background;
+    color: @box-label-color;
+    .normal-font;
+    .width-8;
+    height: @medium-height;
+    display: inline-block;
+    text-align:center;
+}
+
 .simple-button(@background: @link-button-background, @color: @link-button-color, @active-background-color: @link-button-active-background, @active-color: @link-button-active-color){
     
     background-color: @background;
@@ -388,18 +438,26 @@ yongred changing color, new variables
 }
 
 .long-button-shape(@border-radius:0) {
-    .normal-font;
-    text-align: center;
     .roundSquare(@basic-ctrol-width, @basic-ctrol-height, @border-radius);
     line-height: @basic-ctrol-height;
 }
 
 .functional-button{
     .simple-button(@functional-button-background, @functional-button-color, @functional-button-active-background, @functional-button-active-color);
+    .normal-font;
+    text-align: center;
+    .long-button-shape(@small-radius);
+    .non-selectable;
+    cursor: pointer;
 }
 
 .link-button{
     .simple-button(@link-button-background, @link-button-color, @link-button-active-background, @link-button-active-color);
+    .normal-font;
+    text-align: center;
+    .long-button-shape(@small-radius);
+    .non-selectable;
+    cursor: pointer;
 }
 
 .inline-button(@box-height: @box-float-height, @background: @altfunc-button-background, @color: @altfunc-button-color, @background-active: @altfunc-button-active-background, @color-active: @altfunc-button-active-color){
