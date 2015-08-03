@@ -394,15 +394,31 @@ yongred changing color, new variables
 }
 
 .avatar{
-        text-align: center;
-        img {
-            .hollowcircle(300px, 20px, @avatar-border-color);
-        }
+    text-align: center;
+    img {
+        .hollowcircle(300px, 20px, @avatar-border-color);
+    }
 }
 
 .header-label{
     .normal-font;
     color: @head-label-color;
+}
+
+.section-label{
+    .normal-font;
+    color: @section-label-color;
+    display: inline-block;
+}
+
+.box-label {
+    background-color: @box-label-background;
+    color: @box-label-color;
+    .normal-font;
+    .width-8;
+    height: @medium-height;
+    display: inline-block;
+    text-align:center;
 }
 
 .simple-button(@background: @link-button-background, @color: @link-button-color, @active-background-color: @link-button-active-background, @active-color: @link-button-active-color){

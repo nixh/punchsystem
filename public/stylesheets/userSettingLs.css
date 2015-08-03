@@ -363,6 +363,22 @@ yongred changing color, new variables
   font-size: 50px;
   color: #505a6a;
 }
+.section-label {
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+  color: #505a6a;
+  display: inline-block;
+}
+.box-label {
+  background-color: #505a6a;
+  color: white;
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+  width: 50%;
+  height: 200px;
+  display: inline-block;
+  text-align: center;
+}
 .functional-button {
   background-color: #505a6a;
   color: #8dc63f;
@@ -434,10 +450,6 @@ yongred changing color, new variables
   line-height: normal;
   margin-bottom: 2%;
 }
-.main .bigLabel {
-  float: left;
-  font-size: 60px;
-}
 .main .switchButton {
   width: 100%;
   padding-top: 100px;
@@ -459,11 +471,7 @@ yongred changing color, new variables
 }
 .main .passwordChange .passwordLabel {
   margin-bottom: 2%;
-  color: #505a6a;
   display: inline-block;
-}
-.main .emailSwitch .switchLabel {
-  color: #505a6a;
 }
 .main .EmailReportSetting .radioButton {
   color: #505a6a;
@@ -501,9 +509,6 @@ yongred changing color, new variables
   line-height: 240px;
   height: 300px;
 }
-.main .overTimeSwitch .switchLabel {
-  color: #505a6a;
-}
 .main .overTimeSetting {
   padding-bottom: 100px;
 }
@@ -520,17 +525,6 @@ yongred changing color, new variables
   height: 0px;
 }
 .main .overTimeSetting .thresholdDiv .thresholdLabel {
-  background-color: #505a6a;
-  color: white;
-  font-family: 'anivers reg', 'simhei';
-  font-size: 50px;
-  width: 25%;
-  height: 120px;
-  display: inline-block;
-  line-height: 120px;
-  text-align: center;
-  width: 50%;
-  height: 200px;
   display: table;
   border-radius: 10px;
   border: none;
@@ -586,17 +580,6 @@ yongred changing color, new variables
   height: 0px;
 }
 .main .overTimeSetting .rateDiv .rateLabel {
-  background-color: #505a6a;
-  color: white;
-  font-family: 'anivers reg', 'simhei';
-  font-size: 50px;
-  width: 25%;
-  height: 120px;
-  display: inline-block;
-  line-height: 120px;
-  text-align: center;
-  width: 50%;
-  height: 200px;
   display: table;
   border-radius: 10px;
   border: none;

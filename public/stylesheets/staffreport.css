@@ -363,6 +363,22 @@ yongred changing color, new variables
   font-size: 50px;
   color: #505a6a;
 }
+.section-label {
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+  color: #505a6a;
+  display: inline-block;
+}
+.box-label {
+  background-color: #505a6a;
+  color: white;
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+  width: 50%;
+  height: 200px;
+  display: inline-block;
+  text-align: center;
+}
 .functional-button {
   background-color: #505a6a;
   color: #8dc63f;

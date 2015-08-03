@@ -143,7 +143,7 @@ block content
     .main
         if su === false
             .passwordChange.section
-                .passwordLabel.bigLabel PASSWORD
+                .passwordLabel.header-label PASSWORD
                 form(method="POST",action="/settings" onsubmit= "return checkpwd()") 
                     input.pwd-input(type ='password' name= 'oldpass'  placeholder= "OLD PASSWORD" id="oldpass")
                     input.pwd-input(type ='password' name= 'newpass' placeholder= "NEW PASSWORD" id ="newpass")
@@ -152,7 +152,7 @@ block content
                     input(type = 'hidden' name='userid' value ="#{userid}" )
         if su === true
             .passwordChange.section
-                .passwordLabel.bigLabel PASSWORD
+                .passwordLabel.header-label PASSWORD
                 form(method="POST",action="/supervisor/settings" onsubmit= "return checkpwd()") 
                     input.pwd-input(type ='password' name= 'oldpass'  placeholder= "OLD PASSWORD" id="oldpass")
                     input.pwd-input(type ='password' name= 'newpass' placeholder= "NEW PASSWORD" id ="newpass")
@@ -160,7 +160,7 @@ block content
                     input.functional-button(type= 'submit' value= 'SUBMIT' id ="changepwd")
                     input(type = 'hidden' name='userid' value ="#{userid}" )
             .emailSwitch.section.switchButton
-                .switchLabel.bigLabel EMAIL REPORT
+                .switchLabel.section-label EMAIL REPORT
                 if enableEmail === "1"
                     .onOff.toggle.emailToggle.toggle-on
                 else
@@ -188,23 +188,11 @@ block content
                                 .inner
                             .label WEEKLY
                         input(name="period" type="hidden")
-                    //.radioButton
-                        .chooseLabel CHOOSE
-
-                        .radioMonth
-                            input(id="mRadio" type = "radio" name= "timePeriod" value= "monthly" checked = false)
-                            label.radioLabel(for="mRadio") MONTHLY
-                        
-                        .orLabel OR
-
-                        .radioWeek
-                            input(id="wRadio" type = "radio" name= "timePeriod" value= "weekly" checked= true)
-                            label.radioLabel(for="wRadio") WEEKLY
                     
                     input.functional-button(type= 'submit' value= 'SUBMIT')
 
             .overTimeSwitch.section.switchButton
-                .switchLabel.bigLabel OVERTIME SETTING
+                .switchLabel.section-label OVERTIME SETTING
                 if enablerate === "1"
                     .onOff.toggle.overTimeToggle.toggle-on
                 else
@@ -214,7 +202,7 @@ block content
 
                 form(method="POST" action="/supervisor/setrate" onsubmit= "return checkrate()")
                     .thresholdDiv
-                        .thresholdLabel 
+                        .thresholdLabel.box-label 
                             span.labelSpan OVERTIME THRESHOLD
                         input.hourDisplay(type= "text" placeholder= "40" name="overtime" id ="overtime" value ='#{overtime}')
                         -var rate=(enablerate)? enablerate : 1
@@ -224,7 +212,7 @@ block content
                         .perWeekLabel
                             span.labelSpan HRS PER WEEK
                     .rateDiv
-                        .rateLabel
+                        .rateLabel.box-label 
                             span.labelSpan OVERTIME RATE
 
                         input.rateDisplay(type= "text" placeholder="1.5x" name="newrate" id="newrate" value ="#{newrate}")
