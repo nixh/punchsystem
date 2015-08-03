@@ -98,9 +98,9 @@ block content
     .main(ontouchstart="")
         form#searchform.section(action="/supervisor/records_search" method="POST")
             .startEndTime
-                input.useDatePicker(type= "text" name="startdate" placeholder="#{tr('starttime')}") 
+                input.text-input.useDatePicker(type= "text" name="startdate" placeholder="#{tr('starttime')}") 
                 //.endTime 
-                input.useDatePicker(type= "text" name="enddate" placeholder="#{tr('endtime')}")
+                input.text-input.useDatePicker(type= "text" name="enddate" placeholder="#{tr('endtime')}")
                 input(type="hidden" name="userid" value="#{userid}")
 
             .controlButtons
@@ -110,55 +110,55 @@ block content
 
         .reportTableDiv.section
             table.reportTable
-                tr.table_row
-                    th.table_head(colspan='4')
+                tr.table-row
+                    th.table-head(colspan='4')
                         = tr('time') + " "
                         = tr('in') + "/"
                         = tr('out')
 
                 if records.length === 0
-                    tr.table_row
-                        td.table_data(colspan=3 align="center")
+                    tr.table-row
+                        td.table-data(colspan=3 align="center")
                             span.text= tr('empty records')
                 else
                     each record in records
-                        tr.table_row
-                            td.table_data 
-                                ul
-                                    li.listItem 
+                        tr.table-row
+                            td.table-data 
+                                ul.unorder-list
+                                    li.list-item 
                                         .out OUT
-                                    li.listItem  
+                                    li.list-item  
                                         .in IN
-                            td.table_data
+                            td.table-data
                                 - var outDate = record.outDate ? getDate(record.outDate) : "";
                                 - var inDate = record.inDate ? getDate(record.inDate) : "";
-                                ul.dateList
-                                    li.listItem.date.outDate
+                                ul.unorder-list.dateList
+                                    li.list-item.date.outDate
                                         span= outDate
                                         input.dateInput.outDateInput.useDatePicker.hidden(type="text" data-value=outDate)
-                                    li.listItem.date.inDate
+                                    li.list-item.date.inDate
                                         span= inDate
                                         input.dateInput.inDateInput.useDatePicker.hidden(type="text" data-value=inDate)
-                            td.table_data
+                            td.table-data
                                 - var outTime = record.outDate ? getTime(record.outDate) : "";
                                 - var inTime = record.inDate ? getTime(record.inDate) : "";
-                                ul.timeList
-                                    li.listItem.time.outTime
+                                ul.unorder-list.timeList
+                                    li.list-item.time.outTime
                                         span= outTime
                                         input.timeInput.outTimeInput.useTimePicker.hidden(type= "text" data-value=outTime)
-                                    li.listItem.time.inTime
+                                    li.list-item.time.inTime
                                         span= inTime 
                                         input.timeInput.inTimeInput.useTimePicker.hidden(type= "text" data-value=inTime)
                             if su
-                                td.table_data
+                                td.table-data
                                     .editOutButton.editButton= tr('edit')
                                     .confirmReturnDelete.outConfirmReturn.hidden
-                                        .confirmButton.funcButton(data-record-id="#{record._id}") O 
-                                        .returnButton.funcButton X
-                                        .deleteButton.funcButton(data-record-id="#{record._id}")= tr('delete')
+                                        .confirmButton.changeButtons(data-record-id="#{record._id}") O 
+                                        .returnButton.changeButtons X
+                                        .deleteButton.changeButtons(data-record-id="#{record._id}")= tr('delete')
 
                             else
-                                td.table_data
-                                    ul
-                                        li.listItem= tr('out')
-                                        li.listItem= tr('in')
+                                td.table-data
+                                    ul.unorder-list
+                                        li.list-item= tr('out')
+                                        li.list-item= tr('in')

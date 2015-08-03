@@ -148,7 +148,7 @@ block content
                     input.pwd-input(type ='password' name= 'oldpass'  placeholder= "OLD PASSWORD" id="oldpass")
                     input.pwd-input(type ='password' name= 'newpass' placeholder= "NEW PASSWORD" id ="newpass")
                     input.pwd-input(type ='password' name= 'confirmpass' placeholder= "CONFIRM PASSWORD" id = "confirmpass")
-                    input.func_button(type= 'submit' value= 'SUBMIT' id ="changepwd")
+                    input.functional-button(type= 'submit' value= 'SUBMIT' id ="changepwd")
                     input(type = 'hidden' name='userid' value ="#{userid}" )
         if su === true
             .passwordChange.section
@@ -157,7 +157,7 @@ block content
                     input.pwd-input(type ='password' name= 'oldpass'  placeholder= "OLD PASSWORD" id="oldpass")
                     input.pwd-input(type ='password' name= 'newpass' placeholder= "NEW PASSWORD" id ="newpass")
                     input.pwd-input(type ='password' name= 'confirmpass' placeholder= "CONFIRM PASSWORD" id = "confirmpass")
-                    input.func_button(type= 'submit' value= 'SUBMIT' id ="changepwd")
+                    input.functional-button(type= 'submit' value= 'SUBMIT' id ="changepwd")
                     input(type = 'hidden' name='userid' value ="#{userid}" )
             .emailSwitch.section.switchButton
                 .switchLabel.bigLabel EMAIL REPORT
@@ -201,7 +201,7 @@ block content
                             input(id="wRadio" type = "radio" name= "timePeriod" value= "weekly" checked= true)
                             label.radioLabel(for="wRadio") WEEKLY
                     
-                    input.func_button(type= 'submit' value= 'SUBMIT')
+                    input.functional-button(type= 'submit' value= 'SUBMIT')
 
             .overTimeSwitch.section.switchButton
                 .switchLabel.bigLabel OVERTIME SETTING
@@ -229,4 +229,4 @@ block content
 
                         input.rateDisplay(type= "text" placeholder="1.5x" name="newrate" id="newrate" value ="#{newrate}")
 
-                    input.func_button(type= 'submit' value= 'SUBMIT')
+                    input.functional-button(type= 'submit' value= 'SUBMIT')
