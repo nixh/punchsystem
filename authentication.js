@@ -1,4 +1,5 @@
 var loginRoute = require('./routes/index');
+var factory = require('./lib/module/moduleFactory')();
 
 function redirectToLogin(req, res) {
     loginRoute.getLoginPage(req, res);
@@ -8,13 +9,45 @@ function matchSupervisor(path) {
     return /^\/supervisor/.test(path);
 }
 
+var am = factory.get('authModule');
+
 function Authentication() {
 
     return function(req, res, next) {
 
-        if (req.path === "/login" ||
-                req.path === '/logout')
+        if(req.path === "/login" ||
+                req.path === '/logout' ||
+                req.path === '/api/auth_key' ||
+                req.path === '/api/disable_key')
             return next();
+
+        if(/^\/api\//.test(req.path)) {
+            var authKey = req.get('auth_key');
+            if(authKey) {
+                return am.existsAuthKey(authKey).then(function(valid){
+                    if(!valid) {
+                        res.type('json');
+                        return res.send({
+                            msg: 'Forbiden',
+                            statusCode: 403,
+                            status: 'fail'
+                        });
+                    } else {
+                        return next();
+                    }
+                });
+            } else {
+                var err = new Error('invalid_authkey');
+                err.status = 403;
+                res.type('json');
+                return res.send({
+                    msg: 'Forbiden',
+                    err: err.message,
+                    statusCode: 403,
+                    status: 'fail'
+                });
+            }
+        }
 
         var sessionid = req.cookies.sessionid;
         if (!sessionid) {

@@ -6,7 +6,7 @@ var Q = require('q');
 
 userSettings ={};
 
-Settings.emailSwitch = {
+userSettings.emailSwitch = {
 	type : 'jade',
 	template : './staff/staff_setting_su',
 	execute: function(req,res,next) {

@@ -32,12 +32,9 @@
     "q": "~1.4.1",
     "request": "~2.58.0",
     "underscore": "~1.8.3",
-    "grunt": "~0.4.5",
-    "grunt-contrib-watch": "~0.6.1",
-    "grunt-contrib-less": "~1.0.1",
-    "q": "~1.4.1",
     "winston": "~1.0.1",
     "ursa": "~0.8.5",
-    "mock-express": "0.0.4"
-    }
+    "mock-express": "0.0.4",
+    "node-schedule": "~0.2.9"
+  }
 }
