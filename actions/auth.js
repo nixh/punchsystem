@@ -6,9 +6,15 @@ var auth = {}
 
 var recordsModule = require('../reportModule');
 
+
 auth.punch = {
     type: 'api',
     execute: function(req, res, next) {
+        var punchKey = req.params['punch_key'];
+        var authKey = req.headers['auth_key'];
+        var userid = req.body.userid;
+
+
     }
 }
 
