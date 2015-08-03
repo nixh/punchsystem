@@ -140,36 +140,36 @@ append scripts
             });
         });
 block content
-    .settingPage
+    .main
         if su === false
-            .passwordChange
+            .passwordChange.section
                 .passwordLabel.bigLabel PASSWORD
                 form(method="POST",action="/settings" onsubmit= "return checkpwd()") 
-                    input.inputBar(type ='password' name= 'oldpass'  placeholder= "OLD PASSWORD" id="oldpass")
-                    input.inputBar(type ='password' name= 'newpass' placeholder= "NEW PASSWORD" id ="newpass")
-                    input.inputBar(type ='password' name= 'confirmpass' placeholder= "CONFIRM PASSWORD" id = "confirmpass")
-                    input.longButton(type= 'submit' value= 'SUBMIT' id ="changepwd")
+                    input.pwd-input(type ='password' name= 'oldpass'  placeholder= "OLD PASSWORD" id="oldpass")
+                    input.pwd-input(type ='password' name= 'newpass' placeholder= "NEW PASSWORD" id ="newpass")
+                    input.pwd-input(type ='password' name= 'confirmpass' placeholder= "CONFIRM PASSWORD" id = "confirmpass")
+                    input.func_button(type= 'submit' value= 'SUBMIT' id ="changepwd")
                     input(type = 'hidden' name='userid' value ="#{userid}" )
         if su === true
-            .passwordChange
+            .passwordChange.section
                 .passwordLabel.bigLabel PASSWORD
                 form(method="POST",action="/supervisor/settings" onsubmit= "return checkpwd()") 
-                    input.inputBar(type ='password' name= 'oldpass'  placeholder= "OLD PASSWORD" id="oldpass")
-                    input.inputBar(type ='password' name= 'newpass' placeholder= "NEW PASSWORD" id ="newpass")
-                    input.inputBar(type ='password' name= 'confirmpass' placeholder= "CONFIRM PASSWORD" id = "confirmpass")
-                    input.longButton(type= 'submit' value= 'SUBMIT' id ="changepwd")
+                    input.pwd-input(type ='password' name= 'oldpass'  placeholder= "OLD PASSWORD" id="oldpass")
+                    input.pwd-input(type ='password' name= 'newpass' placeholder= "NEW PASSWORD" id ="newpass")
+                    input.pwd-input(type ='password' name= 'confirmpass' placeholder= "CONFIRM PASSWORD" id = "confirmpass")
+                    input.func_button(type= 'submit' value= 'SUBMIT' id ="changepwd")
                     input(type = 'hidden' name='userid' value ="#{userid}" )
-            .emailSwitch.switchButton
+            .emailSwitch.section.switchButton
                 .switchLabel.bigLabel EMAIL REPORT
                 if enableEmail === "1"
                     .onOff.toggle.emailToggle.toggle-on
                 else
                     .onOff.toggle.emailToggle.toggle-off
             
-            .EmailReportSetting.toggleTarget
+            .EmailReportSetting.section.toggleTarget
                 form(method="POST",action='/supervisor/sendemail' onsubmit= "return checkemail()")
                     -var email = (receiveEmails)? receiveEmails : "EMAIL ADDRESS"
-                    input.inputBar.useTagator(type= "text" id = "receiveEmails" name = 'receiveEmails' placeholder= "EMAIL ADDRESS" value="#{email}")
+                    input.text-input.useTagator(type= "text" id = "receiveEmails" name = 'receiveEmails' placeholder= "EMAIL ADDRESS" value="#{email}")
                     -var enable= (enableEmail)? enableEmail : 1
                     input(type = 'hidden' name='enableEmail' value ='#{enable}' id= "enableEmail")
                     input(type = 'hidden' name='userid' value ="#{userid}" id="myid")
@@ -201,16 +201,16 @@ block content
                             input(id="wRadio" type = "radio" name= "timePeriod" value= "weekly" checked= true)
                             label.radioLabel(for="wRadio") WEEKLY
                     
-                    input.longButton(type= 'submit' value= 'SUBMIT')
+                    input.func_button(type= 'submit' value= 'SUBMIT')
 
-            .overTimeSwitch.switchButton
+            .overTimeSwitch.section.switchButton
                 .switchLabel.bigLabel OVERTIME SETTING
                 if enablerate === "1"
                     .onOff.toggle.overTimeToggle.toggle-on
                 else
                     .onOff.toggle.overTimeToggle.toggle-off
             
-            .overTimeSetting.toggleTarget1
+            .overTimeSetting.section.toggleTarget1
 
                 form(method="POST" action="/supervisor/setrate" onsubmit= "return checkrate()")
                     .thresholdDiv
@@ -229,4 +229,4 @@ block content
 
                         input.rateDisplay(type= "text" placeholder="1.5x" name="newrate" id="newrate" value ="#{newrate}")
 
-                    input.longButton(type= 'submit' value= 'SUBMIT')
+                    input.func_button(type= 'submit' value= 'SUBMIT')
