@@ -56,13 +56,13 @@ append scripts
         script.
             $(function initEvent(){
                 var rateSH = $(".showHideRate");
-                var cover = $(".imageCover");
+                var cover = $(".cover");
                 var hrRate = $(".hourRate");
 
                 var showCover = true;
                 rateSH.on("click", function(e){
 
-                    var cover = $(".imageCover");
+                    var cover = $(".cover");
                     if(showCover) {
                       showCover = false;
                       cover.css("visibility", "hidden");
@@ -105,7 +105,7 @@ block content
     .main(ontouchstart="")
         .avatar.section
             img(src="#{user.avatar ? user.avatar : user.sex ? '/images/boydefaultpicture.png' : '/images/girl default picture.png'}" alt="User Avatar") 
-            p= tr('welcome') + " " + user.name
+            p.header-label= tr('welcome') + " " + user.name
 
         if su === false
             .paidRate.section
@@ -113,27 +113,27 @@ block content
                     span= tr('paidrate')
                 .paidRateBox
                     .hourRate $#{user.curRate} #{tr('per_hour')}
-                    .imageCover
+                    .cover
 
                 .paidRateBox.showHideRate.noselect
                     span= tr('showrate')
                     
         if su
             .otherInfoLinks.section.noselect
-                .viewstaff.link_button= tr('view staff')
-                .addStaff.link_button= tr('add staff')
-                .manageRecords.link_button= tr('manage records')
-                .dynacode.link_button= tr('dynamic_qrcode')
-                .delegate.link_button= tr('delegate')
-                .adminpunch.link_button= tr('adminpunch')
-                .overview.link_button= tr('overview')
-                .setting.link_button= tr('setting')
-                .logout.link_button= tr('logout')
+                .viewstaff.link-button= tr('view staff')
+                .addStaff.link-button= tr('add staff')
+                .manageRecords.link-button= tr('manage records')
+                .dynacode.link-button= tr('dynamic_qrcode')
+                .delegate.link-button= tr('delegate')
+                .adminpunch.link-button= tr('adminpunch')
+                .overview.link-button= tr('overview')
+                .setting.link-button= tr('setting')
+                .logout.link-button= tr('logout')
 
         else       
             .otherInfoLinks.section.noselect
-                .punchReport.link_button= tr('punchReport')
+                .punchReport.link-button= tr('punchReport')
                 if delegate
-                    .delegate.link_button= tr('delegate')
-                .settings.link_button= tr('setting')
-                .logout.link_button= tr('logout')
+                    .delegate.link-button= tr('delegate')
+                .settings.link-button= tr('setting')
+                .logout.link-button= tr('logout')

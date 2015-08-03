@@ -1,5 +1,4 @@
 @import './lib/commonlib.less';
-@import './lib/basicStyle.less';
 
 .main{
 	//.test-border(red);
@@ -15,8 +14,7 @@
 		.startEndTime{
 			.width-16;
 
-			input{
-				.textinput;
+			.text-input{
 				.mb;
 				text-align: center;
 				display: block;
@@ -49,24 +47,24 @@
 		table.reportTable{
 			.basic-table(5px);
 
-			tr.table_row:last-child .table_data:first-child {
+			tr.table-row:last-child .table-data:first-child {
 			    border-bottom-left-radius: 0;
 			}
 
-			tr.table_row:last-child .table_data:last-child {
+			tr.table-row:last-child .table-data:last-child {
 			    border-bottom-right-radius: 0;
 			}
-			.table_head, .table_data{
+			.table-head, .table-data{
 				text-align: center;
 				height: @table-element-height;
 			}
 
-			th.table_head{
+			th.table-head{
 				//.test-border;
-				.basic-table-head(@gray);
+				background-color: @transparent-table-head-background;
 			}
-			.table_data{
-				.basic-table-data(@white);
+			.table-data{
+				background-color: @bright-table-cell-background;
 				&:first-of-type{
 					.width-1;
 				}
@@ -81,11 +79,10 @@
 					.width-3;
 				}
 
-				& > ul{
-					.unorder-list;
-					& > .listItem{
+				& > ul.unorder-list{
+				
+					& > .list-item{
 						margin-top: 28px;
-						.list-item;
 						& > input{
 							.inner-input;
 
@@ -96,7 +93,7 @@
 						& > .in{
 							color: @in-color;
 						}
-					}//listItem
+					}//list-item
 					
 				}//ul
 
@@ -120,7 +117,7 @@
 					&:after{
 						.after-float;
 					}
-					.funcButton{
+					.changeButtons{
 						text-align: center;
 						padding: 0px;
 						height: 50%;
