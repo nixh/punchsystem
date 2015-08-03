@@ -11,7 +11,7 @@ var utils = require('../utils');
 /*
 router.get('/staff_delegate:uid', function(req, res, next) {
     var rm = new recModule();
-    var sessionid = req.cookies.seccionid;
+    var sessionid = req.cookies.sessionid;
     var userid = req.params.uid;
     query = {userid : userid};
     rm.checkDelegate(query, function(err, dels) {
@@ -63,12 +63,13 @@ router.post('/records_search', function(req, res, next) {
         var userid = sessionDoc.userid;
         var query = {inDate: {"$gte": starttime} , outDate: {"$lte": endtime}, userid: userid};
         var query1 = {inDate: {"$gte": starttime} , outDate: null, userid: userid};
-        var fq = { $or: [query, query1]}
+        var fq = { $or: [query, query1]};
         rm.searchRecords(fq, function(jsonData) {
-            jsonData.su = false;
             jsonData.tr = res.__;
             jsonData.moment = moment;
+            jsonData.su = false;
             res.render('staff/staff_punch_report', jsonData);
+            sm.db.close();
         });
     });
 });
@@ -81,8 +82,8 @@ router.get('/supervisor/records_search/', function(req, res, next) {
     var su = req.path.search("supervisor");
     var query = {inDate : {"$gte" : starttime} , outDate : {"$lte": endtime}, userid: userid};
     rm.searchRecords(query, function(jsonData) {
-        jsonData.su = true;
         jsonData.tr = res.__;
+        jsonDate.su = true;
         res.render('supervisor/supervisor_punch_report', jsonData);
     });
 });

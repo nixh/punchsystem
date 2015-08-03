@@ -1,0 +1,594 @@
+/**************
+Variables
+**************/
+/************
+Common Settings
+************/
+@font-face {
+  font-family: "anivers reg";
+  src: url('/fonts/Anivers_Regular.otf') format("opentype");
+}
+@font-face {
+  font-family: "dinbek";
+  src: url('/fonts/DINBek.ttf');
+}
+@font-face {
+  font-family: "simhei";
+  src: url('/fonts/SimHei.ttf');
+}
+@font-face {
+  font-family: "open sans";
+  src: url('/fonts/OpenSans-Regular.ttf');
+}
+.text {
+  font-family: 'anivers reg', 'simhei';
+}
+.number {
+  font-family: 'dinbeck';
+}
+.header-font {
+  font-family: 'anivers reg', 'simhei';
+  font-size: 75px;
+}
+.normal-font {
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+}
+.small-font {
+  font-size: 40px;
+}
+.big-font {
+  font-size: 60px;
+}
+.margin-gap-left {
+  margin-left: 3.325%;
+}
+.clear-browsersettings {
+  margin: 0;
+  padding: 0;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+/************
+Generate Width Loop
+************/
+.width-1 {
+  width: 6.25%;
+}
+.width-2 {
+  width: 12.5%;
+}
+.width-3 {
+  width: 18.75%;
+}
+.width-4 {
+  width: 25%;
+}
+.width-5 {
+  width: 31.25%;
+}
+.width-6 {
+  width: 37.5%;
+}
+.width-7 {
+  width: 43.75%;
+}
+.width-8 {
+  width: 50%;
+}
+.width-9 {
+  width: 56.25%;
+}
+.width-10 {
+  width: 62.5%;
+}
+.width-11 {
+  width: 68.75%;
+}
+.width-12 {
+  width: 75%;
+}
+.width-13 {
+  width: 81.25%;
+}
+.width-14 {
+  width: 87.5%;
+}
+.width-15 {
+  width: 93.75%;
+}
+.width-16 {
+  width: 100%;
+}
+/*************
+functions
+*************/
+.hidden {
+  display: hidden;
+}
+.show {
+  display: '';
+}
+.show-block {
+  display: block;
+}
+.mcenter {
+  margin: 0 auto;
+}
+.non-selectable {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.avoid-clicks {
+  pointer-events: none;
+}
+.after-float {
+  content: "";
+  display: block;
+  visibility: hidden;
+  clear: both;
+  zoom: 1;
+  height: 0px;
+}
+.basic-table-row:last-child td:first-child {
+  border-bottom-left-radius: 25px;
+}
+.basic-table-row:last-child td:last-child {
+  border-bottom-right-radius: 25px;
+}
+.textinput,
+.passinput {
+  border-radius: 10px;
+  border: none;
+  width: 100%;
+  height: 120px;
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+  text-indent: 10px;
+  color: #505a6a;
+}
+.textinput::-webkit-input-placeholder {
+  color: #505a6a;
+}
+.textinput:-moz-placeholder {
+  /* Firefox 18- */
+  color: #505a6a;
+}
+.textinput::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #505a6a;
+}
+.textinput:-ms-input-placeholder {
+  color: #505a6a;
+}
+.radioinput {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.radioinput .outer {
+  border-radius: 50%;
+  border: 15px solid #8dc63f;
+  width: 120px;
+  height: 120px;
+  float: left;
+  cursor: pointer;
+  position: relative;
+}
+.radioinput .outer .inner {
+  border-radius: 50%;
+  border: none;
+  width: 50px;
+  height: 50px;
+  background-color: #8dc63f;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: none;
+}
+.radioinput .label {
+  float: left;
+  height: 120px;
+  line-height: 120px;
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+  margin-left: 5%;
+}
+.radioinput-center {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.radioinput-center .outer {
+  border-radius: 50%;
+  border: 15px solid #8dc63f;
+  width: 120px;
+  height: 120px;
+  cursor: pointer;
+  position: relative;
+  margin: 0 auto;
+}
+.radioinput-center .outer .inner {
+  border-radius: 50%;
+  border: none;
+  width: 50px;
+  height: 50px;
+  background-color: #8dc63f;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: none;
+}
+.radioinput-center .label {
+  text-align: center;
+  height: 120px;
+  line-height: 120px;
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+}
+.radioinput.radioselected .inner {
+  display: block !important;
+}
+.radioinput-center.radioselected .inner {
+  display: block !important;
+}
+.inline-display {
+  height: 200px;
+  line-height: normal;
+  text-align: center;
+  background-color: white;
+  color: #505a6a;
+  border-radius: 10px;
+  border: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  pointer-events: none;
+}
+.unorder-list {
+  list-style: none;
+  padding-left: 0;
+  width: 100%;
+  height: 100%;
+}
+.inner-input {
+  border-radius: 10px;
+  width: 80%;
+  height: 120px;
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+  text-indent: 10px;
+  color: #505a6a;
+  font-size: 40px;
+  height: auto;
+}
+.inner-input::-webkit-input-placeholder {
+  color: #505a6a;
+}
+.inner-input:-moz-placeholder {
+  /* Firefox 18- */
+  color: #505a6a;
+}
+.inner-input::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #505a6a;
+}
+.inner-input:-ms-input-placeholder {
+  color: #505a6a;
+}
+.submit-button {
+  background-color: white;
+  color: #505a6a;
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+  text-align: center;
+  border-radius: 10px;
+  border: none;
+  width: 100%;
+  height: 120px;
+  line-height: 120px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+}
+.submit-button:active {
+  background-color: #8dc63f;
+  color: white;
+}
+/**
+yongred changing color, new variables
+*/
+.functional-button {
+  background-color: #505a6a;
+  color: #8dc63f;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+}
+.functional-button:active {
+  background-color: #8dc63f;
+  color: white;
+}
+.link-button {
+  background-color: white;
+  color: #505a6a;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+}
+.link-button:active {
+  background-color: #8dc63f;
+  color: white;
+}
+.text-input,
+.pwd-input {
+  border-radius: 10px;
+  border: none;
+  width: 100%;
+  height: 120px;
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+  text-indent: 10px;
+  color: #505a6a;
+}
+.text-input::-webkit-input-placeholder {
+  color: #505a6a;
+}
+.text-input:-moz-placeholder {
+  /* Firefox 18- */
+  color: #505a6a;
+}
+.text-input::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #505a6a;
+}
+.text-input:-ms-input-placeholder {
+  color: #505a6a;
+}
+.bgbody {
+  background-repeat: repeat-y;
+  background-color: #eeeeee;
+}
+.main {
+  width: 87.5%;
+  margin: 0 auto;
+}
+.main .section {
+  width: 100%;
+}
+.main .pwd-input {
+  line-height: normal;
+  margin-bottom: 2%;
+}
+.main .func_button {
+  background-color: #505a6a;
+  color: #8dc63f;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+  text-align: center;
+  border-radius: 10px;
+  border: none;
+  width: 100%;
+  height: 120px;
+  line-height: 120px;
+}
+.main .func_button:active {
+  background-color: #8dc63f;
+  color: white;
+}
+.main .bigLabel {
+  float: left;
+  font-size: 60px;
+}
+.main .switchButton {
+  width: 100%;
+  padding-top: 100px;
+  padding-bottom: 50px;
+}
+.main .switchButton:after {
+  content: "";
+  display: block;
+  visibility: hidden;
+  clear: both;
+  zoom: 1;
+  height: 0px;
+}
+.main .switchButton .onOff {
+  float: right;
+}
+.main .passwordChange {
+  padding-top: 100px;
+}
+.main .passwordChange .passwordLabel {
+  margin-bottom: 2%;
+  color: #505a6a;
+  display: inline-block;
+}
+.main .emailSwitch .switchLabel {
+  color: #505a6a;
+}
+.main .EmailReportSetting .radioButton {
+  color: #505a6a;
+  width: 100%;
+  margin-top: 30px;
+}
+.main .EmailReportSetting .radioButton:after {
+  content: "";
+  display: block;
+  visibility: hidden;
+  clear: both;
+  zoom: 1;
+  height: 0px;
+}
+.main .EmailReportSetting .radioButton .chooseLabel {
+  font-size: 40px;
+  height: 300px;
+  float: left;
+  display: inline-block;
+}
+.main .EmailReportSetting .radioButton .radioinput-center {
+  float: left;
+  height: 300px;
+  margin-left: 5%;
+  padding-top: 30px;
+  width: 25%;
+}
+.main .EmailReportSetting .radioButton .radioinput-center .label {
+  font-size: 40px;
+}
+.main .EmailReportSetting .radioButton .orLabel {
+  float: left;
+  font-size: 40px;
+  margin-left: 5%;
+  line-height: 240px;
+  height: 300px;
+}
+.main .overTimeSwitch .switchLabel {
+  color: #505a6a;
+}
+.main .overTimeSetting {
+  padding-bottom: 100px;
+}
+.main .overTimeSetting .thresholdDiv {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.main .overTimeSetting .thresholdDiv:after {
+  content: "";
+  display: block;
+  visibility: hidden;
+  clear: both;
+  zoom: 1;
+  height: 0px;
+}
+.main .overTimeSetting .thresholdDiv .thresholdLabel {
+  background-color: #505a6a;
+  color: white;
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+  width: 25%;
+  height: 120px;
+  display: inline-block;
+  line-height: 120px;
+  text-align: center;
+  width: 50%;
+  height: 200px;
+  display: table;
+  border-radius: 10px;
+  border: none;
+  float: left;
+}
+.main .overTimeSetting .thresholdDiv .hourDisplay {
+  float: left;
+  height: 200px;
+  line-height: normal;
+  text-align: center;
+  background-color: white;
+  color: #505a6a;
+  border-radius: 10px;
+  border: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  pointer-events: none;
+  width: 18.75%;
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+  margin-left: 3.325%;
+}
+.main .overTimeSetting .thresholdDiv .perWeekLabel {
+  float: right;
+  display: table;
+  height: 200px;
+  line-height: normal;
+  text-align: center;
+  background-color: white;
+  color: #505a6a;
+  border-radius: 10px;
+  border: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  pointer-events: none;
+  width: 25%;
+  font-size: 40px;
+}
+.main .overTimeSetting .rateDiv {
+  width: 100%;
+  margin-bottom: 20px;
+}
+.main .overTimeSetting .rateDiv:after {
+  content: "";
+  display: block;
+  visibility: hidden;
+  clear: both;
+  zoom: 1;
+  height: 0px;
+}
+.main .overTimeSetting .rateDiv .rateLabel {
+  background-color: #505a6a;
+  color: white;
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+  width: 25%;
+  height: 120px;
+  display: inline-block;
+  line-height: 120px;
+  text-align: center;
+  width: 50%;
+  height: 200px;
+  display: table;
+  border-radius: 10px;
+  border: none;
+  float: left;
+}
+.main .overTimeSetting .rateDiv .rateDisplay {
+  float: right;
+  display: table;
+  height: 200px;
+  line-height: normal;
+  text-align: center;
+  background-color: white;
+  color: #505a6a;
+  border-radius: 10px;
+  border: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  pointer-events: none;
+  width: 43.75%;
+  font-size: 40px;
+}
+.main .overTimeSetting span.labelSpan {
+  line-height: normal;
+  font-size: 40px;
+  word-wrap: break-word;
+  display: table-cell;
+  vertical-align: middle;
+}
