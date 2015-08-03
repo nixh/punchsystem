@@ -13,8 +13,6 @@
   background-color: #263238;
   transition: all 500ms;
 }
-@blue: rgb(80, 90, 106);
-@green: rgb(141, 198, 63);
 */
 
 .toggle {
@@ -27,13 +25,13 @@
   outline: 0;
   text-decoration: none;
   border-radius: 5px;
-  background-color: rgb(141, 198, 63);
+  background-color: rgb(138, 209, 215);
   transition: all 500ms;
 }
 
-.toggle:active { background-color: rgb(141, 198, 63); }
+.toggle:active { background-color: rgb(138, 209, 215); }
 
-.toggle:hover:not(.toggle-moving):after { background-color: rgb(80, 90, 106); }
+.toggle:hover:not(.toggle-moving):after { background-color: rgb(103, 116, 153); }
 
 .toggle:after {
   display: block;
@@ -45,7 +43,7 @@
   text-transform: uppercase;
   font-size: 40px;
   color: white;
-  background-color:  rgb(80, 90, 106);
+  background-color:  rgb(103, 116, 153);
   transition: all 500ms;
 }
 
