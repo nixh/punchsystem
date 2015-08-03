@@ -1,5 +1,4 @@
 var express = require('express');
 var router = express.Router();
-var moment = require('moment');
-var monk = require('monk');
-var recordModule = require('../recordModule');
+var Action = require('../lib/common/action');
+var recordModule = require('../reportModule');
