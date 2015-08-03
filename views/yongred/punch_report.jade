@@ -1,0 +1,164 @@
+extends ../layout.jade
+
+append links
+    //link(rel="stylesheet" href="/stylesheets/adminpunch.css") 
+    //link(rel='stylesheet' href='/stylesheets/supervisorPunchReport.css')
+    link(rel='stylesheet' href='/stylesheets/punchReportLs.css')
+    link(rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css")
+    link(rel="stylesheet" href="/pickadate/lib/themes/default.css" id="theme_base")
+    link(rel="stylesheet" href="/pickadate/lib/themes/default.date.css" id="theme_date")
+    link(rel="stylesheet" href="/pickadate/lib/themes/default.time.css" id="theme_time")
+
+append scripts
+    script(src="/pickadate/lib/picker.js")
+    script(src="/pickadate/lib/picker.date.js")
+    script(src="/pickadate/lib/picker.time.js")
+    script(src= "/javascripts/pickadateControl.js")
+    script(src="/javascripts/editPunchTime.js")
+
+    if su
+        script.
+            $(document).ready(function(){ 
+                $('.returnPage').on('click', function(){
+                    //location.href = "/supervisor/supervisor_main";
+                    history.go(-1);
+                });
+            });
+
+    else
+        script.
+            $(document).ready(function(){ 
+                $('.returnPage').on('click', function(){
+                    //location.href = "/supervisor/supervisor_main";
+                    location.href = "/staff_main";
+                });
+            });
+
+    script.
+        $(document).ready(function(){
+            
+            $('.editButton').on('click', function(){
+                var $btn = $(this);
+                var tr = $btn.parent().parent();
+                var inDateInput = tr.find('.inDateInput');
+                inDateInput.val(inDateInput.attr('data-value'));
+                var inTimeInput = tr.find('.inTimeInput');
+                inTimeInput.val(inTimeInput.attr('data-value'));
+                var outDateInput = tr.find('.outDateInput');
+                outDateInput.val(outDateInput.attr('data-value'));
+                var outTimeInput = tr.find('.outTimeInput');
+                outTimeInput.val(outTimeInput.attr('data-value'));
+            });
+            $('.confirmButton').on('click', function(){
+                var $btn = $(this);
+                var recordid = $btn.attr('data-record-id');
+                var data = {id:recordid};
+                var tr = $btn.parent().parent().parent();
+                var inDateInput = tr.find('.inDateInput');
+                var inTimeInput = tr.find('.inTimeInput');
+                var outDateInput = tr.find('.outDateInput');
+                var outTimeInput = tr.find('.outTimeInput');
+                var inDate = inDateInput.val();
+                var inTime = inTimeInput.val();
+                data.inDate = inDate+" "+inTime;
+                var outDate = outDateInput.val();
+                var outTime = outTimeInput.val();
+                data.outDate = outDate+" "+outTime;
+                $.post("/supervisor/records_update", data, function(res){ 
+                    if(res && res.success) {
+                        location.reload();
+                    } else {
+                        alert(res.msg);
+                    }
+                }, "json");
+            });
+
+            $('.deleteButton').on('click', function(){
+                var $btn = $(this);
+                var recordid = $btn.attr('data-record-id');
+                var data = {id: recordid};
+                $.post("/supervisor/records_delete", data, function(res){ 
+                    if(res && res.success) {
+                        location.reload();
+                    } else {
+                        alert(res.msg);
+                    }
+                }, "json");
+                
+            });
+        });
+
+    - function getTime(tstamp) {
+    -   return moment(tstamp).format("hh:mm A");
+    - }
+    - function getDate(tstamp) {
+    -   return moment(tstamp).format("YYYY-MM-DD");
+    - }
+block content
+    .main(ontouchstart="")
+        form#searchform.section(action="/supervisor/records_search" method="POST")
+            .startEndTime
+                input.useDatePicker(type= "text" name="startdate" placeholder="#{tr('starttime')}") 
+                //.endTime 
+                input.useDatePicker(type= "text" name="enddate" placeholder="#{tr('endtime')}")
+                input(type="hidden" name="userid" value="#{userid}")
+
+            .controlButtons
+                .preview.buttonItem= tr('preview')
+                .buttonItem= tr('export')
+                .returnPage.buttonItem= tr('return')
+
+        .reportTableDiv.section
+            table.reportTable
+                tr.table_row
+                    th.table_head(colspan='4')
+                        = tr('time') + " "
+                        = tr('in') + "/"
+                        = tr('out')
+
+                if records.length === 0
+                    tr.table_row
+                        td.table_data(colspan=3 align="center")
+                            span.text= tr('empty records')
+                else
+                    each record in records
+                        tr.table_row
+                            td.table_data 
+                                ul
+                                    li.listItem 
+                                        .out OUT
+                                    li.listItem  
+                                        .in IN
+                            td.table_data
+                                - var outDate = record.outDate ? getDate(record.outDate) : "";
+                                - var inDate = record.inDate ? getDate(record.inDate) : "";
+                                ul.dateList
+                                    li.listItem.date.outDate
+                                        span= outDate
+                                        input.dateInput.outDateInput.useDatePicker.hidden(type="text" data-value=outDate)
+                                    li.listItem.date.inDate
+                                        span= inDate
+                                        input.dateInput.inDateInput.useDatePicker.hidden(type="text" data-value=inDate)
+                            td.table_data
+                                - var outTime = record.outDate ? getTime(record.outDate) : "";
+                                - var inTime = record.inDate ? getTime(record.inDate) : "";
+                                ul.timeList
+                                    li.listItem.time.outTime
+                                        span= outTime
+                                        input.timeInput.outTimeInput.useTimePicker.hidden(type= "text" data-value=outTime)
+                                    li.listItem.time.inTime
+                                        span= inTime 
+                                        input.timeInput.inTimeInput.useTimePicker.hidden(type= "text" data-value=inTime)
+                            if su
+                                td.table_data
+                                    .editOutButton.editButton= tr('edit')
+                                    .confirmReturnDelete.outConfirmReturn.hidden
+                                        .confirmButton.funcButton(data-record-id="#{record._id}") O 
+                                        .returnButton.funcButton X
+                                        .deleteButton.funcButton(data-record-id="#{record._id}")= tr('delete')
+
+                            else
+                                td.table_data
+                                    ul
+                                        li.listItem= tr('out')
+                                        li.listItem= tr('in')

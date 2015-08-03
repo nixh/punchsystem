@@ -1,24 +1,25 @@
-var express        = require('express');
-var path           = require('path');
-var favicon        = require('serve-favicon');
-var logger         = require('morgan');
-var cookieParser   = require('cookie-parser');
-var bodyParser     = require('body-parser');
-var i18n           = require('i18n');
+var express = require('express');
+var path = require('path');
+var favicon = require('serve-favicon');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var i18n = require('i18n');
 var authentication = require('./authentication');
-var routes         = require('./routes/index');
-var users          = require('./routes/users');
-var delegate       = require('./routes/delegate');
-var comp           = require('./routes/comp');
-var company        = require('./routes/company');
-var usersettings   = require('./routes/usersettings');
-var records        = require('./routes/records');
-var yongred        = require('./routes/yongred');
-var utils          = require('./utils');
-var mongo          = require('mongodb');
-var monk           = require('monk');
-var moment        = require('moment');
-var app            = express();
+var routes = require('./routes/index');
+var api = require('./routes/api');
+var users = require('./routes/users');
+var delegate = require('./routes/delegate');
+var comp = require('./routes/comp');
+var company = require('./routes/company');
+var usersettings = require('./routes/usersettings');
+var records = require('./routes/records');
+var yongred = require('./routes/yongred');
+var utils = require('./utils');
+var mongo = require('mongodb');
+var monk = require('monk');
+var moment = require('moment');
+var app = express();
 
 var db = monk(utils.getConfig('mongodbPath'));
 
@@ -48,7 +49,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 i18n.configure({
-    locales: ['cn','en'],
+    locales: ['cn', 'en'],
     directory: path.join(__dirname, 'i18n/locales'),
     defaultLocale: 'cn',
     cookie: 'lang'
@@ -56,7 +57,7 @@ i18n.configure({
 
 app.use(function(req, res, next) {
     var lang = req.cookies.lang;
-    if(lang)
+    if (lang)
         i18n.setLocale(lang);
     res.__ = i18n.__;
     return next();
@@ -72,12 +73,13 @@ app.use(authentication());
 app.use('/', routes);
 app.use('/', yongred);
 app.use('/', records);
+app.use('/api', api);
 app.use('/users', users);
 app.use('/comp', comp);
-app.use('/company', company)
+//app.use('/company', company)
 app.use('/delegate', delegate);
 app.use('/comp', comp);
-app.use('/', usersettings)
+app.use('/', usersettings);
 
 // catch 404 and forward to error handler
 

@@ -1,0 +1,232 @@
+extends ../layout.jade
+
+append links
+    //link(rel='stylesheet' href='/stylesheets/staffSetting.css')
+    link(rel='stylesheet' href='/stylesheets/userSettingLs.css')
+    link(rel='stylesheet' href='/toggleSwitch/normalize.css')
+    link(rel= "stylesheet" href= "/tagbox/fm.tagator.jquery.css")
+    link(rel='stylesheet' href="/stylesheets/toggleSwitchAdjust.css")
+append scripts
+    script(src= "/toggleSwitch/prefixfree.min.js")
+    script(src="/tagbox/fm.tagator.jquery.js")
+    script(src= "/javascripts/toggleSwitchAdjust.js")
+    script(src= "/javascripts/tagatorAdjust.js")
+    
+    
+    script.
+        $(function initEvent(){
+            $('.emailSwitch > .onOff').on("click",function(){
+                $.ajax({type:"post",
+                    url:"/enableEmail/" + $('#enableEmail').val(),
+                    data:{id: $("#myid").val()},
+                    success:function(data){
+                        if(data){
+                        console.log('success')  
+                        }
+                        else{
+                                console.log('wrong')
+                        }
+                 }});
+            });
+
+        });
+    script.
+        $(function initEvent(){
+            $('.overTimeSwitch > .onOff').on("click",function(){
+                $.ajax({type:"post",
+                    url:"/enablerate/" + $('#enablerate').val(),
+                    data:{id: $("#myid").val()},
+                    success:function(data){
+                        if(data){
+                            console.log('success')
+                        }
+                        else{
+                                console.log('wrong')
+                        }
+                 }});
+            });
+
+        });
+
+    script.
+          function getObj(id){
+                var Obj = document.getElementById(id).value;
+                return Obj;
+          }
+          function checkpwd(){
+                var oldPass = $("#oldpass");
+                var newPass = $("#newpass"); 
+                var confirmPass = $("#confirmpass");
+                var submittable = true;
+                var oldValid = true;
+                var newValid = true;
+                var conValid = true;
+
+                if(oldPass.val() === ""){
+                    oldPass.addClass("inputError");
+                    oldValid = false;
+                    submittable = false;
+                }
+                if(newPass.val() === ""){
+                    newPass.addClass("inputError");
+                    newValid = false;
+                    submittable = false;
+                }
+                if(confirmPass.val() === ""){
+                    confirmPass.addClass("inputError");
+                    conValid = false;
+                    submittable = false;
+                }
+
+                if(newPass.val() !== confirmPass.val()){
+                    newPass.addClass("inputError");
+                    confirmPass.addClass("inputError");
+                    newValid = false;
+                    conValid = false;
+                    submittable = false;
+                }
+
+                if(oldValid){
+                    oldPass.removeClass("inputError");
+                }
+
+                if(newValid){
+                    newPass.removeClass("inputError");
+                }
+
+                if(conValid){
+                    confirmPass.removeClass("inputError");
+                }
+ 
+                return submittable;
+          }
+
+          function checkemail(){
+                if(getObj("receiveEmails")==""){
+                        //alert("未输入email");
+                        document.getElementById("receiveEmails").focus;
+                        return false;//false:阻止提交表单
+                }   
+          }
+          function checkrate(){
+                if(getObj("overtime")==""||getObj("newrate")==""){
+                        //alert("未设置 rate");
+                        document.getElementById("overtime").focus;
+                        document.getElementById("newrate").focus;
+                        return false;//false:阻止提交表单
+                }   
+          }
+    
+    script.
+        $(document).ready(function(){
+            $('.radioButton input').change(function(){
+                var period = $(this).val();
+                if(period) {
+                    $('.radioButton .radioinput-center[data-value="1"]').addClass('radioselected');
+                    $('.radioButton .radioinput-center[data-value="0"]').removeClass('radioselected');
+                } else {
+                    $('.radioButton .radioinput-center[data-value="1"]').removeClass('radioselected');
+                    $('.radioButton .radioinput-center[data-value="0"]').addClass('radioselected');
+                }
+            });
+
+            $('.radioinput-center').on('click', function(){
+                var $this = $(this);
+                $('.radioinput-center').each(function(i, radio){
+                    $(radio).removeClass('radioselected');
+                });
+                $this.addClass('radioselected');
+                $('.sexinput>input').val($this.attr('data-value'));
+            });
+        });
+block content
+    .main
+        if su === false
+            .passwordChange.section
+                .passwordLabel.bigLabel PASSWORD
+                form(method="POST",action="/settings" onsubmit= "return checkpwd()") 
+                    input.pwd-input(type ='password' name= 'oldpass'  placeholder= "OLD PASSWORD" id="oldpass")
+                    input.pwd-input(type ='password' name= 'newpass' placeholder= "NEW PASSWORD" id ="newpass")
+                    input.pwd-input(type ='password' name= 'confirmpass' placeholder= "CONFIRM PASSWORD" id = "confirmpass")
+                    input.func_button(type= 'submit' value= 'SUBMIT' id ="changepwd")
+                    input(type = 'hidden' name='userid' value ="#{userid}" )
+        if su === true
+            .passwordChange.section
+                .passwordLabel.bigLabel PASSWORD
+                form(method="POST",action="/supervisor/settings" onsubmit= "return checkpwd()") 
+                    input.pwd-input(type ='password' name= 'oldpass'  placeholder= "OLD PASSWORD" id="oldpass")
+                    input.pwd-input(type ='password' name= 'newpass' placeholder= "NEW PASSWORD" id ="newpass")
+                    input.pwd-input(type ='password' name= 'confirmpass' placeholder= "CONFIRM PASSWORD" id = "confirmpass")
+                    input.func_button(type= 'submit' value= 'SUBMIT' id ="changepwd")
+                    input(type = 'hidden' name='userid' value ="#{userid}" )
+            .emailSwitch.section.switchButton
+                .switchLabel.bigLabel EMAIL REPORT
+                if enableEmail === "1"
+                    .onOff.toggle.emailToggle.toggle-on
+                else
+                    .onOff.toggle.emailToggle.toggle-off
+            
+            .EmailReportSetting.section.toggleTarget
+                form(method="POST",action='/supervisor/sendemail' onsubmit= "return checkemail()")
+                    -var email = (receiveEmails)? receiveEmails : "EMAIL ADDRESS"
+                    input.text-input.useTagator(type= "text" id = "receiveEmails" name = 'receiveEmails' placeholder= "EMAIL ADDRESS" value="#{email}")
+                    -var enable= (enableEmail)? enableEmail : 1
+                    input(type = 'hidden' name='enableEmail' value ='#{enable}' id= "enableEmail")
+                    input(type = 'hidden' name='userid' value ="#{userid}" id="myid")
+
+                    .radioButton
+                        .chooseLabel CHOOSE
+                        .radioinput-center.radioselected(data-value="1")
+                            .outer
+                                .inner
+                            .label MONTHLY
+
+                        .orLabel OR
+
+                        .radioinput-center(data-value="0")
+                            .outer
+                                .inner
+                            .label WEEKLY
+                        input(name="period" type="hidden")
+                    //.radioButton
+                        .chooseLabel CHOOSE
+
+                        .radioMonth
+                            input(id="mRadio" type = "radio" name= "timePeriod" value= "monthly" checked = false)
+                            label.radioLabel(for="mRadio") MONTHLY
+                        
+                        .orLabel OR
+
+                        .radioWeek
+                            input(id="wRadio" type = "radio" name= "timePeriod" value= "weekly" checked= true)
+                            label.radioLabel(for="wRadio") WEEKLY
+                    
+                    input.func_button(type= 'submit' value= 'SUBMIT')
+
+            .overTimeSwitch.section.switchButton
+                .switchLabel.bigLabel OVERTIME SETTING
+                if enablerate === "1"
+                    .onOff.toggle.overTimeToggle.toggle-on
+                else
+                    .onOff.toggle.overTimeToggle.toggle-off
+            
+            .overTimeSetting.section.toggleTarget1
+
+                form(method="POST" action="/supervisor/setrate" onsubmit= "return checkrate()")
+                    .thresholdDiv
+                        .thresholdLabel 
+                            span.labelSpan OVERTIME THRESHOLD
+                        input.hourDisplay(type= "text" placeholder= "40" name="overtime" id ="overtime" value ='#{overtime}')
+                        -var rate=(enablerate)? enablerate : 1
+                        input(type ="hidden" name ="enablerate" value= '#{rate}' id="enablerate")
+                        input(type = 'hidden' name='userid' value ="#{userid}")
+
+                        .perWeekLabel
+                            span.labelSpan HRS PER WEEK
+                    .rateDiv
+                        .rateLabel
+                            span.labelSpan OVERTIME RATE
+
+                        input.rateDisplay(type= "text" placeholder="1.5x" name="newrate" id="newrate" value ="#{newrate}")
+
+                    input.func_button(type= 'submit' value= 'SUBMIT')

@@ -72,6 +72,7 @@ $(document).ready(function(){
 		var outDateSpan = dateTd.find(".outDate> span");
 		var outTimeInput = timeTd.find(".outTimeInput");
 		var outDateInput = dateTd.find(".outDateInput");
+<<<<<<< HEAD
 		var inTimeSpan = timeTd.find(".inTime> span");
 		var inDateSpan = dateTd.find(".inDate> span");
 		var inTimeInput = timeTd.find(".inTimeInput");
@@ -122,6 +123,8 @@ $(document).ready(function(){
 		var parentTd = $(this).closest("td");
 		var timeTd = parentTd.prev("td");
 		var dateTd = parentTd.prev().prev("td");
+=======
+>>>>>>> dev
 		var inTimeSpan = timeTd.find(".inTime> span");
 		var inDateSpan = dateTd.find(".inDate> span");
 		var inTimeInput = timeTd.find(".inTimeInput");
@@ -129,65 +132,48 @@ $(document).ready(function(){
 
 		var dateRegEx = /^\d\d\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$/;
 		var timeRegEx = /^[01]?[0-9]:[0-5][0-9] [AP]M$/;
+		var check = true;
 
-		var inDateInputVal = inDateInput.val();
-		var inTimeInputVal = inTimeInput.val();
-		var checkTimeDate = true;
+		check = checkDateTime(outDateInput, dateRegEx, outDateSpan);
+		check = checkDateTime(outTimeInput, timeRegEx, outTimeSpan);
+		check = checkDateTime(inDateInput, dateRegEx, inDateSpan);
+		check = checkDateTime(inTimeInput, timeRegEx, inTimeSpan);
 
-		if(dateRegEx.test(inDateInputVal)){
+		if(check){
+			timeInput.addClass("hidden");
+			dateInput.addClass("hidden");
 
-			inDateSpan.html(inDateInputVal);
-			if(inDateInput.hasClass("inputError")){
-				inDateInput.removeClass("inputError");
-			}
-
-		}else if(!dateRegEx.test(inDateInputVal)){
-
-			inDateInput.addClass("inputError");
-			checkTimeDate= false;
-		}
-
-		if(timeRegEx.test(inTimeInputVal)){
-			inTimeSpan.html(inTimeInputVal);
-			if(inTimeInput.hasClass("inputError")){
-				inTimeInput.removeClass("inputError");
-			}
-
-		}else if(!timeRegEx.test(inTimeInputVal)){
-			
-			inTimeInput.addClass("inputError");
-			checkTimeDate= false;
-		}
-
-
-		if(checkTimeDate){
-			inTimeInput.addClass("hidden");
-			inDateInput.addClass("hidden");
-
-			inTimeSpan.removeClass("hidden");
-			inDateSpan.removeClass("hidden");
+			timeSpan.removeClass("hidden");
+			dateSpan.removeClass("hidden");
 
 
 			$(this).parent().addClass("hidden");
 			$(this).parent().siblings().removeClass("hidden");
 		}
+	
 	});
 
-	inReturnButton.on('click', function(){
+
+
+	returnButton.on('click', function(){
 		var parentTd = $(this).closest("td");
 		var timeTd = parentTd.prev("td");
 		var dateTd = parentTd.prev().prev("td");
 
-		timeTd.find(".inTimeInput").addClass("hidden");
-		dateTd.find(".inDateInput").addClass("hidden");
+		timeTd.find(".timeInput").addClass("hidden");
+		dateTd.find(".dateInput").addClass("hidden");
 
-		timeTd.find(".inTime> span").removeClass("hidden");
-		dateTd.find(".inDate> span").removeClass("hidden");
+		timeTd.find(".time> span").removeClass("hidden");
+		dateTd.find(".date> span").removeClass("hidden");
 
 		$(this).parent().addClass("hidden");
 		$(this).parent().siblings().removeClass("hidden");
 	});
 	*/
 
+<<<<<<< HEAD
 });
 
+=======
+});
+>>>>>>> dev

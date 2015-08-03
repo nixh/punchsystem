@@ -67,7 +67,8 @@ function addUser(userObj, callback) {
         }
         else{
             if(!doc || doc.length === 0){
-                col.insert(userObj, callback);
+                col.insert
+                (userObj, callback);
             }else{
                 callback(new Error("User already exists!"));
             }

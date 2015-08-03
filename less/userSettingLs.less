@@ -1,0 +1,165 @@
+@import './lib/commonlib.less';
+@import './lib/basicStyle.less';
+
+.main{
+	//.test-border(red);
+	.pwd-input{
+		line-height: normal;
+		.mb;
+	}//inputBar
+	.func_button{
+		.functional-button;
+		.long-button-shape(@small-radius);
+	}
+	.bigLabel{
+		float: left;
+		.big-font;
+	}
+	.switchButton{
+		.width-16;
+		padding-top: 100px;
+		padding-bottom: 50px;
+		&:after{
+			.after-float;
+		}
+		.onOff{
+			float: right;
+		}
+	}//switchButton
+
+	.passwordChange{
+		//.test-border(blue);
+		padding-top: 100px;
+		.passwordLabel{
+			.mb;
+			color: @section-label-color;
+			display: inline-block;
+		}
+	}//passwordChange
+
+	.emailSwitch{
+		//.test-border(green);
+		.switchLabel{
+			color: @section-label-color;
+		}
+		.onOff{
+		}
+	}//emailSwitch
+
+	.EmailReportSetting{
+		//.test-border(yellow);
+		.radioButton{
+			color: @text-color;
+			//.test-border(orange);
+			.width-16;
+			margin-top: 30px;
+			&:after{
+				.after-float;
+			}
+			.chooseLabel{
+				//.test-border;
+				.small-font;
+				height: @box-float-height;
+				float: left;
+				display: inline-block;
+			}
+			.radioinput-center{
+				float: left;
+				height: @box-float-height;
+				margin-left: 5%;
+				padding-top: 30px;
+				//.test-border;
+				.width-4;
+				.label{
+					.small-font;
+				}	
+			}
+			.orLabel{
+				//.test-border(purple);
+				float: left;
+				.small-font;
+				margin-left: 5%;
+				line-height: 240px;
+    			height: @box-float-height;
+			}
+
+		}//radioButton
+	}//emailReportSetting
+
+	.overTimeSwitch{
+		//.test-border(blue);		
+		.switchLabel{
+			color:@section-label-color;
+		}
+		
+	}//overTimeSwitch
+	.overTimeSetting{
+		//.test-border(yellow);
+		padding-bottom: 100px;
+		.thresholdDiv{
+			.width-16;
+			//.test-border(green);
+			.mb(@xsmall-margin);
+			&:after{
+				.after-float;
+			}
+			.thresholdLabel{
+				.basic-label;
+				.width-8;
+				height: @medium-height;
+    			display:table;
+    			.roundBorder(@small-radius);
+    			float: left;
+			}
+			.hourDisplay{
+				float: left;
+				.inline-display;
+				.width-3;
+				.normal-font;
+				.margin-gap-left;
+			}
+			.perWeekLabel{
+				float: right;
+				display: table;
+				.inline-display;
+				.width-4;
+				.small-font;
+			}
+		}//thresholdDiv
+
+		.rateDiv{
+			.width-16;
+			.mb(@small-margin);
+			//.test-border(yellow);
+			&:after{
+				.after-float;
+			}
+
+			.rateLabel{
+				.basic-label;
+				.width-8;
+				height: @medium-height;
+    			display:table;
+    			.roundBorder(@small-radius);
+    			float: left;
+			}
+
+			.rateDisplay{
+				float: right;
+				display: table;
+				.inline-display;
+				.width-7;
+				.small-font;
+			}
+		}
+		span.labelSpan{
+
+			line-height: normal;
+			.small-font;
+		    word-wrap: break-word;
+		    display:table-cell;
+		    vertical-align:middle;
+		}
+	}//overTimeSetting
+}//settingPage
+
