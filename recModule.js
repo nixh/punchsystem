@@ -238,11 +238,10 @@ function deleteRecords(rid, callback) {
     var records = db.get('records');
     var query = {_id: rid};
     records.remove(query, function(err, docs) {
-        var msg = true;
         if (err) {
-            msg = false;
+            callback(err);
         }
-        callback(msg);
+        callback(err, docs);
     });
 }
 //*********************************************//
@@ -250,7 +249,7 @@ function deleteRecords(rid, callback) {
 function searchRecords(query, callback) {
     var db = this.db;
     var records = db.get('records');
-    records.find(query, function(err, recs) {
+    records.find(query, { sort: {inDate:-1} }, function(err, recs) {
         if (err) {
             res.send('Can not get records, try again!');
         } else {
@@ -263,6 +262,7 @@ function searchRecords(query, callback) {
                 record.inDate = rec.inDate;
                 record.outDate = rec.outDate;
                 record.hourlyrate = rec.hourlyRate;
+                record._id  = rec._id;
                 jsonData.records.push(record);
             });
             var userid = query.userid;

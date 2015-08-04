@@ -326,6 +326,36 @@ body.bgbody{
     vertical-align:middle;
 }
 
+.staffSettingPage .returnDiv{
+    width: 90%;
+    margin: 0 auto;
+    padding-bottom: 5%;
+}
+
+.staffSettingPage .returnDiv .returnButton{
+    background-color: rgb(138, 209, 215);
+    color: white;
+    font-size: 60px;
+    text-align: center;
+    border-radius: 10px;
+    height: 110px;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+}
+
+.staffSettingPage .returnDiv .returnButton:active{
+    background-color: rgb(247, 130, 131);
+}
+
+.langsel {
+    width: 180px;
+    height: 80px;
+    font-size: 40px;
+    color: rgb(103, 116, 153);
+    text-align: center;
+}
+
 /*
 light-blue-green  rgb(138, 209, 215)  
 redish  rgb(247, 130, 131)

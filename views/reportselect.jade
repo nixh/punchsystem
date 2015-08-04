@@ -40,3 +40,11 @@ block content
                     if index ==0 || index % threshold == 0 
                         tr
                     td(data-url="/supervisor/overviewreport/#{m}")= months_cn[index]
+
+        .returnDiv
+            button.returnButton.noselect= tr("return")
+
+        script.
+            $(".returnButton").on('click', function(){
+                location.href= "/supervisor/supervisor_main";
+            });

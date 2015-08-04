@@ -6,7 +6,9 @@ var monk = require('monk');
 var db = monk('mongodb://localhost:27017/punchsystem');
 var recModule = require('../recModule');
 var sessionModule = require('../sessionModule');
+var utils = require('../utils');
 
+/*
 router.get('/staff_delegate:uid', function(req, res, next) {
     var rm = new recModule();
     var sessionid = req.cookies.sessionid;
@@ -17,16 +19,15 @@ router.get('/staff_delegate:uid', function(req, res, next) {
         if (dels) {
             delegate = true;
         }
-        res.render('', delegate);
+        utils.render('supervisor/supervisor_delegate', dels)(req, res, next);
     });
 });
-
+*/
 router.get('/supervisor_delegate', function(req, res, next){
     var rm = new recModule();
     var sessionid = req.cookies.sessionid;
     rm.showUsersForDelegate(sessionid, function(err, ret) {
-        console.log(ret);
-        res.render('supervisor/supervisor_delegate', ret);
+        utils.render('supervisor/supervisor_delegate', ret)(req, res, next);
     });
 });
 
@@ -58,9 +59,12 @@ router.post('/records_search', function(req, res, next) {
     var starttime = Date.parse(req.body.startdate);
     var endtime = Date.parse(req.body.enddate);
     var sessionid = req.cookies.sessionid;
-    sm.getSessionInfo(sessionid, function(err, sessionDoc) {
-        var query = {inDate: {"$gte": starttime} , outDate: {"$lte": endtime}, userid: sessionDoc.userid};
-        rm.searchRecords(query, function(jsonData) {
+    sm.getSessionInfo(sessionid, function(err, sessionDoc){
+        var userid = sessionDoc.userid;
+        var query = {inDate: {"$gte": starttime} , outDate: {"$lte": endtime}, userid: userid};
+        var query1 = {inDate: {"$gte": starttime} , outDate: null, userid: userid};
+        var fq = { $or: [query, query1]};
+        rm.searchRecords(fq, function(jsonData) {
             jsonData.tr = res.__;
             jsonData.moment = moment;
             jsonData.su = false;
@@ -70,15 +74,15 @@ router.post('/records_search', function(req, res, next) {
     });
 });
 
-router.post('/supervisor/records_search', function(req, res, next) {
+router.get('/supervisor/records_search/', function(req, res, next) {
     var rm = new recModule();
-    var starttime = Date.parse(req.body.startdate);
-    var endtime = Date.parse(req.body.enddate);
-    var userid = req.body.userid;
+    var starttime = Date.parse(req.query.startdate);
+    var endtime = Date.parse(req.query.enddate);
+    var userid = req.query.userid;
+    var su = req.path.search("supervisor");
     var query = {inDate : {"$gte" : starttime} , outDate : {"$lte": endtime}, userid: userid};
     rm.searchRecords(query, function(jsonData) {
         jsonData.tr = res.__;
-        jsonData.moment = moment;
         jsonDate.su = true;
         res.render('supervisor/supervisor_punch_report', jsonData);
     });
@@ -123,34 +127,42 @@ router.get('/supervisor/records_delete/:rid', function(req, res, next) {
         }
     });
 });
+
+router.post('/supervisor/records_delete', function(req, res, next) {
+    var rm = new recModule();
+    var _id = req.body.id;
+    console.log(_id);
+    rm.deleteRecords(_id, function(err, doc){
+        rm.db.close();
+        res.type('json');
+        if (err) {
+            res.send({"success": false, "msg":err.message});
+        } else {
+            res.send({"success": true});
+        }
+    });
+});
 router.post('/supervisor/records_update', function(req, res, next) {
     var rm = new recModule();
-    var type = req.body.type;
-    var _id = req.body.value;
-    var userid = req.body.userid;
-    var date = req.body.date;
-
+    var _id = req.body.id;
+    var inDate = req.body.inDate;
+    var outDate = req.body.outDate;
     var format = "YYYY-MM-DD hh:mm A";
     var query = {
-        userid : userid,
         _id : _id
     };
     var newrec = {};
-    var destDate = 0;
-    if(type === 'in') {
-        newrec['inDate'] = moment(date, format).valueOf();
-    }
-    else {
-        newrec['outDate'] = moment(date, format).valueOf();
-    }
+
+    newrec['inDate'] = moment(inDate, format).valueOf();
+    newrec['outDate'] = moment(outDate, format).valueOf();
+    
     rm.updateRecords(query, newrec, function(err, docs) {
         rm.db.close();
+        res.type('json');
         if (err) {
-            res.send("{success: false}");
-            res.end();
+            res.send({"success": false, "msg":err.message});
         } else {
-            res.send("{success:true}");
-            res.end();
+            res.send({"success": true});
         }
     });
 });

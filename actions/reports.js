@@ -74,14 +74,29 @@ Reports.searchRecordsByStaff =  {
 Reports.updateRecords =  {
     type: 'redirect',
     execute: function(req, res, next) {
-        var _id = req.params._id;
-        var type = req.body.type;
-        var userid = req.body.userid;
-        var date = req.body.date;
-
+        var _id = req.body._id;
+        var startDate = req.body.startDate;
+        var endDate = req.body.endDate;
         var format = 'YYYY-MM-DD hh:mm A';
-        var query = {userid: userid, _id: _id};
-        var newRec = {};
-        
+        var newTime = {};
+        newTime.inDate = moment(startDate, format).valueOf();
+        newTime.outDate = moment(endDate, format).valueOf();
+        var recs = rm.updateRecord(_id, newTime);
+        return recs.then(function(record) {
+            jsonData = {};
+            jsonData.record = record;
+            return jsonData;
+        });
+    }
+};
+
+Reports.deleteRecord = {
+    type: 'api',
+    execute: function(req, res, next) {
+        var _id = req.params._id;
+        var recs = rm.deleteRecord(_id);
+        return recs.then(function(record) {
+            return record;
+        });
     }
 };

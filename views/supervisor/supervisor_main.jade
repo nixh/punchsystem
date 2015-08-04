@@ -52,9 +52,19 @@ append scripts
 
 block content
     .supervisorMainPage(ontouchstart="")
+        //.userInfo
         .avatar
             img(src="#{user.sex ? '/images/boydefaultpicture.png' : '/images/girl default picture.png'}" alt="User Avatar") 
             p= tr('welcome') + " " + user.name
+            //.acctInfo
+                pre.
+                Company: #{user.compid}
+                User Account: #{user.email}
+                User ID: #{user.userid}
+                User Name: #{user.name} Gender: #{user.sex}
+                Date Enrolled: #{user.createDate}
+                Address: #{user.address}
+
 
         //.paidRate
             .paidRateBox

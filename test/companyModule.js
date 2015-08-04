@@ -8,7 +8,6 @@ var config = require('../common/config');
 var Q = require('q');
 var factory = require('./moduleFactory')();
 var s = factory.get('compModule');
-db.setUrl('localhost/aps');
 
 
 describe('Module',function() {

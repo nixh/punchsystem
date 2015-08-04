@@ -70,6 +70,7 @@ body.bgbody{
 .supervisorDelegatePage .delegationTable{
 	width: 90%;
 	margin-left: 5%;
+	padding-bottom: 5%;
 }
 
 .supervisorDelegatePage .delegationTable table{
@@ -137,6 +138,28 @@ body.bgbody{
 
 .supervisorDelegatePage .delegationTable table th:last-of-type{
 	border-radius: 0px 15px 0px 0px;
+}
+
+.supervisorDelegatePage .returnDiv{
+    width: 90%;
+    margin: 0 auto;
+    padding-bottom: 5%;
+}
+
+.supervisorDelegatePage .returnDiv .returnButton{
+    background-color: rgb(138, 209, 215);
+    color: white;
+    font-size: 60px;
+    text-align: center;
+    border-radius: 10px;
+    height: 110px;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+}
+
+.supervisorDelegatePage .returnDiv .returnButton:active{
+    background-color: rgb(247, 130, 131);
 }
 
 /*

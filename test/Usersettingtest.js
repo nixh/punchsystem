@@ -17,7 +17,7 @@ i18n.configure({
 });
 
 function getTemplatePath(templateName) {
-    return path.join(__dirname, "../views", templateName+".jade")
+    return path.join(__dirname, "../views", templateName+".jade");
 }
 
 function wrapRequest(req, map) {
@@ -35,7 +35,7 @@ describe('test staffSetting action',function(){
     describe('staffSetting#main',function(){
         it ('should show jade template', function(done) {
             var req = mockrequest({'cookies': { sessionid: 'a6fe8c70-2713-11e5-b55d-ff9bc9b1b763'}},app);
-            var res = app.makeResponse(function(err, response){ 
+            var res = app.makeResponse(function(err, response){
                 compiler(staffSettingViewAction.template, response.model);
                 done();
             });
@@ -69,7 +69,7 @@ describe('test supSetting action',function(){
     describe('supSetting#setEmailView',function(){
         it ('should show jade template', function(done) {
             var req = mockrequest({'cookies': { sessionid: 'f39efc70-3629-11e5-a55f-9be434ab7853'}},app);
-            var res = app.makeResponse(function(err, response){   
+            var res = app.makeResponse(function(err, response){
                 compiler(setEmailViewAction.template,response.model);
                 done();
             });
@@ -85,7 +85,7 @@ describe('test supSetting action',function(){
     describe('supSetting#setRateView',function(){
         it ('should show jade template', function(done) {
             var req =  mockrequest({'cookies': { sessionid: 'f39efc70-3629-11e5-a55f-9be434ab7853'}},app);
-            var res = app.makeResponse(function(err, response){      
+            var res = app.makeResponse(function(err, response){
                 compiler(setRateViewAction.template,response.model);
                 done();
             });
@@ -102,16 +102,16 @@ describe('test staffSetting action',function(){
     describe('staffSetting#changePass',function(){
         it ('should show jade template', function(done) {
             var req = mockrequest({
-                'cookies': { 
+                'cookies': {
                     sessionid: 'f39efc70-3629-11e5-a55f-9be434ab7853'
                 },body: {
                     oldpass:"123",
                     newpass:'123'
                 }
             },app);
-    
-            var res = app.makeResponse(function(err, response){  
-                   
+
+            var res = app.makeResponse(function(err, response){
+
                 var html = compiler(supChangePassAction.template,response.model);
                 done();
             });
@@ -128,20 +128,20 @@ app.post('/supervisor/sendemail', Action.render(setEmailAction));
 describe('test staffSetting action',function(){
     describe('staffSetting#changePass',function(){
         it ('should show jade template', function(done) {
-            var req = mockrequest({ 
+            var req = mockrequest({
                 body: {
                     timePeriod:'weekly',
-                    receiveEmails:'dsj77222@gmail.com', 
+                    receiveEmails:'dsj77222@gmail.com',
                     enableEmail:1
-                },'cookies': { 
+                },'cookies': {
                     sessionid: 'f39efc70-3629-11e5-a55f-9be434ab7853'
                 }
-                
+
             },app);
-    
-            var res = app.makeResponse(function(err, response){  
+
+            var res = app.makeResponse(function(err, response){
                 compiler(setEmailAction.template,response.model);
-              
+
                 done();
             });
             app.invoke('post', '/supervisor/sendemail', req, res);
@@ -156,7 +156,7 @@ describe('test supSetting action',function(){
     describe('supSetting#setRate',function(){
         it ('should show jade template', function(done) {
             var req =  mockrequest( {
-                'cookies': { 
+                'cookies': {
                     sessionid: 'f39efc70-3629-11e5-a55f-9be434ab7853'
                 },body: {
                     newrate:'30',
@@ -164,7 +164,7 @@ describe('test supSetting action',function(){
                     enablerate:1
                 }
             },app);
-            var res = app.makeResponse(function(err, response){      
+            var res = app.makeResponse(function(err, response){
                 compiler(setRateAction.template,response.model);
                 done();
             });
@@ -180,7 +180,7 @@ describe('test supSetting action',function(){
     describe('supSetting#setRate',function(){
         it ('should show jade template', function(done) {
             var req =  mockrequest( {
-                'cookies': { 
+                'cookies': {
                     sessionid: 'f39efc70-3629-11e5-a55f-9be434ab7853'
                 },body: {
                     newrate:'30',
@@ -188,7 +188,7 @@ describe('test supSetting action',function(){
                     enablerate:1
                 }
             },app);
-            var res = app.makeResponse(function(err, response){      
+            var res = app.makeResponse(function(err, response){
                 compiler(emailSwitchAction.template,response.model);
                 done();
             });
@@ -196,4 +196,3 @@ describe('test supSetting action',function(){
         });
     })
 });
-

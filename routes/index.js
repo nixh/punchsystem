@@ -216,12 +216,6 @@ router.get('/punch/:key', function(req, res, next) {
 });
 
 
-
-
-
-/*
-=======
->>>>>>> a1fc4bb301a2acd296f96730f046da1580bde65c
 var qrModule = require('../qrcodeModule');
 
 router.get('/supervisor/showdynacode', function(req, res, next) {
@@ -229,14 +223,11 @@ router.get('/supervisor/showdynacode', function(req, res, next) {
     qrm.getDynacode(req.cookies.sessionid, function(err, mixinData) {
         console.log(mixinData);
         qrm.db.close();
-        utils.render('qr', {
+        utils.render('staff/staff_delegate', {
             data: mixinData
         })(req, res, next);
     });
 });
-<<<<<<< HEAD
-*/
-
 
 router.get('/recentRecords', function(req, res, next) {
     var rm = new recordsModule();
@@ -322,8 +313,7 @@ router.get('/supervisor/employees', function(req, res, next) {
         console.log(sObj.compid);
 
         um.getAllUsers({
-            compid: sObj.compid,
-            owner: false
+            compid: sObj.compid
         }, function(err, users) {
             console.log(JSON.stringify(users));
             utils.render('users/userListSearch', {
@@ -682,6 +672,11 @@ router.post('/admin/supervisor/new', function(req, res, next){
 
 });
 
+router.get('/chlang/:lang', function(req, res, next){
+    var lang = req.params.lang;
+    res.cookie('lang', lang, {maxAge:900000, httpOnly: true});
+    res.send('language changed to ' + lang);
+});
 router.get('/testlogin', Action('login.view'));
 router.get('/test', Action('login.auth'));
 

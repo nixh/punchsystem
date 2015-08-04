@@ -72,6 +72,7 @@ $(document).ready(function(){
 		var outDateSpan = dateTd.find(".outDate> span");
 		var outTimeInput = timeTd.find(".outTimeInput");
 		var outDateInput = dateTd.find(".outDateInput");
+<<<<<<< HEAD
 		var inTimeSpan = timeTd.find(".inTime> span");
 		var inDateSpan = dateTd.find(".inDate> span");
 		var inTimeInput = timeTd.find(".inTimeInput");
@@ -117,4 +118,62 @@ $(document).ready(function(){
 		$(this).parent().siblings().removeClass("hidden");
 	});
 
+	/*
+	inConfirmButton.on('click', function(){
+		var parentTd = $(this).closest("td");
+		var timeTd = parentTd.prev("td");
+		var dateTd = parentTd.prev().prev("td");
+=======
+>>>>>>> dev
+		var inTimeSpan = timeTd.find(".inTime> span");
+		var inDateSpan = dateTd.find(".inDate> span");
+		var inTimeInput = timeTd.find(".inTimeInput");
+		var inDateInput = dateTd.find(".inDateInput");
+
+		var dateRegEx = /^\d\d\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$/;
+		var timeRegEx = /^[01]?[0-9]:[0-5][0-9] [AP]M$/;
+		var check = true;
+
+		check = checkDateTime(outDateInput, dateRegEx, outDateSpan);
+		check = checkDateTime(outTimeInput, timeRegEx, outTimeSpan);
+		check = checkDateTime(inDateInput, dateRegEx, inDateSpan);
+		check = checkDateTime(inTimeInput, timeRegEx, inTimeSpan);
+
+		if(check){
+			timeInput.addClass("hidden");
+			dateInput.addClass("hidden");
+
+			timeSpan.removeClass("hidden");
+			dateSpan.removeClass("hidden");
+
+
+			$(this).parent().addClass("hidden");
+			$(this).parent().siblings().removeClass("hidden");
+		}
+	
+	});
+
+
+
+	returnButton.on('click', function(){
+		var parentTd = $(this).closest("td");
+		var timeTd = parentTd.prev("td");
+		var dateTd = parentTd.prev().prev("td");
+
+		timeTd.find(".timeInput").addClass("hidden");
+		dateTd.find(".dateInput").addClass("hidden");
+
+		timeTd.find(".time> span").removeClass("hidden");
+		dateTd.find(".date> span").removeClass("hidden");
+
+		$(this).parent().addClass("hidden");
+		$(this).parent().siblings().removeClass("hidden");
+	});
+	*/
+
+<<<<<<< HEAD
 });
+
+=======
+});
+>>>>>>> dev

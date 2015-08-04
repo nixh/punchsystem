@@ -50,6 +50,7 @@ function findUserLastRecord(userid, cb) {
 function findLastRecordsByCompid(compid, cb) {
     var recordsCol = this.db.get('records');
     var usersCol = this.db.get('users');
+    console.log(compid);
     usersCol.find({compid: compid}, {}, function(err, users) {
         var usersId = users.map(function(u){ return u.userid; });
         recordsCol.col.aggregate([
@@ -142,7 +143,7 @@ function checkQrcode(qrid, sessionid, cb) {
     });
 }
 
-function rencentRecords(idObj, cb) {
+function recentRecords(idObj, cb) {
     var sessionid = null;
     var userid = null;
 

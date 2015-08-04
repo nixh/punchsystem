@@ -43,9 +43,7 @@ block content
                 th= tr('select')
             each user, index in users
                 - var record = getRecord(user.userid, lastRecords);
-                - var punchOut = false;
-                - if(record)
-                -   punchOut = getRecord(user.userid, lastRecords).outDate
+                - var punchOut = record ? record.outDate : true;
                 tr
                     td
                         .statusbox
@@ -68,5 +66,14 @@ block content
         form(method="POST" action="/supervisor/adminpunch")
             input.userList(type="hidden" name="userIdList" value="")
             input.punchBtn(type="submit" value="#{tr('punch')}")
+
+        .returnDiv
+            button.returnButton.noselect= tr("return")
+
+        script.
+            $(".returnButton").on('click', function(){
+                location.href= "/supervisor/supervisor_main";
+            });
+
         
 

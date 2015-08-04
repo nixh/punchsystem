@@ -1,5 +1,5 @@
 var assert = require('assert');
-var reportModule = require('../reportModule');
+var reportModule = require('../lib/module/reportModule');
 var monk = require('monk');
 var rm = new reportModule();
 
@@ -29,33 +29,32 @@ describe('Report Module unit Tests', function() {
 	// 		});
 	// 	});
 	// });
-	//
-	// describe('#recentRecords', function() {
-	// 	it('should show the recent records of a specific user', function(testDone) {
-	// 		var userid ='LoginName_1';
-	// 		var idObj = {};
-	// 		idObj.sessionid = 'a5ec2a30-3218-11e5-b06f-cf2c78c304eb';
-	// 		rm.recentRecords(idObj).then(function(recs) {
-	// 			console.log(recs);
-	// 		}).done(function() {
-	// 			testDone();
-	// 		});
-	// 	});
-	// });
 
-	// describe('#searchRecords', function() {
-	// 	it('should search the records of a specific user by time range', function(testDone) {
-	// 		var timeRange = {};
-	// 		var userid = 'LoginName_1';
-	// 		timeRange.startDate = new Date(2015, 6, 1).getTime();
-	// 		timeRange.endDate = new Date(2015, 8, 30).getTime();
-	// 		rm.searchRecords(userid, timeRange).then(function(recs) {
-	// 			console.log(recs);
-	// 		}).done(function() {
-	// 			testDone();
-	// 		});
-	// 	});
-	// });
+	describe('#recentRecords(idObj)', function() {
+		it('should show the recent records of a specific user', function(testDone) {
+			var userid ='LoginName_1';
+			var idObj = {};
+			idObj.sessionid = 'a5ec2a30-3218-11e5-b06f-cf2c78c304eb';
+			rm.recentRecords(idObj).then(function(recs) {
+				console.log(recs);
+			}).done(function() {
+				testDone();
+			});
+		});
+	});
+
+	describe('#searchRecords(userid, startDate, endDate, length_limit)', function() {
+		it('should search the records of a specific user by time range', function(testDone) {
+			var userid = 'LoginName_1';
+			var startDate = new Date(2015, 6, 1).getTime();
+			var endDate = new Date(2015, 8, 30).getTime();
+			rm.searchRecords(userid, startDate, endDate).then(function(recs) {
+				console.log(recs);
+			}).done(function() {
+				testDone();
+			});
+		});
+	});
 
 	// describe('#showUsersForDelegate', function () {
 	// 	it('should show delegate status of users of a specific company', function(testDone) {
@@ -95,15 +94,15 @@ describe('Report Module unit Tests', function() {
 	// 	});
 	// });
 
-	describe('#getReportsByMonth(sessionid, startDate, endDate)', function() {
-		it('should calculate the punch reports of a specific user by Month', function(testDone) {
-			var sessionid = 'a5ec2a30-3218-11e5-b06f-cf2c78c304eb';
-			var startDate = new Date(2015, 6, 6).getTime();
-			rm.getReportsByMonth(sessionid, startDate).then(function(reports) {
-				console.log(reports[0]);
-			}).done(function() {
-				testDone();
-			});
-		});
-	});
+	// describe('#getReportsByMonth(sessionid, startDate, endDate)', function() {
+	// 	it('should calculate the punch reports of a specific user by Month', function(testDone) {
+	// 		var sessionid = 'a5ec2a30-3218-11e5-b06f-cf2c78c304eb';
+	// 		var startDate = new Date(2015, 6, 6).getTime();
+	// 		rm.getReportsByMonth(sessionid, startDate).then(function(reports) {
+	// 			console.log(reports[0]);
+	// 		}).done(function() {
+	// 			testDone();
+	// 		});
+	// 	});
+	// });
 });

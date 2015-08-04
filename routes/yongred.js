@@ -80,49 +80,6 @@ router.get('/supervisor/supervisor_main', function(req, res, next){
     });
 });
 
-/*
-router.post('/usersettings', function(req, res, next){
-
-	var doc = req.body;
-	var emails = doc.receiveEmails.split(', ');
-	db.get('usersettings').insert({emails:emails}, function(err, doc){
-
-	});
-});
-
-router.get('/settings', function(req, res, next){
-
-
-	var emailReport = db.get("records");
-	emailReport.findOne({reportid:1}, {}, function(err, doc){
-		var ret= {msg: null, ok: true};
-		if(!doc){
-			ret.ok = false;
-			ret.msg= "no data found!";
-			return res.render('staff/staff_setting_su', ret);
-		}
-		ret.report= doc;
-		res.render('staff/staff_setting_su', ret);
-	});
-
-	//res.render('staff/staff_setting', {emailReportData:['one', 'two', 'three']});
-<<<<<<< HEAD
-});*/
-
-/*
-
-<<<<<<< HEAD
-var qrModule = require('../qrcodeModule');
-router.get('/staff_delegate', function(req, res, next){
-    var qrm = new qrModule();
-    qrm.getDynacode(req.cookies.sessionid, function(err, mixinData) {
-        qrm.db.close();
-        utils.render('qr', {
-            data: mixinData
-        })(req, res, next);
-    });
-});
-*/
 router.get('/staff_punch_report', function(req, res, next){
 
 	res.render('staff/staff_punch_report', {
