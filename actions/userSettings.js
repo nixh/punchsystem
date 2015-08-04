@@ -25,7 +25,7 @@ userSettings.emailSwitch = {
 			};
 			return data;
 		});
-	}	
+	}
 }
 
 userSettings.changePass = {
@@ -36,10 +36,10 @@ userSettings.changePass = {
 		var newpass = req.body.newpass;
 		var docs = s.changepassById(oldpass,newpass,sessionid)
 		return docs.then(function (doc) {
-			
+
 			if(!doc) {
 				var data = {
-					'status': 'fail' 
+					'status': 'fail'
 				};
 				return data;
 			}

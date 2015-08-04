@@ -2,7 +2,8 @@ var utils     = require('./utils');
 var _         = require('underscore');
 var monk      = require('monk');
 
-var qrcode    = require('qrcode');
+// var qrcode    = require('qrcode');
+
 var punchPath = utils.getConfig('paths->punch');
 var uuid      = require('node-uuid');
 var util      = require('util');

@@ -47,4 +47,3 @@ login.api = {
 }
 
 module.exports = login;
-

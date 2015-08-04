@@ -7,13 +7,13 @@ function initConfig(config) {
   }
 
   var rateSH = $(".showHideRate");
-  var cover = $(".imageCover");
+  var cover = $(".cover");
   var hrRate = $(".hourRate");
 
   var showCover = true;
   rateSH.on("click", function(e){
 
-      var cover = $(".imageCover");
+      var cover = $(".cover");
       if(showCover) {
         showCover = false;
         cover.css("visibility", "hidden");

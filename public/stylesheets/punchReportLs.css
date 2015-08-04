@@ -133,10 +133,28 @@ functions
   zoom: 1;
   height: 0px;
 }
-.basic-table-row:last-child td:first-child {
+.table-head {
+  font-family: 'anivers reg', 'simhei';
+  font-size: 75px;
+  background-color: white;
+  color: #505a6a;
+}
+.table-head:first-child {
+  border-top-left-radius: 25px;
+}
+.table-head:last-child {
+  border-top-right-radius: 25px;
+}
+.table-data {
+  background-color: rgba(238, 238, 238, 0.52);
+  color: #505a6a;
+  text-align: center;
+  font-size: 40px;
+}
+.table-row:last-child td:first-child {
   border-bottom-left-radius: 25px;
 }
-.basic-table-row:last-child td:last-child {
+.table-row:last-child td:last-child {
   border-bottom-right-radius: 25px;
 }
 .textinput,
@@ -263,6 +281,14 @@ functions
   width: 100%;
   height: 100%;
 }
+.cover {
+  height: 100%;
+  background-color: #8dc63f;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
 .inner-input {
   border-radius: 10px;
   width: 80%;
@@ -312,9 +338,58 @@ functions
 /**
 yongred changing color, new variables
 */
+.bgbody {
+  background-repeat: repeat-y;
+  background-color: #eeeeee;
+}
+.main {
+  width: 87.5%;
+  margin: 0 auto;
+}
+.main .section {
+  width: 100%;
+}
+.avatar {
+  text-align: center;
+}
+.avatar img {
+  border-radius: 50%;
+  border: 20px solid #8dc63f;
+  width: 300px;
+  height: 300px;
+}
+.header-label {
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+  color: #505a6a;
+}
+.section-label {
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+  color: #505a6a;
+  display: inline-block;
+}
+.box-label {
+  background-color: #505a6a;
+  color: white;
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+  width: 50%;
+  height: 200px;
+  display: inline-block;
+  text-align: center;
+}
 .functional-button {
   background-color: #505a6a;
   color: #8dc63f;
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+  text-align: center;
+  border-radius: 10px;
+  border: none;
+  width: 100%;
+  height: 120px;
+  line-height: 120px;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -328,6 +403,14 @@ yongred changing color, new variables
 .link-button {
   background-color: white;
   color: #505a6a;
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+  text-align: center;
+  border-radius: 10px;
+  border: none;
+  width: 100%;
+  height: 120px;
+  line-height: 120px;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -363,17 +446,6 @@ yongred changing color, new variables
 .text-input:-ms-input-placeholder {
   color: #505a6a;
 }
-.bgbody {
-  background-repeat: repeat-y;
-  background-color: #eeeeee;
-}
-.main {
-  width: 87.5%;
-  margin: 0 auto;
-}
-.main .section {
-  width: 100%;
-}
 .main #searchform {
   width: 100%;
   padding-top: 5%;
@@ -382,32 +454,10 @@ yongred changing color, new variables
 .main #searchform .startEndTime {
   width: 100%;
 }
-.main #searchform .startEndTime input {
-  border-radius: 10px;
-  border: none;
-  width: 100%;
-  height: 120px;
-  font-family: 'anivers reg', 'simhei';
-  font-size: 50px;
-  text-indent: 10px;
-  color: #505a6a;
+.main #searchform .startEndTime .text-input {
   margin-bottom: 2%;
   text-align: center;
   display: block;
-}
-.main #searchform .startEndTime input::-webkit-input-placeholder {
-  color: #505a6a;
-}
-.main #searchform .startEndTime input:-moz-placeholder {
-  /* Firefox 18- */
-  color: #505a6a;
-}
-.main #searchform .startEndTime input::-moz-placeholder {
-  /* Firefox 19+ */
-  color: #505a6a;
-}
-.main #searchform .startEndTime input:-ms-input-placeholder {
-  color: #505a6a;
 }
 .main #searchform .controlButtons {
   width: 100%;
@@ -456,34 +506,22 @@ yongred changing color, new variables
   margin-left: -5px;
   width: calc(100% + 2*5px);
 }
-.main .reportTableDiv table.reportTable tr.table_row:last-child .table_data:first-child {
+.main .reportTableDiv table.reportTable tr.table-row:last-child .table-data:first-child {
   border-bottom-left-radius: 0;
 }
-.main .reportTableDiv table.reportTable tr.table_row:last-child .table_data:last-child {
+.main .reportTableDiv table.reportTable tr.table-row:last-child .table-data:last-child {
   border-bottom-right-radius: 0;
 }
-.main .reportTableDiv table.reportTable .table_head,
-.main .reportTableDiv table.reportTable .table_data {
+.main .reportTableDiv table.reportTable .table-head,
+.main .reportTableDiv table.reportTable .table-data {
   text-align: center;
   height: 200px;
 }
-.main .reportTableDiv table.reportTable th.table_head {
-  font-family: 'anivers reg', 'simhei';
-  font-size: 75px;
-  background-color: rgba(238, 238, 238, 0.52);
-  color: #505a6a;
+.main .reportTableDiv table.reportTable th.table-head {
+  background-color: transparent;
 }
-.main .reportTableDiv table.reportTable th.table_head:first-child {
-  border-top-left-radius: 25px;
-}
-.main .reportTableDiv table.reportTable th.table_head:last-child {
-  border-top-right-radius: 25px;
-}
-.main .reportTableDiv table.reportTable .table_data {
+.main .reportTableDiv table.reportTable .table-data {
   background-color: white;
-  color: #505a6a;
-  text-align: center;
-  font-size: 40px;
   /*
 				.editInButton{
 					background-color: @pink; 
@@ -493,31 +531,22 @@ yongred changing color, new variables
 				}
 				*/
 }
-.main .reportTableDiv table.reportTable .table_data:first-of-type {
+.main .reportTableDiv table.reportTable .table-data:first-of-type {
   width: 6.25%;
 }
-.main .reportTableDiv table.reportTable .table_data:nth-of-type(2) {
+.main .reportTableDiv table.reportTable .table-data:nth-of-type(2) {
   width: 37.5%;
 }
-.main .reportTableDiv table.reportTable .table_data:nth-of-type(3) {
+.main .reportTableDiv table.reportTable .table-data:nth-of-type(3) {
   width: 37.5%;
 }
-.main .reportTableDiv table.reportTable .table_data:last-of-type {
+.main .reportTableDiv table.reportTable .table-data:last-of-type {
   width: 18.75%;
 }
-.main .reportTableDiv table.reportTable .table_data > ul {
-  list-style: none;
-  padding-left: 0;
-  width: 100%;
-  height: 100%;
-}
-.main .reportTableDiv table.reportTable .table_data > ul > .listItem {
+.main .reportTableDiv table.reportTable .table-data > ul.unorder-list > .list-item {
   margin-top: 28px;
-  width: 100%;
-  text-align: center;
-  height: 30%;
 }
-.main .reportTableDiv table.reportTable .table_data > ul > .listItem > input {
+.main .reportTableDiv table.reportTable .table-data > ul.unorder-list > .list-item > input {
   border-radius: 10px;
   width: 80%;
   height: 120px;
@@ -528,27 +557,27 @@ yongred changing color, new variables
   font-size: 40px;
   height: auto;
 }
-.main .reportTableDiv table.reportTable .table_data > ul > .listItem > input::-webkit-input-placeholder {
+.main .reportTableDiv table.reportTable .table-data > ul.unorder-list > .list-item > input::-webkit-input-placeholder {
   color: #505a6a;
 }
-.main .reportTableDiv table.reportTable .table_data > ul > .listItem > input:-moz-placeholder {
+.main .reportTableDiv table.reportTable .table-data > ul.unorder-list > .list-item > input:-moz-placeholder {
   /* Firefox 18- */
   color: #505a6a;
 }
-.main .reportTableDiv table.reportTable .table_data > ul > .listItem > input::-moz-placeholder {
+.main .reportTableDiv table.reportTable .table-data > ul.unorder-list > .list-item > input::-moz-placeholder {
   /* Firefox 19+ */
   color: #505a6a;
 }
-.main .reportTableDiv table.reportTable .table_data > ul > .listItem > input:-ms-input-placeholder {
+.main .reportTableDiv table.reportTable .table-data > ul.unorder-list > .list-item > input:-ms-input-placeholder {
   color: #505a6a;
 }
-.main .reportTableDiv table.reportTable .table_data > ul > .listItem > .out {
+.main .reportTableDiv table.reportTable .table-data > ul.unorder-list > .list-item > .out {
   color: #8dc63f;
 }
-.main .reportTableDiv table.reportTable .table_data > ul > .listItem > .in {
+.main .reportTableDiv table.reportTable .table-data > ul.unorder-list > .list-item > .in {
   color: #505a6a;
 }
-.main .reportTableDiv table.reportTable .table_data .editButton {
+.main .reportTableDiv table.reportTable .table-data .editButton {
   background-color: #8dc63f;
   color: white;
   -webkit-user-select: none;
@@ -559,15 +588,15 @@ yongred changing color, new variables
   height: 100%;
   line-height: 200px;
 }
-.main .reportTableDiv table.reportTable .table_data .editButton:active {
+.main .reportTableDiv table.reportTable .table-data .editButton:active {
   background-color: #505a6a;
   color: white;
 }
-.main .reportTableDiv table.reportTable .table_data .confirmReturnDelete {
+.main .reportTableDiv table.reportTable .table-data .confirmReturnDelete {
   width: 100%;
   height: 100%;
 }
-.main .reportTableDiv table.reportTable .table_data .confirmReturnDelete:after {
+.main .reportTableDiv table.reportTable .table-data .confirmReturnDelete:after {
   content: "";
   display: block;
   visibility: hidden;
@@ -575,13 +604,13 @@ yongred changing color, new variables
   zoom: 1;
   height: 0px;
 }
-.main .reportTableDiv table.reportTable .table_data .confirmReturnDelete .funcButton {
+.main .reportTableDiv table.reportTable .table-data .confirmReturnDelete .changeButtons {
   text-align: center;
   padding: 0px;
   height: 50%;
   line-height: 100px;
 }
-.main .reportTableDiv table.reportTable .table_data .confirmReturnDelete .confirmButton {
+.main .reportTableDiv table.reportTable .table-data .confirmReturnDelete .confirmButton {
   float: left;
   width: 50%;
   background-color: #8dc63f;
@@ -592,11 +621,11 @@ yongred changing color, new variables
           user-select: none;
   cursor: pointer;
 }
-.main .reportTableDiv table.reportTable .table_data .confirmReturnDelete .confirmButton:active {
+.main .reportTableDiv table.reportTable .table-data .confirmReturnDelete .confirmButton:active {
   background-color: #505a6a;
   color: #8dc63f;
 }
-.main .reportTableDiv table.reportTable .table_data .confirmReturnDelete .returnButton {
+.main .reportTableDiv table.reportTable .table-data .confirmReturnDelete .returnButton {
   float: right;
   width: 50%;
   background-color: #505a6a;
@@ -607,11 +636,11 @@ yongred changing color, new variables
           user-select: none;
   cursor: pointer;
 }
-.main .reportTableDiv table.reportTable .table_data .confirmReturnDelete .returnButton:active {
+.main .reportTableDiv table.reportTable .table-data .confirmReturnDelete .returnButton:active {
   background-color: #8dc63f;
   color: white;
 }
-.main .reportTableDiv table.reportTable .table_data .confirmReturnDelete .deleteButton {
+.main .reportTableDiv table.reportTable .table-data .confirmReturnDelete .deleteButton {
   width: 100%;
   background-color: white;
   color: #505a6a;
@@ -622,7 +651,7 @@ yongred changing color, new variables
   cursor: pointer;
   clear: both;
 }
-.main .reportTableDiv table.reportTable .table_data .confirmReturnDelete .deleteButton:active {
+.main .reportTableDiv table.reportTable .table-data .confirmReturnDelete .deleteButton:active {
   background-color: #8dc63f;
   color: white;
 }

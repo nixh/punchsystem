@@ -215,6 +215,7 @@ router.get('/punch/:key', function(req, res, next) {
 
 });
 
+<<<<<<< HEAD
 
 var qrModule = require('../qrcodeModule');
 
@@ -228,6 +229,20 @@ router.get('/supervisor/showdynacode', function(req, res, next) {
         })(req, res, next);
     });
 });
+=======
+// var qrModule = require('../qrcodeModule');
+//
+// router.get('/supervisor/showdynacode', function(req, res, next) {
+//     var qrm = new qrModule();
+//     qrm.getDynacode(req.cookies.sessionid, function(err, mixinData) {
+//         console.log(mixinData);
+//         qrm.db.close();
+//         utils.render('qr', {
+//             data: mixinData
+//         })(req, res, next);
+//     });
+// });
+>>>>>>> 014342afa77db024939fe715e826454364aaa3c5
 
 router.get('/recentRecords', function(req, res, next) {
     var rm = new recordsModule();
@@ -686,12 +701,6 @@ router.get('/cookies', function(req, res, next) {
     for (var key in cookies) {
         cookie_str += key + "=" + cookies[key] + ";<br/>";
     }
-});
-
-
-// for user._id
-router.get('/test', function(req, res, next){
-    utils.render('modifyUser', {user: {}})(req, res, next);
 });
 
 router.getLoginPage = loginpage;

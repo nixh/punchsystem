@@ -129,5 +129,21 @@
 	"OCT": "OCT",
 	"NOV": "NOV",
 	"DEC": "DEC",
-	"select_month": "select_month"
+	"select_month": "select_month",
+	"showrate": "showrate",
+	"hiderate": "hiderate",
+	"welcome": "welcome",
+	"paidrate": "paidrate",
+	"per_hour": "per_hour",
+	"punchReport": "punchReport",
+	"welcome": "welcome",
+	"view staff": "view staff",
+	"add staff": "add staff",
+	"manage records": "manage records",
+	"dynamic_qrcode": "dynamic_qrcode",
+	"delegate": "delegate",
+	"adminpunch": "adminpunch",
+	"overview": "overview",
+	"setting": "setting",
+	"logout": "logout"
 }

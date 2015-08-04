@@ -106,6 +106,36 @@ append scripts
                 $form.attr('method', 'post');
                 $form.submit();
             });
+<<<<<<< HEAD
+            
+            $('#userid').change(function(){
+                var changedUserid = $('#userid').val();
+                $("#useridtext").text(changedUserid);                
+            });
+            
+            $('#name').change(function(){
+                var changedName = $('#name').val();
+                $("#nametext").text(changedName);                
+            });
+            
+            $('#password').change(function(){
+                var changedUserid = $('#password').val();
+                $("#passwordtext").text(changedUserid);                
+            });
+            
+            
+            // Sex 显示不对
+            $('#sex').change(function(){
+                var sex = $('#sex').val();
+                alert(sex);
+                $("#sextext").text(sex);    
+            });
+            
+            
+            $('#curRate').change(function(){
+                var rate = $('#curRate').val();
+                $("#ratetext").text(rate);    
+=======
             $('.sexinput input').change(function(){
                 var sex = $(this).val();
                 if(sex == '0') {
@@ -117,6 +147,7 @@ append scripts
                 }
                 
 
+>>>>>>> 15fd4d24c754da2bcf36e3b66e122092cb30c0a4
             });
         });
     
@@ -133,7 +164,9 @@ append scripts
                 reader.readAsDataURL(input.files[0]);
             }
         }
-
+        
+    script.
+        
 block content
     .main
         form#big
