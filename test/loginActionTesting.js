@@ -23,13 +23,12 @@ describe("test login action", function(){
     describe('login#view', function(){
         it('should show jade template', function(done){
             var req = app.makeRequest({'host':'att.adminsys.us'});
-            var res = app.makeResponse(function(err, response){
-
+            var res = utils.actions.mockResponse(function(err, response){
                 var compiler = jade.compileFile(getTemplatePath(loginViewAction.template));
                 compiler(response.model)
                 assert.equal(response.model.title, 'AdminSys Inc.');
                 done();
-            });
+            }, app);
             app.invoke('get', '/login', req, res);
         });
     })

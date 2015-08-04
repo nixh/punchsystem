@@ -30,7 +30,7 @@ function ServerEmailModule(conf) {
     });
 
     return {
-        sendEmail : function(to, cc, subject, html, csvStringForAttachments) {
+        sendEmail : function(to, cc, subject, html, csvStringForAttachments, callback) {
             var message = {
                 to: to,
                 from: account,
@@ -52,6 +52,7 @@ function ServerEmailModule(conf) {
                 });
             message['attachment'] = attachments;
             server.send(message, function(err, msg){
+                if(callback) callback(err, msg);
                 console.log(err||msg);
                 return err||msg;
             });
@@ -61,6 +62,5 @@ function ServerEmailModule(conf) {
 
 // var email = ServerEmailModule();
 // email.sendEmail('dsj77222@gmail.com', '', 'new test!', 'haha i am a <i>html content</i>.', ['test,test1,test2\n1,2,3']);
-
 
 module.exports = ServerEmailModule;

@@ -8,6 +8,7 @@ router.post('/email_report_settings', Action('userSettings.emailSwitch'));
 router.post('/send_email/:userid', Action('userSettings.sendEmail'));
 router.post('/records', Action('auth.searchRecords'));
 router.post('/auth_key', Action('auth.getKey'));
+router.post('/email/detail_report', Action('reports.emailDetailReportsCSV'));
 router.post('/disable_key', Action('auth.disableKey'));
 router.post('/punch/:punchkey', Action('auth.punch'));
 
