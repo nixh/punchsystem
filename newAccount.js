@@ -7,12 +7,12 @@ for(var i=compid+1; i<compid+10; i++) {
     var counter = i-compid;
     db.companies.insert({
         compid: i,
-        name: 'Test_' + counter,
+        name: 'APP_TEST_COMPANY_' + counter,
         registerDate : current
     });
     db.users.insert({
-        name: 'Test_' + counter, 
-        userid: 'test' + counter,
+        name: 'APP_TEST_NAME_' + counter, 
+        userid: 'apptest' + counter,
         password: '0000',
         avatar: '',
         createDate: current,
