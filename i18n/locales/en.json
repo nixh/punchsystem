@@ -129,5 +129,18 @@
 	"OCT": "OCT",
 	"NOV": "NOV",
 	"DEC": "DEC",
-	"select_month": "select_month"
+	"select_month": "select_month",
+	"overview_summary": "overview_summary",
+	"month_of": "month_of",
+	"July": "July",
+	"report": "report",
+	"start_end_date": "start_end_date",
+	"hours": "hours",
+	"totalpay": "totalpay",
+	"hour": "hour",
+	"back": "back",
+	"June": "June",
+	"empty": "empty",
+	"March": "March",
+	"August": "August"
 }

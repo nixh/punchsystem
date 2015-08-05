@@ -32,12 +32,12 @@ function getCurrentRate(userid, users) {
         if(err) {
             console.log(err);
         } else {
-            var hourlyRate = user.houlyRate;
-            console.log(user);
-            console.log('devide');
-            console.log(user.hourlyRate);
-            hourlyRate.sort().reverse();
-            return hourlyRate[0].rate;
+            var hourlyRate = user.rates;
+            if(hourlyRate) {
+                hourlyRate.sort().reverse();
+                return hourlyRate[0].rate;
+            }
+            return user.curRate;
         }
     });
 }
@@ -113,7 +113,7 @@ function punch(userid, cb) {
             var currentTime = new Date().getTime();
             if(!userLastRecord || userLastRecord.outDate) {
                 var recordDoc = newRecordFromUserDoc(userDoc);
-                recordDoc.hourlyrate = getCurrentRate(userid, userCol);
+                recordDoc.hourlyRate = getCurrentRate(userid, userCol);
                 recordDoc.inDate = currentTime;
                 recordDoc.outDate = null;
                 insertRecord(recordDoc, recordsCol).on('complete',cb);

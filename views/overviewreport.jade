@@ -27,7 +27,9 @@ append scripts
             });
             $('.weekly ul li').on('click', function(){
                 var $liBtn = $(this);
-                location.href = "/supervisor/overviewreport/" + $liBtn.html();
+                var html = $liBtn.html();
+                var url = html.replace(' to ', '/');
+                location.href = "/supervisor/overviewreport/" + url;
             });
 
             $('.monthly>.submitbutton').on('click', function(){
@@ -51,7 +53,7 @@ block content
                 .weeklist.hidden
                     ul
                         each week, index in weeklist
-                            li= week.start + "/" + week.end
+                            li= week.start + " to " + week.end
 
 
         table.overviewtable
