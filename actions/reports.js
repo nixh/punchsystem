@@ -5,6 +5,7 @@ var factory = require('../lib/module/moduleFactory')();
 var Action = require('../lib/common/action');
 var email = require('../email')();
 var recordModule = factory.get('recordModule');
+var userModule = factory.get('userModule');
 var logger = require('../logger');
 
 function summaryRecords(userid, from, to) {
@@ -39,11 +40,12 @@ reports.emailDetailReportsCSV = {
         var to = req.body.endDate;
         var add = req.body.email;
         return detailsRecords(userid, from, to)
-            .then(function(records){
-                var csv = recordModule.detailsToCSV(records);
-                logger.info(csv);
+            .then(function(reportObj){
+                var csv = recordModule.detailsToCSV(
+                                reportObj.user, 
+                                reportObj.records);
                 var deferred = Q.defer();
-                email.sendEmail(add, '', 'Detail Report', 
+                email.sendEmail(add, '', 'AdminSys Inc. --- Detail Report', 
                     "Hello, " + userid + ".<br> This is your report.",
                     [csv], deferred.makeNodeResolver());
                 return deferred.promise;

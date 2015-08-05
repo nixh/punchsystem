@@ -160,5 +160,17 @@
 	"\"rate_exp\"": "\"工资计算公式\"",
 	"\"payment\"": "\"应付\"",
 	"\"rate\"": "\"时薪\"",
-	"\"workhours\"": "\"工时\""
+	"\"workhours\"": "\"工时\"",
+	"JAN": "JAN",
+	"FEB": "FEB",
+	"MAR": "MAR",
+	"APR": "APR",
+	"MAY": "MAY",
+	"JUNE": "JUNE",
+	"JULY": "JULY",
+	"AUG": "AUG",
+	"SEPT": "SEPT",
+	"OCT": "OCT",
+	"NOV": "NOV",
+	"DEC": "DEC"
 }

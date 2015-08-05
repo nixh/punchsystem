@@ -129,5 +129,12 @@
 	"OCT": "OCT",
 	"NOV": "NOV",
 	"DEC": "DEC",
-	"select_month": "select_month"
+	"select_month": "select_month",
+	"\"id\"": "\"id\"",
+	"\"name\"": "\"name\"",
+	"\"from\"": "\"from\"",
+	"\"to\"": "\"to\"",
+	"\"rate\"": "\"rate\"",
+	"\"workhours\"": "\"workhours\"",
+	"\"payment\"": "\"payment\""
 }

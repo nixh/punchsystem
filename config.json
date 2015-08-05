@@ -16,7 +16,7 @@
 
     },
     "paths": {
-        "punch" : "http://att.adminsys.us/punch/%s"
-    },
-    "actionPath" : "./actions"
+        "punch" : "http://att.adminsys.us/punch/%s",
+        "action": "./actions"
+    }
 }
