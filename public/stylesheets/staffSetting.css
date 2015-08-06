@@ -356,6 +356,23 @@ body.bgbody{
     text-align: center;
 }
 
+.send-email-rightnow {
+    background-color: rgb(138, 209, 215);
+    float: right;
+    width: 30%;
+    height: 260px;
+    border-radius: 10px;
+    font-size: 60px;
+    text-align: center;
+    cursor: pointer;
+    color: white;
+    line-height: 260px;
+}
+
+.send-email-rightnow:active {
+    background-color: rgb(247, 130, 131);
+}
+
 /*
 light-blue-green  rgb(138, 209, 215)  
 redish  rgb(247, 130, 131)

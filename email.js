@@ -26,7 +26,8 @@ function ServerEmailModule(conf) {
         user: account,
         password: password,
         host: host,
-        ssl : ssl
+        ssl : ssl,
+        timeout: 10000
     });
 
     return {

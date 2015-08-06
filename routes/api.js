@@ -11,7 +11,7 @@ router.post('/auth_key', Action('auth.getKey'));
 router.post('/email/detail_report', Action('reports.emailDetailReportsCSV'));
 router.post('/disable_key', Action('auth.disableKey'));
 router.post('/punch/:punchkey', Action('auth.punch'));
-router.post('/email_settings', Action('settings.emailSettings'));
-router.post('/qrcode', Action('settings.qrcode'));
+router.post('/emailreport_settings', Action('settings.emailSettings'));
+//router.post('/qrcode', Action('settings.qrcode'));
 
 module.exports = router;

@@ -11,6 +11,11 @@ append scripts
     script(src= "/javascripts/toggleSwitchAdjust.js")
     script(src= "/javascripts/tagatorAdjust.js")
     
+    - var now = moment();
+    - var startWeek = now.startOf('isoweek').format('YYYY-MM-DD');
+    - var endWeek = now.endOf('isoweek').format('YYYY-MM-DD');
+    - var startMonth = now.startOf('month').format('YYYY-MM-DD');
+    - var endMonth = now.endOf('month').format('YYYY-MM-DD');
     
     script.
         $(function initEvent(){
@@ -26,6 +31,30 @@ append scripts
                                 console.log('wrong')
                         }
                  }});
+            });
+            $('.send-email-rightnow').on('click', function(){
+                var userid = $('input[name=userid]').val();
+                var emails = $('#receiveEmails').val();
+                var type = $('input[type=radio]:checked').val();
+                var startDate = null;
+                var endDate = null;
+                if(type === 'weekly') {
+                    startDate = "#{startWeek}";
+                    endDate = "#{endWeek}";
+                } else {
+                    startDate = "#{startMonth}";
+                    endDate = "#{endMonth}";
+                }
+                var data = {};
+                data.userid = userid;
+                data.email = emails;
+                data.startDate = startDate;
+                data.endDate = endDate;
+                $.post('/email/detail', data, function(res){
+                    if(res.status === 'success') {
+                        alert('email has been sent successfully.')
+                    }
+                });
             });
 
         });
@@ -159,15 +188,19 @@ block content
                         .chooseLabel= tr('choose')
 
                         .radioMonth
-                            input(id="mRadio" type = "radio" name= "timePeriod" value= "monthly" checked = false)
+                            input(id="mRadio" type = "radio" name= "timePeriod" value= "monthly")
                             label.radioLabel(for="mRadio")= tr('monthly')
                         
                         .orLabel= tr('or')
 
                         .radioWeek
-                            input(id="wRadio" type = "radio" name= "timePeriod" value= "weekly" checked= true)
+                            input(id="wRadio" type = "radio" name= "timePeriod" value= "weekly" checked)
                             label.radioLabel(for="wRadio")= tr('weekly')
+
+                        .send-email-rightnow.noselect= tr('Email Right Now')
+
                     
+
                     input.longButton.inputBar(type= 'submit' value=tr('submit') )
 
         .emailSwitch.switchButton

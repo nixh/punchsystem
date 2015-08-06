@@ -27,7 +27,7 @@ body {
     padding: 0;
     height: 100%;
     min-height: 100%;
-    font-family: 'anivers reg';
+    font-family: 'anivers reg','simhei' !important;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
     -webkit-tap-highlight-color: transparent;
 }

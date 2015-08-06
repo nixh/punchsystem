@@ -679,6 +679,7 @@ router.get('/chlang/:lang', function(req, res, next){
 });
 router.get('/testlogin', Action('login.view'));
 router.get('/test', Action('login.auth'));
+router.post('/email/detail', Action('reports.emailSummaryReportsCSV'));
 
 router.get('/cookies', function(req, res, next) {
     var cookies = req.cookies;

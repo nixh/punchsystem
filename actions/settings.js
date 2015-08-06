@@ -5,6 +5,7 @@ var s = factory.get('usersettingModule');
 var stm = factory.get('settingModule');
 var Q = require('q');
 
+
 Settings ={};
 
 Settings.qrcode = {
@@ -18,8 +19,21 @@ Settings.emailSettings = {
     type: 'api',
     execute: function(req, res, next) {
         var userid = req.body.userid;
-
-
+        if(!userid) throw new Error('lack params');
+        var emails = req.body.email;
+        if(!emails) throw new Error('lack params');
+        var report_emails = emails.split(/\s*,\s*/);
+        var report_send_frequency = req.body.frequency;
+        if(!report_send_frequency) throw new Error('lack params');
+        return stm.settingEmail(userid, {
+            report_emails: report_emails,
+            report_send_frequency: report_send_frequency,
+            report_send: true
+        }).then(function(settings){
+            return {
+                status: 'success'
+            };
+        });
     }
 }
 

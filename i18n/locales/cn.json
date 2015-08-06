@@ -154,13 +154,6 @@
 	"December": "December",
 	"RETURN": "RETURN",
 	"changepass successful": "changepass successful",
-	"\"id\"": "\"用户ID\"",
-	"\"from\"": "\"起始时间\"",
-	"\"to\"": "\"结束时间\"",
-	"\"rate_exp\"": "\"工资计算公式\"",
-	"\"payment\"": "\"应付\"",
-	"\"rate\"": "\"时薪\"",
-	"\"workhours\"": "\"工时\"",
 	"JAN": "JAN",
 	"FEB": "FEB",
 	"MAR": "MAR",
@@ -172,5 +165,13 @@
 	"SEPT": "SEPT",
 	"OCT": "OCT",
 	"NOV": "NOV",
-	"DEC": "DEC"
+	"DEC": "DEC",
+	"\"id\"": "\"用户ID\"",
+	"\"from\"": "\"起始时间\"",
+	"\"to\"": "\"结束时间\"",
+	"\"rate_exp\"": "\"工资计算公式\"",
+	"\"payment\"": "\"应付\"",
+	"\"rate\"": "\"时薪\"",
+	"\"workhours\"": "\"工时\"",
+	"Email Right Now": "立即发送"
 }

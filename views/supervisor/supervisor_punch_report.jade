@@ -51,7 +51,10 @@ append scripts
                 data.outDate = outDate+" "+outTime;
                 $.post("/supervisor/records_update", data, function(res){ 
                     if(res && res.success) {
-                        location.reload();
+                        inDateInput.attr('data-value', inDate);
+                        inTimeInput.attr('data-value', inTime);
+                        outDateInput.attr('data-value', outDate);
+                        outTimeInput.attr('data-value', outTime);
                     } else {
                         alert(res.msg);
                     }

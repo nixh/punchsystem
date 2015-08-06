@@ -32,27 +32,63 @@ reports.userReports = {
     }
 };
 
+reports.emailSummaryReportsCSV = {
+    type: 'api',
+    execute: function(req, res, next) {
+        var userid = req.body.userid;
+        var from = req.body.startDate;
+        var to = req.body.endDate;
+        var adds = req.body.email;
+        return recordModule.getCompanyRecordsByUserId(userid, from, to)
+            .then(function(reportObj){
+                var csv = recordModule.summaryToCSV(
+                            reportObj.users, reportObj.records);
+                var promises = [];
+                adds.split(',').forEach(function(add){
+                    var deferred = Q.defer();
+                    email.sendEmail(add, '', 'AdminSys Inc. --- Summary Report', 
+                        "Hello, " + userid + ".<br> This is your company's report.",
+                        [csv], deferred.makeNodeResolver());
+                    promises.push(deferred.promise);
+                })
+                return Q.all(promises);
+            }).then(function(msg){
+                logger.info(msg);
+                return {
+                    status: 'success',
+                    msg: msg.join(',')
+                };
+            }); 
+    }
+}
+
 reports.emailDetailReportsCSV = {
     type: 'api',
     execute: function(req, res, next) {
         var userid = req.body.userid;
         var from = req.body.startDate;
         var to = req.body.endDate;
-        var add = req.body.email;
+        var adds = req.body.email;
+        
         return detailsRecords(userid, from, to)
             .then(function(reportObj){
                 var csv = recordModule.detailsToCSV(
                                 reportObj.user, 
                                 reportObj.records);
-                var deferred = Q.defer();
-                email.sendEmail(add, '', 'AdminSys Inc. --- Detail Report', 
-                    "Hello, " + userid + ".<br> This is your report.",
-                    [csv], deferred.makeNodeResolver());
-                return deferred.promise;
+                var promises = [];
+                adds.split(',').forEach(function(add){
+                    var deferred = Q.defer();
+                    email.sendEmail(add, '', 'AdminSys Inc. --- Detail Report', 
+                        "Hello, " + userid + ".<br> This is your report.",
+                        [csv], deferred.makeNodeResolver());
+                    promises.push(deferred.promise);
+                })
+                return Q.all(promises);
             }).then(function(msg){
+                logger.info(msg);
                 return {
                     status: 'success',
-                    msg: msg
+                    msg: msg.join(',')
                 };
             });
     }
