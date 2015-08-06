@@ -27,19 +27,15 @@ function newRecordFromUserDoc(userDoc) {
 function validate(record) {
 
 }
-function getCurrentRate(userid, users) {
-    users.findOne({userid: userid}, function(err, user) {
-        if(err) {
-            console.log(err);
-        } else {
-            var hourlyRate = user.rates;
-            if(hourlyRate) {
-                hourlyRate.sort().reverse();
-                return hourlyRate[0].rate;
-            }
-            return user.curRate;
-        }
-    });
+function getCurrentRate(userid, userDoc) {
+    var hourlyRate = userDoc.hourlyRate;
+    if(hourlyRate) {
+	hourlyRate.sort(function(a, b){ 
+            return b.changetime-a.changetime;
+        });
+	return hourlyRate[0].rate;
+    }
+    return userDoc.curRate;
 }
 
 function findUserLastRecord(userid, cb) {
@@ -50,7 +46,6 @@ function findUserLastRecord(userid, cb) {
 function findLastRecordsByCompid(compid, cb) {
     var recordsCol = this.db.get('records');
     var usersCol = this.db.get('users');
-    console.log(compid);
     usersCol.find({compid: compid}, {}, function(err, users) {
         var usersId = users.map(function(u){ return u.userid; });
         recordsCol.col.aggregate([
@@ -113,7 +108,7 @@ function punch(userid, cb) {
             var currentTime = new Date().getTime();
             if(!userLastRecord || userLastRecord.outDate) {
                 var recordDoc = newRecordFromUserDoc(userDoc);
-                recordDoc.hourlyRate = getCurrentRate(userid, userCol);
+                recordDoc.hourlyRate = getCurrentRate(userid, userDoc);
                 recordDoc.inDate = currentTime;
                 recordDoc.outDate = null;
                 insertRecord(recordDoc, recordsCol).on('complete',cb);

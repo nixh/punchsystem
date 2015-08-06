@@ -3,16 +3,17 @@ use punchsystem
 var defaultSettings = db.comp_settings.findOne();
 var compid = db.companies.count();
 var current = new Date().getTime();
-for(var i=compid+1; i<compid+10; i++) {
+
+for(var i=compid+1; i<compid+2; i++) {
     var counter = i-compid;
     db.companies.insert({
         compid: i,
-        name: 'APP_TEST_COMPANY_' + counter,
+        name: 'TEST_COMP_2015080610',
         registerDate : current
     });
     db.users.insert({
-        name: 'APP_TEST_NAME_' + counter, 
-        userid: 'apptest' + counter,
+        name: 'test_2015080610',
+        userid: 'test_2015080610',
         password: '0000',
         avatar: '',
         createDate: current,
