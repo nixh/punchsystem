@@ -51,7 +51,7 @@ reports.emailSummaryReportsCSV = {
                         [csv], deferred.makeNodeResolver());
                     promises.push(deferred.promise);
                 })
-                return Q.all(promises);
+                return promises;
             }).then(function(msg){
                 return {
                     status: 'success',
@@ -81,7 +81,7 @@ reports.emailDetailReportsCSV = {
                         "Hello, " + userid + ".<br> This is your report.",
                         [csv], deferred.makeNodeResolver());
                     promises.push(deferred.promise);
-                })
+                });
                 return Q.all(promises);
             }).then(function(msg){
                 logger.info(msg);
