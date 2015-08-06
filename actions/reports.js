@@ -53,10 +53,9 @@ reports.emailSummaryReportsCSV = {
                 })
                 return Q.all(promises);
             }).then(function(msg){
-                logger.info(msg);
                 return {
                     status: 'success',
-                    msg: msg.join(',')
+                    msg: "email has been sent successfully!"
                 };
             }); 
     }

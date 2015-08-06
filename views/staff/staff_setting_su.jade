@@ -52,9 +52,12 @@ append scripts
                 data.endDate = endDate;
                 $.post('/email/detail', data, function(res){
                     if(res.status === 'success') {
-                        alert('email has been sent successfully.')
+                        alert(res.msg);
+                    } else {
+                        alert('errors occured during sending. please resend it.');
                     }
                 });
+                alert('email has been sent.')
             });
 
         });
