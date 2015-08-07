@@ -221,7 +221,6 @@ var qrModule = require('../qrcodeModule');
 router.get('/supervisor/showdynacode', function(req, res, next) {
     var qrm = new qrModule();
     qrm.getDynacode(req.cookies.sessionid, function(err, mixinData) {
-        console.log(mixinData);
         qrm.db.close();
         utils.render('staff/staff_delegate', {
             data: mixinData

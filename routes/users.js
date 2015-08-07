@@ -35,9 +35,6 @@ router.post('/add', function(req, res){
 
 				userObj.compid = sObj.compid;
 
-				console.log('******************* The User is ');
-				console.log(userObj);
-
 				if(files.avatar[0].size == 0){
 					userObj.avatar = userObj.avatar_url;
 					delete userObj.avatar_url;

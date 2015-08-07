@@ -138,15 +138,16 @@ block content
     .main
         form#big
             .infosection.page(data-value="1")
-                .avatarsection
-                    .avatarimg
-                        img(id="img_prev" src="#{!user ? '/images/boydefaultpicture.png' :user.avatar}" alt="your image")
-                    .avatarupload
-                        .uploadfield 
-                            input.textinput(type="text" name="avatar_url")
-                            #choosepic.submitbutton= tr('...')
-                            input.uploadfield.hidden(type="file" name="avatar" multiple="multiple" onchange="readURL(this);")
-                        .submitupload
+                if false
+                    .avatarsection
+                        .avatarimg
+                            img(id="img_prev" src="#{!user ? '/images/boydefaultpicture.png' :user.avatar}" alt="your image")
+                        .avatarupload
+                            .uploadfield 
+                                input.textinput(type="text" name="avatar_url")
+                                #choosepic.submitbutton= tr('...')
+                                input.uploadfield.hidden(type="file" name="avatar" multiple="multiple" onchange="readURL(this);")
+                            .submitupload
     
                 - var _id = (user == undefined ? undefined: user._id);
                 

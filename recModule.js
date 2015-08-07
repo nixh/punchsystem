@@ -111,7 +111,6 @@ function rencentRecords(idObj, callback) {
 
 function getCurrentRate(userid, users) {
     users.findOne({userid: userid}, function(err, user) {
-        //console.log(user);
         if(err) {
             console.log(err);
         } else {

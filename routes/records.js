@@ -83,7 +83,7 @@ router.get('/supervisor/records_search/', function(req, res, next) {
     var query = {inDate : {"$gte" : starttime} , outDate : {"$lte": endtime}, userid: userid};
     rm.searchRecords(query, function(jsonData) {
         jsonData.tr = res.__;
-        jsonDate.su = true;
+        jsonData.su = true;
         res.render('supervisor/supervisor_punch_report', jsonData);
     });
 });
@@ -131,7 +131,6 @@ router.get('/supervisor/records_delete/:rid', function(req, res, next) {
 router.post('/supervisor/records_delete', function(req, res, next) {
     var rm = new recModule();
     var _id = req.body.id;
-    console.log(_id);
     rm.deleteRecords(_id, function(err, doc){
         rm.db.close();
         res.type('json');

@@ -12,8 +12,7 @@ function summaryRecords(userid, from, to) {
     return recordModule.getUserRecords(userid, from, to);
 }
 
-function detailsRecords(userid, from, to) {
-    return recordModule.getUserRecordsDetails(userid, from, to);
+function detailsRecords(userid, from, to) { return recordModule.getUserRecordsDetails(userid, from, to);
 }
 
 var reports = {};
