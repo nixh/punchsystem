@@ -35,9 +35,13 @@ reports.emailSummaryReportsCSV = {
     type: 'api',
     execute: function(req, res, next) {
         var userid = req.body.userid;
+        if(!userid) throw new Error('lack params');
         var from = req.body.startDate;
+        if(!from) throw new Error('lack params');
         var to = req.body.endDate;
+        if(!to) throw new Error('lack params');
         var adds = req.body.email;
+        if(!adds) throw new Error('lack params');
         return recordModule.getCompanyRecordsByUserId(userid, from, to)
             .then(function(reportObj){
                 var csv = recordModule.summaryToCSV(
@@ -64,10 +68,14 @@ reports.emailDetailReportsCSV = {
     type: 'api',
     execute: function(req, res, next) {
         var userid = req.body.userid;
+        if(!userid) throw new Error('lack params');
         var from = req.body.startDate;
+        if(!from) throw new Error('lack params');
         var to = req.body.endDate;
+        if(!to) throw new Error('lack params');
         var adds = req.body.email;
-        
+        if(!adds) throw new Error('lack params');
+
         return detailsRecords(userid, from, to)
             .then(function(reportObj){
                 var csv = recordModule.detailsToCSV(
@@ -83,10 +91,8 @@ reports.emailDetailReportsCSV = {
                 });
                 return Q.all(promises);
             }).then(function(msg){
-                logger.info(msg);
                 return {
-                    status: 'success',
-                    msg: msg.join(',')
+                    status: 'success'
                 };
             });
     }

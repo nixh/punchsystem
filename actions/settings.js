@@ -13,10 +13,10 @@ Settings.qrcode = {
     execute: function(req, res, next) {
 
     }
-}
+};
 
 var um = factory.get('userModule');
-auth.changePwd = {
+Settings.changePwd = {
     type: 'api',
     execute: function(req, res, next) {
         var oldpass = req.body.oldPassword;
@@ -33,7 +33,27 @@ auth.changePwd = {
                 };
             });
     }
-}
+};
+
+Settings.getUserEmailSettings = {
+    type: 'api',
+    execute: function(req, res, next) {
+        var userid = req.body.employeeId;
+        if(!userid) throw new Error('lack params');
+        return stm.getUserEmailSettings(userid)
+            .then(function(settings){
+            var ret = {};
+            ret.isEmailReport = settings.report_send;
+            ret.email = settings.report_emails.join(',');
+            ret.reportType = settings.report_send_frequency;
+            ret.employeeId = settings.userid;
+            return {
+                status: 'success',
+                data: ret
+            };
+        });
+    }
+};
 
 Settings.emailSettings = {
     type: 'api',
@@ -62,7 +82,25 @@ Settings.emailSettings = {
             };
         });
     }
-}
+};
+
+Settings.userEmailSettings = {
+    type: 'api',
+    execute: function(req, res, next) {
+        var userid = req.body.employeeId;
+        if(!userid) throw new Error('lack params');
+        return stm.settingEmail(userid, {
+            report_emails: report_emails,
+            report_send_frequency: report_send_frequency,
+            report_send: report_send
+        }).then(function(settings){
+            return {
+                status: 'success',
+                msg: 'email setting completed.'
+            };
+        });
+    }
+};
 
 //用户页面
 Settings.staffSettingView = {
@@ -80,7 +118,7 @@ Settings.staffSettingView = {
             return data;
         });
     }
-}
+};
 //管理员页面
 Settings.supSettingView = {
     type : 'jade',
@@ -101,7 +139,7 @@ Settings.supSettingView = {
             return data;
         });
     }
-}
+};
 
 Settings.setEmailView = {
     type: 'jade',
@@ -122,7 +160,7 @@ Settings.setEmailView = {
             return data;
         });
     }
-}
+};
 
 Settings.setRateView = {
     type: 'jade',
@@ -143,7 +181,7 @@ Settings.setRateView = {
             return data;
         });
     }
-}
+};
 //邮箱开关
 Settings.emailSwitch = {
     type : 'jade',
@@ -167,14 +205,14 @@ Settings.emailSwitch = {
             return data;
         });
     }       
-}
+};
 //工资设置开关
 Settings.rateSwitch = {
     type : 'jade',
     template : './staff/staff_setting_su',
     execute: function(req,res,next) {
         var sessionid = req.cookies.sessionid;
-        var switchs
+        var switchs;
             if(req.params.switchs == 1) {
                 switchs = 0;
             }
@@ -191,7 +229,7 @@ Settings.rateSwitch = {
             return data;
         });
     }
-}
+};
 
 // 用户改密码
 Settings.changePass = {
@@ -201,11 +239,12 @@ Settings.changePass = {
         var sessionid = req.cookies.sessionid;
         var oldpass = req.body.oldpass;
         var newpass = req.body.newpass;
-        var docs = s.changepass(oldpass,newpass,sessionid)
+        var data = null;
+        var docs = s.changepass(oldpass,newpass,sessionid);
             return docs.then(function (doc) {
 
                 if(!doc) {
-                    var data = {
+                    data = {
                         'success': false,
                    'msg': {head:res.__("changepass failed, maybe wrong password")},
                    'pageUrl': '/settings'
@@ -213,7 +252,7 @@ Settings.changePass = {
                     return data;
                 }
                 else {
-                    var data = {
+                    data = {
                         'success': true,
                    'msg': {head:res.__("changepass successful")},
                    'pageUrl': '/settings'
@@ -224,7 +263,7 @@ Settings.changePass = {
                 }
             });
     }
-}
+};
 //管理员改密码
 Settings.supChangePass = {
     type : 'jade',
@@ -233,10 +272,11 @@ Settings.supChangePass = {
         var sessionid = req.cookies.sessionid;
         var oldpass = req.body.oldpass;
         var newpass = req.body.newpass;
-        var docs = s.changepass(oldpass,newpass,sessionid)
+        var data = null;
+        var docs = s.changepass(oldpass,newpass,sessionid);
             return docs.then(function (doc) {
                 if(!doc) {
-                    var data = {
+                    data = {
                         'success': false,
                    'msg': {head:res.__('changepass failed, maybe wrong password')},
                    'pageUrl': '/supervisor/settings'
@@ -245,7 +285,7 @@ Settings.supChangePass = {
                     return data;
                 }
                 else {
-                    var data = {
+                    data = {
                         'success': true,
                    'msg': {head:res.__('changepass successful')},
                    'pageUrl': '/supervisor/settings'
@@ -255,7 +295,7 @@ Settings.supChangePass = {
                 }
             });
     }
-}
+};
 //设置工资
 Settings.setRate = {
     type : 'jade',
@@ -280,7 +320,7 @@ Settings.setRate = {
             return data;    
         });
     }
-}
+};
 
 Settings.setEmail = {
     type : 'jade',
@@ -292,7 +332,7 @@ Settings.setEmail = {
         var enableEmail = req.body.enableEmail;
         var docs = s.settingEmail(timePeriod,receiveEmails,sessionid,enableEmail);
         return docs.fail(function(err){
-            next(err)
+            next(err);
         }).then(function(doc){
             var data = {
                 "userid":doc.userid,
@@ -305,9 +345,9 @@ Settings.setEmail = {
             "newrate":doc.curRate
             };
             return data;
-        })
+        });
     }
-}
+};
 
 Settings.sendEmail = {
     type : "api",
@@ -322,6 +362,6 @@ Settings.sendEmail = {
             return doc;
         });
     }
-}
+};
 
 module.exports = Settings;

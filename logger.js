@@ -1,4 +1,5 @@
 var winston = require('winston');
+var moment = require('moment');
 winston.emitErrs = false;
 
 var logger = new winston.Logger({
@@ -7,7 +8,10 @@ var logger = new winston.Logger({
             level: 'info',
             handleExceptions: false,
             json: false,
-            colorize: true
+            colorize: true,
+            timestamp: function() {
+                return moment().format("LLL");
+            }
         })
     ],
     exitOnError: false

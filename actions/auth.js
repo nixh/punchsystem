@@ -15,9 +15,12 @@ auth.punch = {
     type: 'api',
     execute: function(req, res, next) {
         var punchKey = req.params.punchkey;
-        var authKey = req.header['auth_key'];
         var userid = req.body.userid;
         var parts = punchKey.split('.');
+        if(!parts[1]) {
+            throw new Error('invalid_punchkey');
+        }
+
         var key = utils.unsafeBase64(parts[1]);
         var qrid = null;
         try {
@@ -44,10 +47,14 @@ auth.punch = {
 auth.searchRecords = {
     type: 'api',
     execute: function(req, res, next) {
-        var beginDate = moment(req.body.beginDate, 'YYYY-MM-DD').valueOf();
-        var endDate = moment(req.body.endDate, 'YYYY-MM-DD').valueOf();
         var userid = req.body.userid;
-        var authKey = req.header['auth_key'];
+        if(!userid) throw new Error('lack params');
+        var beginDate = req.body.beginDate;
+        if(!beginDate) throw new Error('lack params');
+        beginDate = moment(beginDate, 'YYYY-MM-DD').valueOf();
+        var endDate = req.body.endDate;
+        if(!endDate) throw new Error('lack params');
+        endDate = moment(endDate, 'YYYY-MM-DD').valueOf();
         var length_limit = req.body.rec_length 
                            || config.get('app.config->recentRecords.limit') 
                            || 5;
