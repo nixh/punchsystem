@@ -83,7 +83,7 @@ router.get('/supervisor/records_search/', function(req, res, next) {
     var query = {inDate : {"$gte" : starttime} , outDate : {"$lte": endtime}, userid: userid};
     rm.searchRecords(query, function(jsonData) {
         jsonData.tr = res.__;
-        jsonDate.su = true;
+        jsonData.su = true;
         res.render('supervisor/supervisor_punch_report', jsonData);
     });
 });
