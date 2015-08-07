@@ -118,7 +118,7 @@ describe('Login API --- /api/login', function(){
 });
 
 var testuserid = "ln33";
-var punchkey = "42eccd90-3c4a-11e5-a2a8-5394c3a0f604.acOzCMOaMRBswqnCrMKdKMKCAMOlw7DCjWvCtsKXWw";
+var punchkey = "a9026cc0-3d4e-11e5-ba2a-63644a1ad4f8.wqtAD8ONYBtfwqjDhTcVwprCrz3DjH7DsH3CgMKX";
 
 describe('Punch IN/OUT --- /api/punch/:punchkey', function(){
 
@@ -136,9 +136,9 @@ describe('Punch IN/OUT --- /api/punch/:punchkey', function(){
         });
     });
 
-    it('should not punch in/out if useriswrong', function(done){
+    it('should not punch in/out if user is in another company', function(done){
         api('/api/punch/'+punchkey, {
-            userid: 'ln1'
+            userid: 'ln10'
         }, { 
             auth_key: authKey 
         }, function(err, res, body){
