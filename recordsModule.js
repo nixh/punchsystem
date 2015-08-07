@@ -29,13 +29,16 @@ function validate(record) {
 }
 function getCurrentRate(userid, userDoc) {
     var hourlyRate = userDoc.hourlyRate;
+    var ret = 0;
     if(hourlyRate) {
 	hourlyRate.sort(function(a, b){ 
             return b.changetime-a.changetime;
         });
-	return hourlyRate[0].rate;
+	ret = parseFloat(hourlyRate[0].rate);
+        return ret ? ret : 0;
     }
-    return userDoc.curRate;
+    ret = parseFloat(userDoc.curRate);
+    return ret ? ret : 0;
 }
 
 function findUserLastRecord(userid, cb) {

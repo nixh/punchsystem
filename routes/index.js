@@ -549,6 +549,7 @@ router.get('/supervisor/overviewreport/:month', function(req, res, next){
                     monthData.push(parseMonthData(weekData.userReports));
                 }
             });
+            console.log(monthData);
             var userReports = formatMonthDataToReport(monthData);
             var reports = [];
             for(var key in userReports) {

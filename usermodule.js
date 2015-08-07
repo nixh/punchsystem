@@ -51,11 +51,10 @@ function addUser(userObj, callback) {
 
     userObj.address = addr;
     userObj.owner = false;
-
+    var now = new Date().getTime();
+    var curRate = userObj.curRate;
+    userObj.hourlyRate = [{ rate: curRate, changetime: now }];
     var col = this.db.get('users');
-
-    console.log(JSON.stringify(userObj));
-
     col.find({
         "userid": userObj.userid
     }, function(err, doc) {
@@ -67,8 +66,7 @@ function addUser(userObj, callback) {
         }
         else{
             if(!doc || doc.length === 0){
-                col.insert
-                (userObj, callback);
+                col.insert(userObj, callback);
             }else{
                 callback(new Error("User already exists!"));
             }
@@ -131,9 +129,6 @@ function getUserInfo(userid, callback) {
 function changeUser(userObj, callback) {
     validate(userObj);
 
-    console.log('Now in usermodule.js, changing the user...');
-    console.log(userObj);
-
     var _id = userObj._id;
 
     userObj.address = trim(userObj.address_street) + "|" + trim(userObj.address_city) + "|" + trim(userObj.address_state) + "|" + trim(userObj.address_zip);
@@ -167,7 +162,7 @@ function changeUser(userObj, callback) {
                     '$set': userObj,
 
                     '$push': {
-                        'rates': append
+                        'hourlyRate': append
                     }
             }
         },
