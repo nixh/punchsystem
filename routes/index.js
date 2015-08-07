@@ -30,7 +30,6 @@ function login(loginObj, cb) {
     }
     var userCol = db.get('users');
     var shapwd = sha(loginObj.password);
-    shapwd = loginObj.password;
     var userid = loginObj.userid;
     userid = parseInt(userid);
     if (isNaN(userid))
