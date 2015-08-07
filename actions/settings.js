@@ -15,23 +15,50 @@ Settings.qrcode = {
     }
 }
 
+var um = factory.get('userModule');
+auth.changePwd = {
+    type: 'api',
+    execute: function(req, res, next) {
+        var oldpass = req.body.oldPassword;
+        if(!oldpass) throw new Error('lack params');
+        var newpass = req.body.newPassword;
+        if(!newpass) throw new Error('lack params');
+        var userid = req.body.userid;
+        if(!userid) throw new Error('lack params');
+        return um.changePassword(userid, oldpass, newpass)
+            .then(function(user){
+                return {
+                    status: 'success',
+                    msg: 'password changed'
+                };
+            });
+    }
+}
+
 Settings.emailSettings = {
     type: 'api',
     execute: function(req, res, next) {
-        var userid = req.body.userid;
+        var userid = req.body.employeeId;
         if(!userid) throw new Error('lack params');
-        var emails = req.body.email;
-        if(!emails) throw new Error('lack params');
-        var report_emails = emails.split(/\s*,\s*/);
-        var report_send_frequency = req.body.frequency;
-        if(!report_send_frequency) throw new Error('lack params');
+        var report_send = req.body.isEmailReport;
+        if(!report_send) throw new Error('lack params');
+        var report_emails = [];
+        var report_send_frequency = -1;
+        if(report_send) {
+            var emails = req.body.email;
+            if(!emails) throw new Error('lack params');
+            report_emails = emails.split(/\s*,\s*/);
+            report_send_frequency = req.body.reportType;
+            if(!report_send_frequency) throw new Error('lack params');
+        }
         return stm.settingEmail(userid, {
             report_emails: report_emails,
             report_send_frequency: report_send_frequency,
-            report_send: true
+            report_send: report_send
         }).then(function(settings){
             return {
-                status: 'success'
+                status: 'success',
+                msg: 'email setting completed.'
             };
         });
     }
@@ -84,7 +111,7 @@ Settings.setEmailView = {
         var docs = s.showEmail(sessionid);
         return docs.then(function(doc) {
             var data = {
-                "userid":doc.userid,
+               "userid":doc.userid,
                "receiveEmails":doc.email,
                "su":true,
                "enableEmail":doc.enableEmail,
