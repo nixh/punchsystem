@@ -152,5 +152,9 @@
 	"August": "August",
 	"Email Right Now": "Email Right Now",
 	"\"rate_exp\"": "\"rate_exp\"",
-	"submit_change": "submit_change"
+	"submit_change": "submit_change",
+	"\"startDate\"": "\"startDate\"",
+	"\"endDate\"": "\"endDate\"",
+	"\"overtimehours\"": "\"overtimehours\"",
+	"\"overtimepayment\"": "\"overtimepayment\""
 }

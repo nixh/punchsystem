@@ -106,10 +106,10 @@ function punch(userid, cb) {
     var userCol = this.db.get('users');
     this.findUserLastRecord(userid, function(err, userLastRecord){
         if(err)
-            return cb(undefined);
+            return cb(err);
         userCol.findOne({userid: userid},{}, function(err, userDoc){
             if(!userDoc)
-                return cb(undefined);
+                return cb(err);
             var currentTime = new Date().getTime();
             if(!userLastRecord || userLastRecord.outDate) {
                 var recordDoc = newRecordFromUserDoc(userDoc);
