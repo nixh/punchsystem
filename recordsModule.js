@@ -108,6 +108,8 @@ function punch(userid, cb) {
         if(err)
             return cb(undefined);
         userCol.findOne({userid: userid},{}, function(err, userDoc){
+            if(!userDoc)
+                return cb(undefined);
             var currentTime = new Date().getTime();
             if(!userLastRecord || userLastRecord.outDate) {
                 var recordDoc = newRecordFromUserDoc(userDoc);

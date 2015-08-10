@@ -12,8 +12,8 @@ for(var i=compid+1; i<compid+11; i++) {
         registerDate : current
     });
     db.users.insert({
-        name: 'test_'+counter,
-        userid: 'test_'+counter,
+        name: 'apptest_'+counter,
+        userid: 'apptest'+counter,
         password: '0000',
         avatar: '',
         createDate: current,
