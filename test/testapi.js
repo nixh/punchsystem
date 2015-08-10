@@ -372,20 +372,20 @@ describe('Email User Details --- /api/email/detail_report', function(){
         });
     });
     
-    //it('should send email to user', function(){
-    //    api('/api/email/detail_report',{
-    //        startDate: '2015-07-01',
-    //        endDate: '2015-07-31',
-    //        email: 'saiqiuli@gmail.com',
-    //        userid: 'ln8'
-    //    }, {
-    //        auth_key: authKey
-    //    }, function(err, res, body){
-    //        assert(!err, "Error is:" + err);
-    //        body = JSON.parse(body);
-    //        assert.equal(body.status, 'success', "Status should be success");
-    //    });
-    //});
+    it('should send email to user', function(){
+        api('/api/email/detail_report',{
+            startDate: '2015-07-01',
+            endDate: '2015-07-31',
+            email: 'saiqiuli@gmail.com',
+            userid: 'ln8'
+        }, {
+            auth_key: authKey
+        }, function(err, res, body){
+            assert(!err, "Error is:" + err);
+            body = JSON.parse(body);
+            assert.equal(body.status, 'success', "Status should be success");
+        });
+    });
 });
 
 describe('Disable authkey --- /api/disable_key', function(){

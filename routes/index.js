@@ -518,7 +518,7 @@ function formatMonthDataToReport(monthData) {
                     user.from = data.from;
                 if(user.to < data.to)
                     user.to = data.to;
-                user.totalHour += data.totalHour;
+                user.totalhours += data.totalhours;
                 user.totalWage += data.totalWage;
                 user.avgRate = data.avgRate;
                 user.userid = data.userid;
@@ -548,7 +548,6 @@ router.get('/supervisor/overviewreport/:month', function(req, res, next){
                     monthData.push(parseMonthData(weekData.userReports));
                 }
             });
-            console.log(monthData);
             var userReports = formatMonthDataToReport(monthData);
             var reports = [];
             for(var key in userReports) {

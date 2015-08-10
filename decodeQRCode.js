@@ -23,6 +23,7 @@ dbm.use(queryQRCodeByUserid(userid)).then(function(qrcode){
     fs.writeFile(tempName, buf, function(err){
         qrnode.detect(__dirname+"/"+tempName, function(res){
             console.log(res);
+            fs.unlinkSync(__dirname+"/"+tempName);
         }); 
 
     });
