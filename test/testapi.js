@@ -2,7 +2,7 @@ var request = require('request');
 var assert = require('assert');
 var path = require('path');
 
-var baseApiPath = "localhost:11345/";
+var baseApiPath = "att.adminsys.us/";
 
 function api(url, data, headers, fn) {
     if(!fn) {
@@ -118,7 +118,7 @@ describe('Login API --- /api/login', function(){
 });
 
 var testuserid = "ln33";
-var punchkey = "a9026cc0-3d4e-11e5-ba2a-63644a1ad4f8.wqtAD8ONYBtfwqjDhTcVwprCrz3DjH7DsH3CgMKX";
+var punchkey = "9fd6c610-3d57-11e5-8ac4-f3bb072350ae.w5PDkcOVw4fDoMKwwqQwMMK2wrRracKtw5nDvcOgwpbCqmc";
 
 describe('Punch IN/OUT --- /api/punch/:punchkey', function(){
 
@@ -372,21 +372,20 @@ describe('Email User Details --- /api/email/detail_report', function(){
         });
     });
     
-    it('should send email to user', function(){
-        api('/api/email/detail_report',{
-            startDate: '2015-07-01',
-            endDate: '2015-07-31',
-            email: 'saiqiuli@gmail.com',
-            userid: 'ln8'
-        }, {
-            auth_key: authKey
-        }, function(err, res, body){
-            assert(!err, "Error is:" + err);
-            body = JSON.parse(body);
-            console.log(body);
-            assert.equal(body.status, 'success', "Status should be success");
-        });
-    });
+    //it('should send email to user', function(){
+    //    api('/api/email/detail_report',{
+    //        startDate: '2015-07-01',
+    //        endDate: '2015-07-31',
+    //        email: 'saiqiuli@gmail.com',
+    //        userid: 'ln8'
+    //    }, {
+    //        auth_key: authKey
+    //    }, function(err, res, body){
+    //        assert(!err, "Error is:" + err);
+    //        body = JSON.parse(body);
+    //        assert.equal(body.status, 'success', "Status should be success");
+    //    });
+    //});
 });
 
 describe('Disable authkey --- /api/disable_key', function(){
