@@ -196,7 +196,7 @@ router.post('/change', function(req, res, next){
 		console.log(JSON.stringify(userObj));
 
 		//Avatar is from url
-		if(files.avatar[0].size == 0){
+		if(files.avatar && files.avatar[0].size == 0){
 			userObj.avatar = userObj.avatar_url;
 			delete userObj.avatar_url;
 
@@ -215,7 +215,7 @@ router.post('/change', function(req, res, next){
 			});
 
 	// 	//Avatar from upload
-		}else{
+		}else if(files.avatar) {
 			var image = files.avatar[0];
 			var imgPath = image.path;
 
