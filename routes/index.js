@@ -328,6 +328,10 @@ router.post('/supervisor/employees', function(req, res) {
     var um = new userMoudle({db:sm.db});
     var userid = req.body.userid;
     sm.getSessionInfo(req.cookies.sessionid, function(err, sObj) {
+        if(err) {
+             next(err);
+             return;
+        }
         um.searchUser(userid, sObj.compid, function(err, doc) {
             var title;
             if (err) {
