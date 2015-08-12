@@ -359,9 +359,9 @@ describe('Get User Records --- /api/records', function(){
 
     it('should return expected results', function(done){
         api('/api/records', {
-            userid: 'ln33',
+            userid: 'test_51',
             beginDate: '2015-08-06',
-            endDate: '2015-08-12'
+            endDate: '2015-08-13'
         }, {
             auth_key: authKey
         }, function(err, res, body){
