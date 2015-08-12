@@ -57,7 +57,7 @@ function Authentication() {
         var db = req.db;
         var sessionCol = db.get('session');
         sessionCol.findOne({ sessionid: sessionid }, {}, function(err, doc) {
-            if (err || !doc) {
+            if (err || !doc || !doc.compid) {
                 res.clearCookie('sessionid');
                 return redirectToLogin(req, res);
             }
@@ -69,7 +69,7 @@ function Authentication() {
             }
 
             res.cookie('sessionid', sessionid, {
-                maxAge: 24 * 3600 * 1000,
+                maxAge: 30 * 24 * 3600 * 1000,
                 httpOnly: true
             });
 

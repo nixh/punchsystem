@@ -10,6 +10,10 @@ var util = require('util');
 
 var um = new usermodule();
 
+var Action = require('../lib/common/action');
+
+router.get('/new', Action('user.newUser'));
+
 // Add a new user
 router.get('/add', utils.render('users/adduser', {}));
 router.post('/add', function(req, res){

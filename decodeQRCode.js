@@ -25,7 +25,6 @@ dbm.use(queryQRCodeByUserid(userid)).then(function(qrcode){
             console.log(res);
             fs.unlinkSync(__dirname+"/"+tempName);
         }); 
-
     });
 });
 

@@ -1,0 +1,10 @@
+mixin field(fieldName, type, err)
+    .field
+        label(for=fieldName id=fieldName+"Lb")= fieldName
+        input(name=fieldName type="#{ type ? type : 'text' }")
+        if err
+            span.errorSymbol|  *
+            .errorMessage= err
+
+mixin radio(fieldName, values)
+    

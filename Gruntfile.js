@@ -49,7 +49,6 @@ grunt.config.init({
             options: {
                 livereload: true
             }
-
         }
     }
 });
