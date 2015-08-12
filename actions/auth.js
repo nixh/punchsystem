@@ -54,7 +54,7 @@ auth.searchRecords = {
         beginDate = moment(beginDate, 'YYYY-MM-DD').valueOf();
         var endDate = req.body.endDate;
         if(!endDate) throw new Error('lack params');
-        endDate = moment(endDate, 'YYYY-MM-DD').valueOf();
+        endDate = moment(endDate, 'YYYY-MM-DD').endOf('day').valueOf();
         var length_limit = req.body.rec_length 
                            || config.get('app.config->recentRecords.limit') 
                            || 5;
