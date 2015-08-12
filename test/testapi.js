@@ -2,7 +2,7 @@ var request = require('request');
 var assert = require('assert');
 var path = require('path');
 
-var baseApiPath = "att.adminsys.us/";
+var baseApiPath = "att.adminsys.us";
 
 function api(url, data, headers, fn) {
     if(!fn) {
@@ -119,6 +119,7 @@ describe('Login API --- /api/login', function(){
 
 var testuserid = "ln33";
 var punchkey = "9fd6c610-3d57-11e5-8ac4-f3bb072350ae.w5PDkcOVw4fDoMKwwqQwMMK2wrRracKtw5nDvcOgwpbCqmc";
+//var punchkey = "a9026cc0-3d4e-11e5-ba2a-63644a1ad4f8.wqtAD8ONYBtfwqjDhTcVwprCrz3DjH7DsH3CgMKX";
 
 describe('Punch IN/OUT --- /api/punch/:punchkey', function(){
 
@@ -159,6 +160,7 @@ describe('Punch IN/OUT --- /api/punch/:punchkey', function(){
             assert(!err, "Error is:" + err);
             body = JSON.parse(body);
             var punchData = body.data;
+            assert(punchData, "punchData should not be empty!");
             assert.equal(punchData.punchOut, false, "punch in should be false");
             assert(punchData.punchTime, "should have punch time.");
             done();
@@ -174,6 +176,7 @@ describe('Punch IN/OUT --- /api/punch/:punchkey', function(){
             assert(!err, "Error is:" + err);
             body = JSON.parse(body);
             var punchData = body.data;
+            assert(punchData, "punchData should not be empty!");
             assert.equal(punchData.punchOut, true, "punch in should be false");
             assert(punchData.punchTime, "should have punch time.");
             done();
@@ -353,6 +356,23 @@ describe('Get User Records --- /api/records', function(){
             done();
         });
     });
+
+    it('should return expected results', function(done){
+        api('/api/records', {
+            userid: 'ln33',
+            beginDate: '2015-08-06',
+            endDate: '2015-08-12'
+        }, {
+            auth_key: authKey
+        }, function(err, res, body){
+            assert(!err, "Error is:" + err);
+            body = JSON.parse(body);
+            assert.equal(body.status, 'success', "Status should be success");
+            console.log(body.data);
+            done();
+        })
+    });
+
 });
 
 describe('Email User Details --- /api/email/detail_report', function(){
@@ -372,20 +392,20 @@ describe('Email User Details --- /api/email/detail_report', function(){
         });
     });
     
-    it('should send email to user', function(){
-        api('/api/email/detail_report',{
-            startDate: '2015-07-01',
-            endDate: '2015-07-31',
-            email: 'saiqiuli@gmail.com',
-            userid: 'ln8'
-        }, {
-            auth_key: authKey
-        }, function(err, res, body){
-            assert(!err, "Error is:" + err);
-            body = JSON.parse(body);
-            assert.equal(body.status, 'success', "Status should be success");
-        });
-    });
+//    it('should send email to user', function(){
+//        api('/api/email/detail_report',{
+//            startDate: '2015-07-01',
+//            endDate: '2015-07-31',
+//            email: 'saiqiuli@gmail.com',
+//            userid: 'ln8'
+//        }, {
+//            auth_key: authKey
+//        }, function(err, res, body){
+//            assert(!err, "Error is:" + err);
+//            body = JSON.parse(body);
+//            assert.equal(body.status, 'success', "Status should be success");
+//        });
+//    });
 });
 
 describe('Disable authkey --- /api/disable_key', function(){

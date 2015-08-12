@@ -97,7 +97,7 @@ function postLogin(req, res, next) {
                 if (err)
                     throw err;
                 res.cookie('sessionid', sDoc.sessionid, {
-                    maxAge: 24 * 3600 * 1000,
+                    maxAge: 30 * 24 * 3600 * 1000,
                     httpOnly: true
                 });
                 var pageUrl = req.body.pageUrl;
@@ -530,6 +530,8 @@ function formatMonthDataToReport(monthData) {
             userReports[data.userid] = user;
         }
     }
+
+    console.log(userReports);
     return userReports;
 
 }

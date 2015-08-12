@@ -1,0 +1,16 @@
+extends layout
+
+append scripts
+    script(src="/javascripts/userform_init.js")
+
+block content
+    include helper/forms
+    .section
+        .section_header= tr('basic_info')
+        .section_content
+            +field('test')
+            +field('name')
+            +field('password', 'password')
+
+
+
