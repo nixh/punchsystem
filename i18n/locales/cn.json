@@ -173,5 +173,8 @@
 	"\"payment\"": "\"应付\"",
 	"\"rate\"": "\"时薪\"",
 	"\"workhours\"": "\"工时\"",
-	"Email Right Now": "立即发送"
+	"Email Right Now": "立即发送",
+	"salary_info": "salary_info",
+	"contact_info": "contact_info",
+	"address_info": "address_info"
 }

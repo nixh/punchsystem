@@ -1,4 +1,7 @@
-extends layout
+extends newlayout
+
+append links
+    link(rel="stylesheet" href="/stylesheets/newuserform.css")
 
 append scripts
     script(src="/javascripts/userform_init.js")
@@ -8,9 +11,32 @@ block content
     .section
         .section_header= tr('basic_info')
         .section_content
-            +field('test')
+            +field('userid')
             +field('name')
             +field('password', 'password')
-
+            +radio('sex', [{data:1, value:"male"}, {data:0, value:"female"}])
+    .section
+        .section_header= tr('salary_info')
+        .section_content
+            +field('rate')
+            +field('changetime')
+            +switch('overtime')
+            +radio('rateType', [{data:1, value:"hourlyRate"},{data:0, value:"dailyRate"}])
+            +field('overtime_threshold')
+            +field('overtime_multiplier')
+            +list('holidays')
+    +more()
+        .section
+            .section_header= tr('contact_info')
+            .section_content
+                +field('tel')
+                +field('email')
+        .section
+            .section_header= tr('address_info')
+            .section_content
+                +field('street')
+                +field('city')
+                +field('state')
+                +field('zipcode')
 
 

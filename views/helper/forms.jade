@@ -1,3 +1,8 @@
+link(rel="stylesheet" href="/toggles/toggles.css")
+link(rel="stylesheet" href="/toggles/toggles-modern.css")
+script(src="/toggles/toggles.min.js")
+script(src="/javascripts/list.js")
+
 mixin field(fieldName, type, err)
     .field
         label(for=fieldName id=fieldName+"Lb")= fieldName
@@ -6,5 +11,45 @@ mixin field(fieldName, type, err)
             span.errorSymbol|  *
             .errorMessage= err
 
-mixin radio(fieldName, values)
-    
+mixin switch(fieldName, on)
+    .field
+        label(id=fieldName+"Lb")= fieldName
+        div(class="switch toggle-modern #{fieldName}" style="width:60px;height:25px;text-align:center;")
+        script.
+            $('.#{fieldName}').toggles({on:#{on?true:false}})
+
+mixin radio(fieldName, values, selectedIndex, defaultValue)
+    .field
+        label(for=fieldName id=fieldName+"Lb")= fieldName
+        - var selected = selectedIndex ? selectedIndex : 0
+        each value, index in values
+            - var scls = index === selected ? ' radioselected' : '';
+            div(class="radioinput#{scls}" data-value=value.data)
+                .outer
+                    .inner
+                .label= value.value
+        input(name=fieldName type="hidden" id=fieldName
+              value="#{defaultValue ? defaultValue : ''}")
+
+mixin more()
+    .more
+        .showmore| See More
+        .content(style="display:none")
+            if block
+                block
+    script.
+        $('.showmore').click(function(){
+            if($('.content').is(':hidden')) {
+                $('.content').slideDown();
+            } else {
+                $('.content').slideUp();
+            }
+        });
+
+mixin list(fieldName, vlaues)
+    .field
+        label(for=fieldName id=fieldName+"Lb")= fieldName
+        div(class="list #{fieldName}")
+        script.
+            $(".#{fieldName}").dynalist({name:'Hello'});
+

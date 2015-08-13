@@ -37,6 +37,12 @@ Common Settings
 .small-font {
   font-size: 40px;
 }
+.big-font {
+  font-size: 60px;
+}
+.margin-gap-left {
+  margin-left: 3.325%;
+}
 .clear-browsersettings {
   margin: 0;
   padding: 0;
@@ -116,6 +122,9 @@ functions
       -ms-user-select: none;
           user-select: none;
 }
+.avoid-clicks {
+  pointer-events: none;
+}
 .after-float {
   content: "";
   display: block;
@@ -123,24 +132,6 @@ functions
   clear: both;
   zoom: 1;
   height: 0px;
-}
-.basic-table-head {
-  font-family: 'anivers reg', 'simhei';
-  font-size: 75px;
-  background-color: #f78283;
-  color: white;
-}
-.basic-table-head:first-child {
-  border-top-left-radius: 25px;
-}
-.basic-table-head:last-child {
-  border-top-right-radius: 25px;
-}
-.basic-table-data {
-  background-color: rgba(255, 255, 255, 0.8);
-  color: #677499;
-  text-align: center;
-  font-size: 40px;
 }
 .basic-table-row:last-child td:first-child {
   border-bottom-left-radius: 25px;
@@ -157,21 +148,21 @@ functions
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
   text-indent: 10px;
-  color: #677499;
+  color: #505a6a;
 }
 .textinput::-webkit-input-placeholder {
-  color: #677499;
+  color: #505a6a;
 }
 .textinput:-moz-placeholder {
   /* Firefox 18- */
-  color: #677499;
+  color: #505a6a;
 }
 .textinput::-moz-placeholder {
   /* Firefox 19+ */
-  color: #677499;
+  color: #505a6a;
 }
 .textinput:-ms-input-placeholder {
-  color: #677499;
+  color: #505a6a;
 }
 .radioinput {
   -webkit-user-select: none;
@@ -181,7 +172,7 @@ functions
 }
 .radioinput .outer {
   border-radius: 50%;
-  border: 15px solid #8ad1d7;
+  border: 15px solid #8dc63f;
   width: 120px;
   height: 120px;
   float: left;
@@ -193,7 +184,7 @@ functions
   border: none;
   width: 50px;
   height: 50px;
-  background-color: #8ad1d7;
+  background-color: #8dc63f;
   position: absolute;
   margin: auto;
   top: 0;
@@ -210,8 +201,61 @@ functions
   font-size: 50px;
   margin-left: 5%;
 }
+.radioinput-center {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.radioinput-center .outer {
+  border-radius: 50%;
+  border: 15px solid #8dc63f;
+  width: 120px;
+  height: 120px;
+  cursor: pointer;
+  position: relative;
+  margin: 0 auto;
+}
+.radioinput-center .outer .inner {
+  border-radius: 50%;
+  border: none;
+  width: 50px;
+  height: 50px;
+  background-color: #8dc63f;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: none;
+}
+.radioinput-center .label {
+  text-align: center;
+  height: 120px;
+  line-height: 120px;
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+}
 .radioinput.radioselected .inner {
-  display: block;
+  display: block !important;
+}
+.radioinput-center.radioselected .inner {
+  display: block !important;
+}
+.inline-display {
+  height: 200px;
+  line-height: normal;
+  text-align: center;
+  background-color: white;
+  color: #505a6a;
+  border-radius: 10px;
+  border: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  pointer-events: none;
 }
 .unorder-list {
   list-style: none;
@@ -226,27 +270,27 @@ functions
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
   text-indent: 10px;
-  color: #677499;
+  color: #505a6a;
   font-size: 40px;
   height: auto;
 }
 .inner-input::-webkit-input-placeholder {
-  color: #677499;
+  color: #505a6a;
 }
 .inner-input:-moz-placeholder {
   /* Firefox 18- */
-  color: #677499;
+  color: #505a6a;
 }
 .inner-input::-moz-placeholder {
   /* Firefox 19+ */
-  color: #677499;
+  color: #505a6a;
 }
 .inner-input:-ms-input-placeholder {
-  color: #677499;
+  color: #505a6a;
 }
-.submitbutton {
-  background-color: #8ad1d7;
-  color: white;
+.submit-button {
+  background-color: white;
+  color: #505a6a;
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
   text-align: center;
@@ -261,9 +305,63 @@ functions
           user-select: none;
   cursor: pointer;
 }
-.submitbutton:active {
-  background-color: #f78283;
+.submit-button:active {
+  background-color: #8dc63f;
   color: white;
+}
+/**
+yongred changing color, new variables
+*/
+.functional-button {
+  background-color: #505a6a;
+  color: #8dc63f;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+}
+.functional-button:active {
+  background-color: #8dc63f;
+  color: white;
+}
+.link-button {
+  background-color: white;
+  color: #505a6a;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+}
+.link-button:active {
+  background-color: #8dc63f;
+  color: white;
+}
+.text-input,
+.pwd-input {
+  border-radius: 10px;
+  border: none;
+  width: 100%;
+  height: 120px;
+  font-family: 'anivers reg', 'simhei';
+  font-size: 50px;
+  text-indent: 10px;
+  color: #505a6a;
+}
+.text-input::-webkit-input-placeholder {
+  color: #505a6a;
+}
+.text-input:-moz-placeholder {
+  /* Firefox 18- */
+  color: #505a6a;
+}
+.text-input::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #505a6a;
+}
+.text-input:-ms-input-placeholder {
+  color: #505a6a;
 }
 .bgbody {
   background-repeat: repeat-y;
@@ -288,24 +386,24 @@ functions
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
   text-indent: 10px;
-  color: #677499;
+  color: #505a6a;
   margin-bottom: 2%;
   text-align: center;
   display: block;
 }
 .supervisorPunchPage #searchform .startEndTime input::-webkit-input-placeholder {
-  color: #677499;
+  color: #505a6a;
 }
 .supervisorPunchPage #searchform .startEndTime input:-moz-placeholder {
   /* Firefox 18- */
-  color: #677499;
+  color: #505a6a;
 }
 .supervisorPunchPage #searchform .startEndTime input::-moz-placeholder {
   /* Firefox 19+ */
-  color: #677499;
+  color: #505a6a;
 }
 .supervisorPunchPage #searchform .startEndTime input:-ms-input-placeholder {
-  color: #677499;
+  color: #505a6a;
 }
 .supervisorPunchPage #searchform .controlButtons {
   width: 100%;
@@ -327,17 +425,17 @@ functions
   width: 31.25%;
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
-  height: 150px;
+  height: #8dc63f;
   float: left;
   text-align: center;
-  background-color: #8ad1d7;
+  background-color: 150px;
   color: white;
-  line-height: 150px;
+  line-height: #8dc63f;
   border-radius: 10px;
 }
 .supervisorPunchPage #searchform .controlButtons .buttonItem:active {
-  background-color: #f78283;
-  color: white;
+  background-color: #505a6a;
+  color: #8dc63f;
 }
 .supervisorPunchPage #searchform .controlButtons .buttonItem:nth-child(2) {
   margin-left: 3.325%;
@@ -354,30 +452,6 @@ functions
   margin-left: -5px;
   width: calc(100% + 2*5px);
 }
-.supervisorPunchPage .reportTableDiv table.reportTable th.tableHead {
-  font-family: 'anivers reg', 'simhei';
-  font-size: 75px;
-  background-color: #f78283;
-  color: white;
-}
-.supervisorPunchPage .reportTableDiv table.reportTable th.tableHead:first-child {
-  border-top-left-radius: 25px;
-}
-.supervisorPunchPage .reportTableDiv table.reportTable th.tableHead:last-child {
-  border-top-right-radius: 25px;
-}
-.supervisorPunchPage .reportTableDiv table.reportTable tr.tableRow:last-child td:first-child {
-  border-bottom-left-radius: 25px;
-}
-.supervisorPunchPage .reportTableDiv table.reportTable tr.tableRow:last-child td:last-child {
-  border-bottom-right-radius: 25px;
-}
-.supervisorPunchPage .reportTableDiv table.reportTable tr.tableRow td.tableData {
-  background-color: rgba(255, 255, 255, 0.8);
-  color: #677499;
-  text-align: center;
-  font-size: 40px;
-}
 .supervisorPunchPage .reportTableDiv table.reportTable tr.tableRow:last-child .tableData:first-child {
   border-bottom-left-radius: 0;
 }
@@ -391,7 +465,7 @@ functions
 }
 .supervisorPunchPage .reportTableDiv table.reportTable th.tableHead {
   background-color: white;
-  color: #677499;
+  color: #505a6a;
 }
 .supervisorPunchPage .reportTableDiv table.reportTable .tableData {
   /*
@@ -434,27 +508,27 @@ functions
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
   text-indent: 10px;
-  color: #677499;
+  color: #505a6a;
   font-size: 40px;
   height: auto;
 }
 .supervisorPunchPage .reportTableDiv table.reportTable .tableData > ul > li > input::-webkit-input-placeholder {
-  color: #677499;
+  color: #505a6a;
 }
 .supervisorPunchPage .reportTableDiv table.reportTable .tableData > ul > li > input:-moz-placeholder {
   /* Firefox 18- */
-  color: #677499;
+  color: #505a6a;
 }
 .supervisorPunchPage .reportTableDiv table.reportTable .tableData > ul > li > input::-moz-placeholder {
   /* Firefox 19+ */
-  color: #677499;
+  color: #505a6a;
 }
 .supervisorPunchPage .reportTableDiv table.reportTable .tableData > ul > li > input:-ms-input-placeholder {
-  color: #677499;
+  color: #505a6a;
 }
 .supervisorPunchPage .reportTableDiv table.reportTable .tableData .editButton {
-  background-color: #8ad1d7;
-  color: white;
+  background-color: #8dc63f;
+  color: blue;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -464,8 +538,8 @@ functions
   line-height: 200px;
 }
 .supervisorPunchPage .reportTableDiv table.reportTable .tableData .editButton:active {
-  background-color: #f78283;
-  color: white;
+  background-color: #505a6a;
+  color: #8dc63f;
 }
 .supervisorPunchPage .reportTableDiv table.reportTable .tableData .confirmReturnDelete {
   width: 100%;
@@ -480,7 +554,7 @@ functions
   height: 0px;
 }
 .supervisorPunchPage .reportTableDiv table.reportTable .tableData .confirmReturnDelete .funcButton {
-  color: white;
+  color: blue;
   text-align: center;
   padding: 0px;
   height: 50%;
@@ -492,22 +566,22 @@ functions
   line-height: 100px;
 }
 .supervisorPunchPage .reportTableDiv table.reportTable .tableData .confirmReturnDelete .funcButton:active {
-  background-color: #677499;
-  color: white;
+  background-color: #505a6a;
+  color: #8dc63f;
 }
 .supervisorPunchPage .reportTableDiv table.reportTable .tableData .confirmReturnDelete .confirmButton {
   float: left;
   width: 50%;
-  background-color: #8ad1d7;
+  background-color: #8dc63f;
 }
 .supervisorPunchPage .reportTableDiv table.reportTable .tableData .confirmReturnDelete .returnButton {
   float: right;
   width: 50%;
-  background-color: #f78283;
+  background-color: pink;
 }
 .supervisorPunchPage .reportTableDiv table.reportTable .tableData .confirmReturnDelete .deleteButton {
   width: 100%;
-  background-color: #677499;
+  background-color: #505a6a;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -516,6 +590,6 @@ functions
   clear: both;
 }
 .supervisorPunchPage .reportTableDiv table.reportTable .tableData .confirmReturnDelete .deleteButton:active {
-  background-color: #8ad1d7;
-  color: white;
+  background-color: #8dc63f;
+  color: #8dc63f;
 }
