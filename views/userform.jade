@@ -22,9 +22,14 @@ block content
             +field('changetime')
             +switch('overtime')
             +radio('rateType', [{data:1, value:"hourlyRate"},{data:0, value:"dailyRate"}])
-            +field('overtime_threshold')
-            +field('overtime_multiplier')
-            +list('holidays')
+            .hourly
+                +field('overtime_threshold')
+                +field('overtime_multiplier')
+            .daily
+                +field('workstart')
+                +field('workend')
+                +field('latetime')
+                +field('wagededuction')
     +more()
         .section
             .section_header= tr('contact_info')
