@@ -1,4 +1,4 @@
-extends layout
+extends ../layout
 append links
     link(rel="stylesheet" href="/stylesheets/userform.css")
     link(rel="stylesheet" href="/pickadate/lib/themes/default.css" id="theme_base")
@@ -99,7 +99,7 @@ append scripts
             $('#confirm').on('click', function(){
                 $form = $('form#big');
                 $form.attr('enctype', 'multipart/form-data')
-                $form.attr('action', '/users/change');
+                $form.attr('action', '/users/add');
                 $form.attr('method', 'post');
                 $form.submit();
             });
@@ -159,7 +159,7 @@ block content
                     label.title= tr('password')
                     input(id="password" name="password" type="password").passinput()
                     .sexinput
-                        - var generValue = user.sex ? 1 : 0;
+                        - var generValue = user ? user.sex ? 1 : 0 : 1;
                         label.title= tr('sex')
                         .radioinput.radioselected(data-value="1")
                             .outer

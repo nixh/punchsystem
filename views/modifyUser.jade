@@ -13,6 +13,15 @@ append scripts
     script(src="/pickadate/lib/picker.time.js")
     script.
         function setAllFieldsToTable() {
+            var generValue = #{user.sex ? 1 : 0};
+            $('.radioinput').each(function(){
+                var $this = $(this);
+                $this.removeClass('radioselected');
+                if(parseInt($this.data('value')) === generValue) {
+                    $this.addClass('radioselected');
+                }
+            });
+
             $('.previewtable td>span').each(function(){
                 var $span = $(this);
                 var name = $span[0].id;

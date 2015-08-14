@@ -523,8 +523,6 @@ function formatMonthDataToReport(monthData) {
             userReports[data.userid] = user;
         }
     }
-
-    console.log(userReports);
     return userReports;
 
 }

@@ -16,19 +16,18 @@ router.get('/new', Action('user.newUser'));
 
 // Add a new user
 router.get('/add', utils.render('users/adduser', {}));
-router.post('/add', function(req, res) {
+router.post('/add', function(req, res, next) {
 
     var form = new multiparty.Form();
 
     form.parse(req, function(err, fields, files) {
         if (err) {
-            // Do something
+            next(err);
         } else {
             var userObj = {};
             for (var key in fields) {
                 userObj[key] = fields[key][0];
             }
-
             delete userObj._id;
 
             var sm = new sModule();
@@ -38,54 +37,15 @@ router.post('/add', function(req, res) {
             sm.getSessionInfo(req.cookies.sessionid, function(err, sObj) {
 
                 userObj.compid = sObj.compid;
-
-                if (files.avatar[0].size == 0) {
-                    userObj.avatar = userObj.avatar_url;
-                    delete userObj.avatar_url;
-
-                    if (userObj.avatar.length == 0) {
-                        delete userObj.avatar;
+                um.addUser(userObj, function(err, doc) {
+                    if (err) {
+                        utils.render('users/search')(req, res);
+                    } else {
+                        // console.log(doc);
+                        var loc = '/supervisor/supervisor_main';
+                        res.redirect(loc);
                     }
-
-                    um.addUser(userObj, function(err, doc) {
-                        if (err) {
-                            utils.render('users/search')(req, res);
-                        } else {
-                            // console.log(doc);
-                            var loc = '/supervisor/supervisor_main';
-                            res.redirect(loc);
-                        }
-                    });
-
-                    // 	//Avatar from upload
-                } else {
-                    var image = files.avatar[0];
-                    var imgPath = image.path;
-
-                    fs.readFile(imgPath, function(err, data) {
-                        if (err) {
-                            utils.render('supervisor/employees')(req, res);
-                        } else {
-                            var base64Image = new Buffer(data, 'binary').toString('base64');
-                            var finalData = "data:" + image.headers['content-type'] + "; base64," + base64Image;
-
-                            userObj['avatar'] = finalData;
-
-                            delete userObj.avatar_url;
-
-                            um.addUser(userObj, function(err, doc) {
-                                if (err) {
-                                    utils.render('users/search')(req, res);
-                                } else {
-                                    // console.log(doc);
-                                    res.redirect('/supervisor/supervisor_main');
-                                }
-                            });
-
-                        }
-                    });
-                }
-                // 			// col.insert(
+                });
             });
         }
     });
