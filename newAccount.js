@@ -8,12 +8,12 @@ for(var i=compid+1; i<compid+11; i++) {
     var counter = i-compid;
     db.companies.insert({
         compid: i,
-        name: 'APP_TC_'+counter,
+        name: 'DEMO_TC_'+counter,
         registerDate : current
     });
     db.users.insert({
-        name: 'apptest_'+counter,
-        userid: 'apptest'+counter,
+        name: 'demo'+counter,
+        userid: 'demo'+counter,
         password: '0000',
         avatar: '',
         createDate: current,
