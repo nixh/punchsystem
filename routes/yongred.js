@@ -152,7 +152,7 @@ router.get('/supervisor/supervisor_main', function(req, res, next){
             }
             delete userDoc.password;
             ret.user = userDoc;
-			utils.render('supervisor/supervisor_main', ret)(req, res, next);
+            utils.render('supervisor/supervisor_main', ret)(req, res, next);
         });
 
     });

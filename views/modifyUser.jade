@@ -18,15 +18,13 @@ append scripts
                 var name = $span[0].id;
                 var idName = name.substring(0, name.length-4);
                 var value = $('form input[name="'+idName+'"]').val();
-
                 if(idName === 'sex') {
-                    if (value ===false){
-                            value = "0";
-                        }else{
-                            value= "1";
-                        }
+                    if (value === "0"){
+                            value = false;
+                    } else {
+                        value= true;
+                    }
                     value = !value ? "#{tr('sex_male')}" : "#{tr('sex_female')}";
-
                 }
                 $span.html(value);
             });
@@ -51,7 +49,6 @@ append scripts
                 var fileNames = [];
                 $.each(files, function(i, v){
                     fileNames.push(v.name);
-
                 });
                 $('.uploadfield>input:first-child').val(fileNames.join(', '));
             });
@@ -115,8 +112,6 @@ append scripts
                     $('.sexinput .radioinput[data-value="1"]').remvoeClass('radioselected');
                     $('.sexinput .radioinput[data-value="0"]').addClass('radioselected');
                 }
-                
-
             });
         });
     
@@ -162,7 +157,7 @@ block content
                     label.title= tr('name')
                     input(id="name" name="name" type="text" value="#{!user? '' : user.name}").textinput()
                     label.title= tr('password')
-                    input(id="password" name="password" type="password" value="#{!user? '' : user.password}").passinput()
+                    input(id="password" name="password" type="password").passinput()
                     .sexinput
                         label.title= tr('sex')
                         .radioinput.radioselected(data-value="1")

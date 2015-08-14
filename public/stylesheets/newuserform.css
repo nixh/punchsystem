@@ -1,3 +1,111 @@
-.section {
-  border: 1px solid;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+.non-selectable {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+body {
+  background-color: #eeeeee;
+}
+.section_header {
+  font-size: 30px;
+  margin-bottom: 20px;
+  color: #505a6a;
+  margin-left: 2%;
+  margin-top: 2%;
+}
+.section_content .field {
+  white-space: nowrap;
+  overflow: hidden;
+  margin-bottom: 10px;
+  font-size: 0;
+}
+.section_content .field label {
+  color: white;
+  background: #505a6a;
+  font-size: 25px;
+  height: 60px;
+  display: inline-block;
+  width: 30%;
+  vertical-align: middle;
+  text-align: center;
+  line-height: 60px;
+  margin-left: 2%;
+}
+.section_content .field input {
+  font-size: 25px;
+  display: inline-block;
+  height: 58px;
+  text-indent: 10px;
+  border: none;
+  width: 66%;
+  vertical-align: middle;
+}
+.section_content .field .switch {
+  float: right;
+  height: 30px;
+  margin-top: 15px;
+  width: 80px;
+  text-align: center;
+  margin-right: 2%;
+}
+.section_content .field .radioinput.radioselected .inner {
+  display: block !important;
+}
+.section_content .field .radioinput {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: inline-block;
+  margin-left: 1%;
+  text-align: justify;
+}
+.section_content .field .radioinput .outer {
+  border-radius: 50%;
+  border: 6px solid #505a6a;
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+  position: relative;
+}
+.section_content .field .radioinput .outer:active {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.section_content .field .radioinput .outer .inner {
+  border-radius: 50%;
+  border: none;
+  width: 12px;
+  height: 12px;
+  background-color: #505a6a;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: none;
+}
+.section_content .field .radioinput .label {
+  display: inline-block;
+  vertical-align: middle;
+  height: 60px;
+  line-height: 60px;
+  font-size: 15px;
+  text-align: center;
+  color: #505a6a;
+  padding-left: 1%;
 }

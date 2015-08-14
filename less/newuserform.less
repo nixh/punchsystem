@@ -1,3 +1,118 @@
+@import './lib/shapelib.less';
+
+@background: rgb(238,238,238);
+@header-background: rgb(80,90,106);
+@button-active: rgb(141,198,63);
+@header-text-color: white;
+@control-height: 60px;
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    appearance: none;
+}
+
+.non-selectable {
+    user-select: none;
+}
+
+body {
+    background-color: @background;
+}
+
 .section {
-    border: 1px solid;
+}
+
+.section_header {
+    font-size: 30px;
+    margin-bottom: 20px;
+    color: @header-background;
+    margin-left: 2%;
+    margin-top: 2%;
+}
+
+.section_content {
+
+    .field {
+
+        label {
+            color: @header-text-color;
+            background: @header-background;
+            font-size: 25px;
+            height: @control-height;
+            display: inline-block;
+            width: 30%;
+            vertical-align: middle;
+            text-align: center;
+            line-height: @control-height;
+            margin-left: 2%;
+        }
+        input {
+            font-size: 25px;
+            display: inline-block;
+            height: @control-height - 2px;
+            text-indent: 10px;
+            border:none;
+            width: 66%;
+            vertical-align: middle;
+        }
+        .switch {
+            float: right;
+            height: @control-height/2;
+            margin-top: @control-height/4;
+            width: 80px;
+            text-align: center;
+            margin-right: 2%;
+        }
+
+        .radioinput.radioselected .inner{
+            display: block !important;
+        }
+
+        .radioinput {
+            .non-selectable;
+            display: inline-block;
+            margin-left: 1%;
+            text-align: justify;
+            .outer {
+                &:active {
+                    .non-selectable;
+                }
+                .hollowcircle(@control-height/1.5, 6px, @header-background);
+                display: inline-block;
+                vertical-align: middle;
+                cursor: pointer;
+                position: relative;
+                .inner {
+                    .circle(12px, @header-background);
+                    position: absolute;
+                    margin: auto;
+                    top: 0;
+                    left: 0;
+                    bottom: 0;
+                    right: 0;
+                    display: none;
+                }
+            }
+            .label {
+                display: inline-block;
+                vertical-align: middle;
+                height: @control-height;
+                line-height: @control-height;
+                font-size: 15px;;
+                text-align: center;
+                color: @header-background;
+                padding-left: 1%;
+            }
+        }
+
+        white-space: nowrap;
+        overflow: hidden;
+
+        margin-bottom: 10px;
+        font-size: 0;
+
+    }
+
 }

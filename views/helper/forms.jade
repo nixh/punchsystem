@@ -14,7 +14,7 @@ mixin field(fieldName, type, err)
 mixin switch(fieldName, on)
     .field
         label(id=fieldName+"Lb")= fieldName
-        div(class="switch toggle-modern #{fieldName}" style="display:inline-block;width:60px;height:25px;text-align:center;")
+        div(class="switch toggle-modern #{fieldName}")
         script.
             $('.#{fieldName}').toggles({on:#{on?true:false}})
 

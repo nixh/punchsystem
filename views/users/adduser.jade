@@ -19,6 +19,11 @@ append scripts
                 var idName = name.substring(0, name.length-4);
                 var value = $('form input[name="'+idName+'"]').val();
                 if(idName === 'sex') {
+                    if (value === "0"){
+                            value = false;
+                    } else {
+                        value= true;
+                    }
                     value = value ? "#{tr('sex_male')}" : "#{tr('sex_female')}";
                 }
                 $span.html(value);
@@ -101,7 +106,6 @@ append scripts
             });
             $('.sexinput input').change(function(){
                 var sex = $(this).val();
-                console.log(sex);
                 if(sex === '0') {
                     $('.sexinput .radioinput[data-value="1"]').addClass('radioselected');
                     $('.sexinput .radioinput[data-value="0"]').removeClass('radioselected');
@@ -116,12 +120,9 @@ append scripts
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
-
                 reader.onload = function(e) {
-                    $('#img_prev')
-                        .attr('src', e.target.result);
+                    $('#img_prev').attr('src', e.target.result);
                 };
-
                 reader.readAsDataURL(input.files[0]);
             }
         }
@@ -221,21 +222,21 @@ block content
                 tr
                     th= tr('userform_address')
                     td
-                        span#streettext
+                        span#address_streettext
                 tr
                     td(colspan=2)
-                        span#citytext 
-                        span#statetext
-                        span#ziptext
+                        span#address_citytext 
+                        span#address_statetext
+                        span#address_ziptext
 
                 tr
                     th= tr('paid_rate')
                     td
-                        span#ratetext
+                        span#curRatetext
                 tr
                     th= tr('rate_date')
                     td
-                        span#ratedatetext
+                        span#rate_change_datetext
                 tr
                     th= tr('userform_tel')
                     td
@@ -243,7 +244,7 @@ block content
                 tr
                     th= tr('userform_email')
                     td
-                        span#email
+                        span#emailtext
                 tr
                     td(colspan=2)
                         span.label= tr('remark')

@@ -11,6 +11,8 @@ router.post('/auth_key', Action('auth.getKey'));
 router.post('/disable_key', Action('auth.disableKey'));
 router.post('/punch/:punchkey', Action('auth.punch'));
 router.post('/email/detail_report', Action('reports.emailDetailReportsCSV'));
+router.get('/vocation/:userid/:status', Action('vocation.checkVocation'));
+router.post('/vocation/cancel', Action('vocation.cancelVocation'));
 
 //router.post('/email_report_settings', Action('userSettings.emailSwitch'));
 //router.post('/send_email/:userid', Action('userSettings.sendEmail'));
