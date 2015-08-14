@@ -1,16 +1,18 @@
 doctype html
 html  
-    head
-        title= title
-        meta(charset="utf-8")
-        meta(name="viewport" content="width=device-width, initail-scale=1")
-        meta(name="Description" content="Attendance and Payments System")
-        block links
-        block scripts
-            script(src="/datepicker/js/jquery-1.11.3.min.js")
+	head
+		title= title
+		block links
+			link(rel='stylesheet', href='/stylesheets/style.css')
+			//link(rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css")
+			link(rel= "stylesheet" href= "/datepicker/css/datepicker.css")
+			//link(rel= "stylesheet" href= "/tagbox/fm.tagator.jquery.css")
+		block scripts
+			script(src="/datepicker/js/jquery-1.11.3.min.js")
+			script(src="/bootstrap-3.3.5-dist/js/bootstrap.min.js")
+			//script(src="/datepicker/js/bootstrap-datepicker.js")
+			//script(src="/tagbox/fm.tagator.jquery.js")
 
-    body(ontouchstart="" ontouchend="")
-        .main
-            block content
-        .footer
-            block footer
+		
+	body.bgbody(ontouchstart="" ontouchend="")
+		block content
