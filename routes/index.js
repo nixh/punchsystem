@@ -357,33 +357,26 @@ router.get('/supervisor/employees/:id', function(req, res, next){
 
     sm.getSessionInfo(req.cookies.sessionid, function(err, sObj) {
 
-        // console.log(sObj.compid);
-        // console.log(req.params.id);
-
         um.getUserInfo(req.params.id, function(err, user) {
             if(err){
 
                 utils.render('users/userListSearch')(req, res, next);
             }else{
-                // console.log('This is the user being searched...');
-                if(!user)
-                    user = {};
+                if(!user) user = {};
 
                 if(user && user.address){
-                                var addr = user.address.split('|');
+                    var addr = user.address.split('|');
 
-                                user['address_street'] = addr[0];
-                                user['address_city'] = addr[1];
-                                user['address_state'] = addr[2];
-                                user['address_zip'] = addr[3];
-                        }
+                    user['address_street'] = addr[0];
+                    user['address_city'] = addr[1];
+                    user['address_state'] = addr[2];
+                    user['address_zip'] = addr[3];
+                }
                 if(user && !user.avatar) {
                     user.avatar = user.sex ? "/images/boydefaultpicture.png" :
-                                             "/images/girl default picture.png";
+                    "/images/girl default picture.png";
                 }
-                utils.render('modifyUser', {
-                    user: user
-                })(req, res);
+                utils.render('modifyUser', { user: user })(req, res, next);
             }
         });
     });

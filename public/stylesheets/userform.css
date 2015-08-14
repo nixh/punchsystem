@@ -37,12 +37,6 @@ Common Settings
 .small-font {
   font-size: 40px;
 }
-.big-font {
-  font-size: 60px;
-}
-.margin-gap-left {
-  margin-left: 3.325%;
-}
 .clear-browsersettings {
   margin: 0;
   padding: 0;
@@ -122,9 +116,6 @@ functions
       -ms-user-select: none;
           user-select: none;
 }
-.avoid-clicks {
-  pointer-events: none;
-}
 .after-float {
   content: "";
   display: block;
@@ -132,6 +123,24 @@ functions
   clear: both;
   zoom: 1;
   height: 0px;
+}
+.basic-table-head {
+  font-family: 'anivers reg', 'simhei';
+  font-size: 75px;
+  background-color: #f78283;
+  color: white;
+}
+.basic-table-head:first-child {
+  border-top-left-radius: 25px;
+}
+.basic-table-head:last-child {
+  border-top-right-radius: 25px;
+}
+.basic-table-data {
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #677499;
+  text-align: center;
+  font-size: 40px;
 }
 .basic-table-row:last-child td:first-child {
   border-bottom-left-radius: 25px;
@@ -148,21 +157,21 @@ functions
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
   text-indent: 10px;
-  color: #505a6a;
+  color: #677499;
 }
 .textinput::-webkit-input-placeholder {
-  color: #505a6a;
+  color: #677499;
 }
 .textinput:-moz-placeholder {
   /* Firefox 18- */
-  color: #505a6a;
+  color: #677499;
 }
 .textinput::-moz-placeholder {
   /* Firefox 19+ */
-  color: #505a6a;
+  color: #677499;
 }
 .textinput:-ms-input-placeholder {
-  color: #505a6a;
+  color: #677499;
 }
 .radioinput {
   -webkit-user-select: none;
@@ -172,7 +181,7 @@ functions
 }
 .radioinput .outer {
   border-radius: 50%;
-  border: 15px solid #8dc63f;
+  border: 15px solid #8ad1d7;
   width: 120px;
   height: 120px;
   float: left;
@@ -184,7 +193,7 @@ functions
   border: none;
   width: 50px;
   height: 50px;
-  background-color: #8dc63f;
+  background-color: #8ad1d7;
   position: absolute;
   margin: auto;
   top: 0;
@@ -201,61 +210,8 @@ functions
   font-size: 50px;
   margin-left: 5%;
 }
-.radioinput-center {
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-}
-.radioinput-center .outer {
-  border-radius: 50%;
-  border: 15px solid #8dc63f;
-  width: 120px;
-  height: 120px;
-  cursor: pointer;
-  position: relative;
-  margin: 0 auto;
-}
-.radioinput-center .outer .inner {
-  border-radius: 50%;
-  border: none;
-  width: 50px;
-  height: 50px;
-  background-color: #8dc63f;
-  position: absolute;
-  margin: auto;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  display: none;
-}
-.radioinput-center .label {
-  text-align: center;
-  height: 120px;
-  line-height: 120px;
-  font-family: 'anivers reg', 'simhei';
-  font-size: 50px;
-}
 .radioinput.radioselected .inner {
-  display: block !important;
-}
-.radioinput-center.radioselected .inner {
-  display: block !important;
-}
-.inline-display {
-  height: 200px;
-  line-height: normal;
-  text-align: center;
-  background-color: white;
-  color: #505a6a;
-  border-radius: 10px;
-  border: none;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-  pointer-events: none;
+  display: block;
 }
 .unorder-list {
   list-style: none;
@@ -270,27 +226,27 @@ functions
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
   text-indent: 10px;
-  color: #505a6a;
+  color: #677499;
   font-size: 40px;
   height: auto;
 }
 .inner-input::-webkit-input-placeholder {
-  color: #505a6a;
+  color: #677499;
 }
 .inner-input:-moz-placeholder {
   /* Firefox 18- */
-  color: #505a6a;
+  color: #677499;
 }
 .inner-input::-moz-placeholder {
   /* Firefox 19+ */
-  color: #505a6a;
+  color: #677499;
 }
 .inner-input:-ms-input-placeholder {
-  color: #505a6a;
+  color: #677499;
 }
-.submit-button {
-  background-color: white;
-  color: #505a6a;
+.submitbutton {
+  background-color: #8ad1d7;
+  color: white;
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
   text-align: center;
@@ -305,63 +261,9 @@ functions
           user-select: none;
   cursor: pointer;
 }
-.submit-button:active {
-  background-color: #8dc63f;
+.submitbutton:active {
+  background-color: #f78283;
   color: white;
-}
-/**
-yongred changing color, new variables
-*/
-.functional-button {
-  background-color: #505a6a;
-  color: #8dc63f;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-  cursor: pointer;
-}
-.functional-button:active {
-  background-color: #8dc63f;
-  color: white;
-}
-.link-button {
-  background-color: white;
-  color: #505a6a;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-  cursor: pointer;
-}
-.link-button:active {
-  background-color: #8dc63f;
-  color: white;
-}
-.text-input,
-.pwd-input {
-  border-radius: 10px;
-  border: none;
-  width: 100%;
-  height: 120px;
-  font-family: 'anivers reg', 'simhei';
-  font-size: 50px;
-  text-indent: 10px;
-  color: #505a6a;
-}
-.text-input::-webkit-input-placeholder {
-  color: #505a6a;
-}
-.text-input:-moz-placeholder {
-  /* Firefox 18- */
-  color: #505a6a;
-}
-.text-input::-moz-placeholder {
-  /* Firefox 19+ */
-  color: #505a6a;
-}
-.text-input:-ms-input-placeholder {
-  color: #505a6a;
 }
 body {
   margin: 0;
@@ -370,12 +272,12 @@ body {
      -moz-appearance: none;
           appearance: none;
   width: 100%;
-  background-color: #eeeeee;
+  background-color: #f5ede4;
 }
 .main {
   width: 87.5%;
   margin: 0 auto;
-  color: #505a6a;
+  color: #677499;
   outline: 0;
   padding-top: 15%;
   position: relative;
@@ -393,7 +295,7 @@ body {
 }
 .main .avatarsection .avatarimg img {
   border-radius: 50%;
-  border: 20px solid #8dc63f;
+  border: 20px solid #8ad1d7;
   width: 300px;
   height: 300px;
 }
@@ -416,7 +318,7 @@ body {
   border-bottom-left-radius: 0px;
   width: 18.75%;
 }
-.main .avatarsection .avatarupload .submit-button {
+.main .avatarsection .avatarupload .submitbutton {
   width: 100%;
 }
 .main .infosection {
@@ -428,13 +330,13 @@ body {
 .main .infosection .sectiontitle span {
   font-family: 'anivers reg', 'simhei';
   font-size: 75px;
-  color: #8dc63f;
+  color: #8ad1d7;
 }
 .main .infosection .sectionfields {
   margin-bottom: 20%;
 }
 .main .infosection .sectionfields label.title {
-  background-color: #505a6a;
+  background-color: #f78283;
   color: white;
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
@@ -463,7 +365,7 @@ body {
 }
 .main .infosection .sectionfields .sexinput label.title {
   float: left;
-  background-color: #505a6a;
+  background-color: #f78283;
   color: white;
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
@@ -484,7 +386,7 @@ body {
 }
 .main .infosection .sectionfields .textareainput label.title {
   position: absolute;
-  background-color: #505a6a;
+  background-color: #f78283;
   color: white;
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
@@ -501,7 +403,7 @@ body {
   overflow-y: scroll;
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
-  color: #505a6a;
+  color: #677499;
   outline: 0;
   border: none;
   text-indent: calc(100%/4 + 25px);
@@ -519,7 +421,7 @@ body {
   margin-bottom: 2%;
 }
 .main .previewall table.previewtable th {
-  background-color: #505a6a;
+  background-color: #f78283;
   color: white;
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
@@ -545,7 +447,7 @@ body {
   vertical-align: top;
 }
 .main .previewall table.previewtable tr:last-child td span.label {
-  background-color: #505a6a;
+  background-color: #f78283;
   color: white;
   font-family: 'anivers reg', 'simhei';
   font-size: 50px;
@@ -557,6 +459,6 @@ body {
   vertical-align: top;
   width: 31.25%;
 }
-.main .previewall .cmdtools .submit-button {
+.main .previewall .cmdtools .submitbutton {
   margin-bottom: 5%;
 }

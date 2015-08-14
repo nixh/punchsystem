@@ -1,6 +1,8 @@
 var utils = require('./utils');
 var _ = require('underscore');
 var monk = require('monk');
+var cryptoutils = require('./lib/common/utils').crypto;
+var moment = require('moment');
 
 var DBModule = require('./db_module');
 
@@ -51,15 +53,21 @@ function addUser(userObj, callback) {
 
     userObj.address = addr;
     userObj.owner = false;
-    var now = new Date().getTime();
-    var curRate = userObj.curRate;
-    userObj.hourlyRate = [{ rate: curRate, changetime: now }];
+    var curRate = parseFloat(userObj.curRate);
+    var changetime = userObj.rate_change_date;
+    changetime = moment(changetime, 'YYYY-MM-DD').valueOf();
+    userObj.hourlyRate = [{ rate: curRate, changetime: changetime }];
+
+    delete userObj.rate_change_date;
+
+    var password = userObj.password;
+    password = cryptoutils.sha(password);
+    userObj.password = password;
+
     var col = this.db.get('users');
     col.find({
         "userid": userObj.userid
     }, function(err, doc) {
-
-        console.log(doc);
 
         if (err) {
             callback(new Error('user error!'));
@@ -89,10 +97,6 @@ function addUser(userObj, callback) {
 }
 
 function searchUser(searchTerm, compid, callback) {
-
-    console.log('Now in usermodule.js, doing searching...');
-    console.log("The search term is ..." + searchTerm);
-    console.log("The company id is..." + compid);
 
     var col = this.db.get('users');
     if (typeof compid === 'function')
@@ -127,6 +131,7 @@ function getUserInfo(userid, callback) {
 }
 
 function changeUser(userObj, callback) {
+
     validate(userObj);
 
     var _id = userObj._id;
@@ -137,11 +142,21 @@ function changeUser(userObj, callback) {
 
     var append = {};
 
-    if(userObj.curRate > 0 ){
-        append.rate = parseInt(userObj.curRate);
-        append.changetime = (userObj.rate_change_date ? new Date().getTime() : userObj.rate_change_date);
+    if(!userObj.password) {
+        delete userObj.password;
+    } else {
+        userObj.password = cryptoutils.sha(userObj.password);
+    }
 
-        delete userObj.rate_change_date;
+    if(userObj.curRate){
+        if(!userObj.rate_change_date) {
+            append = false;
+        } else {
+            var changetime = moment(userObj.rate_change_date, 'YYYY-MM-DD').valueOf();
+            append.rate = parseFloat(userObj.curRate);
+            append.changetime = changetime;
+            delete userObj.rate_change_date;
+        }
     }
 
     if(!userObj.avatar){
@@ -154,17 +169,13 @@ function changeUser(userObj, callback) {
 
     delete userObj._id;
 
+    var update = { $set: userObj };
+    if(append) update['$push'] = { hourlyRate: append };
+
     col.findAndModify(
         {
             query: {'_id': _id},
-
-            update: {
-                    '$set': userObj,
-
-                    '$push': {
-                        'hourlyRate': append
-                    }
-            }
+            update: update
         },
         callback
     );

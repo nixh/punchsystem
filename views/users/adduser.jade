@@ -1,4 +1,4 @@
-extends ../layout
+extends layout
 append links
     link(rel="stylesheet" href="/stylesheets/userform.css")
     link(rel="stylesheet" href="/pickadate/lib/themes/default.css" id="theme_base")
@@ -16,15 +16,14 @@ append scripts
             $('.previewtable td>span').each(function(){
                 var $span = $(this);
                 var name = $span[0].id;
+                if(!name) return;
                 var idName = name.substring(0, name.length-4);
                 var value = $('form input[name="'+idName+'"]').val();
                 if(idName === 'sex') {
-                    if (value === "0"){
-                            value = false;
-                    } else {
-                        value= true;
-                    }
-                    value = value ? "#{tr('sex_male')}" : "#{tr('sex_female')}";
+                    value = parseInt(value) ? "#{tr('sex_male')}" : "#{tr('sex_female')}";
+                }
+                if(idName === 'remark') {
+                    value = $('form textarea[name=remark]').val();
                 }
                 $span.html(value);
             });
@@ -38,6 +37,7 @@ append scripts
                 });
                 $this.addClass('radioselected');
                 $('.sexinput>input').val($this.attr('data-value'));
+                setAllFieldsToTable();
             });
             $('#choosepic').on('click', function(e){
                 e.preventDefault();
@@ -49,7 +49,6 @@ append scripts
                 var fileNames = [];
                 $.each(files, function(i, v){
                     fileNames.push(v.name);
-
                 });
                 $('.uploadfield>input:first-child').val(fileNames.join(', '));
             });
@@ -100,13 +99,13 @@ append scripts
             $('#confirm').on('click', function(){
                 $form = $('form#big');
                 $form.attr('enctype', 'multipart/form-data')
-                $form.attr('action', '/users/add');
+                $form.attr('action', '/users/change');
                 $form.attr('method', 'post');
                 $form.submit();
             });
             $('.sexinput input').change(function(){
                 var sex = $(this).val();
-                if(sex === '0') {
+                if(sex == '0') {
                     $('.sexinput .radioinput[data-value="1"]').addClass('radioselected');
                     $('.sexinput .radioinput[data-value="0"]').removeClass('radioselected');
                 } else {
@@ -120,9 +119,12 @@ append scripts
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
+
                 reader.onload = function(e) {
-                    $('#img_prev').attr('src', e.target.result);
+                    $('#img_prev')
+                        .attr('src', e.target.result);
                 };
+
                 reader.readAsDataURL(input.files[0]);
             }
         }
@@ -131,15 +133,16 @@ block content
     .main
         form#big
             .infosection.page(data-value="1")
-                .avatarsection
-                    .avatarimg
-                        img(id="img_prev" src="#{!user ? '/images/boydefaultpicture.png' :user.avatar}" alt="your image")
-                    .avatarupload
-                        .uploadfield 
-                            input.textinput(type="text" name="avatar_url")
-                            #choosepic.submitbutton= tr('...')
-                            input.uploadfield.hidden(type="file" name="avatar" multiple="multiple" onchange="readURL(this);")
-                        .submitupload
+                if false
+                    .avatarsection
+                        .avatarimg
+                            img(id="img_prev" src="#{!user ? '/images/boydefaultpicture.png' :user.avatar}" alt="your image")
+                        .avatarupload
+                            .uploadfield 
+                                input.textinput(type="text" name="avatar_url")
+                                #choosepic.submitbutton= tr('...')
+                                input.uploadfield.hidden(type="file" name="avatar" multiple="multiple" onchange="readURL(this);")
+                            .submitupload
     
                 - var _id = (user == undefined ? undefined: user._id);
                 
@@ -154,8 +157,9 @@ block content
                     label.title= tr('name')
                     input(id="name" name="name" type="text" value="#{!user? '' : user.name}").textinput()
                     label.title= tr('password')
-                    input(id="password" name="password" type="password" value="#{!user? '' : user.password}").passinput()
+                    input(id="password" name="password" type="password").passinput()
                     .sexinput
+                        - var generValue = user.sex ? 1 : 0;
                         label.title= tr('sex')
                         .radioinput.radioselected(data-value="1")
                             .outer
@@ -165,7 +169,7 @@ block content
                             .outer
                                 .inner
                             .label= tr('sex_female')
-                        input(name="sex" type="hidden" value="#{!user? '' : user.sex}")
+                        input(name="sex" type="hidden" value="#{generValue}")
                 .nextBtn.submitbutton= tr('next')
 
             .infosection.page(data-value='2')
@@ -174,13 +178,13 @@ block content
                     span= tr('address')
                 .sectionfields
                     label.title= tr('userform_address_street')
-                    input(type="text" id="address_street" name="address_street" value="#{!user? '' : user.address_street}").textinput
+                    input(type="text" id="address_street" name="address_street" value="#{!user? '' : user.address_street ? user.address_street : '' }").textinput
                     label.title= tr('userform_address_city')
-                    input(type="text" id="address_city" name="address_city" value="#{!user? '' : user.address_city}").textinput
+                    input(type="text" id="address_city" name="address_city" value="#{!user? '' : user.address_city ? user.address_city : '' }").textinput
                     label.title= tr('userform_address_state')
-                    input.textinput.small.inline(id="address_state" name="address_state" value="#{!user? '' : user.address_state}")
+                    input.textinput.small.inline(id="address_state" name="address_state" value="#{!user ? '' : user.address_state ? user.address_state : '' }")
                     label.title= tr('userform_address_zip')
-                    input.textinput.small.inline(id="address_zip" name="address_zip" value="#{!user? '' : user.address_zip}")
+                    input.textinput.small.inline(id="address_zip" name="address_zip" value="#{!user? '' : user.address_zip ? user.address_zip : '' }")
                 .nextBtn.submitbutton= tr('next')
 
             .infosection.page(data-value='3')
@@ -191,6 +195,9 @@ block content
                     label.title= tr('paid_rate')
                     input.textinput.small.inline(id="payrate" name="curRate" value="#{!user? '' : user.curRate}")
                     label.title= tr('rate_change_date')
+
+                    //input.textinput.small.inline.useDatePicker(id="change_from" name="rate_change_date" value="#{!user?'': user.rates[user.rates.length-1].changetime}")
+
                     input.textinput.small.inline.useDatePicker(id="change_from" name="rate_change_date")
                     label.title= tr('userform_tel')
                     input.textinput(name="tel" value="#{!user? '' : user.tel}")
@@ -225,8 +232,10 @@ block content
                         span#address_streettext
                 tr
                     td(colspan=2)
-                        span#address_citytext 
+                        span#address_citytext
+                        | ,&nbsp;
                         span#address_statetext
+                        | ,&nbsp;
                         span#address_ziptext
 
                 tr
@@ -253,4 +262,4 @@ block content
                     #makechange.submitbutton
                         = tr('make_change')
                     #confirm.submitbutton
-                        = tr('submit')
+                        = tr('submit_change')
