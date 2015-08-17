@@ -33,9 +33,9 @@ function validate(userObj) {
     //     userObj['owner'] = !!parseInt(userObj['owner']);
     // }
 
-    if (typeof userObj['curRate'] !== 'number') {
-        userObj['curRate'] = Number(userObj['curRate']);
-    }
+    //if (typeof userObj['curRate'] !== 'number') {
+    //    userObj['curRate'] = Number(userObj['curRate']);
+    //}
 
     // if (typeof userObj['compid'] !== 'number') {
     //     userObj['compid'] = Number(userObj['compid']);
@@ -44,7 +44,7 @@ function validate(userObj) {
 
 
 function addUser(userObj, callback) {
-    // validate(userObj);
+    validate(userObj);
 
     var addr = trim(userObj.address_street)
                  + "|" + trim(userObj.address_city)
@@ -54,9 +54,11 @@ function addUser(userObj, callback) {
     userObj.address = addr;
     userObj.owner = false;
     var curRate = parseFloat(userObj.curRate);
-    var changetime = userObj.rate_change_date;
-    changetime = moment(changetime, 'YYYY-MM-DD').valueOf();
-    userObj.hourlyRate = [{ rate: curRate, changetime: changetime }];
+    if(!isNaN(curRate)) {
+        var changetime = userObj.rate_change_date;
+        changetime = moment(changetime, 'YYYY-MM-DD').valueOf();
+        userObj.hourlyRate = [{ rate: curRate, changetime: changetime }];
+    }
 
     delete userObj.rate_change_date;
 
