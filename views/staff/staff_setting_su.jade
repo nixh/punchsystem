@@ -19,19 +19,25 @@ append scripts
     
     script.
         $(function initEvent(){
-            $('.emailSwitch > .onOff').on("click",function(){
+            $('.emailSwitch > .emailToggle.onOff').on("click",function(){
+                var switches = $("#enableEmail").val();
+                switches = parseInt(switches);
+                if(switches === 1)
+                    switches = 0;
+                else
+                    switches = 1;
+
                 $.ajax({type:"post",
-                    url:"/enableEmail/" + $('#enableEmail').val(),
+                    url:"/enableEmail/" + switches,
                     data:{id: $("#myid").val()},
                     success:function(data){
-                        if(data){
-                        console.log('success')  
-                        }
-                        else{
-                                console.log('wrong')
-                        }
-                 }});
+                }});
             });
+
+            $('.langsel').on("change",function(){
+                $.get('/chlang/'+$(this).val(), null, function(data){ location.reload(); });
+            });
+
             $('.send-email-rightnow').on('click', function(){
                 var userid = $('input[name=userid]').val();
                 var emails = $('#receiveEmails').val();
@@ -59,25 +65,6 @@ append scripts
                 });
             });
 
-        });
-    script.
-        $(function initEvent(){
-            $('.overTimeSwitch > .onOff').on("click",function(){
-                $.ajax({type:"post",
-                    url:"/enablerate/" + $('#enablerate').val(),
-                    data:{id: $("#myid").val()},
-                    success:function(data){
-                        if(data){
-                            console.log('success')
-                        }
-                        else{
-                                console.log('wrong')
-                        }
-                 }});
-            });
-            $('.langsel').on("change",function(){
-                $.get('/chlang/'+$(this).val(), null, function(data){ location.reload(); });
-            });
         });
 
     script.
@@ -174,16 +161,16 @@ block content
                     input(type = 'hidden' name='userid' value ="#{userid}" )
             .emailSwitch.switchButton
                 .switchLabel= tr('email_report')
-                if enableEmail === "1"
+                if parseInt(enableEmail) === 1
                     .onOff.toggle.emailToggle.toggle-on
                 else
                     .onOff.toggle.emailToggle.toggle-off
             
             .EmailReportSetting.toggleTarget
                 form(method="POST",action='/supervisor/sendemail' onsubmit= "return checkemail()")
-                    -var email = (receiveEmails)? receiveEmails : "EMAIL ADDRESS"
+                    - var email = (receiveEmails)? receiveEmails : "EMAIL ADDRESS"
                     input.textBox.inputBar.useTagator(type= "text" id = "receiveEmails" name = 'receiveEmails' placeholder= "EMAIL ADDRESS" value="#{email}")
-                    -var enable= (enableEmail)? enableEmail : 1
+                    - var enable = parseInt(enableEmail);
                     input(type = 'hidden' name='enableEmail' value ='#{enable}' id= "enableEmail")
                     input(type = 'hidden' name='userid' value ="#{userid}" id="myid")
                     .radioButton
