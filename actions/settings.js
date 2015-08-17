@@ -111,7 +111,7 @@ Settings.staffSettingView = {
         var docs = s.showEmail(sessionid);
         return docs.then(function(doc) {
             var data = {
-                'userid':doc.userid,
+               'userid':doc.userid,
                'receiveEmails': doc.email,
                'su':false
             };
@@ -128,7 +128,7 @@ Settings.supSettingView = {
         var docs = s.showEmail(sessionid);
         return docs.then(function(doc) {
             var data = {
-                "userid":doc.userid,
+               "userid":doc.userid,
                "receiveEmails":doc.email,
                "su":true,
                "enableEmail":doc.enableEmail,
@@ -189,12 +189,6 @@ Settings.emailSwitch = {
     execute: function(req,res,next) {
         var sessionid = req.cookies.sessionid;
         var switchs = parseInt(req.params.switchs);
-        if(req.params.switchs == 1) {
-            switchs = 0;
-        }
-        else {
-            switchs = 1;
-        }
         var docs = s.enableEmail(sessionid,switchs);
         return docs.then(function (doc) {
             var data = {
