@@ -4,16 +4,16 @@ var defaultSettings = db.comp_settings.findOne();
 var compid = db.companies.count();
 var current = new Date().getTime();
 
-for(var i=compid+1; i<compid+11; i++) {
+for(var i=compid+1; i<compid+4; i++) {
     var counter = i-compid;
     db.companies.insert({
         compid: i,
-        name: 'DEMO_TC_'+counter,
+        name: 'TC_'+counter,
         registerDate : current
     });
     db.users.insert({
-        name: 'demo'+counter,
-        userid: 'demo'+counter,
+        name: 'android_'+counter,
+        userid: 'android_'+counter,
         password: '0000',
         avatar: '',
         createDate: current,

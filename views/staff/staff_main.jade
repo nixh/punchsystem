@@ -57,7 +57,7 @@ block content
     .staffMainPage(ontouchstart="")
         //.userInfo
         .avatar
-            img(src="#{user.avatar ? user.avatar : user.sex ? '/images/boydefaultpicture.png' : '/images/girl default picture.png'}" alt="User Avatar") 
+            img(src="#{user.sex ? '/images/boydefaultpicture.png' : '/images/girl default picture.png'}" alt="User Avatar") 
             p= tr('welcome') + " " + user.name
             //.acctInfo
                 pre.
