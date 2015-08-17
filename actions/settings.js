@@ -131,6 +131,7 @@ Settings.supSettingView = {
                "userid":doc.userid,
                "receiveEmails":doc.email,
                "su":true,
+               "freqz":doc.freqz,
                "enableEmail":doc.enableEmail,
                "enablerate":doc.enablerate,
                "overtime":doc.overtime,
@@ -302,7 +303,7 @@ Settings.setRate = {
         var docs = s.setRate(sessionid,newRate,overTime,enableRate);
         return docs.then(function(doc){
             var date = {
-                "userid":doc.userid,
+               "userid":doc.userid,
                "receiveEmails":doc.email,
                "oldpassword":doc.password,
                "su":true,
@@ -317,28 +318,17 @@ Settings.setRate = {
 };
 
 Settings.setEmail = {
-    type : 'jade',
-    template : './staff/staff_setting_su',
+    type : 'redirect',
     execute: function(req,res,next) {
         var sessionid = req.cookies.sessionid;
         var timePeriod = req.body.timePeriod;
         var receiveEmails = req.body.receiveEmails;
-        var enableEmail = req.body.enableEmail;
-        var docs = s.settingEmail(timePeriod,receiveEmails,sessionid,enableEmail);
+        console.log(timePeriod);
+        var docs = s.settingEmail(timePeriod,receiveEmails,sessionid);
         return docs.fail(function(err){
             next(err);
         }).then(function(doc){
-            var data = {
-                "userid":doc.userid,
-            "receiveEmails":doc.email,
-            "su":true,
-            "enableEmail":doc.enableEmail,
-            "enablerate":doc.enablerate,
-            "overtime":doc.overtime,
-            "oldpassword":doc.password,
-            "newrate":doc.curRate
-            };
-            return data;
+            return "/supervisor/settings";
         });
     }
 };

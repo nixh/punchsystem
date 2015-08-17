@@ -19,6 +19,13 @@ append scripts
     
     script.
         $(function initEvent(){
+            
+            var period = "#{freqz}";
+            if(period === 'weekly')
+                $('#wRadio').prop('checked', true);
+            else 
+                $('#mRadio').prop('checked', true);
+
             $('.emailSwitch > .emailToggle.onOff').on("click",function(){
                 var switches = $("#enableEmail").val();
                 switches = parseInt(switches);
@@ -183,7 +190,7 @@ block content
                         .orLabel= tr('or')
 
                         .radioWeek
-                            input(id="wRadio" type = "radio" name= "timePeriod" value= "weekly" checked)
+                            input(id="wRadio" type = "radio" name= "timePeriod" value= "weekly")
                             label.radioLabel(for="wRadio")= tr('weekly')
 
                         .send-email-rightnow.noselect= tr('Email Right Now')
